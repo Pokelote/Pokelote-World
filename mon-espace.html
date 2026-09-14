@@ -95,6 +95,13 @@ function ChevronDown({ size = 16, style = {} }) {
 function Menu({ size = 16, color = "currentColor" }) {
   return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round"><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" /></svg>;
 }
+function Star({ size = 16, filled = false, color = "currentColor" }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill={filled ? color : "none"} stroke={color} strokeWidth="1.8" strokeLinejoin="round">
+      <polygon points="12 2.5 15.1 9 22 10 17 15 18.2 22 12 18.6 5.8 22 7 15 2 10 8.9 9" />
+    </svg>
+  );
+}
 function Tv({ size = 16, color = "currentColor" }) {
   return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2"><rect x="2" y="7" width="20" height="14" rx="2" /><polyline points="17 3 12 7 7 3" /></svg>;
 }
@@ -147,6 +154,7 @@ function makeItem({ id, title, extra = "", type = "film", episodeCounts = null, 
 }
 
 const TABS = [
+  { key: "accueil", label: "Accueil", accent: COLORS.gold },
   { key: "news", label: "News", accent: "#C97B74" },
   { key: "calendrier", label: "Calendrier", accent: "#7FB3A3" },
   { key: "filmo", label: "Filmographie & Séries", accent: "#D9B36B" },
@@ -396,7 +404,7 @@ async function loadThemeStorage(themes, storagePrefix, defaultItems, defaultColl
 }
 
 function App() {
-  const [active, setActive] = useState("news");
+  const [active, setActive] = useState("accueil");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [themeLists, setThemeLists] = useState(null);
   const [collections, setCollections] = useState(null);
@@ -406,6 +414,7 @@ function App() {
   const [taskChecks, setTaskChecks] = useState(null);
   const [taskArchive, setTaskArchive] = useState(null);
   const [offerStatus, setOfferStatusState] = useState(null);
+  const [favoriteTabs, setFavoriteTabsState] = useState(null);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -445,6 +454,13 @@ function App() {
         offerStatusValue = res ? JSON.parse(res.value) : {};
       } catch {
         offerStatusValue = {};
+      }
+      let favoriteTabsValue = [];
+      try {
+        const res = await window.storage.get("favorite-tabs");
+        favoriteTabsValue = res ? JSON.parse(res.value) : [];
+      } catch {
+        favoriteTabsValue = [];
       }
       let archiveChanged = false;
       // Migration : les anciens schémas d'id ("date__catégorie" ou "date__catégorie__heure")
@@ -486,6 +502,7 @@ function App() {
         setTaskChecks(tasks);
         setTaskArchive(archive);
         setOfferStatusState(offerStatusValue);
+        setFavoriteTabsState(favoriteTabsValue);
         setReady(true);
       }
     }
@@ -576,6 +593,18 @@ function App() {
       setOfferStatusState((prev) => {
         const next = updater(prev || {});
         persist("job-offer-status", next);
+        return next;
+      });
+    },
+    [persist]
+  );
+
+  const toggleFavorite = useCallback(
+    (key) => {
+      setFavoriteTabsState((prev) => {
+        const current = prev || [];
+        const next = current.includes(key) ? current.filter((k) => k !== key) : [...current, key];
+        persist("favorite-tabs", next);
         return next;
       });
     },
@@ -700,6 +729,17 @@ function App() {
       )}
 
       <main className="app-main" style={{ flex: 1, padding: "44px 56px", overflowY: "auto" }}>
+        {active === "accueil" && (
+          <AccueilTab
+            taskEvents={Object.values(taskArchive || {})}
+            taskChecks={taskChecks || {}}
+            toggleTask={toggleTask}
+            offerStatus={offerStatus || {}}
+            favoriteTabs={favoriteTabs || []}
+            toggleFavorite={toggleFavorite}
+            onNavigate={setActive}
+          />
+        )}
         {active === "news" && <NewsTab taskEvents={Object.values(taskArchive || {})} taskChecks={taskChecks || {}} toggleTask={toggleTask} />}
         {active === "calendrier" && <CalendrierTab />}
         {active === "filmo" && (
@@ -796,7 +836,8 @@ function App() {
         )}
         {active === "administratif" && <AdministratifTab />}
         {active === "musculation" && <MusculationTab />}
-        {active !== "news" &&
+        {active !== "accueil" &&
+          active !== "news" &&
           active !== "calendrier" &&
           active !== "filmo" &&
           active !== "lecture" &&
@@ -3303,6 +3344,224 @@ function NewsTab({ taskEvents, taskChecks, toggleTask }) {
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+function AccueilTab({ taskEvents, taskChecks, toggleTask, offerStatus, favoriteTabs, toggleFavorite, onNavigate }) {
+  const [adminChecked, setAdminChecked] = useState(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    window.storage
+      .get("admin-checked")
+      .then((res) => {
+        if (!cancelled) setAdminChecked(res ? JSON.parse(res.value) : {});
+      })
+      .catch(() => {
+        if (!cancelled) setAdminChecked({});
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const todayKey = dateKey(new Date());
+  const todayTasks = taskEvents.filter((t) => t.date === todayKey);
+
+  const adminAlerts = [];
+  if (adminChecked) {
+    ADMIN_CATEGORIES.forEach((cat) => {
+      (ADMIN_DEFAULT_ITEMS[cat.key] || []).forEach((item) => {
+        const d = daysUntil(item.nextDue);
+        if (!adminChecked[item.id] && d !== null && d <= 30) {
+          adminAlerts.push({ label: item.label, d, overdue: d < 0 });
+        }
+      });
+    });
+    adminAlerts.sort((a, b) => a.d - b.d);
+  }
+
+  const offerAlerts = [
+    { key: "interim", label: "Intérim", data: INTERIM_OFFERS, tab: "recherche-emploi" },
+    { key: "cdd-cdi", label: "CDD / CDI", data: JOB_OFFERS, tab: "recherche-emploi" },
+    { key: "alternance", label: "Alternance Menuiserie", data: MENUISERIE_ALTERNANCES, tab: "reconversion" },
+  ]
+    .map((o) => ({ ...o, count: o.data.items.filter((it) => !offerStatus[it.id]).length }))
+    .filter((o) => o.count > 0);
+
+  const hasAlerts = adminAlerts.length > 0 || offerAlerts.length > 0;
+
+  const otherTabs = TABS.filter((t) => t.key !== "accueil");
+  const favTabs = otherTabs.filter((t) => (favoriteTabs || []).includes(t.key));
+
+  const todayLabel = new Date().toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" });
+
+  return (
+    <div>
+      <h1 style={{ fontFamily: FONT_DISPLAY, fontSize: 32, color: COLORS.text, marginBottom: 4, fontWeight: 600, textTransform: "capitalize" }}>
+        {todayLabel}
+      </h1>
+      <p style={{ color: COLORS.muted, fontSize: 14, marginBottom: 28 }}>Ce qui compte aujourd'hui, en un coup d'œil.</p>
+
+      <div style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: COLORS.gold, marginBottom: 12 }}>Alertes</div>
+      {adminChecked && !hasAlerts && (
+        <p style={{ color: COLORS.muted, fontSize: 13, fontStyle: "italic", marginBottom: 28 }}>Rien d'urgent aujourd'hui 🎉</p>
+      )}
+      {hasAlerts && (
+        <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 28 }}>
+          {adminAlerts.map((a, i) => (
+            <button
+              key={`admin-${i}`}
+              onClick={() => onNavigate("administratif")}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+                textAlign: "left",
+                width: "100%",
+                background: COLORS.card,
+                border: `1px solid ${a.overdue ? "#B85C5C" : "#D9A25C"}`,
+                borderRadius: 10,
+                padding: "12px 14px",
+                cursor: "pointer",
+                fontFamily: FONT_BODY,
+              }}
+            >
+              <span style={{ width: 8, height: 8, borderRadius: "50%", background: a.overdue ? "#B85C5C" : "#D9A25C", flexShrink: 0 }} />
+              <span style={{ flex: 1, fontSize: 13, color: COLORS.text }}>
+                {a.label} <span style={{ color: COLORS.muted }}>— {a.overdue ? "en retard" : `dans ${a.d} j.`}</span>
+              </span>
+              <ChevronRight size={16} style={{ color: COLORS.muted }} />
+            </button>
+          ))}
+          {offerAlerts.map((o) => (
+            <button
+              key={o.key}
+              onClick={() => onNavigate(o.tab)}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+                textAlign: "left",
+                width: "100%",
+                background: COLORS.card,
+                border: `1px solid ${COLORS.cardBorder}`,
+                borderRadius: 10,
+                padding: "12px 14px",
+                cursor: "pointer",
+                fontFamily: FONT_BODY,
+              }}
+            >
+              <span style={{ width: 8, height: 8, borderRadius: "50%", background: RECHERCHE_EMPLOI_ACCENT, flexShrink: 0 }} />
+              <span style={{ flex: 1, fontSize: 13, color: COLORS.text }}>
+                {o.count} nouvelle{o.count > 1 ? "s" : ""} offre{o.count > 1 ? "s" : ""} — <span style={{ color: COLORS.muted }}>{o.label}</span>
+              </span>
+              <ChevronRight size={16} style={{ color: COLORS.muted }} />
+            </button>
+          ))}
+        </div>
+      )}
+
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(360px, 100%), 1fr))", gap: 32, alignItems: "start", marginBottom: 8 }}>
+        <div>
+          <div style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: COLORS.gold, marginBottom: 12 }}>Agenda</div>
+          {NEWS_DATA.agenda.items.length === 0 ? (
+            <p style={{ color: COLORS.muted, fontSize: 13, fontStyle: "italic" }}>Rien de prévu aujourd'hui.</p>
+          ) : (
+            <AgendaTimeline items={NEWS_DATA.agenda.items} accent={NEWS_DATA.agenda.accent} />
+          )}
+        </div>
+
+        <div>
+          <div style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: COLORS.gold, marginBottom: 12 }}>Tâches du jour</div>
+          {todayTasks.length === 0 ? (
+            <p style={{ color: COLORS.muted, fontSize: 13, fontStyle: "italic" }}>Aucune tâche prévue aujourd'hui.</p>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+              {todayTasks.map((ev) => (
+                <div
+                  key={`${ev.date}-${ev.time}`}
+                  style={{ background: COLORS.card, borderRadius: 10, padding: "14px 16px", borderLeft: `3px solid ${TASK_CATEGORIES[ev.key].accent}` }}
+                >
+                  <div style={{ fontSize: 12, color: COLORS.muted, marginBottom: 10 }}>{ev.time} · {ev.label}</div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                    {ev.tasks.map((task, j) => {
+                      const id = `${ev.date}__${ev.time}__${j}`;
+                      return <TaskChecklistItem key={id} id={id} label={task} checked={!!taskChecks[id]} onToggle={toggleTask} />;
+                    })}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: COLORS.gold, marginTop: 28, marginBottom: 12 }}>Raccourcis</div>
+      {favTabs.length === 0 ? (
+        <p style={{ color: COLORS.muted, fontSize: 13, fontStyle: "italic", marginBottom: 12 }}>
+          Aucun raccourci pour l'instant — choisis tes onglets favoris ci-dessous.
+        </p>
+      ) : (
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(160px, 100%), 1fr))", gap: 10, marginBottom: 16 }}>
+          {favTabs.map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => onNavigate(tab.key)}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                textAlign: "left",
+                background: COLORS.card,
+                border: `1px solid ${COLORS.cardBorder}`,
+                borderRadius: 10,
+                padding: "12px 14px",
+                cursor: "pointer",
+                fontFamily: FONT_BODY,
+                fontSize: 13,
+                color: COLORS.text,
+              }}
+            >
+              <span style={{ width: 8, height: 8, borderRadius: "50%", background: tab.accent, flexShrink: 0 }} />
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      )}
+
+      <CollapsibleSection title="Gérer mes raccourcis" accent={COLORS.gold} defaultOpen={favTabs.length === 0}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+          {otherTabs.map((tab) => {
+            const isFav = (favoriteTabs || []).includes(tab.key);
+            return (
+              <button
+                key={tab.key}
+                onClick={() => toggleFavorite(tab.key)}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 10,
+                  width: "100%",
+                  textAlign: "left",
+                  background: "none",
+                  border: "none",
+                  borderRadius: 8,
+                  padding: "8px 4px",
+                  fontFamily: FONT_BODY,
+                  fontSize: 13,
+                  color: COLORS.text,
+                  cursor: "pointer",
+                }}
+              >
+                <Star size={15} filled={isFav} color={isFav ? COLORS.gold : COLORS.muted} />
+                <span style={{ flex: 1 }}>{tab.label}</span>
+              </button>
+            );
+          })}
+        </div>
+      </CollapsibleSection>
     </div>
   );
 }
