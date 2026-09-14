@@ -93,14 +93,17 @@ function _pushToRemote(key, value, ts) {
 }
 
 let _remoteCache = null;
-const _remoteReady = (async () => {
+// Extrait en fonction réutilisable (pas juste une promesse figée au démarrage) pour pouvoir
+// forcer une resynchronisation plus tard — notamment quand l'app redevient visible, voir
+// window.storage.refresh() et le hook useVisibilityRefresh plus bas.
+async function _syncFromRemote() {
   try {
     const res = await fetch(`${SUPABASE_URL}/rest/v1/app_state?select=key,value,updated_at`, {
       headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` },
     });
     if (!res.ok) throw new Error("Supabase indisponible");
     const rows = await res.json();
-    _remoteCache = new Map();
+    const next = new Map();
     rows.forEach((r) => {
       const remoteTs = new Date(r.updated_at).getTime();
       const localTs = _localTs(r.key);
@@ -109,17 +112,18 @@ const _remoteReady = (async () => {
         // cette lecture : on garde la valeur locale et on repousse pour rattraper le cloud.
         const localValue = localStorage.getItem("portail:" + r.key);
         if (localValue !== null) {
-          _remoteCache.set(r.key, localValue);
+          next.set(r.key, localValue);
           _pushToRemote(r.key, localValue, localTs);
           return;
         }
       }
-      _remoteCache.set(r.key, r.value);
+      next.set(r.key, r.value);
       try {
         localStorage.setItem("portail:" + r.key, r.value);
       } catch {}
       _setLocalTs(r.key, remoteTs);
     });
+    _remoteCache = next;
     // Rattrapage : un appareil qui avait déjà des données locales (cases cochées etc.) AVANT
     // l'arrivée de la synchro n'a jamais rien poussé vers Supabase. Au premier chargement de
     // cette version sur cet appareil, on pousse une fois toute donnée locale absente du cloud,
@@ -141,7 +145,9 @@ const _remoteReady = (async () => {
   } catch {
     _remoteCache = null;
   }
-})();
+}
+
+const _remoteReady = _syncFromRemote();
 
 window.storage = {
   async get(key) {
@@ -235,7 +241,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "36";
+const APP_VERSION = "37";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
