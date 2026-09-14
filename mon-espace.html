@@ -3124,8 +3124,67 @@ function parseAgendaTime(str) {
 
 const AGENDA_DAY_HOURS = [0, 3, 6, 9, 12, 15, 18, 21, 24];
 
+// Regroupe la routine du matin (étirements/repas/lecture/temps libre/muscu/toilette, repérés par
+// leur emoji) en un seul bloc replié "Routine matin" au lieu de lister chaque étape point par point —
+// demande explicite du 14/09/2026 ("un temps que je place quand je veux les matins de ma semaine").
+const ROUTINE_MATIN_EMOJIS = ["🧘", "🍳", "📖", "🌤️", "🏋️", "🚿"];
+
+function isRoutineMatinItem(ev) {
+  return ROUTINE_MATIN_EMOJIS.some((e) => (ev.title || "").startsWith(e));
+}
+
+function timeRangeStart(timeStr) {
+  return (timeStr || "").split(/[–—-]/)[0].trim();
+}
+
+function timeRangeEnd(timeStr) {
+  const parts = (timeStr || "").split(/[–—-]/);
+  return parts[parts.length - 1].trim();
+}
+
+// La routine matin s'affiche toujours comme un bloc de 3h à partir de son heure de début — demande du
+// 14/09/2026 ("cette routine sera maintenant un bloc de 3h") — peu importe la somme réelle des sous-tâches,
+// puisque c'est un créneau que l'utilisateur place où il veut dans sa matinée.
+function addHoursToTimeStr(timeStr, hours) {
+  const m = (timeStr || "").match(/(\d{1,2})h(\d{2})?/);
+  if (!m) return timeStr;
+  let totalMin = parseInt(m[1], 10) * 60 + (m[2] ? parseInt(m[2], 10) : 0) + hours * 60;
+  totalMin = ((totalMin % 1440) + 1440) % 1440;
+  return `${pad2(Math.floor(totalMin / 60))}h${pad2(totalMin % 60)}`;
+}
+
+function groupRoutineMatin(items) {
+  const result = [];
+  let i = 0;
+  while (i < items.length) {
+    if (isRoutineMatinItem(items[i])) {
+      let j = i;
+      while (j < items.length && isRoutineMatinItem(items[j])) j++;
+      const group = items.slice(i, j);
+      if (group.length > 1) {
+        const start = timeRangeStart(group[0].time);
+        result.push({
+          isRoutineGroup: true,
+          time: `${start} – ${addHoursToTimeStr(start, 3)}`,
+          title: "🌅 Routine matin",
+          items: group,
+        });
+      } else {
+        result.push(group[0]);
+      }
+      i = j;
+    } else {
+      result.push(items[i]);
+      i++;
+    }
+  }
+  return result;
+}
+
 function AgendaTimeline({ items, accent }) {
+  const [expandedRoutine, setExpandedRoutine] = useState(false);
   const parsed = items.map((ev) => ({ ev, span: parseAgendaTime(ev.time) })).filter((x) => x.span);
+  const grouped = groupRoutineMatin(items);
 
   return (
     <div style={{ background: COLORS.card, borderRadius: 12, border: `1px solid ${COLORS.cardBorder}`, padding: "22px 22px 16px", marginBottom: 28 }}>
@@ -3155,13 +3214,45 @@ function AgendaTimeline({ items, accent }) {
         </React.Fragment>
       )}
       <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-        {items.map((ev, i) => (
-          <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <span style={{ width: 8, height: 8, borderRadius: "50%", background: accent, flexShrink: 0 }} />
-            <span style={{ fontSize: 12, color: COLORS.muted, whiteSpace: "nowrap", minWidth: 96 }}>{ev.time}</span>
-            <span style={{ fontSize: 14, fontWeight: 500, color: COLORS.text }}>{ev.title}</span>
-          </div>
-        ))}
+        {grouped.map((entry, i) =>
+          entry.isRoutineGroup ? (
+            <div key={i}>
+              <div
+                onClick={() => setExpandedRoutine((v) => !v)}
+                style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer" }}
+              >
+                <span style={{ width: 8, height: 8, borderRadius: "50%", background: accent, flexShrink: 0 }} />
+                <span style={{ fontSize: 12, color: COLORS.muted, whiteSpace: "nowrap", minWidth: 96 }}>{entry.time}</span>
+                <span style={{ fontSize: 14, fontWeight: 500, color: COLORS.text, flex: 1 }}>{entry.title}</span>
+                <ChevronDown
+                  size={14}
+                  style={{ color: COLORS.muted, transform: expandedRoutine ? "rotate(180deg)" : "none", transition: "transform 0.15s", flexShrink: 0 }}
+                />
+              </div>
+              {expandedRoutine && (
+                <div
+                  style={{
+                    display: "flex", flexDirection: "column", gap: 8, marginTop: 8, marginLeft: 18,
+                    paddingLeft: 10, borderLeft: `1px solid ${COLORS.border}`,
+                  }}
+                >
+                  {entry.items.map((sub, j) => (
+                    <div key={j} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                      <span style={{ fontSize: 11, color: COLORS.muted, whiteSpace: "nowrap", minWidth: 88 }}>{sub.time}</span>
+                      <span style={{ fontSize: 13, color: COLORS.text }}>{sub.title}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ) : (
+            <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <span style={{ width: 8, height: 8, borderRadius: "50%", background: accent, flexShrink: 0 }} />
+              <span style={{ fontSize: 12, color: COLORS.muted, whiteSpace: "nowrap", minWidth: 96 }}>{entry.time}</span>
+              <span style={{ fontSize: 14, fontWeight: 500, color: COLORS.text }}>{entry.title}</span>
+            </div>
+          )
+        )}
       </div>
     </div>
   );
@@ -4284,7 +4375,7 @@ function CalendarWeekView({ eventsByDate, accent, refDate }) {
         {days.map((d, i) => {
           const key = dateKey(d);
           const isToday = key === todayKey;
-          const dayEvents = eventsByDate[key] || [];
+          const dayEvents = groupRoutineMatin(eventsByDate[key] || []);
           return (
             <div
               key={key}
@@ -4329,7 +4420,7 @@ function CalendarMonthView({ eventsByDate, accent, refDate }) {
   const todayKey = dateKey(new Date());
   const [expandedDate, setExpandedDate] = useState(null);
   const expandedDay = expandedDate ? days.find((d) => dateKey(d) === expandedDate) : null;
-  const expandedEvents = expandedDate ? eventsByDate[expandedDate] || [] : [];
+  const expandedEvents = expandedDate ? groupRoutineMatin(eventsByDate[expandedDate] || []) : [];
 
   return (
     <div>
@@ -4345,7 +4436,7 @@ function CalendarMonthView({ eventsByDate, accent, refDate }) {
           const key = dateKey(d);
           const inMonth = d.getMonth() === month;
           const isToday = key === todayKey;
-          const dayEvents = eventsByDate[key] || [];
+          const dayEvents = groupRoutineMatin(eventsByDate[key] || []);
           const shown = dayEvents.slice(0, 2);
           const extra = dayEvents.length - shown.length;
           return (
