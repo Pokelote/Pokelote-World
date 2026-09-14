@@ -781,78 +781,42 @@ function App() {
             updateCollections={updateLectureCollections}
           />
         )}
-        {active === "recherche-emploi" && (
-          <RechercheEmploiTab
-            taskEvents={Object.values(taskArchive || {})}
-            taskChecks={taskChecks || {}}
-            toggleTask={toggleTask}
-            offerStatus={offerStatus || {}}
-            setOfferStatus={setOfferStatus}
-          />
-        )}
-        {active === "reconversion" && (
-          <ReconversionTab
-            taskEvents={Object.values(taskArchive || {})}
-            taskChecks={taskChecks || {}}
-            toggleTask={toggleTask}
-            offerStatus={offerStatus || {}}
-            setOfferStatus={setOfferStatus}
-          />
-        )}
+        {active === "recherche-emploi" && <RechercheEmploiTab offerStatus={offerStatus || {}} setOfferStatus={setOfferStatus} />}
+        {active === "reconversion" && <ReconversionTab offerStatus={offerStatus || {}} setOfferStatus={setOfferStatus} />}
         {active === "musique" && (
           <ActivityWithPlanTab
-            tabKey="musique"
-            label="Musique"
             accent={MUSIQUE_ACCENT}
             planTitle="Maîtriser FL Studio"
             planIntro="Je suis ton professeur pour ce parcours FL Studio. On avance par étapes, sans deadline : tu passes à la suivante quand tu es à l'aise, pas avant. Pour chaque point du programme, un lien vers un tutoriel concret pour le mettre en pratique, et une durée indicative pour t'organiser."
             planStages={FL_STUDIO_PLAN_STAGES}
             planResources={FL_STUDIO_RESOURCES}
-            taskEvents={Object.values(taskArchive || {})}
-            taskChecks={taskChecks || {}}
-            toggleTask={toggleTask}
           />
         )}
         {active === "dessin" && (
           <ActivityWithPlanTab
-            tabKey="dessin"
-            label="Dessin"
             accent={DESSIN_ACCENT}
             planTitle="Apprendre à dessiner au crayon gris"
             planIntro="Je suis ton professeur de dessin pour ce parcours. On avance par étapes, sans deadline : tu passes à la suivante quand tu es à l'aise, pas avant. Pour chaque exercice que je te donne, un lien vers une explication concrète de comment t'y prendre, et une durée indicative pour t'organiser."
             planStages={DRAWING_PLAN_STAGES}
             planResources={DRAWING_RESOURCES}
-            taskEvents={Object.values(taskArchive || {})}
-            taskChecks={taskChecks || {}}
-            toggleTask={toggleTask}
           />
         )}
         {active === "blog" && (
           <ActivityWithPlanTab
-            tabKey="blog"
-            label="Blog"
             accent={BLOG_ACCENT}
             planTitle="Créer et lancer mon blog"
             planIntro="Je suis ton mentor pour lancer ce blog. On avance par étapes, sans deadline : tu passes à la suivante quand tu es prêt, pas avant. Pour chaque tâche, un lien vers un guide concret pour la mener à bien, et une durée indicative pour t'organiser."
             planStages={BLOG_PLAN_STAGES}
             planResources={BLOG_RESOURCES}
-            taskEvents={Object.values(taskArchive || {})}
-            taskChecks={taskChecks || {}}
-            toggleTask={toggleTask}
           />
         )}
         {active === "echecs" && (
           <ActivityWithPlanTab
-            tabKey="echecs"
-            label="Échecs"
             accent={ECHECS_ACCENT}
             planTitle="Progresser aux échecs"
             planIntro="Je suis ton professeur d'échecs, adapté à ton niveau : à 1300 Elo, on saute les bases pour se concentrer sur les répertoires d'ouvertures, la tactique avancée et les finales. On avance par étapes, sans deadline : tu passes à la suivante quand tu es à l'aise, pas avant. Pour chaque notion, un exercice cliquable à faire directement, et une durée indicative pour t'organiser."
             planStages={CHESS_PLAN_STAGES}
             planResources={CHESS_RESOURCES}
-            taskEvents={Object.values(taskArchive || {})}
-            taskChecks={taskChecks || {}}
-            toggleTask={toggleTask}
           />
         )}
         {active === "administratif" && <AdministratifTab />}
@@ -1324,7 +1288,6 @@ const CRPE_SOURCES = [
 const RECHERCHE_EMPLOI_ACCENT = "#8FA6B3";
 
 const RECHERCHE_EMPLOI_SECTIONS = [
-  { key: "taches", label: "Tâches" },
   { key: "interim", label: "Intérim" },
   { key: "cdd-cdi", label: "CDD / CDI" },
 ];
@@ -1632,16 +1595,13 @@ function makeOfferStatusSetter(setOfferStatus) {
   };
 }
 
-function RechercheEmploiTab({ taskEvents, taskChecks, toggleTask, offerStatus, setOfferStatus }) {
-  const [section, setSection] = useState("taches");
+function RechercheEmploiTab({ offerStatus, setOfferStatus }) {
+  const [section, setSection] = useState("interim");
   const setStatusFor = makeOfferStatusSetter(setOfferStatus);
 
   return (
     <div>
       <PillTabs options={RECHERCHE_EMPLOI_SECTIONS} activeKey={section} onSelect={setSection} accentOf={() => RECHERCHE_EMPLOI_ACCENT} />
-      {section === "taches" && (
-        <ActivityTab tab={{ key: "recherche-emploi", label: "Recherche d'emploi" }} taskEvents={taskEvents} taskChecks={taskChecks} toggleTask={toggleTask} />
-      )}
       {section === "interim" && (
         <JobOffersList data={INTERIM_OFFERS} title="Intérim" accent={RECHERCHE_EMPLOI_ACCENT} statusMap={offerStatus} onSetStatus={setStatusFor} />
       )}
@@ -1657,11 +1617,6 @@ const RECONVERSION_ACCENT = "#A67C52";
 const RECONVERSION_SECTIONS = [
   { key: "menuiserie", label: "Menuiserie" },
   { key: "enseignement", label: "Enseignement" },
-];
-
-const MENUISERIE_SECTIONS = [
-  { key: "taches", label: "Tâches" },
-  { key: "alternance", label: "Alternance & CDD/CDI" },
 ];
 
 const MENUISERIE_ALTERNANCES = {
@@ -1711,31 +1666,18 @@ const MENUISERIE_ALTERNANCES = {
   ],
 };
 
-function MenuiserieTab({ taskEvents, taskChecks, toggleTask, offerStatus, setOfferStatus }) {
-  const [section, setSection] = useState("taches");
+function MenuiserieTab({ offerStatus, setOfferStatus }) {
   const setStatusFor = makeOfferStatusSetter(setOfferStatus);
 
-  return (
-    <div>
-      <PillTabs options={MENUISERIE_SECTIONS} activeKey={section} onSelect={setSection} accentOf={() => RECONVERSION_ACCENT} />
-      {section === "taches" && (
-        <ActivityTab tab={{ key: "menuiserie", label: "Menuiserie" }} taskEvents={taskEvents} taskChecks={taskChecks} toggleTask={toggleTask} />
-      )}
-      {section === "alternance" && (
-        <JobOffersList data={MENUISERIE_ALTERNANCES} title="Alternance & CDD/CDI" accent={RECONVERSION_ACCENT} statusMap={offerStatus} onSetStatus={setStatusFor} />
-      )}
-    </div>
-  );
+  return <JobOffersList data={MENUISERIE_ALTERNANCES} title="Alternance & CDD/CDI" accent={RECONVERSION_ACCENT} statusMap={offerStatus} onSetStatus={setStatusFor} />;
 }
 
-function ReconversionTab({ taskEvents, taskChecks, toggleTask, offerStatus, setOfferStatus }) {
+function ReconversionTab({ offerStatus, setOfferStatus }) {
   const [section, setSection] = useState("menuiserie");
   return (
     <div>
       <PillTabs options={RECONVERSION_SECTIONS} activeKey={section} onSelect={setSection} accentOf={() => RECONVERSION_ACCENT} />
-      {section === "menuiserie" && (
-        <MenuiserieTab taskEvents={taskEvents} taskChecks={taskChecks} toggleTask={toggleTask} offerStatus={offerStatus} setOfferStatus={setOfferStatus} />
-      )}
+      {section === "menuiserie" && <MenuiserieTab offerStatus={offerStatus} setOfferStatus={setOfferStatus} />}
       {section === "enseignement" && <EnseignementTab />}
     </div>
   );
@@ -2466,42 +2408,9 @@ function PlanPageContent({ accent, title, intro, stages, resources, unitLabel })
   );
 }
 
-const TACHES_APPRENTISSAGE_SECTIONS = [
-  { key: "taches", label: "Tâches" },
-  { key: "apprentissage", label: "Apprentissage" },
-];
-
-function ActivityWithPlanTab({
-  tabKey,
-  label,
-  accent,
-  planTitle,
-  planIntro,
-  planStages,
-  planResources,
-  planUnitLabel,
-  taskEvents,
-  taskChecks,
-  toggleTask,
-}) {
-  const [section, setSection] = useState("taches");
+function ActivityWithPlanTab({ accent, planTitle, planIntro, planStages, planResources, planUnitLabel }) {
   return (
-    <div>
-      <PillTabs options={TACHES_APPRENTISSAGE_SECTIONS} activeKey={section} onSelect={setSection} accentOf={() => accent} />
-      {section === "taches" && (
-        <ActivityTab tab={{ key: tabKey, label }} taskEvents={taskEvents} taskChecks={taskChecks} toggleTask={toggleTask} />
-      )}
-      {section === "apprentissage" && (
-        <PlanPageContent
-          accent={accent}
-          title={planTitle}
-          intro={planIntro}
-          stages={planStages}
-          resources={planResources}
-          unitLabel={planUnitLabel}
-        />
-      )}
-    </div>
+    <PlanPageContent accent={accent} title={planTitle} intro={planIntro} stages={planStages} resources={planResources} unitLabel={planUnitLabel} />
   );
 }
 
@@ -5339,68 +5248,6 @@ function TaskChecklistItem({ id, label, checked, accent, onToggle }) {
         {checked && <Check size={11} color="white" />}
       </span>
       <span style={{ fontSize: 14, color: checked ? COLORS.muted : COLORS.text, textDecoration: checked ? "line-through" : "none" }}>{label}</span>
-    </div>
-  );
-}
-
-function formatTaskDate(dateStr) {
-  const d = new Date(dateStr + "T00:00:00");
-  return `${d.getDate()} ${FRENCH_MONTHS[d.getMonth()]} ${d.getFullYear()}`;
-}
-
-function ActivityTab({ tab, taskEvents, taskChecks, toggleTask }) {
-  const events = taskEvents
-    .filter((t) => t.key === tab.key)
-    .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
-
-  if (events.length === 0) {
-    return (
-      <div>
-        <h1 style={{ fontFamily: FONT_DISPLAY, fontSize: 32, color: COLORS.text, marginBottom: 14, fontWeight: 600 }}>{tab.label}</h1>
-        <div style={{ border: `1px dashed ${COLORS.muted}`, borderRadius: 10, padding: "22px 24px", color: COLORS.muted, fontSize: 14, lineHeight: 1.6 }}>
-          Cet espace est prêt à être personnalisé. Ajoute un événement dans ton agenda dont le TITRE mentionne « {tab.label.toLowerCase()} », avec une description « Tâche(s) : … » (ou un titre commençant par « {tab.label}, 1. … 2. … »), pour que les tâches apparaissent ici automatiquement.
-        </div>
-      </div>
-    );
-  }
-
-  const totalTasks = events.reduce((sum, ev) => sum + ev.tasks.length, 0);
-  const totalDone = events.reduce(
-    (sum, ev) => sum + ev.tasks.filter((_, j) => taskChecks[`${ev.date}__${ev.time}__${j}`]).length,
-    0
-  );
-
-  return (
-    <div>
-      <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 20, flexWrap: "wrap", gap: 8 }}>
-        <h1 style={{ fontFamily: FONT_DISPLAY, fontSize: 32, color: COLORS.text, margin: 0, fontWeight: 600 }}>{tab.label}</h1>
-        <span style={{ fontSize: 13, color: COLORS.muted }}>{totalDone} / {totalTasks} tâches terminées</span>
-      </div>
-      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-        {events.map((ev) => {
-          const doneCount = ev.tasks.filter((_, j) => taskChecks[`${ev.date}__${ev.time}__${j}`]).length;
-          const allDone = doneCount === ev.tasks.length;
-          return (
-            <div
-              key={`${ev.date}-${ev.time}`}
-              style={{ background: COLORS.card, border: `1px solid ${allDone ? COLORS.checked : COLORS.cardBorder}`, borderRadius: 10, padding: "16px 18px" }}
-            >
-              <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 10 }}>
-                <span style={{ fontSize: 12, color: COLORS.muted, textTransform: "capitalize" }}>{formatTaskDate(ev.date)} · {ev.time}</span>
-                <span style={{ fontSize: 11, color: allDone ? COLORS.checked : COLORS.muted }}>{doneCount} / {ev.tasks.length}</span>
-              </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                {ev.tasks.map((task, j) => {
-                  const id = `${ev.date}__${ev.time}__${j}`;
-                  return (
-                    <TaskChecklistItem key={id} id={id} label={task} checked={!!taskChecks[id]} onToggle={toggleTask} />
-                  );
-                })}
-              </div>
-            </div>
-          );
-        })}
-      </div>
     </div>
   );
 }
