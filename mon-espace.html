@@ -241,7 +241,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "37";
+const APP_VERSION = "38";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -2502,36 +2502,70 @@ const DRAWING_RESOURCES = [
   { title: "Learn How to Draw Realistic Pencil Art Step-by-Step", source: "RapidFireArt", url: "https://rapidfireart.com/" },
 ];
 
-function PlanStageList({ stages, accent, unitLabel = "Étape" }) {
+function PlanStageOverview({ stages, accent, unitLabel = "Étape", onOpen }) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+      {stages.map((s) => (
+        <button
+          key={s.id}
+          onClick={() => onOpen(s.id)}
+          style={{
+            display: "flex", alignItems: "center", gap: 12, textAlign: "left", cursor: "pointer",
+            background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, borderRadius: 10,
+            padding: "12px 14px", font: "inherit", color: "inherit", width: "100%",
+          }}
+        >
+          <span style={{ fontFamily: FONT_DISPLAY, fontSize: 16, color: accent, whiteSpace: "nowrap" }}>{unitLabel} {s.id}</span>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontSize: 14, fontWeight: 500, color: COLORS.text }}>{s.title}</div>
+            <div style={{ fontSize: 12, color: COLORS.muted, lineHeight: 1.5, marginTop: 2 }}>{s.tagline}</div>
+          </div>
+          {s.duration && (
+            <span style={{ fontSize: 11, color: COLORS.muted, whiteSpace: "nowrap" }}>⏱ {s.duration}</span>
+          )}
+          <ChevronRight size={16} style={{ color: accent, flexShrink: 0 }} />
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function PlanStageLesson({ stage, accent, unitLabel = "Étape", onBack }) {
   return (
     <div>
-      {stages.map((s) => (
-        <div key={s.id} style={{ marginBottom: 18, paddingBottom: 18, borderBottom: `1px solid ${COLORS.border}` }}>
-          <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginBottom: 6, flexWrap: "wrap" }}>
-            <span style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: accent }}>{unitLabel} {s.id}</span>
-            <span style={{ fontSize: 14, fontWeight: 500, color: COLORS.text }}>{s.title}</span>
-            {s.duration && (
-              <span style={{ fontSize: 11, color: COLORS.muted, marginLeft: "auto", whiteSpace: "nowrap" }}>⏱ {s.duration}</span>
-            )}
-          </div>
-          <p style={{ fontSize: 13, color: COLORS.muted, lineHeight: 1.6, marginBottom: 8 }}>{s.tagline}</p>
-          <ul style={{ margin: 0, paddingLeft: 18, display: "flex", flexDirection: "column", gap: 6 }}>
-            {s.bullets.map((b, i) => (
-              <li key={i} style={{ fontSize: 13, color: COLORS.text, lineHeight: 1.5 }}>
-                {b.text}{" "}
-                <a
-                  href={b.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{ color: accent, fontSize: 12, whiteSpace: "nowrap", textDecoration: "none" }}
-                >
-                  ↗ {b.source}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+      <button
+        onClick={onBack}
+        style={{
+          display: "flex", alignItems: "center", gap: 6, cursor: "pointer", background: "none", border: "none",
+          padding: 0, marginBottom: 16, font: "inherit", color: accent, fontSize: 13,
+        }}
+      >
+        <ChevronRight size={14} style={{ transform: "rotate(180deg)", color: accent }} />
+        Retour aux {unitLabel === "Leçon" ? "leçons" : "étapes"}
+      </button>
+      <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginBottom: 6, flexWrap: "wrap" }}>
+        <span style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: accent }}>{unitLabel} {stage.id}</span>
+        <span style={{ fontSize: 15, fontWeight: 500, color: COLORS.text }}>{stage.title}</span>
+        {stage.duration && (
+          <span style={{ fontSize: 11, color: COLORS.muted, marginLeft: "auto", whiteSpace: "nowrap" }}>⏱ {stage.duration}</span>
+        )}
+      </div>
+      <p style={{ fontSize: 13, color: COLORS.muted, lineHeight: 1.6, marginBottom: 12 }}>{stage.tagline}</p>
+      <ul style={{ margin: 0, paddingLeft: 18, display: "flex", flexDirection: "column", gap: 8 }}>
+        {stage.bullets.map((b, i) => (
+          <li key={i} style={{ fontSize: 13, color: COLORS.text, lineHeight: 1.5 }}>
+            {b.text}{" "}
+            <a
+              href={b.url}
+              target="_blank"
+              rel="noreferrer"
+              style={{ color: accent, fontSize: 12, whiteSpace: "nowrap", textDecoration: "none" }}
+            >
+              ↗ {b.source}
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
@@ -2560,14 +2594,26 @@ function PlanResourcesSection({ resources, accent }) {
   );
 }
 
-function PlanPageContent({ accent, title, intro, stages, resources, unitLabel }) {
+function PlanPageContent({ accent, title, intro, stages, resources, unitLabel = "Étape" }) {
+  const [openStageId, setOpenStageId] = useState(null);
+  const openStage = openStageId != null ? stages.find((s) => s.id === openStageId) : null;
+
+  if (openStage) {
+    return (
+      <div>
+        <PlanStageLesson stage={openStage} accent={accent} unitLabel={unitLabel} onBack={() => setOpenStageId(null)} />
+      </div>
+    );
+  }
+
   return (
     <div>
       <h1 style={{ fontFamily: FONT_DISPLAY, fontSize: 26, color: COLORS.text, marginBottom: 6, fontWeight: 600 }}>
         {title}
       </h1>
       <p style={{ color: COLORS.muted, fontSize: 14, lineHeight: 1.6, marginBottom: 24 }}>{intro}</p>
-      <PlanStageList stages={stages} accent={accent} unitLabel={unitLabel} />
+      <PlanStageOverview stages={stages} accent={accent} unitLabel={unitLabel} onOpen={setOpenStageId} />
+      <div style={{ height: 20 }} />
       <PlanResourcesSection resources={resources} accent={accent} />
     </div>
   );
