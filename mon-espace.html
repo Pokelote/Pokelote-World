@@ -232,6 +232,11 @@ const COLORS = {
 const FONT_DISPLAY = "'Fraunces', serif";
 const FONT_BODY = "'Work Sans', sans-serif";
 
+// Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
+// sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
+// que CACHE_NAME dans sw.js.
+const APP_VERSION = "36";
+
 function uid() {
   return Math.random().toString(36).slice(2, 10);
 }
@@ -3967,6 +3972,7 @@ function AccueilTab({ taskEvents, taskChecks, toggleTask, offerStatus, onNavigat
           ))}
         </div>
       )}
+      <p style={{ color: COLORS.muted, fontSize: 10, textAlign: "center", marginTop: 32 }}>Version {APP_VERSION}</p>
     </div>
   );
 }
