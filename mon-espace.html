@@ -65,7 +65,21 @@ const { useState, useEffect, useCallback } = React;
 const SUPABASE_URL = "https://tgaivklxkpiqrqwvlzso.supabase.co";
 const SUPABASE_KEY = "sb_publishable_Y4DMRmC5QKXAho9fZ_FyKw_8JR4lFg_";
 
-function _pushToRemote(key, value) {
+// Chaque clé a un horodatage local ("portail:__ts__:<clé>") en plus de sa valeur, pour pouvoir
+// arbitrer les conflits par "le plus récent gagne" plutôt que par "quelle requête réseau finit
+// en premier" — sans ça, décocher puis recharger très vite pouvait faire réapparaître l'ancienne
+// valeur si le fetch de lecture du rechargement arrivait avant que l'écriture précédente n'ait
+// fini d'atteindre Supabase.
+function _localTs(key) {
+  return parseInt(localStorage.getItem("portail:__ts__:" + key) || "0", 10);
+}
+function _setLocalTs(key, ts) {
+  try {
+    localStorage.setItem("portail:__ts__:" + key, String(ts));
+  } catch {}
+}
+
+function _pushToRemote(key, value, ts) {
   fetch(`${SUPABASE_URL}/rest/v1/app_state?on_conflict=key`, {
     method: "POST",
     headers: {
@@ -74,23 +88,37 @@ function _pushToRemote(key, value) {
       "Content-Type": "application/json",
       Prefer: "resolution=merge-duplicates,return=minimal",
     },
-    body: JSON.stringify({ key, value, updated_at: new Date().toISOString() }),
+    body: JSON.stringify({ key, value, updated_at: new Date(ts).toISOString() }),
   }).catch(() => {});
 }
 
 let _remoteCache = null;
 const _remoteReady = (async () => {
   try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/app_state?select=key,value`, {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/app_state?select=key,value,updated_at`, {
       headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` },
     });
     if (!res.ok) throw new Error("Supabase indisponible");
     const rows = await res.json();
-    _remoteCache = new Map(rows.map((r) => [r.key, r.value]));
+    _remoteCache = new Map();
     rows.forEach((r) => {
+      const remoteTs = new Date(r.updated_at).getTime();
+      const localTs = _localTs(r.key);
+      if (localTs > remoteTs) {
+        // Une écriture locale plus récente n'avait pas encore atteint Supabase au moment de
+        // cette lecture : on garde la valeur locale et on repousse pour rattraper le cloud.
+        const localValue = localStorage.getItem("portail:" + r.key);
+        if (localValue !== null) {
+          _remoteCache.set(r.key, localValue);
+          _pushToRemote(r.key, localValue, localTs);
+          return;
+        }
+      }
+      _remoteCache.set(r.key, r.value);
       try {
         localStorage.setItem("portail:" + r.key, r.value);
       } catch {}
+      _setLocalTs(r.key, remoteTs);
     });
     // Rattrapage : un appareil qui avait déjà des données locales (cases cochées etc.) AVANT
     // l'arrivée de la synchro n'a jamais rien poussé vers Supabase. Au premier chargement de
@@ -98,13 +126,15 @@ const _remoteReady = (async () => {
     // pour que ces anciennes coches deviennent enfin visibles sur les autres appareils.
     try {
       Object.keys(localStorage)
-        .filter((k) => k.startsWith("portail:"))
+        .filter((k) => k.startsWith("portail:") && !k.startsWith("portail:__ts__:"))
         .forEach((k) => {
           const key = k.slice("portail:".length);
           if (!_remoteCache.has(key)) {
             const value = localStorage.getItem(k);
+            const ts = Date.now();
             _remoteCache.set(key, value);
-            _pushToRemote(key, value);
+            _setLocalTs(key, ts);
+            _pushToRemote(key, value, ts);
           }
         });
     } catch {}
@@ -124,13 +154,16 @@ window.storage = {
     return { key, value: raw, shared: false };
   },
   async set(key, value) {
+    const ts = Date.now();
     localStorage.setItem("portail:" + key, value);
+    _setLocalTs(key, ts);
     if (_remoteCache) _remoteCache.set(key, value);
-    _pushToRemote(key, value);
+    _pushToRemote(key, value, ts);
     return { key, value, shared: false };
   },
   async delete(key) {
     localStorage.removeItem("portail:" + key);
+    localStorage.removeItem("portail:__ts__:" + key);
     if (_remoteCache) _remoteCache.delete(key);
     fetch(`${SUPABASE_URL}/rest/v1/app_state?key=eq.${encodeURIComponent(key)}`, {
       method: "DELETE",
@@ -148,7 +181,7 @@ window.storage = {
     }
     const p = "portail:" + (prefix || "");
     Object.keys(localStorage)
-      .filter((k) => k.startsWith(p))
+      .filter((k) => k.startsWith(p) && !k.startsWith("portail:__ts__:"))
       .forEach((k) => keys.add(k.slice("portail:".length)));
     return { keys: Array.from(keys) };
   },
