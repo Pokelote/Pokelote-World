@@ -58,24 +58,79 @@ try {
 const { useState, useEffect, useCallback } = React;
 
 // --- Stockage local (remplace window.storage de Claude par le localStorage du navigateur) ---
+// Stockage synchronisé entre appareils via Supabase (projet "mon-espace"), avec localStorage
+// comme cache/repli hors-ligne. Un seul fetch groupé au démarrage (pas un par clé) ; chaque
+// set() écrit en local immédiatement puis pousse vers Supabase en arrière-plan (fire-and-forget,
+// jamais bloquant si le réseau est coupé).
+const SUPABASE_URL = "https://tgaivklxkpiqrqwvlzso.supabase.co";
+const SUPABASE_KEY = "sb_publishable_Y4DMRmC5QKXAho9fZ_FyKw_8JR4lFg_";
+
+let _remoteCache = null;
+const _remoteReady = (async () => {
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/app_state?select=key,value`, {
+      headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` },
+    });
+    if (!res.ok) throw new Error("Supabase indisponible");
+    const rows = await res.json();
+    _remoteCache = new Map(rows.map((r) => [r.key, r.value]));
+    rows.forEach((r) => {
+      try {
+        localStorage.setItem("portail:" + r.key, r.value);
+      } catch {}
+    });
+  } catch {
+    _remoteCache = null;
+  }
+})();
+
 window.storage = {
   async get(key) {
+    await _remoteReady;
+    if (_remoteCache && _remoteCache.has(key)) {
+      return { key, value: _remoteCache.get(key), shared: true };
+    }
     const raw = localStorage.getItem("portail:" + key);
     if (raw === null) return null;
     return { key, value: raw, shared: false };
   },
   async set(key, value) {
     localStorage.setItem("portail:" + key, value);
+    if (_remoteCache) _remoteCache.set(key, value);
+    fetch(`${SUPABASE_URL}/rest/v1/app_state?on_conflict=key`, {
+      method: "POST",
+      headers: {
+        apikey: SUPABASE_KEY,
+        Authorization: `Bearer ${SUPABASE_KEY}`,
+        "Content-Type": "application/json",
+        Prefer: "resolution=merge-duplicates,return=minimal",
+      },
+      body: JSON.stringify({ key, value, updated_at: new Date().toISOString() }),
+    }).catch(() => {});
     return { key, value, shared: false };
   },
   async delete(key) {
     localStorage.removeItem("portail:" + key);
+    if (_remoteCache) _remoteCache.delete(key);
+    fetch(`${SUPABASE_URL}/rest/v1/app_state?key=eq.${encodeURIComponent(key)}`, {
+      method: "DELETE",
+      headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` },
+    }).catch(() => {});
     return { key, deleted: true, shared: false };
   },
   async list(prefix) {
+    await _remoteReady;
+    const keys = new Set();
+    if (_remoteCache) {
+      _remoteCache.forEach((_, k) => {
+        if (k.startsWith(prefix || "")) keys.add(k);
+      });
+    }
     const p = "portail:" + (prefix || "");
-    const keys = Object.keys(localStorage).filter((k) => k.startsWith(p)).map((k) => k.slice("portail:".length));
-    return { keys };
+    Object.keys(localStorage)
+      .filter((k) => k.startsWith(p))
+      .forEach((k) => keys.add(k.slice("portail:".length)));
+    return { keys: Array.from(keys) };
   },
 };
 
