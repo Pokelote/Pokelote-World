@@ -241,7 +241,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "38";
+const APP_VERSION = "39";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -4097,10 +4097,25 @@ const CALENDAR_DATA = {
     },
     { date: "2026-09-14", time: "18h00 – 18h15", title: "🗓️ Point du soir — préparer demain" },
     { date: "2026-09-14", time: "22h00 – 22h05", title: "🛏️ Au lit" },
-    { date: "2026-09-15", time: "06h30 – 08h00", title: "🏋️ Muscu — Fitness Park de la Valentine" },
-    { date: "2026-09-15", time: "08h00 – 08h15", title: "🚿 Toilette & habillage" },
-    { date: "2026-09-15", time: "08h15 – 08h30", title: "🧘 Étirements" },
-    { date: "2026-09-15", time: "08h30 – 09h00", title: "🍳 Préparation repas + manger" },
+    { date: "2026-09-15", time: "06h00 – 09h00", title: "🌅 Routine matin" },
+    {
+      date: "2026-09-15",
+      time: "09h00 – 09h30",
+      title: "🔍 Recherche d'emploi",
+      description: "Tâches : 1. Postuler aux offres d'intérim 2. Postuler aux offres en CDD / CDI 3. Postuler aux offres en alternance pour la menuiserie",
+    },
+    {
+      date: "2026-09-15",
+      time: "09h30 – 11h00",
+      title: "📖 Lecture sérieuse : Éthique de Spinoza",
+      description: "Tâche : Lire Intro & Chapitre 1",
+    },
+    {
+      date: "2026-09-15",
+      time: "11h00 – 12h00",
+      title: "✍️ Écriture : Continuer Aastan",
+      description: "Tâche : Continuer Aastan",
+    },
     { date: "2026-09-15", time: "18h00 – 18h15", title: "🗓️ Point du soir — préparer demain" },
     { date: "2026-09-15", time: "19h30 – 21h30", title: "🏈 Football Américain" },
     { date: "2026-09-15", time: "22h00 – 22h05", title: "🛏️ Au lit" },
