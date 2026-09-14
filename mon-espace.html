@@ -7,15 +7,15 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon.svg">
-<meta name="theme-color" content="#0A1128">
+<meta name="theme-color" content="#090C15">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Mon espace">
 <style>
-  html, body { margin: 0; padding: 0; background: linear-gradient(180deg, #0A1128, #16213E); font-family: sans-serif; }
+  html, body { margin: 0; padding: 0; background: linear-gradient(180deg, #090C15, #123059); font-family: sans-serif; }
   * { box-sizing: border-box; }
-  #boot-message { padding: 40px; color: #E0E0E0; }
+  #boot-message { padding: 40px; color: #F4F5F7; }
   #boot-error { padding: 24px; margin: 20px; background: #fff3f0; border: 1px solid #d4453f; border-radius: 8px; color: #7A1F1F; font-family: monospace; white-space: pre-wrap; font-size: 13px; display: none; }
 </style>
 </head>
@@ -99,17 +99,18 @@ function BookIcon({ size = 16, color = "currentColor" }) {
 
 
 const COLORS = {
-  ink: "#0A1128",
-  bgFrom: "#0A1128",
-  bgTo: "#16213E",
-  card: "#1E2C4E",
-  cardBorder: "#33456C",
-  track: "#14203B",
-  text: "#E0E0E0",
-  muted: "#9E9E9E",
+  ink: "#0A0D14",
+  bgFrom: "#090C15",
+  bgTo: "#123059",
+  card: "#141F33",
+  cardBorder: "#2B3C57",
+  track: "#0D1420",
+  text: "#F4F5F7",
+  muted: "#98A2B3",
   checked: "#66BB6A",
-  border: "#33456C",
+  border: "#2B3C57",
   barMuted: "#7C8AA3",
+  gold: "#F0C14B",
 };
 
 const FONT_DISPLAY = "'Fraunces', serif";
@@ -605,7 +606,7 @@ function App() {
         }
       `}</style>
 
-      <header className="app-header" style={{ background: COLORS.ink, padding: "24px 40px 0" }}>
+      <header className="app-header" style={{ background: COLORS.ink, padding: "24px 40px 0", borderBottom: `3px solid ${COLORS.gold}` }}>
         <div style={{ fontFamily: FONT_DISPLAY, fontSize: 20, color: COLORS.text, marginBottom: 18 }}>Mon espace</div>
         <button
           className="app-menu-btn"
