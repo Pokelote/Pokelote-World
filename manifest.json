@@ -1,0 +1,13 @@
+{
+  "name": "Mon espace",
+  "short_name": "Mon espace",
+  "start_url": "./mon-espace.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0A1128",
+  "theme_color": "#0A1128",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "icon.svg", "sizes": "512x512", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
