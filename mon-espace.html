@@ -593,11 +593,18 @@ function App() {
     <div style={{ minHeight: "640px", fontFamily: FONT_BODY, background: `linear-gradient(180deg, ${COLORS.bgFrom}, ${COLORS.bgTo})`, display: "flex", flexDirection: "column" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap');
+        @media (max-width: 640px) {
+          .app-header { padding: 16px 16px 0 !important; }
+          .app-nav { flex-wrap: nowrap !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 4px; }
+          .app-nav::-webkit-scrollbar { display: none; }
+          .app-nav button { flex-shrink: 0; }
+          .app-main { padding: 20px 16px !important; }
+        }
       `}</style>
 
-      <header style={{ background: COLORS.ink, padding: "24px 40px 0" }}>
+      <header className="app-header" style={{ background: COLORS.ink, padding: "24px 40px 0" }}>
         <div style={{ fontFamily: FONT_DISPLAY, fontSize: 20, color: COLORS.text, marginBottom: 18 }}>Mon espace</div>
-        <nav style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
+        <nav className="app-nav" style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
           {TABS.map((tab) => {
             const isActive = tab.key === active;
             return (
@@ -623,7 +630,7 @@ function App() {
         </nav>
       </header>
 
-      <main style={{ flex: 1, padding: "44px 56px", overflowY: "auto" }}>
+      <main className="app-main" style={{ flex: 1, padding: "44px 56px", overflowY: "auto" }}>
         {active === "news" && <NewsTab taskEvents={Object.values(taskArchive || {})} taskChecks={taskChecks || {}} toggleTask={toggleTask} />}
         {active === "calendrier" && <CalendrierTab />}
         {active === "filmo" && (
@@ -894,7 +901,7 @@ function CollectionItems({ accent, items, onChange }) {
 
   if (!hasPhases) {
     return (
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 10, alignItems: "start" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(300px, 100%), 1fr))", gap: 10, alignItems: "start" }}>
         {items.map((it) => (
           <ItemRow key={it.id} item={it} accent={accent} onPatch={(patch) => patchItem(it.id, patch)} />
         ))}
@@ -941,7 +948,7 @@ function CollectionItems({ accent, items, onChange }) {
                 <span style={{ fontSize: 12, color: COLORS.muted }}>{groupWatched} / {groupTrackable.length}</span>
               )}
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 10, alignItems: "start" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(300px, 100%), 1fr))", gap: 10, alignItems: "start" }}>
               {group.items.map((it) => (
                 <ItemRow key={it.id} item={it} accent={group.color} onPatch={(patch) => patchItem(it.id, patch)} />
               ))}
@@ -2853,39 +2860,41 @@ function NewsSectionHeader({ title, accent, logo }) {
 }
 
 function RankTable({ columns, rows, highlightTeam }) {
-  const templateColumns = columns.map((c) => c.width || "1fr").join(" ");
+  const templateColumns = columns.map((c) => c.width || "minmax(80px, 1fr)").join(" ");
   return (
-    <div style={{ background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, borderRadius: 10, overflow: "hidden" }}>
-      <div
-        style={{
-          display: "grid", gridTemplateColumns: templateColumns, padding: "8px 14px", gap: 4,
-          fontSize: 11, color: COLORS.muted, textTransform: "uppercase", letterSpacing: 0.4, borderBottom: `1px solid ${COLORS.cardBorder}`,
-        }}
-      >
-        {columns.map((c) => (
-          <div key={c.key} style={{ textAlign: c.align || "left" }}>{c.label}</div>
-        ))}
+    <div style={{ background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, borderRadius: 10, overflowX: "auto" }}>
+      <div style={{ minWidth: "max-content" }}>
+        <div
+          style={{
+            display: "grid", gridTemplateColumns: templateColumns, padding: "8px 14px", gap: 4,
+            fontSize: 11, color: COLORS.muted, textTransform: "uppercase", letterSpacing: 0.4, borderBottom: `1px solid ${COLORS.cardBorder}`,
+          }}
+        >
+          {columns.map((c) => (
+            <div key={c.key} style={{ textAlign: c.align || "left" }}>{c.label}</div>
+          ))}
+        </div>
+        {rows.map((r, i) => {
+          const isHighlight = highlightTeam && r.team === highlightTeam;
+          return (
+            <div
+              key={i}
+              style={{
+                display: "grid", gridTemplateColumns: templateColumns, padding: "8px 14px", gap: 4,
+                fontSize: 13, color: isHighlight ? COLORS.checked : COLORS.text,
+                background: isHighlight ? "rgba(102,187,106,0.1)" : "transparent",
+                borderBottom: i < rows.length - 1 ? `1px solid ${COLORS.cardBorder}` : "none",
+              }}
+            >
+              {columns.map((c) => (
+                <div key={c.key} style={{ textAlign: c.align || "left", fontWeight: c.key === "pos" || isHighlight ? 600 : 400 }}>
+                  {r[c.key]}
+                </div>
+              ))}
+            </div>
+          );
+        })}
       </div>
-      {rows.map((r, i) => {
-        const isHighlight = highlightTeam && r.team === highlightTeam;
-        return (
-          <div
-            key={i}
-            style={{
-              display: "grid", gridTemplateColumns: templateColumns, padding: "8px 14px", gap: 4,
-              fontSize: 13, color: isHighlight ? COLORS.checked : COLORS.text,
-              background: isHighlight ? "rgba(102,187,106,0.1)" : "transparent",
-              borderBottom: i < rows.length - 1 ? `1px solid ${COLORS.cardBorder}` : "none",
-            }}
-          >
-            {columns.map((c) => (
-              <div key={c.key} style={{ textAlign: c.align || "left", fontWeight: c.key === "pos" || isHighlight ? 600 : 400 }}>
-                {r[c.key]}
-              </div>
-            ))}
-          </div>
-        );
-      })}
     </div>
   );
 }
@@ -2979,7 +2988,7 @@ function BracketColumn({ title, rounds, highlightTeam }) {
 function PlayoffBracket({ playoffs, highlightTeam }) {
   return (
     <div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 24 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(240px, 100%), 1fr))", gap: 24 }}>
         <BracketColumn title="Winner Bracket" rounds={playoffs.winnerBracket} highlightTeam={highlightTeam} />
         <BracketColumn title="Loser Bracket" rounds={playoffs.loserBracket} highlightTeam={highlightTeam} />
       </div>
@@ -2996,7 +3005,7 @@ function NflStandings({ standings }) {
   return (
     <div>
       {standings.note && <p style={{ fontSize: 12, color: COLORS.muted, fontStyle: "italic", marginBottom: 14 }}>{standings.note}</p>}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 20 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(320px, 100%), 1fr))", gap: 20 }}>
         {standings.conferences.map((conf) => (
           <div key={conf.name}>
             <div style={{ fontFamily: FONT_DISPLAY, fontSize: 15, color: COLORS.text, marginBottom: 10 }}>{conf.name}</div>
@@ -3067,7 +3076,7 @@ function NewsTab({ taskEvents, taskChecks, toggleTask }) {
 
           <div style={{ height: 1, background: COLORS.cardBorder, margin: "20px 0 20px" }} />
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 12, alignItems: "start" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(300px, 100%), 1fr))", gap: 12, alignItems: "start" }}>
             {d.esport.items.map((it, i) => (
               <NewsArticle key={i} item={it} accent={d.esport.accent} />
             ))}
@@ -3079,7 +3088,7 @@ function NewsTab({ taskEvents, taskChecks, toggleTask }) {
         <div>
           <div style={{ fontFamily: FONT_DISPLAY, fontSize: 20, color: d.foot.accent, marginBottom: 20 }}>{d.foot.title}</div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 20, alignItems: "start", marginBottom: 0 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(320px, 100%), 1fr))", gap: 20, alignItems: "start", marginBottom: 0 }}>
             <CollapsibleSection title={d.foot.standings.ligue1.label} accent={d.foot.accent}>
               <RankTable columns={LIGUE1_COLUMNS} rows={d.foot.standings.ligue1.rows} highlightTeam={d.foot.standings.ligue1.highlightTeam} />
             </CollapsibleSection>
@@ -3099,7 +3108,7 @@ function NewsTab({ taskEvents, taskChecks, toggleTask }) {
             {d.foot.clubs.map((club) => (
               <div key={club.name}>
                 <NewsSectionHeader title={club.name} accent={d.foot.accent} logo={club.logo} />
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 12, alignItems: "start" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(300px, 100%), 1fr))", gap: 12, alignItems: "start" }}>
                   {club.items.map((it, i) => (
                     <NewsArticle key={i} item={it} accent={d.foot.accent} />
                   ))}
@@ -3120,7 +3129,7 @@ function NewsTab({ taskEvents, taskChecks, toggleTask }) {
 
           <div style={{ height: 1, background: COLORS.cardBorder, margin: "20px 0 20px" }} />
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 12, alignItems: "start" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(300px, 100%), 1fr))", gap: 12, alignItems: "start" }}>
             {d.nfl.items.map((it, i) => (
               <NewsArticle key={i} item={it} accent={d.nfl.accent} />
             ))}
@@ -3144,13 +3153,13 @@ function NewsTab({ taskEvents, taskChecks, toggleTask }) {
             </div>
           </div>
           <div style={{ fontSize: 12, fontWeight: 500, color: COLORS.muted, marginBottom: 8, textTransform: "uppercase", letterSpacing: 0.4 }}>France</div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 12, marginBottom: 20, alignItems: "start" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(300px, 100%), 1fr))", gap: 12, marginBottom: 20, alignItems: "start" }}>
             {d.quotidien.france.map((it, i) => (
               <NewsArticle key={i} item={it} accent={d.quotidien.accent} />
             ))}
           </div>
           <div style={{ fontSize: 12, fontWeight: 500, color: COLORS.muted, marginBottom: 8, textTransform: "uppercase", letterSpacing: 0.4 }}>Monde</div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 12, alignItems: "start" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(300px, 100%), 1fr))", gap: 12, alignItems: "start" }}>
             {d.quotidien.monde.map((it, i) => (
               <NewsArticle key={i} item={it} accent={d.quotidien.accent} />
             ))}
@@ -3159,7 +3168,7 @@ function NewsTab({ taskEvents, taskChecks, toggleTask }) {
       )}
 
       {section === "today" && (
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))", gap: 32, alignItems: "start" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(360px, 100%), 1fr))", gap: 32, alignItems: "start" }}>
           <div>
             <div style={{ fontFamily: FONT_DISPLAY, fontSize: 20, color: d.agenda.accent, marginBottom: 16 }}>{d.agenda.title}</div>
             {d.agenda.items.length === 0 ? (
@@ -3909,7 +3918,7 @@ function CalendrierTab() {
 
       <PillTabs options={CALENDAR_VIEWS} activeKey={view} onSelect={setView} accentOf={() => accent} marginBottom={20} />
 
-      <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 24, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 24 }}>
         <button
           onClick={() => shiftDate(-1)}
           aria-label="Période précédente"
@@ -3920,7 +3929,7 @@ function CalendrierTab() {
         >
           <ChevronRight size={14} style={{ transform: "rotate(180deg)", color: COLORS.text }} />
         </button>
-        <div style={{ fontFamily: FONT_DISPLAY, fontSize: 16, color: COLORS.text, textTransform: "capitalize", minWidth: 200, textAlign: "center" }}>
+        <div style={{ fontFamily: FONT_DISPLAY, fontSize: 16, color: COLORS.text, textTransform: "capitalize", textAlign: "center", flex: "1 1 auto", minWidth: 0 }}>
           {periodLabel}
         </div>
         <button
@@ -3937,7 +3946,7 @@ function CalendrierTab() {
           onClick={goToday}
           style={{
             padding: "6px 14px", borderRadius: 999, border: `1px solid ${COLORS.border}`, background: "transparent",
-            color: COLORS.muted, fontFamily: FONT_BODY, fontSize: 12, cursor: "pointer",
+            color: COLORS.muted, fontFamily: FONT_BODY, fontSize: 12, cursor: "pointer", flexShrink: 0, whiteSpace: "nowrap",
           }}
         >
           Aujourd'hui
@@ -4501,7 +4510,7 @@ function ThemeList({ theme, items, onChange }) {
   if (items.length === 0) return null;
 
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 10, alignItems: "start" }}>
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(300px, 100%), 1fr))", gap: 10, alignItems: "start" }}>
       {items.map((it) => (
         <ItemRow key={it.id} item={it} accent={accent} onPatch={(patch) => patchItem(it.id, patch)} />
       ))}
