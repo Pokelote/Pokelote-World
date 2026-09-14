@@ -35,7 +35,15 @@
   });
   if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) {
     window.addEventListener("load", function () {
-      navigator.serviceWorker.register("sw.js").catch(function () {});
+      navigator.serviceWorker.register("sw.js").then(function (reg) {
+        // Les navigateurs ne revérifient le sw.js qu'une fois par 24h par défaut sur simple navigation ;
+        // on force une vérification à chaque ouverture pour récupérer les mises à jour sans attendre.
+        reg.update().catch(function () {});
+        if (document.visibilityState === "visible") reg.update().catch(function () {});
+        document.addEventListener("visibilitychange", function () {
+          if (document.visibilityState === "visible") reg.update().catch(function () {});
+        });
+      }).catch(function () {});
     });
   }
 </script>
