@@ -1661,13 +1661,54 @@ const RECONVERSION_SECTIONS = [
 
 const MENUISERIE_SECTIONS = [
   { key: "taches", label: "Tâches" },
-  { key: "alternance", label: "Alternance" },
+  { key: "alternance", label: "Alternance & CDD/CDI" },
 ];
 
 const MENUISERIE_ALTERNANCES = {
-  updatedAt: "11 septembre 2026",
-  domain: "Alternance — Menuiserie bois (création) — Marseille et environs",
-  items: [],
+  updatedAt: "14 septembre 2026",
+  domain: "Menuiserie bois (création/fabrication) — Marseille et environs — alternance ET CDD/CDI (pour voir qui recrute)",
+  items: [
+    {
+      id: "alt-lowall-construction-bois-gardanne",
+      title: "Apprenti Ouvrier Construction Bois (H/F) en Apprentissage",
+      company: "LOWALL",
+      contract: "Alternance",
+      location: "Gardanne",
+      summary: "Apprentissage en construction bois : usinage et assemblage d'éléments en bois, formation au CFA du Bâtiment de Marseille.",
+      source: "CFA du Bâtiment PACA",
+      url: "https://www.cfadubatiment.fr/offres-emploi/34039-apprenti-ouvrier-construction-bois-h-f-en-apprentissage/",
+    },
+    {
+      id: "alt-cfa-toulon-menuiserie-bois-la-farlede",
+      title: "Apprenti Menuiserie Bois (H/F) en Apprentissage",
+      company: "Entreprise partenaire du CFA du Bâtiment de Toulon",
+      contract: "Alternance",
+      location: "La Farlède (secteur Toulon — un peu plus loin, environ 1h de Marseille)",
+      summary: "Apprentissage menuiserie bois en vue d'un CAP Menuisier Fabricant ou Installateur, formation au CFA du Bâtiment de Toulon.",
+      source: "CFA du Bâtiment PACA",
+      url: "https://www.cfadubatiment.fr/offres-emploi/34042-apprenti-menuiserie-bois-h-f-en-apprentissage/",
+    },
+    {
+      id: "cdi-emo-france-menuisier-fabriquant-marseille",
+      title: "Menuisier Fabriquant Confirmé H/F",
+      company: "EMO France (Groupe DLSI)",
+      contract: "CDI",
+      location: "Marseille",
+      summary: "Lecture de plans, découpe et façonnage du bois, fabrication de mobilier sur-mesure pour un client en agencement intérieur haut de gamme.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/82913674.html",
+    },
+    {
+      id: "cdi-menuiserie-pecorella-marseille",
+      title: "Menuisier - Menuisière H/F",
+      company: "Menuiserie Pecorella",
+      contract: "CDI",
+      location: "Marseille 15e",
+      summary: "Entretien de menuiseries de bâtiments publics : réparation de fenêtres, volets roulants, remplacement de serrures.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/82808162.html",
+    },
+  ],
 };
 
 function MenuiserieTab({ taskEvents, taskChecks, toggleTask, offerStatus, setOfferStatus }) {
@@ -1681,7 +1722,7 @@ function MenuiserieTab({ taskEvents, taskChecks, toggleTask, offerStatus, setOff
         <ActivityTab tab={{ key: "menuiserie", label: "Menuiserie" }} taskEvents={taskEvents} taskChecks={taskChecks} toggleTask={toggleTask} />
       )}
       {section === "alternance" && (
-        <JobOffersList data={MENUISERIE_ALTERNANCES} title="Alternance" accent={RECONVERSION_ACCENT} statusMap={offerStatus} onSetStatus={setStatusFor} />
+        <JobOffersList data={MENUISERIE_ALTERNANCES} title="Alternance & CDD/CDI" accent={RECONVERSION_ACCENT} statusMap={offerStatus} onSetStatus={setStatusFor} />
       )}
     </div>
   );
@@ -3067,12 +3108,8 @@ const NEWS_DATA = {
     title: "Agenda du jour",
     accent: "#C98B6E",
     items: [
-      { time: "06h00 – 06h15", title: "🧘 Étirements" },
-      { time: "06h15 – 06h45", title: "🍳 Préparation repas + manger" },
-      { time: "06h45 – 07h15", title: "📖 Lecture libre" },
-      { time: "07h15 – 07h30", title: "🌤️ Temps libre" },
-      { time: "07h30 – 09h00", title: "🏋️ Muscu — Fitness Park de la Valentine" },
-      { time: "09h00 – 09h15", title: "🚿 Toilette & habillage" },
+      { time: "06h00 – 09h00", title: "🌅 Routine matin" },
+      { time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
       { time: "18h00 – 18h15", title: "🗓️ Point du soir — préparer demain" },
       { time: "22h00 – 22h05", title: "🛏️ Au lit" },
     ],
@@ -3737,7 +3774,7 @@ function AccueilTab({ taskEvents, taskChecks, toggleTask, offerStatus, favoriteT
   const offerAlerts = [
     { key: "interim", label: "Intérim", data: INTERIM_OFFERS, tab: "recherche-emploi" },
     { key: "cdd-cdi", label: "CDD / CDI", data: JOB_OFFERS, tab: "recherche-emploi" },
-    { key: "alternance", label: "Alternance Menuiserie", data: MENUISERIE_ALTERNANCES, tab: "reconversion" },
+    { key: "alternance", label: "Menuiserie (Alternance/CDD/CDI)", data: MENUISERIE_ALTERNANCES, tab: "reconversion" },
     { key: "terrain", label: "Terrain & Immo", data: TERRAIN_LISTINGS, tab: "terrain" },
   ]
     .map((o) => ({ ...o, count: o.data.items.filter((it) => !offerStatus[it.id]).length }))
@@ -3978,12 +4015,13 @@ const CALENDAR_DATA = {
     { date: "2026-09-11", time: "14h30 – 15h30", title: "Réunion collective pour réussir sa reconversion avec VARLET Marine" },
     { date: "2026-09-13", time: "18h00 – 18h15", title: "🗓️ Point du soir — préparer demain" },
     { date: "2026-09-13", time: "22h00 – 22h05", title: "🛏️ Au lit" },
-    { date: "2026-09-14", time: "06h00 – 06h15", title: "🧘 Étirements" },
-    { date: "2026-09-14", time: "06h15 – 06h45", title: "🍳 Préparation repas + manger" },
-    { date: "2026-09-14", time: "06h45 – 07h15", title: "📖 Lecture libre" },
-    { date: "2026-09-14", time: "07h15 – 07h30", title: "🌤️ Temps libre" },
-    { date: "2026-09-14", time: "07h30 – 09h00", title: "🏋️ Muscu — Fitness Park de la Valentine" },
-    { date: "2026-09-14", time: "09h00 – 09h15", title: "🚿 Toilette & habillage" },
+    { date: "2026-09-14", time: "06h00 – 09h00", title: "🌅 Routine matin" },
+    {
+      date: "2026-09-14",
+      time: "09h00 – 09h30",
+      title: "🔍 Recherche d'emploi",
+      description: "Tâches : 1. Postuler aux offres d'intérim 2. Postuler aux offres en CDD / CDI 3. Postuler aux offres en alternance pour la menuiserie",
+    },
     { date: "2026-09-14", time: "18h00 – 18h15", title: "🗓️ Point du soir — préparer demain" },
     { date: "2026-09-14", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-09-15", time: "06h30 – 08h00", title: "🏋️ Muscu — Fitness Park de la Valentine" },
