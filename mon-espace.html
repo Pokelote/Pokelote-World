@@ -4875,7 +4875,7 @@ function MusculationSeanceTable({ week, seance, log, onLogChange }) {
                     </td>
                   )}
                   <td style={{ ...tdStyle, color: COLORS.muted }}>{part}</td>
-                  <td style={tdStyle}>{renderInput(id)}</td>
+                  <td style={tdStyle}>{part.includes("@") ? renderInput(id) : null}</td>
                 </tr>
               );
             });
