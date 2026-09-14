@@ -4862,6 +4862,7 @@ function MusculationSeanceTable({ week, seance, log, onLogChange }) {
               .split("·")
               .map((p) => p.trim())
               .filter(Boolean);
+            const skipPart = (p) => p === "Warm-up" || p === "Med Ball" || b.title.includes("Abdos");
             return parts.map((part, j) => {
               const id = parts.length > 1 ? `${week.n}__${seance.key}__${i}__${j}` : `${week.n}__${seance.key}__${i}`;
               return (
@@ -4875,7 +4876,7 @@ function MusculationSeanceTable({ week, seance, log, onLogChange }) {
                     </td>
                   )}
                   <td style={{ ...tdStyle, color: COLORS.muted }}>{part}</td>
-                  <td style={tdStyle}>{part.includes("@") ? renderInput(id) : null}</td>
+                  <td style={tdStyle}>{skipPart(part) ? null : renderInput(id)}</td>
                 </tr>
               );
             });
