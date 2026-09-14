@@ -4820,6 +4820,31 @@ function MusculationSeanceTable({ week, seance, log, onLogChange }) {
   };
   const tdStyle = { padding: "8px 10px", verticalAlign: "top", color: COLORS.text, fontSize: 13 };
 
+  function renderInput(id) {
+    return (
+      <input
+        type="text"
+        value={log[id] || ""}
+        onChange={(e) => onLogChange(id, e.target.value)}
+        placeholder="Charge, reps…"
+        style={{
+          width: "100%",
+          minWidth: 140,
+          background: COLORS.track,
+          border: `1px solid ${COLORS.border}`,
+          borderRadius: 6,
+          padding: "6px 8px",
+          fontSize: 13,
+          fontFamily: FONT_BODY,
+          color: COLORS.text,
+          boxSizing: "border-box",
+        }}
+        onFocus={(e) => (e.target.style.borderColor = MUSCU_ACCENT)}
+        onBlur={(e) => (e.target.style.borderColor = COLORS.border)}
+      />
+    );
+  }
+
   return (
     <div style={{ overflowX: "auto" }}>
       <table style={{ width: "100%", minWidth: 460, borderCollapse: "collapse" }}>
@@ -4831,36 +4856,29 @@ function MusculationSeanceTable({ week, seance, log, onLogChange }) {
           </tr>
         </thead>
         <tbody>
-          {seance.blocks.map((b, i) => {
-            const id = `${week.n}__${seance.key}__${i}`;
-            return (
-              <tr key={i} style={{ borderBottom: `1px solid ${COLORS.border}` }}>
-                <td style={tdStyle}>{b.title}</td>
-                <td style={{ ...tdStyle, color: COLORS.muted }}>{b.liftKey ? week.lifts[b.liftKey] : b.detail}</td>
-                <td style={tdStyle}>
-                  <input
-                    type="text"
-                    value={log[id] || ""}
-                    onChange={(e) => onLogChange(id, e.target.value)}
-                    placeholder="Charge, reps…"
-                    style={{
-                      width: "100%",
-                      minWidth: 140,
-                      background: COLORS.track,
-                      border: `1px solid ${COLORS.border}`,
-                      borderRadius: 6,
-                      padding: "6px 8px",
-                      fontSize: 13,
-                      fontFamily: FONT_BODY,
-                      color: COLORS.text,
-                      boxSizing: "border-box",
-                    }}
-                    onFocus={(e) => (e.target.style.borderColor = MUSCU_ACCENT)}
-                    onBlur={(e) => (e.target.style.borderColor = COLORS.border)}
-                  />
-                </td>
-              </tr>
-            );
+          {seance.blocks.flatMap((b, i) => {
+            const text = b.liftKey ? week.lifts[b.liftKey] : b.detail;
+            const parts = text
+              .split("·")
+              .map((p) => p.trim())
+              .filter(Boolean);
+            return parts.map((part, j) => {
+              const id = parts.length > 1 ? `${week.n}__${seance.key}__${i}__${j}` : `${week.n}__${seance.key}__${i}`;
+              return (
+                <tr
+                  key={`${i}-${j}`}
+                  style={{ borderBottom: `1px solid ${j === parts.length - 1 ? COLORS.border : COLORS.track}` }}
+                >
+                  {j === 0 && (
+                    <td style={tdStyle} rowSpan={parts.length}>
+                      {b.title}
+                    </td>
+                  )}
+                  <td style={{ ...tdStyle, color: COLORS.muted }}>{part}</td>
+                  <td style={tdStyle}>{renderInput(id)}</td>
+                </tr>
+              );
+            });
           })}
         </tbody>
       </table>
