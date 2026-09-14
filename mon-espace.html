@@ -95,13 +95,6 @@ function ChevronDown({ size = 16, style = {} }) {
 function Menu({ size = 16, color = "currentColor" }) {
   return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round"><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" /></svg>;
 }
-function Star({ size = 16, filled = false, color = "currentColor" }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill={filled ? color : "none"} stroke={color} strokeWidth="1.8" strokeLinejoin="round">
-      <polygon points="12 2.5 15.1 9 22 10 17 15 18.2 22 12 18.6 5.8 22 7 15 2 10 8.9 9" />
-    </svg>
-  );
-}
 function Tv({ size = 16, color = "currentColor" }) {
   return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2"><rect x="2" y="7" width="20" height="14" rx="2" /><polyline points="17 3 12 7 7 3" /></svg>;
 }
@@ -157,17 +150,11 @@ const TABS = [
   { key: "accueil", label: "Accueil", accent: COLORS.gold },
   { key: "news", label: "News", accent: "#C97B74" },
   { key: "calendrier", label: "Calendrier", accent: "#7FB3A3" },
-  { key: "filmo", label: "Filmographie & Séries", accent: "#D9B36B" },
-  { key: "lecture", label: "Lecture", accent: "#A9C08F" },
-  { key: "recherche-emploi", label: "Recherche d'emploi", accent: "#8FA6B3" },
-  { key: "reconversion", label: "Reconversion", accent: "#A67C52" },
-  { key: "musique", label: "Musique", accent: "#A088BB" },
-  { key: "dessin", label: "Dessin", accent: "#C98B6E" },
-  { key: "blog", label: "Blog", accent: "#6FA39E" },
-  { key: "echecs", label: "Échecs", accent: "#6B8CAE" },
-  { key: "administratif", label: "Administratif", accent: "#8899A6" },
+  { key: "culture", label: "Culture", accent: "#D9B36B" },
+  { key: "carriere", label: "Carrière", accent: "#8FA6B3" },
+  { key: "apprentissage", label: "Apprentissage", accent: "#A088BB" },
+  { key: "patrimoine", label: "Administratif & Patrimoine", accent: "#8899A6" },
   { key: "musculation", label: "Musculation", accent: "#B0785A" },
-  { key: "terrain", label: "Terrain & Immo", accent: "#9CA66B" },
 ];
 
 const THEMES = [
@@ -415,7 +402,6 @@ function App() {
   const [taskChecks, setTaskChecks] = useState(null);
   const [taskArchive, setTaskArchive] = useState(null);
   const [offerStatus, setOfferStatusState] = useState(null);
-  const [favoriteTabs, setFavoriteTabsState] = useState(null);
   const [terrainArchive, setTerrainArchiveState] = useState(null);
   const [ready, setReady] = useState(false);
 
@@ -456,13 +442,6 @@ function App() {
         offerStatusValue = res ? JSON.parse(res.value) : {};
       } catch {
         offerStatusValue = {};
-      }
-      let favoriteTabsValue = [];
-      try {
-        const res = await window.storage.get("favorite-tabs");
-        favoriteTabsValue = res ? JSON.parse(res.value) : [];
-      } catch {
-        favoriteTabsValue = [];
       }
       let terrainArchiveValue = {};
       try {
@@ -511,7 +490,6 @@ function App() {
         setTaskChecks(tasks);
         setTaskArchive(archive);
         setOfferStatusState(offerStatusValue);
-        setFavoriteTabsState(favoriteTabsValue);
         setTerrainArchiveState(terrainArchiveValue);
         setReady(true);
       }
@@ -614,18 +592,6 @@ function App() {
       setTerrainArchiveState((prev) => {
         const next = updater(prev || {});
         persist("terrain-archive", next);
-        return next;
-      });
-    },
-    [persist]
-  );
-
-  const toggleFavorite = useCallback(
-    (key) => {
-      setFavoriteTabsState((prev) => {
-        const current = prev || [];
-        const next = current.includes(key) ? current.filter((k) => k !== key) : [...current, key];
-        persist("favorite-tabs", next);
         return next;
       });
     },
@@ -756,73 +722,30 @@ function App() {
             taskChecks={taskChecks || {}}
             toggleTask={toggleTask}
             offerStatus={offerStatus || {}}
-            favoriteTabs={favoriteTabs || []}
-            toggleFavorite={toggleFavorite}
             onNavigate={setActive}
           />
         )}
         {active === "news" && <NewsTab taskEvents={Object.values(taskArchive || {})} taskChecks={taskChecks || {}} toggleTask={toggleTask} />}
         {active === "calendrier" && <CalendrierTab />}
-        {active === "filmo" && (
-          <FilmoSeriesTab
+        {active === "culture" && (
+          <CultureTab
             themeLists={themeLists}
             updateThemeList={updateThemeList}
             collections={collections}
             updateCollections={updateCollections}
             mcuChecked={mcuChecked || []}
             toggleMcu={toggleMcu}
+            lectureThemeLists={lectureThemeLists}
+            updateLectureThemeList={updateLectureThemeList}
+            lectureCollections={lectureCollections}
+            updateLectureCollections={updateLectureCollections}
           />
         )}
-        {active === "lecture" && (
-          <LectureTab
-            themeLists={lectureThemeLists}
-            updateThemeList={updateLectureThemeList}
-            collections={lectureCollections}
-            updateCollections={updateLectureCollections}
-          />
-        )}
-        {active === "recherche-emploi" && <RechercheEmploiTab offerStatus={offerStatus || {}} setOfferStatus={setOfferStatus} />}
-        {active === "reconversion" && <ReconversionTab offerStatus={offerStatus || {}} setOfferStatus={setOfferStatus} />}
-        {active === "musique" && (
-          <ActivityWithPlanTab
-            accent={MUSIQUE_ACCENT}
-            planTitle="Maîtriser FL Studio"
-            planIntro="Je suis ton professeur pour ce parcours FL Studio. On avance par étapes, sans deadline : tu passes à la suivante quand tu es à l'aise, pas avant. Pour chaque point du programme, un lien vers un tutoriel concret pour le mettre en pratique, et une durée indicative pour t'organiser."
-            planStages={FL_STUDIO_PLAN_STAGES}
-            planResources={FL_STUDIO_RESOURCES}
-          />
-        )}
-        {active === "dessin" && (
-          <ActivityWithPlanTab
-            accent={DESSIN_ACCENT}
-            planTitle="Apprendre à dessiner au crayon gris"
-            planIntro="Je suis ton professeur de dessin pour ce parcours. On avance par étapes, sans deadline : tu passes à la suivante quand tu es à l'aise, pas avant. Pour chaque exercice que je te donne, un lien vers une explication concrète de comment t'y prendre, et une durée indicative pour t'organiser."
-            planStages={DRAWING_PLAN_STAGES}
-            planResources={DRAWING_RESOURCES}
-          />
-        )}
-        {active === "blog" && (
-          <ActivityWithPlanTab
-            accent={BLOG_ACCENT}
-            planTitle="Créer et lancer mon blog"
-            planIntro="Je suis ton mentor pour lancer ce blog. On avance par étapes, sans deadline : tu passes à la suivante quand tu es prêt, pas avant. Pour chaque tâche, un lien vers un guide concret pour la mener à bien, et une durée indicative pour t'organiser."
-            planStages={BLOG_PLAN_STAGES}
-            planResources={BLOG_RESOURCES}
-          />
-        )}
-        {active === "echecs" && (
-          <ActivityWithPlanTab
-            accent={ECHECS_ACCENT}
-            planTitle="Progresser aux échecs"
-            planIntro="Je suis ton professeur d'échecs, adapté à ton niveau : à 1300 Elo, on saute les bases pour se concentrer sur les répertoires d'ouvertures, la tactique avancée et les finales. On avance par étapes, sans deadline : tu passes à la suivante quand tu es à l'aise, pas avant. Pour chaque notion, un exercice cliquable à faire directement, et une durée indicative pour t'organiser."
-            planStages={CHESS_PLAN_STAGES}
-            planResources={CHESS_RESOURCES}
-          />
-        )}
-        {active === "administratif" && <AdministratifTab />}
+        {active === "carriere" && <CarriereTab offerStatus={offerStatus || {}} setOfferStatus={setOfferStatus} />}
+        {active === "apprentissage" && <ApprentissageTab />}
         {active === "musculation" && <MusculationTab />}
-        {active === "terrain" && (
-          <TerrainTab
+        {active === "patrimoine" && (
+          <AdministratifPatrimoineTab
             offerStatus={offerStatus || {}}
             setOfferStatus={setOfferStatus}
             terrainArchive={terrainArchive || {}}
@@ -832,18 +755,141 @@ function App() {
         {active !== "accueil" &&
           active !== "news" &&
           active !== "calendrier" &&
-          active !== "filmo" &&
-          active !== "lecture" &&
-          active !== "recherche-emploi" &&
-          active !== "reconversion" &&
-          active !== "musique" &&
-          active !== "dessin" &&
-          active !== "blog" &&
-          active !== "echecs" &&
-          active !== "administratif" &&
+          active !== "culture" &&
+          active !== "carriere" &&
+          active !== "apprentissage" &&
           active !== "musculation" &&
-          active !== "terrain" && <PlaceholderTab tab={activeTab} />}
+          active !== "patrimoine" && <PlaceholderTab tab={activeTab} />}
       </main>
+    </div>
+  );
+}
+
+const CULTURE_SECTIONS = [
+  { key: "filmo", label: "Films & Séries", accent: "#D9B36B" },
+  { key: "lecture", label: "Lecture", accent: "#A9C08F" },
+];
+
+function CultureTab({
+  themeLists,
+  updateThemeList,
+  collections,
+  updateCollections,
+  mcuChecked,
+  toggleMcu,
+  lectureThemeLists,
+  updateLectureThemeList,
+  lectureCollections,
+  updateLectureCollections,
+}) {
+  const [section, setSection] = useState("filmo");
+  return (
+    <div>
+      <PillTabs options={CULTURE_SECTIONS} activeKey={section} onSelect={setSection} accentOf={(s) => s.accent} />
+      {section === "filmo" && (
+        <FilmoSeriesTab
+          themeLists={themeLists}
+          updateThemeList={updateThemeList}
+          collections={collections}
+          updateCollections={updateCollections}
+          mcuChecked={mcuChecked}
+          toggleMcu={toggleMcu}
+        />
+      )}
+      {section === "lecture" && (
+        <LectureTab
+          themeLists={lectureThemeLists}
+          updateThemeList={updateLectureThemeList}
+          collections={lectureCollections}
+          updateCollections={updateLectureCollections}
+        />
+      )}
+    </div>
+  );
+}
+
+const CARRIERE_SECTIONS = [
+  { key: "recherche-emploi", label: "Recherche d'emploi", accent: "#8FA6B3" },
+  { key: "reconversion", label: "Reconversion", accent: "#A67C52" },
+  { key: "blog", label: "Blog", accent: "#6FA39E" },
+];
+
+function CarriereTab({ offerStatus, setOfferStatus }) {
+  const [section, setSection] = useState("recherche-emploi");
+  return (
+    <div>
+      <PillTabs options={CARRIERE_SECTIONS} activeKey={section} onSelect={setSection} accentOf={(s) => s.accent} />
+      {section === "recherche-emploi" && <RechercheEmploiTab offerStatus={offerStatus} setOfferStatus={setOfferStatus} />}
+      {section === "reconversion" && <ReconversionTab offerStatus={offerStatus} setOfferStatus={setOfferStatus} />}
+      {section === "blog" && (
+        <ActivityWithPlanTab
+          accent={BLOG_ACCENT}
+          planTitle="Créer et lancer mon blog"
+          planIntro="Je suis ton mentor pour lancer ce blog. On avance par étapes, sans deadline : tu passes à la suivante quand tu es prêt, pas avant. Pour chaque tâche, un lien vers un guide concret pour la mener à bien, et une durée indicative pour t'organiser."
+          planStages={BLOG_PLAN_STAGES}
+          planResources={BLOG_RESOURCES}
+        />
+      )}
+    </div>
+  );
+}
+
+const APPRENTISSAGE_SECTIONS = [
+  { key: "musique", label: "Musique", accent: "#A088BB" },
+  { key: "dessin", label: "Dessin", accent: "#C98B6E" },
+  { key: "echecs", label: "Échecs", accent: "#6B8CAE" },
+];
+
+function ApprentissageTab() {
+  const [section, setSection] = useState("musique");
+  return (
+    <div>
+      <PillTabs options={APPRENTISSAGE_SECTIONS} activeKey={section} onSelect={setSection} accentOf={(s) => s.accent} />
+      {section === "musique" && (
+        <ActivityWithPlanTab
+          accent={MUSIQUE_ACCENT}
+          planTitle="Maîtriser FL Studio"
+          planIntro="Je suis ton professeur pour ce parcours FL Studio. On avance par étapes, sans deadline : tu passes à la suivante quand tu es à l'aise, pas avant. Pour chaque point du programme, un lien vers un tutoriel concret pour le mettre en pratique, et une durée indicative pour t'organiser."
+          planStages={FL_STUDIO_PLAN_STAGES}
+          planResources={FL_STUDIO_RESOURCES}
+        />
+      )}
+      {section === "dessin" && (
+        <ActivityWithPlanTab
+          accent={DESSIN_ACCENT}
+          planTitle="Apprendre à dessiner au crayon gris"
+          planIntro="Je suis ton professeur de dessin pour ce parcours. On avance par étapes, sans deadline : tu passes à la suivante quand tu es à l'aise, pas avant. Pour chaque exercice que je te donne, un lien vers une explication concrète de comment t'y prendre, et une durée indicative pour t'organiser."
+          planStages={DRAWING_PLAN_STAGES}
+          planResources={DRAWING_RESOURCES}
+        />
+      )}
+      {section === "echecs" && (
+        <ActivityWithPlanTab
+          accent={ECHECS_ACCENT}
+          planTitle="Progresser aux échecs"
+          planIntro="Je suis ton professeur d'échecs, adapté à ton niveau : à 1300 Elo, on saute les bases pour se concentrer sur les répertoires d'ouvertures, la tactique avancée et les finales. On avance par étapes, sans deadline : tu passes à la suivante quand tu es à l'aise, pas avant. Pour chaque notion, un exercice cliquable à faire directement, et une durée indicative pour t'organiser."
+          planStages={CHESS_PLAN_STAGES}
+          planResources={CHESS_RESOURCES}
+        />
+      )}
+    </div>
+  );
+}
+
+const PATRIMOINE_SECTIONS = [
+  { key: "administratif", label: "Administratif", accent: "#8899A6" },
+  { key: "terrain", label: "Terrain & Immo", accent: "#9CA66B" },
+];
+
+function AdministratifPatrimoineTab({ offerStatus, setOfferStatus, terrainArchive, setTerrainArchive }) {
+  const [section, setSection] = useState("administratif");
+  return (
+    <div>
+      <PillTabs options={PATRIMOINE_SECTIONS} activeKey={section} onSelect={setSection} accentOf={(s) => s.accent} />
+      {section === "administratif" && <AdministratifTab />}
+      {section === "terrain" && (
+        <TerrainTab offerStatus={offerStatus} setOfferStatus={setOfferStatus} terrainArchive={terrainArchive} setTerrainArchive={setTerrainArchive} />
+      )}
     </div>
   );
 }
@@ -3646,7 +3692,7 @@ function NewsTab({ taskEvents, taskChecks, toggleTask }) {
   );
 }
 
-function AccueilTab({ taskEvents, taskChecks, toggleTask, offerStatus, favoriteTabs, toggleFavorite, onNavigate }) {
+function AccueilTab({ taskEvents, taskChecks, toggleTask, offerStatus, onNavigate }) {
   const [adminChecked, setAdminChecked] = useState(null);
 
   useEffect(() => {
@@ -3681,18 +3727,15 @@ function AccueilTab({ taskEvents, taskChecks, toggleTask, offerStatus, favoriteT
   }
 
   const offerAlerts = [
-    { key: "interim", label: "Intérim", data: INTERIM_OFFERS, tab: "recherche-emploi" },
-    { key: "cdd-cdi", label: "CDD / CDI", data: JOB_OFFERS, tab: "recherche-emploi" },
-    { key: "alternance", label: "Menuiserie (Alternance/CDD/CDI)", data: MENUISERIE_ALTERNANCES, tab: "reconversion" },
-    { key: "terrain", label: "Terrain & Immo", data: TERRAIN_LISTINGS, tab: "terrain" },
+    { key: "interim", label: "Intérim", data: INTERIM_OFFERS, tab: "carriere" },
+    { key: "cdd-cdi", label: "CDD / CDI", data: JOB_OFFERS, tab: "carriere" },
+    { key: "alternance", label: "Menuiserie (Alternance/CDD/CDI)", data: MENUISERIE_ALTERNANCES, tab: "carriere" },
+    { key: "terrain", label: "Terrain & Immo", data: TERRAIN_LISTINGS, tab: "patrimoine" },
   ]
     .map((o) => ({ ...o, count: o.data.items.filter((it) => !offerStatus[it.id]).length }))
     .filter((o) => o.count > 0);
 
   const hasAlerts = adminAlerts.length > 0 || offerAlerts.length > 0;
-
-  const otherTabs = TABS.filter((t) => t.key !== "accueil");
-  const favTabs = otherTabs.filter((t) => (favoriteTabs || []).includes(t.key));
 
   const todayLabel = new Date().toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" });
 
@@ -3797,70 +3840,19 @@ function AccueilTab({ taskEvents, taskChecks, toggleTask, offerStatus, favoriteT
         </div>
       </div>
 
-      <div style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: COLORS.gold, marginTop: 28, marginBottom: 12 }}>Raccourcis</div>
-      {favTabs.length === 0 ? (
-        <p style={{ color: COLORS.muted, fontSize: 13, fontStyle: "italic", marginBottom: 12 }}>
-          Aucun raccourci pour l'instant — choisis tes onglets favoris ci-dessous.
-        </p>
+      <div style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: COLORS.gold, marginTop: 28, marginBottom: 4 }}>News du jour</div>
+      <p style={{ color: COLORS.muted, fontSize: 13, marginBottom: 16 }}>
+        {weatherEmoji(NEWS_DATA.quotidien.meteo.resume)} {NEWS_DATA.quotidien.meteo.ville} — {NEWS_DATA.quotidien.meteo.resume}
+      </p>
+      {NEWS_DATA.quotidien.france.length === 0 && NEWS_DATA.quotidien.monde.length === 0 ? (
+        <p style={{ color: COLORS.muted, fontSize: 13, fontStyle: "italic" }}>Aucune actualité pour l'instant.</p>
       ) : (
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(160px, 100%), 1fr))", gap: 10, marginBottom: 16 }}>
-          {favTabs.map((tab) => (
-            <button
-              key={tab.key}
-              onClick={() => onNavigate(tab.key)}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 8,
-                textAlign: "left",
-                background: COLORS.card,
-                border: `1px solid ${COLORS.cardBorder}`,
-                borderRadius: 10,
-                padding: "12px 14px",
-                cursor: "pointer",
-                fontFamily: FONT_BODY,
-                fontSize: 13,
-                color: COLORS.text,
-              }}
-            >
-              <span style={{ width: 8, height: 8, borderRadius: "50%", background: tab.accent, flexShrink: 0 }} />
-              {tab.label}
-            </button>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(300px, 100%), 1fr))", gap: 12, alignItems: "start" }}>
+          {[...NEWS_DATA.quotidien.france, ...NEWS_DATA.quotidien.monde].map((it, i) => (
+            <NewsArticle key={i} item={it} accent={NEWS_DATA.quotidien.accent} />
           ))}
         </div>
       )}
-
-      <CollapsibleSection title="Gérer mes raccourcis" accent={COLORS.gold} defaultOpen={favTabs.length === 0}>
-        <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-          {otherTabs.map((tab) => {
-            const isFav = (favoriteTabs || []).includes(tab.key);
-            return (
-              <button
-                key={tab.key}
-                onClick={() => toggleFavorite(tab.key)}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 10,
-                  width: "100%",
-                  textAlign: "left",
-                  background: "none",
-                  border: "none",
-                  borderRadius: 8,
-                  padding: "8px 4px",
-                  fontFamily: FONT_BODY,
-                  fontSize: 13,
-                  color: COLORS.text,
-                  cursor: "pointer",
-                }}
-              >
-                <Star size={15} filled={isFav} color={isFav ? COLORS.gold : COLORS.muted} />
-                <span style={{ flex: 1 }}>{tab.label}</span>
-              </button>
-            );
-          })}
-        </div>
-      </CollapsibleSection>
     </div>
   );
 }
