@@ -84,6 +84,9 @@ function ChevronRight({ size = 16, style = {} }) {
 function ChevronDown({ size = 16, style = {} }) {
   return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={style.color || "currentColor"} strokeWidth="2" style={style}><polyline points="6 9 12 15 18 9" /></svg>;
 }
+function Menu({ size = 16, color = "currentColor" }) {
+  return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round"><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" /></svg>;
+}
 function Tv({ size = 16, color = "currentColor" }) {
   return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2"><rect x="2" y="7" width="20" height="14" rx="2" /><polyline points="17 3 12 7 7 3" /></svg>;
 }
@@ -385,6 +388,7 @@ async function loadThemeStorage(themes, storagePrefix, defaultItems, defaultColl
 
 function App() {
   const [active, setActive] = useState("news");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [themeLists, setThemeLists] = useState(null);
   const [collections, setCollections] = useState(null);
   const [lectureThemeLists, setLectureThemeLists] = useState(null);
@@ -594,16 +598,26 @@ function App() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap');
         @media (max-width: 640px) {
-          .app-header { padding: 16px 16px 0 !important; }
-          .app-nav { flex-wrap: nowrap !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 4px; }
-          .app-nav::-webkit-scrollbar { display: none; }
-          .app-nav button { flex-shrink: 0; }
+          .app-header { padding: 16px 16px !important; display: flex !important; align-items: center; justify-content: space-between; }
+          .app-nav { display: none !important; }
+          .app-menu-btn { display: flex !important; }
           .app-main { padding: 20px 16px !important; }
         }
       `}</style>
 
       <header className="app-header" style={{ background: COLORS.ink, padding: "24px 40px 0" }}>
         <div style={{ fontFamily: FONT_DISPLAY, fontSize: 20, color: COLORS.text, marginBottom: 18 }}>Mon espace</div>
+        <button
+          className="app-menu-btn"
+          onClick={() => setMobileMenuOpen(true)}
+          aria-label="Menu"
+          style={{
+            display: "none", background: "none", border: `1px solid ${COLORS.cardBorder}`, borderRadius: 8,
+            color: COLORS.text, cursor: "pointer", padding: "8px 10px", alignItems: "center", justifyContent: "center",
+          }}
+        >
+          <Menu size={18} />
+        </button>
         <nav className="app-nav" style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
           {TABS.map((tab) => {
             const isActive = tab.key === active;
@@ -629,6 +643,52 @@ function App() {
           })}
         </nav>
       </header>
+
+      {mobileMenuOpen && (
+        <div
+          onClick={() => setMobileMenuOpen(false)}
+          style={{ position: "fixed", inset: 0, background: "rgba(10,17,40,0.7)", zIndex: 50, display: "flex", flexDirection: "column" }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{ background: COLORS.ink, borderBottom: `1px solid ${COLORS.cardBorder}`, padding: "16px 20px 20px", maxHeight: "80vh", overflowY: "auto" }}
+          >
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+              <span style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: COLORS.text }}>Mon espace</span>
+              <button
+                onClick={() => setMobileMenuOpen(false)}
+                aria-label="Fermer"
+                style={{ background: "none", border: "none", color: COLORS.muted, cursor: "pointer", padding: 4, display: "flex" }}
+              >
+                <X size={22} />
+              </button>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+              {TABS.map((tab) => {
+                const isActive = tab.key === active;
+                return (
+                  <button
+                    key={tab.key}
+                    onClick={() => {
+                      setActive(tab.key);
+                      setMobileMenuOpen(false);
+                    }}
+                    style={{
+                      display: "flex", alignItems: "center", gap: 10, textAlign: "left",
+                      background: isActive ? COLORS.card : "none", border: "none", borderRadius: 8,
+                      padding: "12px 12px", fontFamily: FONT_BODY, fontSize: 15,
+                      color: isActive ? COLORS.text : COLORS.barMuted, cursor: "pointer",
+                    }}
+                  >
+                    <span style={{ width: 8, height: 8, borderRadius: "50%", background: tab.accent, flexShrink: 0 }} />
+                    {tab.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
 
       <main className="app-main" style={{ flex: 1, padding: "44px 56px", overflowY: "auto" }}>
         {active === "news" && <NewsTab taskEvents={Object.values(taskArchive || {})} taskChecks={taskChecks || {}} toggleTask={toggleTask} />}
@@ -2403,7 +2463,7 @@ const CHESS_RESOURCES = [
 ];
 
 const NEWS_DATA = {
-  updatedAt: "11 septembre 2026 · 06h00",
+  updatedAt: "14 septembre 2026 · 07h30",
   esport: {
     title: "Karmine Corp — LEC",
     accent: "#D98FB3",
@@ -2702,7 +2762,8 @@ const NEWS_DATA = {
       { time: "07h15 – 07h30", title: "🌤️ Temps libre" },
       { time: "07h30 – 09h00", title: "🏋️ Muscu — Fitness Park de la Valentine" },
       { time: "09h00 – 09h15", title: "🚿 Toilette & habillage" },
-      { time: "14h30 – 15h30", title: "Réunion collective pour réussir sa reconversion avec VARLET Marine" },
+      { time: "18h00 – 18h15", title: "🗓️ Point du soir — préparer demain" },
+      { time: "22h00 – 22h05", title: "🛏️ Au lit" },
     ],
   },
   mails: {
@@ -3968,6 +4029,7 @@ const MUSCU_ACCENT = "#B0785A";
 const MUSCU_WEEKS = [
   {
     n: 1,
+    start: "2026-09-14",
     dates: "14 → 20 septembre 2026",
     lifts: {
       hangClean: "Warm-up · 2×5 @63% · 2×5 @75%",
@@ -3980,6 +4042,7 @@ const MUSCU_WEEKS = [
   },
   {
     n: 2,
+    start: "2026-09-21",
     dates: "21 → 27 septembre 2026",
     lifts: {
       hangClean: "Warm-up · 2×3 @63% · 2×3 @80%",
@@ -3992,6 +4055,7 @@ const MUSCU_WEEKS = [
   },
   {
     n: 3,
+    start: "2026-09-28",
     dates: "28 septembre → 4 octobre 2026",
     lifts: {
       hangClean: "Warm-up · 2×5 @60% · 2×5 @75%",
@@ -4004,6 +4068,7 @@ const MUSCU_WEEKS = [
   },
   {
     n: 4,
+    start: "2026-10-05",
     dates: "5 → 11 octobre 2026",
     lifts: {
       hangClean: "Warm-up · 2×3 @63% · 2×3 @80%",
@@ -4016,6 +4081,7 @@ const MUSCU_WEEKS = [
   },
   {
     n: 5,
+    start: "2026-10-12",
     dates: "12 → 18 octobre 2026",
     lifts: {
       hangClean: "Warm-up · 2×5 @65% · 3×5 @80%",
@@ -4028,6 +4094,7 @@ const MUSCU_WEEKS = [
   },
   {
     n: 6,
+    start: "2026-10-19",
     dates: "19 → 25 octobre 2026",
     lifts: {
       hangClean: "OFF — Box Jumps 3×8",
@@ -4040,6 +4107,7 @@ const MUSCU_WEEKS = [
   },
   {
     n: 7,
+    start: "2026-10-26",
     dates: "26 octobre → 1 novembre 2026",
     lifts: {
       hangClean: "Warm-up · 2×2 @65% · 3×2 @90%",
@@ -4052,6 +4120,7 @@ const MUSCU_WEEKS = [
   },
   {
     n: 8,
+    start: "2026-11-02",
     dates: "2 → 8 novembre 2026",
     lifts: {
       hangClean: "Warm-up · 2×5 @60% · 3×5 @80%",
@@ -4064,6 +4133,7 @@ const MUSCU_WEEKS = [
   },
   {
     n: 9,
+    start: "2026-11-09",
     dates: "9 → 15 novembre 2026",
     lifts: {
       hangClean: "Warm-up · 2×3 @65% · 3×3 @85%",
@@ -4144,22 +4214,95 @@ const MUSCU_SEANCES = [
   },
 ];
 
-function MusculationWeekRow({ week, checked, onToggle }) {
+function musculationWeekStatus(checked, week) {
+  const done = MUSCU_SEANCES.filter((s) => checked[`${week.n}-${s.key}`]).length;
+  return { done, total: MUSCU_SEANCES.length, complete: done === MUSCU_SEANCES.length };
+}
+
+function isMusculationCurrentWeek(week) {
+  const start = new Date(week.start + "T00:00:00");
+  const end = addDays(start, 6);
+  const now = new Date();
+  now.setHours(0, 0, 0, 0);
+  return now >= start && now <= end;
+}
+
+function ProgressRing({ done, total, size = 84, accent }) {
+  const pct = total > 0 ? done / total : 0;
+  const stroke = 8;
+  const r = (size - stroke) / 2;
+  const c = 2 * Math.PI * r;
   return (
-    <CollapsibleSection title={`Semaine ${week.n}`} accent={checked ? COLORS.checked : MUSCU_ACCENT} badge={week.dates}>
-      <div onClick={() => onToggle(week.n)} style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer", marginBottom: 18 }}>
-        <span
-          style={{
-            width: 18, height: 18, borderRadius: 5, border: `1.5px solid ${checked ? COLORS.checked : COLORS.muted}`,
-            background: checked ? COLORS.checked : "transparent", flexShrink: 0,
-            display: "flex", alignItems: "center", justifyContent: "center",
-          }}
-        >
-          {checked && <Check size={11} color="white" />}
-        </span>
-        <span style={{ fontSize: 13, color: checked ? COLORS.checked : COLORS.muted }}>
-          {checked ? "Semaine terminée" : "Marquer la semaine comme terminée"}
-        </span>
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} style={{ flexShrink: 0 }}>
+      <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke={COLORS.track} strokeWidth={stroke} />
+      <circle
+        cx={size / 2} cy={size / 2} r={r} fill="none" stroke={accent} strokeWidth={stroke}
+        strokeDasharray={c} strokeDashoffset={c * (1 - pct)} strokeLinecap="round"
+        transform={`rotate(-90 ${size / 2} ${size / 2})`}
+      />
+      <text x="50%" y="50%" textAnchor="middle" dominantBaseline="central" fill={COLORS.text} fontFamily={FONT_DISPLAY} fontSize={size * 0.22} fontWeight="600">
+        {done}/{total}
+      </text>
+    </svg>
+  );
+}
+
+function MusculationWeekDots({ checked, selectedWeek, onSelect }) {
+  return (
+    <div style={{ display: "flex", gap: 8, marginBottom: 20, overflowX: "auto", paddingBottom: 4 }}>
+      {MUSCU_WEEKS.map((week) => {
+        const { complete, done } = musculationWeekStatus(checked, week);
+        const current = isMusculationCurrentWeek(week);
+        const isSelected = selectedWeek === week.n;
+        return (
+          <button
+            key={week.n}
+            onClick={() => onSelect(week.n)}
+            aria-label={`Semaine ${week.n}`}
+            style={{
+              flexShrink: 0, width: 38, height: 38, borderRadius: "50%", cursor: "pointer",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              border: current ? `2px solid ${MUSCU_ACCENT}` : `1.5px solid ${complete ? COLORS.checked : done > 0 ? MUSCU_ACCENT : COLORS.border}`,
+              background: complete ? COLORS.checked : "transparent",
+              boxShadow: isSelected ? `0 0 0 3px ${COLORS.bgTo}, 0 0 0 5px ${MUSCU_ACCENT}` : "none",
+              color: complete ? "white" : current ? MUSCU_ACCENT : COLORS.muted,
+              fontFamily: FONT_BODY, fontSize: 12, fontWeight: 600,
+            }}
+          >
+            {complete ? <Check size={14} color="white" /> : week.n}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function MusculationWeekDetail({ week, checked, onToggleSeance }) {
+  return (
+    <div style={{ background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, borderRadius: 10, padding: "18px 18px 20px" }}>
+      <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 14, flexWrap: "wrap", gap: 8 }}>
+        <span style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: COLORS.text }}>Semaine {week.n}</span>
+        <span style={{ fontSize: 12, color: COLORS.muted }}>{week.dates}</span>
+      </div>
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 22 }}>
+        {MUSCU_SEANCES.map((s) => {
+          const done = !!checked[`${week.n}-${s.key}`];
+          return (
+            <button
+              key={s.key}
+              onClick={() => onToggleSeance(week.n, s.key)}
+              style={{
+                display: "flex", alignItems: "center", gap: 6, padding: "7px 12px", borderRadius: 999, cursor: "pointer",
+                border: `1px solid ${done ? COLORS.checked : COLORS.border}`,
+                background: done ? COLORS.checked : "transparent",
+                color: done ? "white" : COLORS.muted, fontFamily: FONT_BODY, fontSize: 12,
+              }}
+            >
+              {done && <Check size={11} color="white" />}
+              {s.title}
+            </button>
+          );
+        })}
       </div>
       {MUSCU_SEANCES.map((seance) => (
         <div key={seance.key} style={{ marginBottom: 18 }}>
@@ -4174,12 +4317,13 @@ function MusculationWeekRow({ week, checked, onToggle }) {
           </div>
         </div>
       ))}
-    </CollapsibleSection>
+    </div>
   );
 }
 
 function MusculationTab() {
   const [checked, setChecked] = useState(null);
+  const [selectedWeek, setSelectedWeek] = useState(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -4191,7 +4335,11 @@ function MusculationTab() {
       } catch {
         val = {};
       }
-      if (!cancelled) setChecked(val);
+      if (!cancelled) {
+        setChecked(val);
+        const current = MUSCU_WEEKS.find((w) => isMusculationCurrentWeek(w));
+        setSelectedWeek(current ? current.n : 1);
+      }
     }
     load();
     return () => {
@@ -4199,31 +4347,40 @@ function MusculationTab() {
     };
   }, []);
 
-  function toggle(n) {
+  function toggleSeance(weekN, seanceKey) {
     setChecked((prev) => {
       const current = prev || {};
-      const next = { ...current, [n]: !current[n] };
+      const id = `${weekN}-${seanceKey}`;
+      const next = { ...current, [id]: !current[id] };
       window.storage.set("musculation-weeks-checked", JSON.stringify(next)).catch(() => {});
       return next;
     });
   }
 
-  if (!checked) return null;
+  if (!checked || selectedWeek == null) return null;
 
-  const doneCount = MUSCU_WEEKS.filter((w) => checked[w.n]).length;
+  const totalUnits = MUSCU_WEEKS.length * MUSCU_SEANCES.length;
+  const doneUnits = MUSCU_WEEKS.reduce((sum, w) => sum + musculationWeekStatus(checked, w).done, 0);
+  const weeksComplete = MUSCU_WEEKS.filter((w) => musculationWeekStatus(checked, w).complete).length;
+  const week = MUSCU_WEEKS.find((w) => w.n === selectedWeek);
 
   return (
     <div>
-      <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 6, flexWrap: "wrap", gap: 8 }}>
-        <h1 style={{ fontFamily: FONT_DISPLAY, fontSize: 32, color: COLORS.text, margin: 0, fontWeight: 600 }}>Musculation</h1>
-        <span style={{ fontSize: 13, color: COLORS.muted }}>{doneCount} / {MUSCU_WEEKS.length} semaines</span>
-      </div>
+      <h1 style={{ fontFamily: FONT_DISPLAY, fontSize: 32, color: COLORS.text, margin: 0, marginBottom: 6, fontWeight: 600 }}>Musculation</h1>
       <p style={{ color: COLORS.muted, fontSize: 14, lineHeight: 1.6, marginBottom: 8 }}>
         Programme Argonautes Aix-en-Provence — Sr Elite 2027, 14 septembre → 2 novembre 2026 (cycle sur 9 semaines).
       </p>
       <p style={{ color: COLORS.muted, fontSize: 13, fontStyle: "italic", lineHeight: 1.6, marginBottom: 24 }}>
         "Whatever your hand finds to do, do it with all your might."
       </p>
+
+      <div style={{ display: "flex", alignItems: "center", gap: 20, marginBottom: 24, flexWrap: "wrap" }}>
+        <ProgressRing done={doneUnits} total={totalUnits} accent={MUSCU_ACCENT} />
+        <div>
+          <div style={{ fontSize: 14, fontWeight: 500, color: COLORS.text, marginBottom: 4 }}>{weeksComplete} / {MUSCU_WEEKS.length} semaines complètes</div>
+          <div style={{ fontSize: 12, color: COLORS.muted }}>{doneUnits} / {totalUnits} séances au total</div>
+        </div>
+      </div>
 
       <div style={{ background: COLORS.card, borderRadius: 10, padding: "14px 16px", borderLeft: `3px solid ${MUSCU_ACCENT}`, marginBottom: 24 }}>
         <div style={{ fontSize: 14, fontWeight: 500, color: COLORS.text, marginBottom: 4 }}>Méthode : Rep Max</div>
@@ -4234,9 +4391,8 @@ function MusculationTab() {
         </p>
       </div>
 
-      {MUSCU_WEEKS.map((week) => (
-        <MusculationWeekRow key={week.n} week={week} checked={!!checked[week.n]} onToggle={toggle} />
-      ))}
+      <MusculationWeekDots checked={checked} selectedWeek={selectedWeek} onSelect={setSelectedWeek} />
+      <MusculationWeekDetail week={week} checked={checked} onToggleSeance={toggleSeance} />
     </div>
   );
 }
