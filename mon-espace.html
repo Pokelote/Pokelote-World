@@ -416,6 +416,7 @@ function App() {
   const [taskArchive, setTaskArchive] = useState(null);
   const [offerStatus, setOfferStatusState] = useState(null);
   const [favoriteTabs, setFavoriteTabsState] = useState(null);
+  const [terrainArchive, setTerrainArchiveState] = useState(null);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -463,6 +464,13 @@ function App() {
       } catch {
         favoriteTabsValue = [];
       }
+      let terrainArchiveValue = {};
+      try {
+        const res = await window.storage.get("terrain-archive");
+        terrainArchiveValue = res ? JSON.parse(res.value) : {};
+      } catch {
+        terrainArchiveValue = {};
+      }
       let archiveChanged = false;
       // Migration : les anciens schémas d'id ("date__catégorie" ou "date__catégorie__heure")
       // laissaient une entrée orpheline dès qu'un événement changeait de catégorie détectée
@@ -504,6 +512,7 @@ function App() {
         setTaskArchive(archive);
         setOfferStatusState(offerStatusValue);
         setFavoriteTabsState(favoriteTabsValue);
+        setTerrainArchiveState(terrainArchiveValue);
         setReady(true);
       }
     }
@@ -594,6 +603,17 @@ function App() {
       setOfferStatusState((prev) => {
         const next = updater(prev || {});
         persist("job-offer-status", next);
+        return next;
+      });
+    },
+    [persist]
+  );
+
+  const setTerrainArchive = useCallback(
+    (updater) => {
+      setTerrainArchiveState((prev) => {
+        const next = updater(prev || {});
+        persist("terrain-archive", next);
         return next;
       });
     },
@@ -837,7 +857,14 @@ function App() {
         )}
         {active === "administratif" && <AdministratifTab />}
         {active === "musculation" && <MusculationTab />}
-        {active === "terrain" && <TerrainTab offerStatus={offerStatus || {}} setOfferStatus={setOfferStatus} />}
+        {active === "terrain" && (
+          <TerrainTab
+            offerStatus={offerStatus || {}}
+            setOfferStatus={setOfferStatus}
+            terrainArchive={terrainArchive || {}}
+            setTerrainArchive={setTerrainArchive}
+          />
+        )}
         {active !== "accueil" &&
           active !== "news" &&
           active !== "calendrier" &&
@@ -1303,7 +1330,6 @@ const RECHERCHE_EMPLOI_SECTIONS = [
 ];
 
 const OFFER_STATUSES = [
-  { key: "a-voir", label: "À voir" },
   { key: "postule", label: "J'ai postulé" },
   { key: "pas-interesse", label: "Ne m'intéresse pas" },
   { key: "indisponible", label: "N'est plus disponible" },
@@ -1677,13 +1703,17 @@ function ReconversionTab({ taskEvents, taskChecks, toggleTask, offerStatus, setO
 const TERRAIN_ACCENT = "#9CA66B";
 
 const TERRAIN_STATUSES = [
-  { key: "a-voir", label: "À voir" },
-  { key: "contacte", label: "J'ai contacté" },
+  { key: "interessant", label: "Intéressant" },
   { key: "pas-interesse", label: "Ne m'intéresse pas" },
   { key: "vendu", label: "Vendu / plus disponible" },
 ];
 
 const TERRAIN_ZONE_LABELS = { lac: "Lac", montagne: "Montagne", mer: "Mer" };
+
+const TERRAIN_TOP_SECTIONS = [
+  { key: "annonces", label: "Annonces" },
+  { key: "historique", label: "Historique" },
+];
 
 const TERRAIN_SECTIONS = [
   { key: "tous", label: "Tous" },
@@ -1778,7 +1808,7 @@ function TerrainStatusPicker({ status, onSelect }) {
       {TERRAIN_STATUSES.map((s) => {
         const isActive = status === s.key;
         const activeColor =
-          s.key === "contacte" ? COLORS.checked : s.key === "pas-interesse" ? COLORS.barMuted : s.key === "vendu" ? "#B85C5C" : TERRAIN_ACCENT;
+          s.key === "interessant" ? COLORS.checked : s.key === "pas-interesse" ? COLORS.barMuted : s.key === "vendu" ? "#B85C5C" : TERRAIN_ACCENT;
         return (
           <button
             key={s.key}
@@ -1809,7 +1839,7 @@ function TerrainListingCard({ item, status, onSetStatus }) {
         background: COLORS.card,
         borderRadius: 10,
         padding: "14px 16px",
-        borderLeft: `3px solid ${status === "contacte" ? COLORS.checked : status === "vendu" ? "#B85C5C" : TERRAIN_ACCENT}`,
+        borderLeft: `3px solid ${status === "interessant" ? COLORS.checked : status === "vendu" ? "#B85C5C" : TERRAIN_ACCENT}`,
         opacity: status === "pas-interesse" || status === "vendu" ? 0.55 : 1,
       }}
     >
@@ -1829,11 +1859,27 @@ function TerrainListingCard({ item, status, onSetStatus }) {
   );
 }
 
-function TerrainTab({ offerStatus, setOfferStatus }) {
+function TerrainTab({ offerStatus, setOfferStatus, terrainArchive, setTerrainArchive }) {
+  const [section, setSection] = useState("annonces");
   const [zone, setZone] = useState("tous");
-  const setStatusFor = makeOfferStatusSetter(setOfferStatus);
   const d = TERRAIN_LISTINGS;
   const items = zone === "tous" ? d.items : d.items.filter((it) => it.zoneType === zone);
+  const historyItems = Object.values(terrainArchive || {});
+
+  function setStatusFor(item, status) {
+    setOfferStatus((prev) => {
+      const next = { ...prev };
+      if (status) next[item.id] = status;
+      else delete next[item.id];
+      return next;
+    });
+    setTerrainArchive((prev) => {
+      const next = { ...prev };
+      if (status === "interessant") next[item.id] = item;
+      else delete next[item.id];
+      return next;
+    });
+  }
 
   return (
     <div>
@@ -1844,15 +1890,42 @@ function TerrainTab({ offerStatus, setOfferStatus }) {
         <span style={{ fontSize: 12, color: COLORS.muted }}>Mis à jour le {d.updatedAt}</span>
       </div>
 
-      <PillTabs options={TERRAIN_SECTIONS} activeKey={zone} onSelect={setZone} accentOf={() => TERRAIN_ACCENT} />
+      <PillTabs options={TERRAIN_TOP_SECTIONS} activeKey={section} onSelect={setSection} accentOf={() => TERRAIN_ACCENT} marginBottom={16} />
 
-      {items.length === 0 ? (
-        <p style={{ color: COLORS.muted, fontSize: 13, fontStyle: "italic" }}>Aucune annonce pour l'instant dans cette zone.</p>
-      ) : (
-        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-          {items.map((item) => (
-            <TerrainListingCard key={item.id} item={item} status={offerStatus[item.id] || null} onSetStatus={setStatusFor} />
-          ))}
+      {section === "annonces" && (
+        <div>
+          <PillTabs options={TERRAIN_SECTIONS} activeKey={zone} onSelect={setZone} accentOf={() => TERRAIN_ACCENT} />
+
+          {items.length === 0 ? (
+            <p style={{ color: COLORS.muted, fontSize: 13, fontStyle: "italic" }}>Aucune annonce pour l'instant dans cette zone.</p>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              {items.map((item) => (
+                <TerrainListingCard key={item.id} item={item} status={offerStatus[item.id] || null} onSetStatus={(id, s) => setStatusFor(item, s)} />
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {section === "historique" && (
+        <div>
+          {historyItems.length === 0 ? (
+            <p style={{ color: COLORS.muted, fontSize: 13, fontStyle: "italic" }}>
+              Aucune annonce marquée "Intéressant" pour l'instant — elles resteront ici même après le renouvellement des annonces.
+            </p>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              {historyItems.map((item) => (
+                <TerrainListingCard
+                  key={item.id}
+                  item={item}
+                  status={offerStatus[item.id] || "interessant"}
+                  onSetStatus={(id, s) => setStatusFor(item, s)}
+                />
+              ))}
+            </div>
+          )}
         </div>
       )}
     </div>
