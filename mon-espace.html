@@ -167,6 +167,7 @@ const TABS = [
   { key: "echecs", label: "Échecs", accent: "#6B8CAE" },
   { key: "administratif", label: "Administratif", accent: "#8899A6" },
   { key: "musculation", label: "Musculation", accent: "#B0785A" },
+  { key: "terrain", label: "Terrain & Immo", accent: "#9CA66B" },
 ];
 
 const THEMES = [
@@ -836,6 +837,7 @@ function App() {
         )}
         {active === "administratif" && <AdministratifTab />}
         {active === "musculation" && <MusculationTab />}
+        {active === "terrain" && <TerrainTab offerStatus={offerStatus || {}} setOfferStatus={setOfferStatus} />}
         {active !== "accueil" &&
           active !== "news" &&
           active !== "calendrier" &&
@@ -848,7 +850,8 @@ function App() {
           active !== "blog" &&
           active !== "echecs" &&
           active !== "administratif" &&
-          active !== "musculation" && <PlaceholderTab tab={activeTab} />}
+          active !== "musculation" &&
+          active !== "terrain" && <PlaceholderTab tab={activeTab} />}
       </main>
     </div>
   );
@@ -1667,6 +1670,191 @@ function ReconversionTab({ taskEvents, taskChecks, toggleTask, offerStatus, setO
         <MenuiserieTab taskEvents={taskEvents} taskChecks={taskChecks} toggleTask={toggleTask} offerStatus={offerStatus} setOfferStatus={setOfferStatus} />
       )}
       {section === "enseignement" && <EnseignementTab />}
+    </div>
+  );
+}
+
+const TERRAIN_ACCENT = "#9CA66B";
+
+const TERRAIN_STATUSES = [
+  { key: "a-voir", label: "À voir" },
+  { key: "contacte", label: "J'ai contacté" },
+  { key: "pas-interesse", label: "Ne m'intéresse pas" },
+  { key: "vendu", label: "Vendu / plus disponible" },
+];
+
+const TERRAIN_ZONE_LABELS = { lac: "Lac", montagne: "Montagne", mer: "Mer" };
+
+const TERRAIN_SECTIONS = [
+  { key: "tous", label: "Tous" },
+  { key: "lac", label: "Lac" },
+  { key: "montagne", label: "Montagne" },
+  { key: "mer", label: "Mer" },
+];
+
+const TERRAIN_LISTINGS = {
+  updatedAt: "14 septembre 2026",
+  criteria: "Terrain, ruine reconstructible ou petite maison à rénover — budget ≤ 100 000 €, proche d'un lac, d'une montagne ou de la mer, si possible à moins de 2h de Marseille / Aix-en-Provence.",
+  note: "Le bord de mer abordable à moins de 2h de Marseille n'existe quasiment pas (littoral PACA très cher) — les terrains \"Mer\" ci-dessous sont l'option la plus proche trouvée à ce budget, à environ 2h15.",
+  items: [
+    {
+      id: "terrain-lac-roumoules-1200",
+      title: "Terrain seul de 1 200 m²",
+      zoneType: "lac",
+      price: "89 500 €",
+      surface: "1 200 m²",
+      location: "Roumoules (04500)",
+      distance: "≈ 1h30 de Marseille/Aix — à 10 min du Lac de Sainte-Croix",
+      summary: "Terrain constructible avec viabilisation en limite de propriété, ~150 m² de surface de plancher possible, secteur calme et résidentiel, piscine autorisée.",
+      source: "Terrain-construction.com",
+      url: "https://www.terrain-construction.com/terrain-a-vendre/alpes-de-haute-provence-04/roumoules-04500/300331412",
+    },
+    {
+      id: "terrain-lac-riez-960",
+      title: "Terrain seul de 960 m²",
+      zoneType: "lac",
+      price: "90 000 €",
+      surface: "960 m²",
+      location: "Riez (04500)",
+      distance: "≈ 1h40 de Marseille/Aix — à 10 min du Lac de Sainte-Croix",
+      summary: "Terrain constructible dans un cadre calme et résidentiel avec vue dégagée, proche des commodités, projet de construction entièrement personnalisable.",
+      source: "Terrain-construction.com",
+      url: "https://www.terrain-construction.com/terrain-a-vendre/alpes-de-haute-provence-04/riez-04500/304508077",
+    },
+    {
+      id: "terrain-montagne-banon-42",
+      title: "Maison à rénover de 42 m² (2 pièces)",
+      zoneType: "montagne",
+      price: "59 000 €",
+      surface: "42 m²",
+      location: "Banon (04150)",
+      distance: "≈ 1h30 de Marseille/Aix — Plateau d'Albion / Montagne de Lure",
+      summary: "Petite maison à rénover entièrement dans le village de Banon, connu pour son fromage et son marché — secteur montagnard calme du Luberon oriental.",
+      source: "Lesiteimmo.com",
+      url: "https://www.lesiteimmo.com/acheter/maison-2pieces/banon-04150/33718676",
+    },
+    {
+      id: "terrain-montagne-cereste-55",
+      title: "Maison à rénover de 55 m² (3 pièces)",
+      zoneType: "montagne",
+      price: "99 000 €",
+      surface: "55 m²",
+      location: "Céreste-en-Luberon (04280)",
+      distance: "≈ 1h de Marseille/Aix — cœur du Parc naturel régional du Luberon",
+      summary: "Maison de village à rénover à Céreste, dans le Luberon, à deux pas des sentiers de randonnée et des massifs environnants.",
+      source: "Lesiteimmo.com",
+      url: "https://www.lesiteimmo.com/acheter/maison-3pieces/cereste-en-luberon-04280/33788638",
+    },
+    {
+      id: "terrain-mer-marseillan-166",
+      title: "Terrain seul de 166 m²",
+      zoneType: "mer",
+      price: "79 900 €",
+      surface: "166 m²",
+      location: "Marseillan (34340)",
+      distance: "≈ 2h15 de Marseille/Aix — entre Sète et Agde, bordant l'étang de Thau",
+      summary: "Terrain constructible entre Sète et Agde, secteur balnéaire au bord de l'étang de Thau, pistes cyclables et plages de sable fin à proximité.",
+      source: "Terrain-construction.com",
+      url: "https://www.terrain-construction.com/terrain-a-vendre/herault-34/marseillan-34340/326049574",
+    },
+    {
+      id: "terrain-mer-marseillan-180",
+      title: "Terrain seul de 180 m²",
+      zoneType: "mer",
+      price: "91 900 €",
+      surface: "180 m²",
+      location: "Marseillan (34340)",
+      distance: "≈ 2h15 de Marseille/Aix — entre Sète et Agde, bordant l'étang de Thau",
+      summary: "Second lot du même secteur à Marseillan, entre Sète et Agde, proche de l'étang de Thau et des plages.",
+      source: "Terrain-construction.com",
+      url: "https://www.terrain-construction.com/terrain-a-vendre/herault-34/marseillan-34340/326049573",
+    },
+  ],
+};
+
+function TerrainStatusPicker({ status, onSelect }) {
+  return (
+    <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 10 }}>
+      {TERRAIN_STATUSES.map((s) => {
+        const isActive = status === s.key;
+        const activeColor =
+          s.key === "contacte" ? COLORS.checked : s.key === "pas-interesse" ? COLORS.barMuted : s.key === "vendu" ? "#B85C5C" : TERRAIN_ACCENT;
+        return (
+          <button
+            key={s.key}
+            onClick={() => onSelect(isActive ? null : s.key)}
+            style={{
+              fontSize: 11,
+              padding: "3px 10px",
+              borderRadius: 999,
+              border: `1px solid ${isActive ? darken(activeColor, 20) : COLORS.border}`,
+              background: isActive ? activeColor : "transparent",
+              color: isActive ? "white" : COLORS.muted,
+              cursor: "pointer",
+              fontFamily: FONT_BODY,
+            }}
+          >
+            {s.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function TerrainListingCard({ item, status, onSetStatus }) {
+  return (
+    <div
+      style={{
+        background: COLORS.card,
+        borderRadius: 10,
+        padding: "14px 16px",
+        borderLeft: `3px solid ${status === "contacte" ? COLORS.checked : status === "vendu" ? "#B85C5C" : TERRAIN_ACCENT}`,
+        opacity: status === "pas-interesse" || status === "vendu" ? 0.55 : 1,
+      }}
+    >
+      <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 8, marginBottom: 2 }}>
+        <span style={{ fontSize: 14, fontWeight: 500, color: COLORS.text, textDecoration: status === "vendu" ? "line-through" : "none" }}>
+          {item.title}
+        </span>
+        <span style={{ fontSize: 14, fontWeight: 600, color: TERRAIN_ACCENT, flexShrink: 0, whiteSpace: "nowrap" }}>{item.price}</span>
+      </div>
+      <div style={{ fontSize: 12, color: COLORS.muted, marginBottom: 8 }}>
+        {item.location} · {TERRAIN_ZONE_LABELS[item.zoneType]} · {item.distance}
+      </div>
+      <p style={{ fontSize: 13, color: COLORS.text, lineHeight: 1.5, margin: "0 0 6px" }}>{item.summary}</p>
+      <a href={item.url} target="_blank" rel="noreferrer" style={{ fontSize: 11, color: COLORS.muted }}>{item.source}</a>
+      <TerrainStatusPicker status={status} onSelect={(s) => onSetStatus(item.id, s)} />
+    </div>
+  );
+}
+
+function TerrainTab({ offerStatus, setOfferStatus }) {
+  const [zone, setZone] = useState("tous");
+  const setStatusFor = makeOfferStatusSetter(setOfferStatus);
+  const d = TERRAIN_LISTINGS;
+  const items = zone === "tous" ? d.items : d.items.filter((it) => it.zoneType === zone);
+
+  return (
+    <div>
+      <div style={{ marginBottom: 20 }}>
+        <h1 style={{ fontFamily: FONT_DISPLAY, fontSize: 32, color: COLORS.text, margin: 0, fontWeight: 600 }}>Terrain & Immo</h1>
+        <p style={{ color: COLORS.muted, fontSize: 13, marginTop: 8, marginBottom: 4, lineHeight: 1.5 }}>{d.criteria}</p>
+        <p style={{ color: COLORS.muted, fontSize: 12, fontStyle: "italic", marginBottom: 4, lineHeight: 1.5 }}>{d.note}</p>
+        <span style={{ fontSize: 12, color: COLORS.muted }}>Mis à jour le {d.updatedAt}</span>
+      </div>
+
+      <PillTabs options={TERRAIN_SECTIONS} activeKey={zone} onSelect={setZone} accentOf={() => TERRAIN_ACCENT} />
+
+      {items.length === 0 ? (
+        <p style={{ color: COLORS.muted, fontSize: 13, fontStyle: "italic" }}>Aucune annonce pour l'instant dans cette zone.</p>
+      ) : (
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          {items.map((item) => (
+            <TerrainListingCard key={item.id} item={item} status={offerStatus[item.id] || null} onSetStatus={setStatusFor} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -3386,6 +3574,7 @@ function AccueilTab({ taskEvents, taskChecks, toggleTask, offerStatus, favoriteT
     { key: "interim", label: "Intérim", data: INTERIM_OFFERS, tab: "recherche-emploi" },
     { key: "cdd-cdi", label: "CDD / CDI", data: JOB_OFFERS, tab: "recherche-emploi" },
     { key: "alternance", label: "Alternance Menuiserie", data: MENUISERIE_ALTERNANCES, tab: "reconversion" },
+    { key: "terrain", label: "Terrain & Immo", data: TERRAIN_LISTINGS, tab: "terrain" },
   ]
     .map((o) => ({ ...o, count: o.data.items.filter((it) => !offerStatus[it.id]).length }))
     .filter((o) => o.count > 0);
