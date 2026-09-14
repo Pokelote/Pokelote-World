@@ -4807,7 +4807,68 @@ function MusculationWeekDots({ checked, selectedWeek, onSelect }) {
   );
 }
 
-function MusculationWeekDetail({ week, checked, onToggleSeance }) {
+function MusculationSeanceTable({ week, seance, log, onLogChange }) {
+  const thStyle = {
+    textAlign: "left",
+    padding: "8px 10px",
+    fontSize: 11,
+    color: COLORS.muted,
+    textTransform: "uppercase",
+    letterSpacing: 0.3,
+    borderBottom: `1px solid ${COLORS.cardBorder}`,
+    whiteSpace: "nowrap",
+  };
+  const tdStyle = { padding: "8px 10px", verticalAlign: "top", color: COLORS.text, fontSize: 13 };
+
+  return (
+    <div style={{ overflowX: "auto" }}>
+      <table style={{ width: "100%", minWidth: 460, borderCollapse: "collapse" }}>
+        <thead>
+          <tr>
+            <th style={thStyle}>Exercice</th>
+            <th style={thStyle}>Prescription</th>
+            <th style={{ ...thStyle, minWidth: 160 }}>Ce que j'ai fait</th>
+          </tr>
+        </thead>
+        <tbody>
+          {seance.blocks.map((b, i) => {
+            const id = `${week.n}__${seance.key}__${i}`;
+            return (
+              <tr key={i} style={{ borderBottom: `1px solid ${COLORS.border}` }}>
+                <td style={tdStyle}>{b.title}</td>
+                <td style={{ ...tdStyle, color: COLORS.muted }}>{b.liftKey ? week.lifts[b.liftKey] : b.detail}</td>
+                <td style={tdStyle}>
+                  <input
+                    type="text"
+                    value={log[id] || ""}
+                    onChange={(e) => onLogChange(id, e.target.value)}
+                    placeholder="Charge, reps…"
+                    style={{
+                      width: "100%",
+                      minWidth: 140,
+                      background: COLORS.track,
+                      border: `1px solid ${COLORS.border}`,
+                      borderRadius: 6,
+                      padding: "6px 8px",
+                      fontSize: 13,
+                      fontFamily: FONT_BODY,
+                      color: COLORS.text,
+                      boxSizing: "border-box",
+                    }}
+                    onFocus={(e) => (e.target.style.borderColor = MUSCU_ACCENT)}
+                    onBlur={(e) => (e.target.style.borderColor = COLORS.border)}
+                  />
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function MusculationWeekDetail({ week, checked, onToggleSeance, log, onLogChange }) {
   return (
     <div style={{ background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, borderRadius: 10, padding: "18px 18px 20px" }}>
       <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 14, flexWrap: "wrap", gap: 8 }}>
@@ -4837,14 +4898,7 @@ function MusculationWeekDetail({ week, checked, onToggleSeance }) {
       {MUSCU_SEANCES.map((seance) => (
         <div key={seance.key} style={{ marginBottom: 18 }}>
           <div style={{ fontFamily: FONT_DISPLAY, fontSize: 15, color: MUSCU_ACCENT, marginBottom: 8 }}>{seance.title}</div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-            {seance.blocks.map((b, i) => (
-              <div key={i} style={{ display: "flex", gap: 8, fontSize: 13, flexWrap: "wrap" }}>
-                <span style={{ color: COLORS.text, minWidth: 190, flexShrink: 0 }}>{b.title}</span>
-                <span style={{ color: COLORS.muted }}>{b.liftKey ? week.lifts[b.liftKey] : b.detail}</span>
-              </div>
-            ))}
-          </div>
+          <MusculationSeanceTable week={week} seance={seance} log={log} onLogChange={onLogChange} />
         </div>
       ))}
     </div>
@@ -4853,6 +4907,7 @@ function MusculationWeekDetail({ week, checked, onToggleSeance }) {
 
 function MusculationTab() {
   const [checked, setChecked] = useState(null);
+  const [log, setLog] = useState(null);
   const [selectedWeek, setSelectedWeek] = useState(null);
 
   useEffect(() => {
@@ -4865,8 +4920,16 @@ function MusculationTab() {
       } catch {
         val = {};
       }
+      let logVal = {};
+      try {
+        const res = await window.storage.get("musculation-log");
+        logVal = res ? JSON.parse(res.value) : {};
+      } catch {
+        logVal = {};
+      }
       if (!cancelled) {
         setChecked(val);
+        setLog(logVal);
         const current = MUSCU_WEEKS.find((w) => isMusculationCurrentWeek(w));
         setSelectedWeek(current ? current.n : 1);
       }
@@ -4887,7 +4950,15 @@ function MusculationTab() {
     });
   }
 
-  if (!checked || selectedWeek == null) return null;
+  function onLogChange(id, value) {
+    setLog((prev) => {
+      const next = { ...(prev || {}), [id]: value };
+      window.storage.set("musculation-log", JSON.stringify(next)).catch(() => {});
+      return next;
+    });
+  }
+
+  if (!checked || !log || selectedWeek == null) return null;
 
   const totalUnits = MUSCU_WEEKS.length * MUSCU_SEANCES.length;
   const doneUnits = MUSCU_WEEKS.reduce((sum, w) => sum + musculationWeekStatus(checked, w).done, 0);
@@ -4922,7 +4993,7 @@ function MusculationTab() {
       </div>
 
       <MusculationWeekDots checked={checked} selectedWeek={selectedWeek} onSelect={setSelectedWeek} />
-      <MusculationWeekDetail week={week} checked={checked} onToggleSeance={toggleSeance} />
+      <MusculationWeekDetail week={week} checked={checked} onToggleSeance={toggleSeance} log={log} onLogChange={onLogChange} />
     </div>
   );
 }
