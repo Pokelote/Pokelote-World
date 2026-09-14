@@ -65,6 +65,19 @@ const { useState, useEffect, useCallback } = React;
 const SUPABASE_URL = "https://tgaivklxkpiqrqwvlzso.supabase.co";
 const SUPABASE_KEY = "sb_publishable_Y4DMRmC5QKXAho9fZ_FyKw_8JR4lFg_";
 
+function _pushToRemote(key, value) {
+  fetch(`${SUPABASE_URL}/rest/v1/app_state?on_conflict=key`, {
+    method: "POST",
+    headers: {
+      apikey: SUPABASE_KEY,
+      Authorization: `Bearer ${SUPABASE_KEY}`,
+      "Content-Type": "application/json",
+      Prefer: "resolution=merge-duplicates,return=minimal",
+    },
+    body: JSON.stringify({ key, value, updated_at: new Date().toISOString() }),
+  }).catch(() => {});
+}
+
 let _remoteCache = null;
 const _remoteReady = (async () => {
   try {
@@ -79,6 +92,22 @@ const _remoteReady = (async () => {
         localStorage.setItem("portail:" + r.key, r.value);
       } catch {}
     });
+    // Rattrapage : un appareil qui avait déjà des données locales (cases cochées etc.) AVANT
+    // l'arrivée de la synchro n'a jamais rien poussé vers Supabase. Au premier chargement de
+    // cette version sur cet appareil, on pousse une fois toute donnée locale absente du cloud,
+    // pour que ces anciennes coches deviennent enfin visibles sur les autres appareils.
+    try {
+      Object.keys(localStorage)
+        .filter((k) => k.startsWith("portail:"))
+        .forEach((k) => {
+          const key = k.slice("portail:".length);
+          if (!_remoteCache.has(key)) {
+            const value = localStorage.getItem(k);
+            _remoteCache.set(key, value);
+            _pushToRemote(key, value);
+          }
+        });
+    } catch {}
   } catch {
     _remoteCache = null;
   }
@@ -97,16 +126,7 @@ window.storage = {
   async set(key, value) {
     localStorage.setItem("portail:" + key, value);
     if (_remoteCache) _remoteCache.set(key, value);
-    fetch(`${SUPABASE_URL}/rest/v1/app_state?on_conflict=key`, {
-      method: "POST",
-      headers: {
-        apikey: SUPABASE_KEY,
-        Authorization: `Bearer ${SUPABASE_KEY}`,
-        "Content-Type": "application/json",
-        Prefer: "resolution=merge-duplicates,return=minimal",
-      },
-      body: JSON.stringify({ key, value, updated_at: new Date().toISOString() }),
-    }).catch(() => {});
+    _pushToRemote(key, value);
     return { key, value, shared: false };
   },
   async delete(key) {
