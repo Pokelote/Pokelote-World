@@ -241,7 +241,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "45";
+const APP_VERSION = "46";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -5014,18 +5014,28 @@ function computeWeightFromMax(pct, max) {
 // Semaines 1 et 2 : versions débutant (mouvements plus simples, séries courtes) — demande explicite
 // du 15/09/2026 ("fais des circuits débutant pour les 2 premières semaines"). À partir de la semaine 3,
 // circuit standard (un peu plus exigeant : relevés de jambes, planche plus longue, russian twists...).
+// IMPORTANT : chaque circuit est construit uniquement avec des exercices comptés en répétitions
+// (aucune tenue en secondes) pour que la somme des séries×répétitions tombe EXACTEMENT sur 250/300 —
+// vérifié ligne par ligne (demande explicite du 15/09/2026, un premier jet avec des tenues en secondes
+// ne totalisait pas juste : 295 et 360 au lieu de 250/300).
 const MUSCU_ABS_DEFAULT_250 =
-  "Crunchs classiques 3×20 · Crunchs obliques alternés 3×20 · Relevés de jambes 3×15 · Gainage planche 3×30sec · Mountain climbers 2×20";
+  "Crunchs classiques 4×15 · Crunchs obliques alternés 4×15 · Relevés de jambes 4×15 · Planche avec touches d'épaule 3×15 · Mountain climbers 1×25";
+// 60 + 60 + 60 + 45 + 25 = 250
 const MUSCU_ABS_DEFAULT_300 =
-  "Crunchs classiques 4×20 · Russian twists 4×20 · Relevés de jambes 3×20 · Gainage planche 4×30sec · Vélo (bicycle crunch) 1×20";
+  "Crunchs classiques 5×15 · Russian twists 5×15 · Relevés de jambes 4×15 · Planche avec touches d'épaule 4×15 · Vélo (bicycle crunch) 1×30";
+// 75 + 75 + 60 + 60 + 30 = 300
 const MUSCU_ABS_BEGINNER = {
   1: {
-    250: "Crunchs classiques 5×10 · Relevés de genoux allongé 5×10 · Superman 5×10 · Dead Bug 5×10 · Planche genoux au sol 5×10sec",
-    300: "Crunchs classiques 5×10 · Relevés de genoux allongé 5×10 · Superman 5×10 · Dead Bug 5×10 · Planche genoux au sol 5×10sec · Gainage latéral (2 côtés) 5×10sec",
+    250: "Crunchs classiques 5×10 · Relevés de genoux allongé 5×10 · Superman 5×10 · Dead Bug 5×10 · Planche genoux, touches d'épaule 5×10",
+    // 50 + 50 + 50 + 50 + 50 = 250
+    300: "Crunchs classiques 5×10 · Relevés de genoux allongé 5×10 · Superman 5×10 · Dead Bug 5×10 · Planche genoux, touches d'épaule 5×10 · Gainage latéral, touches de hanche (2 côtés) 5×10",
+    // 250 + 50 = 300
   },
   2: {
-    250: "Crunchs inversés 4×15 · Relevés de genoux 4×15 · Planche genoux au sol 4×15sec · Bird-dog 4×15 · Gainage latéral (2 côtés) 2×5sec",
-    300: "Crunchs inversés 5×12 · Relevés de genoux 5×12 · Planche genoux au sol 5×12sec · Bird-dog 5×12 · Gainage latéral (2 côtés) 5×12sec",
+    250: "Crunchs inversés 4×15 · Relevés de genoux 4×15 · Planche genoux, touches d'épaule 4×15 · Bird-dog 4×15 · Gainage latéral, touches de hanche (2 côtés) 2×5",
+    // 60 + 60 + 60 + 60 + 10 = 250
+    300: "Crunchs inversés 5×12 · Relevés de genoux 5×12 · Planche genoux, touches d'épaule 5×12 · Bird-dog 5×12 · Gainage latéral, touches de hanche (2 côtés) 5×12",
+    // 60 + 60 + 60 + 60 + 60 = 300
   },
 };
 function abdosTextFor(weekN, target) {
