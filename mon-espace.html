@@ -241,7 +241,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "44";
+const APP_VERSION = "45";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -4879,6 +4879,114 @@ const MUSCU_WEEKS = [
   },
 ];
 
+// Pictogrammes minimalistes (même esprit que les icônes en haut du fichier — traits simples, pas de
+// photo) pour illustrer les 6 mouvements du cycle. Pas de vraie photo : éviter la dépendance à des
+// images externes qui peuvent disparaître ou poser un problème de droits (même leçon que les liens
+// d'offres d'emploi morts).
+function SquatIcon({ size = 28, color = "currentColor" }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 40 40" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="20" cy="7" r="3" />
+      <line x1="8" y1="13" x2="32" y2="13" />
+      <circle cx="8" cy="13" r="3" fill={color} />
+      <circle cx="32" cy="13" r="3" fill={color} />
+      <line x1="20" y1="10" x2="20" y2="21" />
+      <line x1="20" y1="21" x2="14" y2="30" />
+      <line x1="14" y1="30" x2="14" y2="37" />
+      <line x1="20" y1="21" x2="26" y2="30" />
+      <line x1="26" y1="30" x2="26" y2="37" />
+    </svg>
+  );
+}
+function FrontSquatIcon({ size = 28, color = "currentColor" }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 40 40" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="20" cy="7" r="3" />
+      <line x1="9" y1="14" x2="31" y2="14" />
+      <circle cx="9" cy="14" r="3" fill={color} />
+      <circle cx="31" cy="14" r="3" fill={color} />
+      <line x1="20" y1="10" x2="20" y2="14" />
+      <line x1="14" y1="14" x2="20" y2="10" />
+      <line x1="26" y1="14" x2="20" y2="10" />
+      <line x1="20" y1="10" x2="20" y2="21" />
+      <line x1="20" y1="21" x2="14" y2="30" />
+      <line x1="14" y1="30" x2="14" y2="37" />
+      <line x1="20" y1="21" x2="26" y2="30" />
+      <line x1="26" y1="30" x2="26" y2="37" />
+    </svg>
+  );
+}
+function BenchPressIcon({ size = 28, color = "currentColor" }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 40 40" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="4" y1="27" x2="36" y2="27" />
+      <circle cx="9" cy="24" r="3" />
+      <line x1="12" y1="24" x2="24" y2="24" />
+      <line x1="24" y1="24" x2="30" y2="30" />
+      <line x1="30" y1="30" x2="35" y2="27" />
+      <line x1="18" y1="24" x2="18" y2="10" />
+      <line x1="6" y1="10" x2="30" y2="10" />
+      <circle cx="6" cy="10" r="3" fill={color} />
+      <circle cx="30" cy="10" r="3" fill={color} />
+    </svg>
+  );
+}
+function InclineBenchIcon({ size = 28, color = "currentColor" }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 40 40" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="6" y1="34" x2="24" y2="16" />
+      <circle cx="9" cy="29" r="3" />
+      <line x1="12" y1="26" x2="20" y2="20" />
+      <line x1="20" y1="20" x2="28" y2="24" />
+      <line x1="16" y1="23" x2="10" y2="9" />
+      <line x1="0" y1="9" x2="22" y2="9" />
+      <circle cx="0" cy="9" r="3" fill={color} />
+      <circle cx="22" cy="9" r="3" fill={color} />
+    </svg>
+  );
+}
+function HangCleanIcon({ size = 28, color = "currentColor" }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 40 40" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="20" cy="7" r="3" />
+      <line x1="20" y1="10" x2="20" y2="21" />
+      <line x1="20" y1="21" x2="17" y2="33" />
+      <line x1="20" y1="21" x2="23" y2="33" />
+      <line x1="20" y1="15" x2="12" y2="24" />
+      <line x1="20" y1="15" x2="28" y2="24" />
+      <line x1="12" y1="24" x2="28" y2="24" />
+      <circle cx="12" cy="24" r="3" fill={color} />
+      <circle cx="28" cy="24" r="3" fill={color} />
+      <path d="M 20 2 L 17 8 L 23 8 Z" fill={color} stroke="none" />
+    </svg>
+  );
+}
+function CleanJerkIcon({ size = 28, color = "currentColor" }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 40 40" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="20" cy="7" r="3" />
+      <line x1="20" y1="10" x2="20" y2="19" />
+      <line x1="20" y1="10" x2="20" y2="4" />
+      <line x1="9" y1="4" x2="31" y2="4" />
+      <circle cx="9" cy="4" r="3" fill={color} />
+      <circle cx="31" cy="4" r="3" fill={color} />
+      <line x1="20" y1="19" x2="14" y2="27" />
+      <line x1="14" y1="27" x2="10" y2="35" />
+      <line x1="20" y1="19" x2="27" y2="24" />
+      <line x1="27" y1="24" x2="31" y2="32" />
+    </svg>
+  );
+}
+
+const MUSCU_LIFT_ICONS = {
+  hangClean: HangCleanIcon,
+  squat: SquatIcon,
+  devCouche: BenchPressIcon,
+  cleanJerk: CleanJerkIcon,
+  devIncline: InclineBenchIcon,
+  frontSquat: FrontSquatIcon,
+};
+
 // Les 6 mouvements du cycle qui ont un pourcentage de max dans MUSCU_WEEKS.lifts —
 // ce sont les seuls pour lesquels "Mes maxes" a un sens (les accessoires n'ont pas de %).
 const MUSCU_LIFT_LABELS = {
@@ -5191,9 +5299,14 @@ function MusculationMaxesForm({ maxes, onChange }) {
         Renseigne ton max sur chaque mouvement : le programme calcule automatiquement la charge à soulever à chaque pourcentage (arrondie au 2,5 kg le plus proche).
       </p>
       <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-        {Object.keys(MUSCU_LIFT_LABELS).map((key) => (
+        {Object.keys(MUSCU_LIFT_LABELS).map((key) => {
+          const Icon = MUSCU_LIFT_ICONS[key];
+          return (
           <label key={key} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
-            <span style={{ fontSize: 14, color: COLORS.text }}>{MUSCU_LIFT_LABELS[key]}</span>
+            <span style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 14, color: COLORS.text }}>
+              <Icon size={26} color={MUSCU_ACCENT} />
+              {MUSCU_LIFT_LABELS[key]}
+            </span>
             <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
               <input
                 type="number"
@@ -5212,7 +5325,8 @@ function MusculationMaxesForm({ maxes, onChange }) {
               <span style={{ fontSize: 12, color: COLORS.muted }}>kg</span>
             </div>
           </label>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
