@@ -241,7 +241,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "42";
+const APP_VERSION = "43";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -1468,24 +1468,24 @@ const INTERIM_OFFERS = {
   domain: "Intérim — Marseille (RH en priorité, sinon tous domaines) — offres postées ces derniers jours",
   items: [
     {
-      id: "int-mistertemp-recrutement-multisecteurs-aubagne-0915",
-      title: "Chargé de Recrutement - Intérim Multi-Secteurs - Aubagne H/F",
-      company: "Mistertemp'",
+      id: "int-temporis-aide-couvreur-0915",
+      title: "Aide Couvreur - Couvreuse H/F",
+      company: "Temporis Intérim",
       contract: "Intérim",
-      location: "Marseille (secteur Aubagne)",
-      summary: "Mission d'intérim de chargé de recrutement multi-secteurs, publiée il y a 4 heures.",
+      location: "Marseille",
+      summary: "Mission d'intérim en couverture/toiture, publiée il y a 8 heures.",
       source: "Hellowork",
-      url: "https://www.hellowork.com/fr-fr/emplois/83372959.html",
+      url: "https://www.hellowork.com/fr-fr/emplois/66619414.html",
     },
     {
-      id: "int-mistertemp-manager-agence-aubagne-0915",
-      title: "Manager d'Agence d'Intérim - Évolution Vers Pilotage d'Activité - Métiers Terrain - Aubagne H/F",
-      company: "Mistertemp'",
+      id: "int-reseaualliance-vulcanisateur-0915",
+      title: "Vulcanisateur Tapis Roulant H/F",
+      company: "Réseau Alliance",
       contract: "Intérim",
-      location: "Marseille (secteur Aubagne)",
-      summary: "Poste de manager d'agence d'intérim avec évolution vers le pilotage d'activité, publié il y a 4 heures.",
+      location: "Marseille",
+      summary: "Mission d'intérim en réparation de tapis roulants industriels, publiée il y a 8 heures.",
       source: "Hellowork",
-      url: "https://www.hellowork.com/fr-fr/emplois/83372928.html",
+      url: "https://www.hellowork.com/fr-fr/emplois/80198228.html",
     },
     {
       id: "int-derichebourg-gestionnaire-paie-0915",
@@ -1675,8 +1675,8 @@ const RECONVERSION_SECTIONS = [
 ];
 
 const MENUISERIE_ALTERNANCES = {
-  updatedAt: "14 septembre 2026",
-  domain: "Menuiserie bois (création/fabrication) — Marseille et environs — alternance ET CDD/CDI (pour voir qui recrute)",
+  updatedAt: "15 septembre 2026",
+  domain: "Menuiserie bois (création/fabrication) — Marseille et environs — alternance, intérim et CDD/CDI (pour voir qui recrute)",
   items: [
     {
       id: "alt-lowall-construction-bois-gardanne",
@@ -1699,24 +1699,44 @@ const MENUISERIE_ALTERNANCES = {
       url: "https://www.cfadubatiment.fr/offres-emploi/34042-apprenti-menuiserie-bois-h-f-en-apprentissage/",
     },
     {
-      id: "cdi-emo-france-menuisier-fabriquant-marseille",
-      title: "Menuisier Fabriquant Confirmé H/F",
-      company: "EMO France (Groupe DLSI)",
-      contract: "CDI",
+      id: "int-teaminterim-menuisier-bois-1-0915",
+      title: "Menuisier Bois H/F",
+      company: "Team Interim",
+      contract: "Intérim",
       location: "Marseille",
-      summary: "Lecture de plans, découpe et façonnage du bois, fabrication de mobilier sur-mesure pour un client en agencement intérieur haut de gamme.",
+      summary: "Mission d'intérim en menuiserie bois, publiée il y a 3 jours.",
       source: "Hellowork",
-      url: "https://www.hellowork.com/fr-fr/emplois/82913674.html",
+      url: "https://www.hellowork.com/fr-fr/emplois/83292496.html",
     },
     {
-      id: "cdi-menuiserie-pecorella-marseille",
-      title: "Menuisier - Menuisière H/F",
-      company: "Menuiserie Pecorella",
-      contract: "CDI",
-      location: "Marseille 15e",
-      summary: "Entretien de menuiseries de bâtiments publics : réparation de fenêtres, volets roulants, remplacement de serrures.",
+      id: "int-teaminterim-menuisier-bois-2-0915",
+      title: "Menuisier Bois H/F",
+      company: "Team Interim",
+      contract: "Intérim",
+      location: "Marseille",
+      summary: "Mission d'intérim en menuiserie bois (deuxième poste ouvert), publiée il y a 3 jours.",
       source: "Hellowork",
-      url: "https://www.hellowork.com/fr-fr/emplois/82808162.html",
+      url: "https://www.hellowork.com/fr-fr/emplois/83283996.html",
+    },
+    {
+      id: "int-randstad-menuisier-bois-0915",
+      title: "Menuisier Bois H/F",
+      company: "Randstad",
+      contract: "Intérim",
+      location: "Marseille",
+      summary: "Mission d'intérim en menuiserie bois, publiée il y a 5 jours.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/83196164.html",
+    },
+    {
+      id: "int-eureka-menuisiers-agenceurs-hautegamme-0915",
+      title: "Menuisiers Agenceurs Haute Gamme H/F",
+      company: "Eureka Marseille",
+      contract: "Intérim",
+      location: "Marseille",
+      summary: "Mission d'intérim en agencement/menuiserie haut de gamme, publiée il y a 11 jours.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/83004086.html",
     },
   ],
 };
