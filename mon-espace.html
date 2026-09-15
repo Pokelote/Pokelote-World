@@ -241,7 +241,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "43";
+const APP_VERSION = "44";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -4901,6 +4901,31 @@ function computeWeightFromMax(pct, max) {
   return Math.round(((max * pct) / 100) / 2.5) * 2.5;
 }
 
+// Circuits abdos concrets (remplacent le "Variez les mouvements" générique du PDF) — un exercice par
+// partie, séparées par "·" comme les autres blocs, pour bénéficier du même rendu ligne-par-ligne.
+// Semaines 1 et 2 : versions débutant (mouvements plus simples, séries courtes) — demande explicite
+// du 15/09/2026 ("fais des circuits débutant pour les 2 premières semaines"). À partir de la semaine 3,
+// circuit standard (un peu plus exigeant : relevés de jambes, planche plus longue, russian twists...).
+const MUSCU_ABS_DEFAULT_250 =
+  "Crunchs classiques 3×20 · Crunchs obliques alternés 3×20 · Relevés de jambes 3×15 · Gainage planche 3×30sec · Mountain climbers 2×20";
+const MUSCU_ABS_DEFAULT_300 =
+  "Crunchs classiques 4×20 · Russian twists 4×20 · Relevés de jambes 3×20 · Gainage planche 4×30sec · Vélo (bicycle crunch) 1×20";
+const MUSCU_ABS_BEGINNER = {
+  1: {
+    250: "Crunchs classiques 5×10 · Relevés de genoux allongé 5×10 · Superman 5×10 · Dead Bug 5×10 · Planche genoux au sol 5×10sec",
+    300: "Crunchs classiques 5×10 · Relevés de genoux allongé 5×10 · Superman 5×10 · Dead Bug 5×10 · Planche genoux au sol 5×10sec · Gainage latéral (2 côtés) 5×10sec",
+  },
+  2: {
+    250: "Crunchs inversés 4×15 · Relevés de genoux 4×15 · Planche genoux au sol 4×15sec · Bird-dog 4×15 · Gainage latéral (2 côtés) 2×5sec",
+    300: "Crunchs inversés 5×12 · Relevés de genoux 5×12 · Planche genoux au sol 5×12sec · Bird-dog 5×12 · Gainage latéral (2 côtés) 5×12sec",
+  },
+};
+function abdosTextFor(weekN, target) {
+  const beginner = MUSCU_ABS_BEGINNER[weekN];
+  if (beginner) return beginner[target];
+  return target === 250 ? MUSCU_ABS_DEFAULT_250 : MUSCU_ABS_DEFAULT_300;
+}
+
 const MUSCU_SEANCES = [
   {
     key: "seance1",
@@ -4917,7 +4942,7 @@ const MUSCU_SEANCES = [
       { title: "Développé militaire haltères", detail: "Sans appui dorsal / sur Swiss Ball — 3×8" },
       { title: "Triceps", detail: "Exercice au choix — 3×8" },
       { title: "Volant (Steering Wheel)", detail: "Les épaules doivent brûler — 2×10" },
-      { title: "4. Abdos", detail: "Variez les mouvements — × 250" },
+      { title: "4. Abdos", absTarget: 250 },
     ],
   },
   {
@@ -4936,7 +4961,7 @@ const MUSCU_SEANCES = [
       { title: "Développé militaire haltères", detail: "2×10" },
       { title: "Upright Row", detail: "Tirage menton — 2×8" },
       { title: "Biceps", detail: "Exercice au choix — 3×8" },
-      { title: "4. Abdos", detail: "Variez les mouvements — × 300" },
+      { title: "4. Abdos", absTarget: 300 },
     ],
   },
   {
@@ -4955,7 +4980,7 @@ const MUSCU_SEANCES = [
       { title: "Upright Row", detail: "Tirage menton — 2×8" },
       { title: "Cou", detail: "Dans tous les sens — 2×10" },
       { title: "Triceps", detail: "Exercice au choix — 3×10" },
-      { title: "4. Abdos", detail: "Variez les mouvements — × 250" },
+      { title: "4. Abdos", absTarget: 250 },
     ],
   },
   {
@@ -4964,7 +4989,7 @@ const MUSCU_SEANCES = [
     blocks: [
       { title: "Cardio", detail: "20 minutes, de la façon que vous voulez" },
       { title: "Rattrapage", detail: "Les exercices que vous n'avez pas eu le temps de faire lors des séances" },
-      { title: "Abdos", detail: "Variez les mouvements — × 300" },
+      { title: "Abdos", absTarget: 300 },
     ],
   },
 ];
@@ -5082,12 +5107,12 @@ function MusculationSeanceTable({ week, seance, log, onLogChange, maxes }) {
         </thead>
         <tbody>
           {seance.blocks.flatMap((b, i) => {
-            const text = b.liftKey ? week.lifts[b.liftKey] : b.detail;
+            const text = b.liftKey ? week.lifts[b.liftKey] : b.absTarget ? abdosTextFor(week.n, b.absTarget) : b.detail;
             const parts = text
               .split("·")
               .map((p) => p.trim())
               .filter(Boolean);
-            const skipPart = (p) => p === "Warm-up" || p === "Med Ball" || b.title.includes("Abdos");
+            const skipPart = (p) => p === "Warm-up" || p === "Med Ball";
             return parts.map((part, j) => {
               const id = parts.length > 1 ? `${week.n}__${seance.key}__${i}__${j}` : `${week.n}__${seance.key}__${i}`;
               const weight = b.liftKey ? computeWeightFromMax(extractPercent(part), parseFloat(maxes[b.liftKey])) : null;
