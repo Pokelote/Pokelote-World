@@ -241,7 +241,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "39";
+const APP_VERSION = "40";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -3236,7 +3236,10 @@ const NEWS_DATA = {
     items: [
       { time: "06h00 – 09h00", title: "🌅 Routine matin" },
       { time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+      { time: "09h30 – 11h00", title: "📖 Lecture sérieuse : Éthique de Spinoza" },
+      { time: "11h00 – 12h00", title: "✍️ Écriture : Continuer Aastan" },
       { time: "18h00 – 18h15", title: "🗓️ Point du soir — préparer demain" },
+      { time: "19h30 – 21h30", title: "🏈 Football Américain" },
       { time: "22h00 – 22h05", title: "🛏️ Au lit" },
     ],
   },
@@ -4893,6 +4896,28 @@ const MUSCU_WEEKS = [
   },
 ];
 
+// Les 6 mouvements du cycle qui ont un pourcentage de max dans MUSCU_WEEKS.lifts —
+// ce sont les seuls pour lesquels "Mes maxes" a un sens (les accessoires n'ont pas de %).
+const MUSCU_LIFT_LABELS = {
+  hangClean: "Hang Clean",
+  squat: "Squat",
+  devCouche: "Développé couché",
+  cleanJerk: "Clean & Jerk (épaulé jeté)",
+  devIncline: "Développé incliné",
+  frontSquat: "Front Squat",
+};
+
+function extractPercent(part) {
+  const m = part.match(/@(\d+(?:\.\d+)?)%/);
+  return m ? parseFloat(m[1]) : null;
+}
+
+// Arrondi au 2,5 kg le plus proche — plus petit incrément chargeable sur une barre olympique.
+function computeWeightFromMax(pct, max) {
+  if (pct == null || !max || isNaN(max) || max <= 0) return null;
+  return Math.round(((max * pct) / 100) / 2.5) * 2.5;
+}
+
 const MUSCU_SEANCES = [
   {
     key: "seance1",
@@ -5024,7 +5049,7 @@ function MusculationWeekDots({ checked, selectedWeek, onSelect }) {
   );
 }
 
-function MusculationSeanceTable({ week, seance, log, onLogChange }) {
+function MusculationSeanceTable({ week, seance, log, onLogChange, maxes }) {
   const thStyle = {
     textAlign: "left",
     padding: "8px 10px",
@@ -5082,6 +5107,7 @@ function MusculationSeanceTable({ week, seance, log, onLogChange }) {
             const skipPart = (p) => p === "Warm-up" || p === "Med Ball" || b.title.includes("Abdos");
             return parts.map((part, j) => {
               const id = parts.length > 1 ? `${week.n}__${seance.key}__${i}__${j}` : `${week.n}__${seance.key}__${i}`;
+              const weight = b.liftKey ? computeWeightFromMax(extractPercent(part), parseFloat(maxes[b.liftKey])) : null;
               return (
                 <tr
                   key={`${i}-${j}`}
@@ -5092,7 +5118,10 @@ function MusculationSeanceTable({ week, seance, log, onLogChange }) {
                       {b.title}
                     </td>
                   )}
-                  <td style={{ ...tdStyle, color: COLORS.muted }}>{part}</td>
+                  <td style={{ ...tdStyle, color: COLORS.muted }}>
+                    {part}
+                    {weight != null && <span style={{ color: MUSCU_ACCENT, fontWeight: 600, marginLeft: 6, whiteSpace: "nowrap" }}>→ {weight} kg</span>}
+                  </td>
                   <td style={tdStyle}>{skipPart(part) ? null : renderInput(id)}</td>
                 </tr>
               );
@@ -5104,7 +5133,7 @@ function MusculationSeanceTable({ week, seance, log, onLogChange }) {
   );
 }
 
-function MusculationWeekDetail({ week, checked, onToggleSeance, log, onLogChange }) {
+function MusculationWeekDetail({ week, checked, onToggleSeance, log, onLogChange, maxes }) {
   return (
     <div style={{ background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, borderRadius: 10, padding: "18px 18px 20px" }}>
       <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 14, flexWrap: "wrap", gap: 8 }}>
@@ -5134,9 +5163,49 @@ function MusculationWeekDetail({ week, checked, onToggleSeance, log, onLogChange
       {MUSCU_SEANCES.map((seance) => (
         <div key={seance.key} style={{ marginBottom: 18 }}>
           <div style={{ fontFamily: FONT_DISPLAY, fontSize: 15, color: MUSCU_ACCENT, marginBottom: 8 }}>{seance.title}</div>
-          <MusculationSeanceTable week={week} seance={seance} log={log} onLogChange={onLogChange} />
+          <MusculationSeanceTable week={week} seance={seance} log={log} onLogChange={onLogChange} maxes={maxes} />
         </div>
       ))}
+    </div>
+  );
+}
+
+const MUSCU_SECTIONS = [
+  { key: "programme", label: "Programme", accent: MUSCU_ACCENT },
+  { key: "maxes", label: "Mes maxes", accent: MUSCU_ACCENT },
+];
+
+function MusculationMaxesForm({ maxes, onChange }) {
+  return (
+    <div style={{ background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, borderRadius: 10, padding: "18px 18px 20px" }}>
+      <div style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: COLORS.text, marginBottom: 6 }}>Mes maxes (1RM)</div>
+      <p style={{ fontSize: 13, color: COLORS.muted, lineHeight: 1.6, marginBottom: 20 }}>
+        Renseigne ton max sur chaque mouvement : le programme calcule automatiquement la charge à soulever à chaque pourcentage (arrondie au 2,5 kg le plus proche).
+      </p>
+      <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+        {Object.keys(MUSCU_LIFT_LABELS).map((key) => (
+          <label key={key} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
+            <span style={{ fontSize: 14, color: COLORS.text }}>{MUSCU_LIFT_LABELS[key]}</span>
+            <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+              <input
+                type="number"
+                step="2.5"
+                min="0"
+                value={maxes[key] || ""}
+                onChange={(e) => onChange(key, e.target.value)}
+                placeholder="—"
+                style={{
+                  width: 90, background: COLORS.track, border: `1px solid ${COLORS.border}`, borderRadius: 6,
+                  padding: "6px 8px", fontSize: 13, fontFamily: FONT_BODY, color: COLORS.text, textAlign: "right", boxSizing: "border-box",
+                }}
+                onFocus={(e) => (e.target.style.borderColor = MUSCU_ACCENT)}
+                onBlur={(e) => (e.target.style.borderColor = COLORS.border)}
+              />
+              <span style={{ fontSize: 12, color: COLORS.muted }}>kg</span>
+            </div>
+          </label>
+        ))}
+      </div>
     </div>
   );
 }
@@ -5144,6 +5213,8 @@ function MusculationWeekDetail({ week, checked, onToggleSeance, log, onLogChange
 function MusculationTab() {
   const [checked, setChecked] = useState(null);
   const [log, setLog] = useState(null);
+  const [maxes, setMaxes] = useState(null);
+  const [section, setSection] = useState("programme");
   const [selectedWeek, setSelectedWeek] = useState(null);
 
   useEffect(() => {
@@ -5163,9 +5234,17 @@ function MusculationTab() {
       } catch {
         logVal = {};
       }
+      let maxesVal = {};
+      try {
+        const res = await window.storage.get("musculation-maxes");
+        maxesVal = res ? JSON.parse(res.value) : {};
+      } catch {
+        maxesVal = {};
+      }
       if (!cancelled) {
         setChecked(val);
         setLog(logVal);
+        setMaxes(maxesVal);
         const current = MUSCU_WEEKS.find((w) => isMusculationCurrentWeek(w));
         setSelectedWeek(current ? current.n : 1);
       }
@@ -5194,7 +5273,15 @@ function MusculationTab() {
     });
   }
 
-  if (!checked || !log || selectedWeek == null) return null;
+  function onMaxChange(key, value) {
+    setMaxes((prev) => {
+      const next = { ...(prev || {}), [key]: value };
+      window.storage.set("musculation-maxes", JSON.stringify(next)).catch(() => {});
+      return next;
+    });
+  }
+
+  if (!checked || !log || !maxes || selectedWeek == null) return null;
 
   const totalUnits = MUSCU_WEEKS.length * MUSCU_SEANCES.length;
   const doneUnits = MUSCU_WEEKS.reduce((sum, w) => sum + musculationWeekStatus(checked, w).done, 0);
@@ -5211,25 +5298,33 @@ function MusculationTab() {
         "Whatever your hand finds to do, do it with all your might."
       </p>
 
-      <div style={{ display: "flex", alignItems: "center", gap: 20, marginBottom: 24, flexWrap: "wrap" }}>
-        <ProgressRing done={doneUnits} total={totalUnits} accent={MUSCU_ACCENT} />
+      <PillTabs options={MUSCU_SECTIONS} activeKey={section} onSelect={setSection} accentOf={(s) => s.accent} />
+
+      {section === "maxes" && <MusculationMaxesForm maxes={maxes} onChange={onMaxChange} />}
+
+      {section === "programme" && (
         <div>
-          <div style={{ fontSize: 14, fontWeight: 500, color: COLORS.text, marginBottom: 4 }}>{weeksComplete} / {MUSCU_WEEKS.length} semaines complètes</div>
-          <div style={{ fontSize: 12, color: COLORS.muted }}>{doneUnits} / {totalUnits} séances au total</div>
+          <div style={{ display: "flex", alignItems: "center", gap: 20, marginBottom: 24, flexWrap: "wrap" }}>
+            <ProgressRing done={doneUnits} total={totalUnits} accent={MUSCU_ACCENT} />
+            <div>
+              <div style={{ fontSize: 14, fontWeight: 500, color: COLORS.text, marginBottom: 4 }}>{weeksComplete} / {MUSCU_WEEKS.length} semaines complètes</div>
+              <div style={{ fontSize: 12, color: COLORS.muted }}>{doneUnits} / {totalUnits} séances au total</div>
+            </div>
+          </div>
+
+          <div style={{ background: COLORS.card, borderRadius: 10, padding: "14px 16px", borderLeft: `3px solid ${MUSCU_ACCENT}`, marginBottom: 24 }}>
+            <div style={{ fontSize: 14, fontWeight: 500, color: COLORS.text, marginBottom: 4 }}>Méthode : Rep Max</div>
+            <p style={{ fontSize: 13, color: COLORS.text, lineHeight: 1.6, margin: 0 }}>
+              On travaille toujours en Rep Max : pour 3 séries de 8, les séries de travail se font à une charge qui permet de faire 8 répétitions et
+              pas une de plus. Si tu peux en faire plus que prévu (max sous-évalué), fais le maximum de reps et réévalue ton max en conséquence pour
+              la séance suivante. Échauffement avant chaque séance : 5 minutes de cardio (corde à sauter, dot drills, rameur, etc.).
+            </p>
+          </div>
+
+          <MusculationWeekDots checked={checked} selectedWeek={selectedWeek} onSelect={setSelectedWeek} />
+          <MusculationWeekDetail week={week} checked={checked} onToggleSeance={toggleSeance} log={log} onLogChange={onLogChange} maxes={maxes} />
         </div>
-      </div>
-
-      <div style={{ background: COLORS.card, borderRadius: 10, padding: "14px 16px", borderLeft: `3px solid ${MUSCU_ACCENT}`, marginBottom: 24 }}>
-        <div style={{ fontSize: 14, fontWeight: 500, color: COLORS.text, marginBottom: 4 }}>Méthode : Rep Max</div>
-        <p style={{ fontSize: 13, color: COLORS.text, lineHeight: 1.6, margin: 0 }}>
-          On travaille toujours en Rep Max : pour 3 séries de 8, les séries de travail se font à une charge qui permet de faire 8 répétitions et
-          pas une de plus. Si tu peux en faire plus que prévu (max sous-évalué), fais le maximum de reps et réévalue ton max en conséquence pour
-          la séance suivante. Échauffement avant chaque séance : 5 minutes de cardio (corde à sauter, dot drills, rameur, etc.).
-        </p>
-      </div>
-
-      <MusculationWeekDots checked={checked} selectedWeek={selectedWeek} onSelect={setSelectedWeek} />
-      <MusculationWeekDetail week={week} checked={checked} onToggleSeance={toggleSeance} log={log} onLogChange={onLogChange} />
+      )}
     </div>
   );
 }
