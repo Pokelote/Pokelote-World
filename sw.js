@@ -1,4 +1,4 @@
-const CACHE_NAME = "mon-espace-v46";
+const CACHE_NAME = "mon-espace-v47";
 const APP_SHELL = ["./mon-espace.html", "./manifest.json", "./icon.svg"];
 
 self.addEventListener("install", (event) => {
