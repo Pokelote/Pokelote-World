@@ -241,7 +241,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "49";
+const APP_VERSION = "52";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -265,16 +265,39 @@ function makeItem({ id, title, extra = "", type = "film", episodeCounts = null, 
   return { id, title, extra, type, status: "avoir", rating: 0, note: "", seasons, phase, phaseColor, upcoming };
 }
 
-const TABS = [
+// Trois espaces (ajouté 21/09/2026, demande explicite : "garder toute la partie me concernant en
+// l'appelant Clément" + une partie partagée "Les Chatchats" (Administratif + Terrain & Immo, qui
+// existaient avant dans les onglets personnels) + une partie "Estelle", vide pour l'instant). Un
+// sélecteur d'espace en haut change toute la barre d'onglets en dessous — chaque espace a la sienne.
+const SPACES = [
+  { key: "clement", label: "Clément", accent: COLORS.gold },
+  { key: "chatchats", label: "Les Chatchats", accent: "#D98FB3" },
+  { key: "estelle", label: "Estelle", accent: "#7FBBAE" },
+];
+
+const CLEMENT_TABS = [
   { key: "accueil", label: "Accueil", accent: COLORS.gold },
   { key: "news", label: "News", accent: "#C97B74" },
   { key: "calendrier", label: "Calendrier", accent: "#7FB3A3" },
   { key: "culture", label: "Culture", accent: "#D9B36B" },
   { key: "carriere", label: "Carrière", accent: "#8FA6B3" },
   { key: "apprentissage", label: "Apprentissage", accent: "#A088BB" },
-  { key: "patrimoine", label: "Administratif & Patrimoine", accent: "#8899A6" },
   { key: "musculation", label: "Musculation", accent: "#B0785A" },
 ];
+
+// Administratif et Terrain & Immo étaient avant sous-onglets d'un seul onglet "Administratif &
+// Patrimoine" côté Clément (AdministratifPatrimoineTab, supprimé) — ils sont maintenant deux onglets
+// directs ici, dans l'espace partagé.
+const CHATCHATS_TABS = [
+  { key: "chatchats-accueil", label: "Accueil", accent: "#D98FB3" },
+  { key: "administratif", label: "Administratif", accent: "#8899A6" },
+  { key: "terrain", label: "Terrain & Immo", accent: "#9CA66B" },
+];
+
+const ESTELLE_TABS = [{ key: "estelle-accueil", label: "Accueil", accent: "#7FBBAE" }];
+
+const SPACE_TABS = { clement: CLEMENT_TABS, chatchats: CHATCHATS_TABS, estelle: ESTELLE_TABS };
+const SPACE_DEFAULT_TAB = { clement: "accueil", chatchats: "chatchats-accueil", estelle: "estelle-accueil" };
 
 const THEMES = [
   { key: "action-aventure", label: "Action & Aventure", accent: "#C98B6E" },
@@ -511,6 +534,7 @@ async function loadThemeStorage(themes, storagePrefix, defaultItems, defaultColl
 }
 
 function App() {
+  const [activeSpace, setActiveSpace] = useState("clement");
   const [active, setActive] = useState("accueil");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [themeLists, setThemeLists] = useState(null);
@@ -717,6 +741,11 @@ function App() {
     [persist]
   );
 
+  function handleSpaceChange(key) {
+    setActiveSpace(key);
+    setActive(SPACE_DEFAULT_TAB[key]);
+  }
+
   if (!ready) {
     return (
       <div
@@ -735,14 +764,16 @@ function App() {
     );
   }
 
-  const activeTab = TABS.find((t) => t.key === active);
+  const currentSpaceTabs = SPACE_TABS[activeSpace];
+  const activeTab = currentSpaceTabs.find((t) => t.key === active);
 
   return (
     <div style={{ minHeight: "640px", fontFamily: FONT_BODY, background: `linear-gradient(180deg, ${COLORS.bgFrom}, ${COLORS.bgTo})`, display: "flex", flexDirection: "column" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap');
         @media (max-width: 640px) {
-          .app-header { padding: 16px 16px !important; display: flex !important; align-items: center; justify-content: space-between; }
+          .app-header { padding: 16px 16px !important; }
+          .app-title-row { display: flex !important; align-items: center; justify-content: space-between; }
           .app-nav { display: none !important; }
           .app-menu-btn { display: flex !important; }
           .app-main { padding: 20px 16px !important; }
@@ -750,20 +781,23 @@ function App() {
       `}</style>
 
       <header className="app-header" style={{ background: COLORS.ink, padding: "24px 40px 0", borderBottom: `3px solid ${COLORS.gold}` }}>
-        <div style={{ fontFamily: FONT_DISPLAY, fontSize: 20, color: COLORS.text, marginBottom: 18 }}>Mon espace</div>
-        <button
-          className="app-menu-btn"
-          onClick={() => setMobileMenuOpen(true)}
-          aria-label="Menu"
-          style={{
-            display: "none", background: "none", border: `1px solid ${COLORS.cardBorder}`, borderRadius: 8,
-            color: COLORS.text, cursor: "pointer", padding: "8px 10px", alignItems: "center", justifyContent: "center",
-          }}
-        >
-          <Menu size={18} />
-        </button>
+        <div className="app-title-row" style={{ marginBottom: 14 }}>
+          <div style={{ fontFamily: FONT_DISPLAY, fontSize: 20, color: COLORS.text }}>Mon espace</div>
+          <button
+            className="app-menu-btn"
+            onClick={() => setMobileMenuOpen(true)}
+            aria-label="Menu"
+            style={{
+              display: "none", background: "none", border: `1px solid ${COLORS.cardBorder}`, borderRadius: 8,
+              color: COLORS.text, cursor: "pointer", padding: "8px 10px", alignItems: "center", justifyContent: "center",
+            }}
+          >
+            <Menu size={18} />
+          </button>
+        </div>
+        <PillTabs options={SPACES} activeKey={activeSpace} onSelect={handleSpaceChange} accentOf={(s) => s.accent} marginBottom={14} />
         <nav className="app-nav" style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
-          {TABS.map((tab) => {
+          {currentSpaceTabs.map((tab) => {
             const isActive = tab.key === active;
             return (
               <button
@@ -807,8 +841,9 @@ function App() {
                 <X size={22} />
               </button>
             </div>
+            <PillTabs options={SPACES} activeKey={activeSpace} onSelect={handleSpaceChange} accentOf={(s) => s.accent} marginBottom={14} />
             <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-              {TABS.map((tab) => {
+              {currentSpaceTabs.map((tab) => {
                 const isActive = tab.key === active;
                 return (
                   <button
@@ -863,14 +898,17 @@ function App() {
         {active === "carriere" && <CarriereTab offerStatus={offerStatus || {}} setOfferStatus={setOfferStatus} />}
         {active === "apprentissage" && <ApprentissageTab />}
         {active === "musculation" && <MusculationTab />}
-        {active === "patrimoine" && (
-          <AdministratifPatrimoineTab
+        {active === "chatchats-accueil" && <ChatchatsAccueilTab offerStatus={offerStatus || {}} onNavigate={setActive} />}
+        {active === "administratif" && <AdministratifTab />}
+        {active === "terrain" && (
+          <TerrainTab
             offerStatus={offerStatus || {}}
             setOfferStatus={setOfferStatus}
             terrainArchive={terrainArchive || {}}
             setTerrainArchive={setTerrainArchive}
           />
         )}
+        {active === "estelle-accueil" && <EstelleAccueilTab />}
         {active !== "accueil" &&
           active !== "news" &&
           active !== "calendrier" &&
@@ -878,7 +916,10 @@ function App() {
           active !== "carriere" &&
           active !== "apprentissage" &&
           active !== "musculation" &&
-          active !== "patrimoine" && <PlaceholderTab tab={activeTab} />}
+          active !== "chatchats-accueil" &&
+          active !== "administratif" &&
+          active !== "terrain" &&
+          active !== "estelle-accueil" && <PlaceholderTab tab={activeTab} />}
       </main>
     </div>
   );
@@ -990,24 +1031,6 @@ function ApprentissageTab() {
           planStages={CHESS_PLAN_STAGES}
           planResources={CHESS_RESOURCES}
         />
-      )}
-    </div>
-  );
-}
-
-const PATRIMOINE_SECTIONS = [
-  { key: "administratif", label: "Administratif", accent: "#8899A6" },
-  { key: "terrain", label: "Terrain & Immo", accent: "#9CA66B" },
-];
-
-function AdministratifPatrimoineTab({ offerStatus, setOfferStatus, terrainArchive, setTerrainArchive }) {
-  const [section, setSection] = useState("administratif");
-  return (
-    <div>
-      <PillTabs options={PATRIMOINE_SECTIONS} activeKey={section} onSelect={setSection} accentOf={(s) => s.accent} />
-      {section === "administratif" && <AdministratifTab />}
-      {section === "terrain" && (
-        <TerrainTab offerStatus={offerStatus} setOfferStatus={setOfferStatus} terrainArchive={terrainArchive} setTerrainArchive={setTerrainArchive} />
       )}
     </div>
   );
@@ -3748,49 +3771,20 @@ function NewsTab({ taskEvents, taskChecks, toggleTask }) {
 }
 
 function AccueilTab({ taskEvents, taskChecks, toggleTask, offerStatus, onNavigate }) {
-  const [adminChecked, setAdminChecked] = useState(null);
-
-  useEffect(() => {
-    let cancelled = false;
-    window.storage
-      .get("admin-checked")
-      .then((res) => {
-        if (!cancelled) setAdminChecked(res ? JSON.parse(res.value) : {});
-      })
-      .catch(() => {
-        if (!cancelled) setAdminChecked({});
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
   const todayKey = dateKey(new Date());
   const todayTasks = taskEvents.filter((t) => t.date === todayKey);
 
-  const adminAlerts = [];
-  if (adminChecked) {
-    ADMIN_CATEGORIES.forEach((cat) => {
-      (ADMIN_DEFAULT_ITEMS[cat.key] || []).forEach((item) => {
-        const d = daysUntil(item.nextDue);
-        if (!adminChecked[item.id] && d !== null && d <= 30) {
-          adminAlerts.push({ label: item.label, d, overdue: d < 0 });
-        }
-      });
-    });
-    adminAlerts.sort((a, b) => a.d - b.d);
-  }
-
+  // Administratif/Terrain & Immo ont déménagé dans l'espace partagé "Les Chatchats" le 21/09/2026 —
+  // leurs alertes vivent maintenant dans ChatchatsAccueilTab, plus ici.
   const offerAlerts = [
     { key: "interim", label: "Intérim", data: INTERIM_OFFERS, tab: "carriere" },
     { key: "cdd-cdi", label: "CDD / CDI", data: JOB_OFFERS, tab: "carriere" },
     { key: "alternance", label: "Menuiserie (Alternance/CDD/CDI)", data: MENUISERIE_ALTERNANCES, tab: "carriere" },
-    { key: "terrain", label: "Terrain & Immo", data: TERRAIN_LISTINGS, tab: "patrimoine" },
   ]
     .map((o) => ({ ...o, count: o.data.items.filter((it) => !offerStatus[it.id]).length }))
     .filter((o) => o.count > 0);
 
-  const hasAlerts = adminAlerts.length > 0 || offerAlerts.length > 0;
+  const hasAlerts = offerAlerts.length > 0;
 
   const todayLabel = new Date().toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" });
 
@@ -3802,36 +3796,11 @@ function AccueilTab({ taskEvents, taskChecks, toggleTask, offerStatus, onNavigat
       <p style={{ color: COLORS.muted, fontSize: 14, marginBottom: 28 }}>Ce qui compte aujourd'hui, en un coup d'œil.</p>
 
       <div style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: COLORS.gold, marginBottom: 12 }}>Alertes</div>
-      {adminChecked && !hasAlerts && (
+      {!hasAlerts && (
         <p style={{ color: COLORS.muted, fontSize: 13, fontStyle: "italic", marginBottom: 28 }}>Rien d'urgent aujourd'hui 🎉</p>
       )}
       {hasAlerts && (
         <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 28 }}>
-          {adminAlerts.map((a, i) => (
-            <button
-              key={`admin-${i}`}
-              onClick={() => onNavigate("administratif")}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 10,
-                textAlign: "left",
-                width: "100%",
-                background: COLORS.card,
-                border: `1px solid ${a.overdue ? "#B85C5C" : "#D9A25C"}`,
-                borderRadius: 10,
-                padding: "12px 14px",
-                cursor: "pointer",
-                fontFamily: FONT_BODY,
-              }}
-            >
-              <span style={{ width: 8, height: 8, borderRadius: "50%", background: a.overdue ? "#B85C5C" : "#D9A25C", flexShrink: 0 }} />
-              <span style={{ flex: 1, fontSize: 13, color: COLORS.text }}>
-                {a.label} <span style={{ color: COLORS.muted }}>— {a.overdue ? "en retard" : `dans ${a.d} j.`}</span>
-              </span>
-              <ChevronRight size={16} style={{ color: COLORS.muted }} />
-            </button>
-          ))}
           {offerAlerts.map((o) => (
             <button
               key={o.key}
@@ -3909,6 +3878,122 @@ function AccueilTab({ taskEvents, taskChecks, toggleTask, offerStatus, onNavigat
         </div>
       )}
       <p style={{ color: COLORS.muted, fontSize: 10, textAlign: "center", marginTop: 32 }}>Version {APP_VERSION}</p>
+    </div>
+  );
+}
+
+// Accueil de l'espace partagé "Les Chatchats" (ajouté 21/09/2026) — reprend les alertes
+// Administratif/Terrain & Immo qui vivaient avant sur l'Accueil personnel de Clément, maintenant que
+// ces deux onglets ont déménagé ici. Volontairement plus léger que l'Accueil de Clément (pas
+// d'agenda/tâches du jour — ce sont des données du calendrier personnel de Clément, pas partagées).
+function ChatchatsAccueilTab({ offerStatus, onNavigate }) {
+  const [adminChecked, setAdminChecked] = useState(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    window.storage
+      .get("admin-checked")
+      .then((res) => {
+        if (!cancelled) setAdminChecked(res ? JSON.parse(res.value) : {});
+      })
+      .catch(() => {
+        if (!cancelled) setAdminChecked({});
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const adminAlerts = [];
+  if (adminChecked) {
+    ADMIN_CATEGORIES.forEach((cat) => {
+      (ADMIN_DEFAULT_ITEMS[cat.key] || []).forEach((item) => {
+        const d = daysUntil(item.nextDue);
+        if (!adminChecked[item.id] && d !== null && d <= 30) {
+          adminAlerts.push({ label: item.label, d, overdue: d < 0 });
+        }
+      });
+    });
+    adminAlerts.sort((a, b) => a.d - b.d);
+  }
+
+  const terrainCount = TERRAIN_LISTINGS.items.filter((it) => !offerStatus[it.id]).length;
+
+  const hasAlerts = adminAlerts.length > 0 || terrainCount > 0;
+
+  return (
+    <div>
+      <h1 style={{ fontFamily: FONT_DISPLAY, fontSize: 32, color: COLORS.text, marginBottom: 4, fontWeight: 600 }}>Les Chatchats</h1>
+      <p style={{ color: COLORS.muted, fontSize: 14, marginBottom: 28 }}>L'espace partagé — administratif et projets immobiliers.</p>
+
+      <div style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: "#D98FB3", marginBottom: 12 }}>Alertes</div>
+      {adminChecked && !hasAlerts && (
+        <p style={{ color: COLORS.muted, fontSize: 13, fontStyle: "italic" }}>Rien d'urgent aujourd'hui 🎉</p>
+      )}
+      {hasAlerts && (
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          {adminAlerts.map((a, i) => (
+            <button
+              key={`admin-${i}`}
+              onClick={() => onNavigate("administratif")}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+                textAlign: "left",
+                width: "100%",
+                background: COLORS.card,
+                border: `1px solid ${a.overdue ? "#B85C5C" : "#D9A25C"}`,
+                borderRadius: 10,
+                padding: "12px 14px",
+                cursor: "pointer",
+                fontFamily: FONT_BODY,
+              }}
+            >
+              <span style={{ width: 8, height: 8, borderRadius: "50%", background: a.overdue ? "#B85C5C" : "#D9A25C", flexShrink: 0 }} />
+              <span style={{ flex: 1, fontSize: 13, color: COLORS.text }}>
+                {a.label} <span style={{ color: COLORS.muted }}>— {a.overdue ? "en retard" : `dans ${a.d} j.`}</span>
+              </span>
+              <ChevronRight size={16} style={{ color: COLORS.muted }} />
+            </button>
+          ))}
+          {terrainCount > 0 && (
+            <button
+              onClick={() => onNavigate("terrain")}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+                textAlign: "left",
+                width: "100%",
+                background: COLORS.card,
+                border: `1px solid ${COLORS.cardBorder}`,
+                borderRadius: 10,
+                padding: "12px 14px",
+                cursor: "pointer",
+                fontFamily: FONT_BODY,
+              }}
+            >
+              <span style={{ width: 8, height: 8, borderRadius: "50%", background: TERRAIN_ACCENT, flexShrink: 0 }} />
+              <span style={{ flex: 1, fontSize: 13, color: COLORS.text }}>
+                {terrainCount} nouvelle{terrainCount > 1 ? "s" : ""} annonce{terrainCount > 1 ? "s" : ""} — <span style={{ color: COLORS.muted }}>Terrain & Immo</span>
+              </span>
+              <ChevronRight size={16} style={{ color: COLORS.muted }} />
+            </button>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Espace "Estelle" (ajouté 21/09/2026) — coquille vide pour l'instant, par choix explicite de
+// l'utilisateur ("rien pour l'instant, espace vide"). À remplir au fil des prochaines demandes.
+function EstelleAccueilTab() {
+  return (
+    <div>
+      <h1 style={{ fontFamily: FONT_DISPLAY, fontSize: 32, color: COLORS.text, marginBottom: 4, fontWeight: 600 }}>Estelle</h1>
+      <p style={{ color: COLORS.muted, fontSize: 14 }}>Cet espace est encore vide — il sera rempli au fil de vos prochaines demandes.</p>
     </div>
   );
 }
