@@ -241,7 +241,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "53";
+const APP_VERSION = "54";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -295,7 +295,10 @@ const CHATCHATS_TABS = [
   { key: "logement-marseille", label: "Logement Marseille", accent: "#6FA8C9" },
 ];
 
-const ESTELLE_TABS = [{ key: "estelle-accueil", label: "Accueil", accent: "#7FBBAE" }];
+const ESTELLE_TABS = [
+  { key: "estelle-accueil", label: "Accueil", accent: "#7FBBAE" },
+  { key: "estelle-emploi", label: "Recherche d'emploi", accent: "#7FBBAE" },
+];
 
 const SPACE_TABS = { clement: CLEMENT_TABS, chatchats: CHATCHATS_TABS, estelle: ESTELLE_TABS };
 const SPACE_DEFAULT_TAB = { clement: "accueil", chatchats: "chatchats-accueil", estelle: "estelle-accueil" };
@@ -910,7 +913,8 @@ function App() {
           />
         )}
         {active === "logement-marseille" && <LogementMarseilleTab offerStatus={offerStatus || {}} setOfferStatus={setOfferStatus} />}
-        {active === "estelle-accueil" && <EstelleAccueilTab />}
+        {active === "estelle-accueil" && <EstelleAccueilTab offerStatus={offerStatus || {}} onNavigate={setActive} />}
+        {active === "estelle-emploi" && <EstelleEmploiTab offerStatus={offerStatus || {}} setOfferStatus={setOfferStatus} />}
         {active !== "accueil" &&
           active !== "news" &&
           active !== "calendrier" &&
@@ -922,7 +926,8 @@ function App() {
           active !== "administratif" &&
           active !== "terrain" &&
           active !== "logement-marseille" &&
-          active !== "estelle-accueil" && <PlaceholderTab tab={activeTab} />}
+          active !== "estelle-accueil" &&
+          active !== "estelle-emploi" && <PlaceholderTab tab={activeTab} />}
       </main>
     </div>
   );
@@ -1680,6 +1685,7 @@ function JobOffersList({ data, title, accent, statusMap, onSetStatus }) {
         <div>
           <h1 style={{ fontFamily: FONT_DISPLAY, fontSize: 32, color: COLORS.text, margin: 0, fontWeight: 600 }}>{title}</h1>
           <span style={{ fontSize: 13, color: COLORS.muted }}>{data.domain}</span>
+          {data.note && <p style={{ fontSize: 12, color: COLORS.muted, fontStyle: "italic", margin: "6px 0 0", lineHeight: 1.5, maxWidth: 620 }}>{data.note}</p>}
         </div>
         <span style={{ fontSize: 12, color: COLORS.muted }}>Mis à jour le {data.updatedAt}</span>
       </div>
@@ -3308,8 +3314,14 @@ const NEWS_DATA = {
     title: "Agenda du jour",
     accent: "#C98B6E",
     items: [
-      { time: "06h00 – 09h00", title: "🌅 Routine matin" },
-      { time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+      { time: "06h00 – 06h15", title: "🚿 Toilette & habillage" },
+      { time: "06h15 – 06h30", title: "🧘 Étirements" },
+      { time: "06h30 – 07h00", title: "🍳 Préparation repas + manger" },
+      { time: "07h00 – 07h30", title: "📖 Lecture libre" },
+      { time: "08h00 – 15h00", title: "💼 Apesanteur" },
+      { time: "17h45 – 19h30", title: "🏋️ Muscu — Fitness Park de la Valentine" },
+      { time: "19h30 – 21h30", title: "🏈 Football Américain" },
+      { time: "22h00 – 22h05", title: "🛏️ Au lit" },
     ],
   },
   mails: {
@@ -4155,13 +4167,125 @@ function ChatchatsAccueilTab({ offerStatus, onNavigate }) {
   );
 }
 
-// Espace "Estelle" (ajouté 21/09/2026) — coquille vide pour l'instant, par choix explicite de
-// l'utilisateur ("rien pour l'instant, espace vide"). À remplir au fil des prochaines demandes.
-function EstelleAccueilTab() {
+// Espace "Estelle" (ajouté 21/09/2026, rempli le 22/09/2026 avec sa recherche d'emploi — elle est
+// Architecte d'intérieur, Designeuse et Graphiste).
+const ESTELLE_ACCENT = "#7FBBAE";
+
+const ESTELLE_JOB_OFFERS = {
+  updatedAt: "22 septembre 2026",
+  domain: "Architecte d'intérieur, Design & Graphisme — Marseille — tous types de contrat — offres postées ces derniers jours",
+  note: "Aucune offre d'Architecte d'intérieur trouvée à Marseille ni dans un rayon proche (Aix, Aubagne...) actuellement — les seules trouvées en PACA sont sur la Côte d'Azur (Nice, Cagnes-sur-Mer), trop loin. Les offres ci-dessous couvrent Design et Graphisme, où l'activité est plus présente à Marseille.",
+  items: [
+    {
+      id: "estelle-cdi-monapp-designer-ux",
+      title: "Designer UX H/F",
+      company: "MONAPP – RestoPro.",
+      contract: "CDI",
+      location: "Marseille",
+      summary: "Poste de designer UX, publié il y a 3 jours.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/83508691.html",
+    },
+    {
+      id: "estelle-cdi-signarama-graphiste-production",
+      title: "Graphiste - Chargé de Production H/F",
+      company: "Signarama Marseille 12",
+      contract: "CDI",
+      location: "Marseille",
+      summary: "Poste de graphiste et chargé de production, publié il y a 6 heures.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/83605991.html",
+    },
+    {
+      id: "estelle-interim-2rh-infographiste-webdesigner",
+      title: "Infographiste - Webdesigner H/F",
+      company: "2R&H",
+      contract: "Intérim",
+      location: "Marseille",
+      summary: "Mission d'intérim d'infographiste webdesigner, publiée il y a 3 jours.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/83520282.html",
+    },
+    {
+      id: "estelle-cdd-confidentiel-graphiste-signaletique",
+      title: "Graphiste Signalétique H/F",
+      company: "Entreprise confidentielle (recrutement via Hellowork)",
+      contract: "CDD",
+      location: "Marseille",
+      summary: "Poste de graphiste signalétique, publié il y a 7 jours.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/83337433.html",
+    },
+    {
+      id: "estelle-cdi-workandyou-ecographiste",
+      title: "Écographiste H/F",
+      company: "Work & You",
+      contract: "CDI",
+      location: "Marseille",
+      summary: "Poste d'écographiste (design graphique orienté éco-conception), publié il y a 12 jours.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/83190451.html",
+    },
+    {
+      id: "estelle-alternance-studicfa-graphiste-marketing",
+      title: "Alternance - Graphiste Marketing Communication H/F",
+      company: "Studi CFA",
+      contract: "Alternance",
+      location: "Marseille",
+      summary: "Alternance de graphiste marketing/communication, publiée il y a 2 jours.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/76955957.html",
+    },
+  ],
+};
+
+function EstelleEmploiTab({ offerStatus, setOfferStatus }) {
+  const setStatusFor = makeOfferStatusSetter(setOfferStatus);
+  return (
+    <JobOffersList
+      data={ESTELLE_JOB_OFFERS}
+      title="Recherche d'emploi"
+      accent={ESTELLE_ACCENT}
+      statusMap={offerStatus}
+      onSetStatus={setStatusFor}
+    />
+  );
+}
+
+function EstelleAccueilTab({ offerStatus, onNavigate }) {
+  const jobCount = ESTELLE_JOB_OFFERS.items.filter((it) => !offerStatus[it.id]).length;
   return (
     <div>
       <h1 style={{ fontFamily: FONT_DISPLAY, fontSize: 32, color: COLORS.text, marginBottom: 4, fontWeight: 600 }}>Estelle</h1>
-      <p style={{ color: COLORS.muted, fontSize: 14 }}>Cet espace est encore vide — il sera rempli au fil de vos prochaines demandes.</p>
+      <p style={{ color: COLORS.muted, fontSize: 14, marginBottom: 28 }}>Architecte d'intérieur, Designeuse et Graphiste.</p>
+
+      {jobCount > 0 && (
+        <>
+          <div style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: ESTELLE_ACCENT, marginBottom: 12 }}>Alertes</div>
+          <button
+            onClick={() => onNavigate("estelle-emploi")}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+              textAlign: "left",
+              width: "100%",
+              background: COLORS.card,
+              border: `1px solid ${COLORS.cardBorder}`,
+              borderRadius: 10,
+              padding: "12px 14px",
+              cursor: "pointer",
+              fontFamily: FONT_BODY,
+            }}
+          >
+            <span style={{ width: 8, height: 8, borderRadius: "50%", background: ESTELLE_ACCENT, flexShrink: 0 }} />
+            <span style={{ flex: 1, fontSize: 13, color: COLORS.text }}>
+              {jobCount} nouvelle{jobCount > 1 ? "s" : ""} offre{jobCount > 1 ? "s" : ""} — <span style={{ color: COLORS.muted }}>Recherche d'emploi</span>
+            </span>
+            <ChevronRight size={16} style={{ color: COLORS.muted }} />
+          </button>
+        </>
+      )}
     </div>
   );
 }
