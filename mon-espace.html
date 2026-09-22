@@ -241,7 +241,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "54";
+const APP_VERSION = "55";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -1804,7 +1804,7 @@ const TERRAIN_SECTIONS = [
 const TERRAIN_LISTINGS = {
   updatedAt: "16 septembre 2026",
   criteria: "Terrain, ruine reconstructible ou petite maison à rénover — budget ≤ 100 000 €, proche d'un lac, d'une montagne ou de la mer, si possible à moins de 2h de Marseille / Aix-en-Provence.",
-  note: "Le bord de mer abordable à moins de 2h de Marseille n'existe quasiment pas (littoral PACA très cher) — les terrains \"Mer\" ci-dessous sont l'option la plus proche trouvée à ce budget, à environ 2h15.",
+  note: "Le bord de mer abordable à moins de 2h de Marseille n'existe quasiment pas (littoral PACA très cher) — les terrains \"Mer\" ci-dessous sont l'option la plus proche trouvée à ce budget, à environ 2h15. Recherche mise en pause le 22/09/2026 (priorité donnée aux appartements à Marseille pour l'instant) — annonces ci-dessous non rafraîchies depuis, à reprendre sur demande.",
   items: [
     {
       id: "terrain-lac-valensole-112",
@@ -1956,12 +1956,12 @@ const MARSEILLE_SECTIONS = [
 ];
 
 const MARSEILLE_LOGEMENT = {
-  updatedAt: "21 septembre 2026",
+  updatedAt: "22 septembre 2026",
   criteria: "Appartement T3 minimum, avec jardin ou terrasse, dans le 4e, 5e, 7e, 8e ou 12e arrondissement de Marseille — idéalement proche de la mer, avec le moins de vis-à-vis possible.",
   noteAchat:
-    "Aucun T3 ou plus avec jardin/terrasse trouvé sous 300 000 € dans le 7e ou le 8e (les arrondissements les plus proches de la mer parmi ceux visés) — le marché y est nettement plus cher à ce type de bien. Les options ci-dessous sont dans le 5e et restent moins proches de la mer, mais correspondent au budget.",
+    "Recherche élargie à plusieurs sites (Lesiteimmo, Les Clefs de Chez Moi) — toujours rien sous 300 000 € dans le 7e ou le 8e avec jardin/terrasse confirmé (plusieurs annonces prometteuses proche des Catalans/Pharo n'avaient en réalité ni balcon ni terrasse une fois vérifiées). Les options ci-dessous sont dans le 5e et le 12e.",
   noteLocation:
-    "Sous 1 200 €/mois, un T3 ou plus avec jardin/terrasse dans ces arrondissements est quasiment introuvable actuellement — la seule option trouvée à proximité du budget le dépasse très légèrement (1 201 €/mois).",
+    "Sous 1 200 €/mois, un T3 ou plus avec jardin/terrasse dans ces arrondissements reste quasiment introuvable — la seule option trouvée à proximité du budget le dépasse très légèrement (1 201 €/mois). Pas de nouvelle option trouvée en élargissant aux autres sites cette fois.",
   items: [
     {
       id: "marseille-achat-laconception-63",
@@ -1998,6 +1998,30 @@ const MARSEILLE_LOGEMENT = {
       features: "Terrasse de 60 m² plein est, peu de vis-à-vis",
       source: "Lesiteimmo.com",
       url: "https://www.lesiteimmo.com/acheter/appartement-3pieces/marseille-5-13005/33317603",
+    },
+    {
+      id: "marseille-achat-saintbarnabe-55",
+      dealType: "achat",
+      title: "Appartement 3 pièces de 55 m²",
+      price: "239 000 €",
+      rooms: "T3",
+      surface: "55 m²",
+      location: "Saint-Barnabé, Marseille 12e (13012)",
+      features: "Terrasse",
+      source: "Les Clefs de Chez Moi",
+      url: "https://www.lesclefsdechezmoi.fr/achat-immobilier/bouches-du-rhone/marseille-12e-arrondissement/appartements/appartement-3pieces-55m2-5328382.html",
+    },
+    {
+      id: "marseille-achat-saintbarnabe-77",
+      dealType: "achat",
+      title: "Appartement 3 pièces de 77 m²",
+      price: "275 000 €",
+      rooms: "T3",
+      surface: "77 m²",
+      location: "Saint-Barnabé, Marseille 12e (13012)",
+      features: "Terrasse",
+      source: "Les Clefs de Chez Moi",
+      url: "https://www.lesclefsdechezmoi.fr/achat-immobilier/bouches-du-rhone/marseille-12e-arrondissement/appartements/appartement-3pieces-77m2-5023269.html",
     },
     {
       id: "marseille-location-camas-86",
@@ -4173,8 +4197,8 @@ const ESTELLE_ACCENT = "#7FBBAE";
 
 const ESTELLE_JOB_OFFERS = {
   updatedAt: "22 septembre 2026",
-  domain: "Architecte d'intérieur, Design & Graphisme — Marseille — tous types de contrat — offres postées ces derniers jours",
-  note: "Aucune offre d'Architecte d'intérieur trouvée à Marseille ni dans un rayon proche (Aix, Aubagne...) actuellement — les seules trouvées en PACA sont sur la Côte d'Azur (Nice, Cagnes-sur-Mer), trop loin. Les offres ci-dessous couvrent Design et Graphisme, où l'activité est plus présente à Marseille.",
+  domain: "Architecte d'intérieur, Design & Graphisme — Marseille (ou télétravail) — tous types de contrat hors alternance — offres postées ces derniers jours",
+  note: "Aucune offre d'Architecte d'intérieur trouvée à Marseille ni dans un rayon proche (Aix, Aubagne...), même en élargissant au télétravail — les seules trouvées sont en alternance ou stage à Paris (exclues, hors critère). Les offres ci-dessous couvrent Design et Graphisme, dont une en télétravail total hors Marseille.",
   items: [
     {
       id: "estelle-cdi-monapp-designer-ux",
@@ -4227,14 +4251,14 @@ const ESTELLE_JOB_OFFERS = {
       url: "https://www.hellowork.com/fr-fr/emplois/83190451.html",
     },
     {
-      id: "estelle-alternance-studicfa-graphiste-marketing",
-      title: "Alternance - Graphiste Marketing Communication H/F",
-      company: "Studi CFA",
-      contract: "Alternance",
-      location: "Marseille",
-      summary: "Alternance de graphiste marketing/communication, publiée il y a 2 jours.",
-      source: "Hellowork",
-      url: "https://www.hellowork.com/fr-fr/emplois/76955957.html",
+      id: "estelle-cdi-groupebagi-illustrateur-graphiste",
+      title: "Illustrateur Graphiste H/F",
+      company: "Groupe Bagi",
+      contract: "CDI",
+      location: "Télétravail total (hors Marseille)",
+      summary: "Poste d'illustrateur graphiste en télétravail total.",
+      source: "Welcome to the Jungle",
+      url: "https://www.welcometothejungle.com/fr/companies/groupe-bagi/jobs/6f9f35c1-a36e-4b95-9658-b29cda6d7161",
     },
   ],
 };
