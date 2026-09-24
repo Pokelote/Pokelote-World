@@ -2759,21 +2759,76 @@ function recetteToSlots(moment) {
   if (moment.startsWith("Dîner")) return ["Dîner"];
   return ["Dîner"];
 }
+// Ingrédients réels (issus des PDF "Menu d'été", "Menu d'automne" et "Recettes Konjac" fournis par
+// l'utilisateur), tels qu'indiqués dans la source — pour X personnes, non recalculés pour le couple.
+// Clé = index dans ALIM_DATA.recettes. Recettes sans entrée ici : ingrédients non fournis par la source.
+const CATALOG_INGREDIENTS = {
+  0: { servings: 4, items: [["Dos de cabillaud", "4"], ["Fenouils", "4"], ["Poireau", "1"], ["Orange (facultatif)", "1"], ["Huile d'olive", "20 cl"], ["Citron jaune", "1"], ["Sel, poivre", ""]] },
+  1: { servings: 4, items: [["Pavés de saumon", "4"], ["Pommes", "2"], ["Chou rouge", "½"], ["Miel", "2 CAS"], ["Vinaigre de cidre", "1 CAS"], ["Huile d'olive", ""], ["Sel, poivre", ""]] },
+  2: { servings: 2, items: [["Rougets (filets)", "2"], ["Topinambours", "4"], ["Fenouil sauvage", "1 bouquet"], ["Huile d'olive, beurre, thym, gingembre", ""]] },
+  3: { servings: 4, items: [["Topinambours", "400 g"], ["Carottes", "4"], ["Ail", "2 gousses"], ["Bouillon cube légumes", "1"], ["Huile d'olive", "2 CAS"], ["Thym séché", ""], ["Sel, poivre", ""]] },
+  4: { servings: 4, items: [["Carottes (jaunes et oranges)", "700 g"], ["Persil plat", "1 botte"], ["Bouillon de légumes", "½ L"], ["Cumin ou anis vert", "1 c. à café"], ["Sel, poivre du moulin", ""]] },
+  5: { servings: 8, items: [["Tranches de potiron épluchées", "1 kg"], ["Huile d'olive", "4 CAS"], ["Tête d'ail non épluchée", "1"], ["Herbes de Provence", ""], ["Fleur de sel, poivre", ""]] },
+  6: { servings: 4, items: [["Butternut", "½"], ["Pommes de terre", "4"], ["Oignon", "1"], ["Thym", "1 pincée"], ["Huile d'olive", "1 CAS"], ["Sel, poivre", ""]] },
+  7: { servings: 6, items: [["Pommes de terre", "4"], ["Patate douce", "1 grosse"], ["Potimarron", "1 petit"], ["Carottes", "4"], ["Oignon", "1"], ["Vin blanc sec", "150 ml"], ["Huile d'olive", "2 CAS"], ["Herbes de Provence", "1 CAS"], ["Paprika", "1 CAS"], ["Piment d'Espelette", "½ c. à café"], ["Sel, poivre", ""]] },
+  8: { servings: 4, items: [["Endives", "4"], ["Cèpes frais", "300 g"], ["Oignon", "1"], ["Ail", "1 gousse"], ["Persil plat", "1 bouquet"], ["Noisettes concassées", "50 g"], ["Beurre", "20 g"], ["Poudre de noisette", "20 g"]] },
+  9: { servings: 4, items: [["Topinambours", "400 g"], ["Girolles", "125 g"], ["Champignons rosés", "125 g"], ["Ail", "2 gousses"], ["Oignon", "1"], ["Persil plat", "½ botte"], ["Baies roses (facultatif)", "1 c. à café"], ["Beurre", "20 g"], ["Fleur de sel, poivre", ""]] },
+  10: { servings: 4, items: [["Courges butternut", "700 g (2)"], ["Oignon", "1"], ["Bouillon de volaille", "20 cl"], ["Lait", ""], ["Moutarde", "1 CAS"], ["Pâte de curry jaune", "1 CAS"]] },
+  11: { servings: 4, items: [["Potimarrons bio", "2"], ["Pomme de terre", "1 grosse"], ["Lait d'amande bio", "1 L"], ["Huile d'olive", "1 CAS"], ["Curcuma", "1 c. à café"], ["Sel, poivre du moulin", ""]] },
+  12: { servings: 4, items: [["Poireaux", "4"], ["Patates douces", "2"], ["Carottes", "2"], ["Oignon", "1"], ["Bouillon cube de volaille", "½"], ["Lait de coco", "1 brique"], ["Laurier", "1 feuille"], ["Huile d'olive", "1 CAS"], ["Sel, poivre", ""]] },
+  13: { servings: 4, items: [["Carottes", "600 g"], ["Courgettes", "2"], ["Oignon", "1"], ["Huile d'olive", "1 CAS"], ["Curry en poudre", "1 c. à café"], ["Muscade, sel, poivre", ""], ["Amandes effilées (service)", "1 CAS"]] },
+  14: { servings: 4, items: [["Betteraves cuites", "500 g"], ["Pommes golden", "2"], ["Pomme de terre", "100 g"], ["Noisettes", "quelques"], ["Crème fraîche épaisse", ""], ["Estragon frais", "4 CAS"], ["Huile de noisette", "1 c. à café"], ["Fleur de sel", ""]] },
+  15: { servings: 2, items: [["Mélange de légumes", "300 g"], ["Blancs de poulet", "4"], ["Ail", "1 gousse"], ["Noix de cajou non salées", "50 g"], ["Noisettes grillées concassées", "30 g"], ["Gingembre frais", "3 cm"], ["Sauce soja (marinade, facultatif)", ""]] },
+  16: { servings: 6, items: [["Hauts de cuisse de poulet", "6"], ["Citron vert", "1"], ["Sauce soja (facultatif)", "2 CAS"], ["Gingembre", "1 morceau"], ["Huile d'olive", "1 CAS"], ["Sel, poivre du moulin", ""]] },
+  17: { servings: 4, items: [["Blanc de poulet", "400 g"], ["Butternut", "½"], ["Aubergine", "1"], ["Citron vert", "1"], ["Cives", "1 bouquet"], ["Ail", "1 gousse"], ["Poudre de colombo", "2 CAS"], ["Huile de tournesol", "2 CAS"], ["Laurier, cumin, moutarde, girofle, thym", ""]] },
+  18: { servings: 4, items: [["Aubergine", "1"], ["Pois chiches", "120 g"], ["Oignon", "1"], ["Ail", "1 gousse"], ["Huile d'olive", "1 CAS"], ["Coriandre", "quelques feuilles"], ["Tahini", "1 CAS"], ["Curcuma", "½ CAS"], ["Paprika", "½ c. à café"]] },
+  19: { servings: 4, items: [["Patates douces", "1 kg"], ["Bœuf haché maigre", "500 g"], ["Panais", "3"], ["Carottes", "3 grosses"], ["Tomates concassées", "400 g"], ["Oignon", "1"], ["Ail", "2 gousses"], ["Raisins secs (facultatif)", "1 poignée"], ["Amandes effilées", "quelques"], ["Laurier, raz el hanout ou curry, huile d'olive, sel, poivre", ""]] },
+  20: { servings: 8, items: [["Filet de poisson chair blanche", "400 g"], ["Citrons", "6"], ["Citrons verts", "4"], ["Oignon vert", "½"], ["Ail", "1 gousse"], ["Coriandre", "2 brins"], ["Tomates séchées", "10"], ["Piment rouge", "1/3"], ["Amandes effilées", "70 g"]] },
+  21: { servings: 4, items: [["Filets de daurade royale", "4"], ["Carottes", "2"], ["Artichauts poivrade", "2"], ["Oignons nouveaux", "1 botte"], ["Coriandre", "1 botte"], ["Huile d'olive extra vierge", "20 cl"], ["Bouillon de légumes", "20 cl"], ["Sel, poivre", ""]] },
+  22: { servings: 6, items: [["Girolles", "1 kg"], ["Ail", "3 gousses"], ["Échalotes", "2"], ["Persil", "10 brins"], ["Crème liquide", "15 cl"], ["Huile d'olive", "2 CAS"], ["Œufs", "4"]] },
+  23: { servings: 4, items: [["Endives", "4"], ["Avocat", "1"], ["Oignon rouge", "1"], ["Persil plat", "1 bouquet"], ["Noix de cajou non salées", "75 g"], ["Citron", "1"], ["Yaourt grec", "3 CAS"], ["Sel, poivre", ""]] },
+  24: { servings: 4, items: [["Potiron pelé", "800 g"], ["Féta", "100 g"], ["Quinoa", "50 g"], ["Pousses d'épinards", "50 g"], ["Ail", "2 gousses"], ["Menthe", "4 branches"], ["Noisettes hachées", "30 g"], ["Huile d'olive", "2 CAS"], ["Vinaigre de cidre", "½ CAS"]] },
+  25: { servings: 6, items: [["Blancs de poulet", "6"], ["Oignon blanc", "1"], ["Champignons de Paris", "1 boite"], ["Vin blanc", "1 verre"], ["Crème fraîche épaisse 15%", "1 pot"], ["Moutarde", "2 CAS"], ["Huile d'olive", "1 CAS"]] },
+  26: { servings: 4, items: [["Courge butternut", "700 g"], ["Oignon", "1"], ["Ail", "1 gousse"], ["Jambon blanc", "120 g"], ["Crème fraîche 4%", "200 ml"], ["Comté râpé", "20 g"], ["Curry en poudre", "2 c. à café"], ["Huile d'olive", "1 CAS"], ["Sel, poivre", ""]] },
+  27: { servings: 4, items: [["Filets de poisson blanc", "4"], ["Tomates cerises", "12"], ["Oignon", "1"], ["Carottes", "2"], ["Huile d'olive", ""], ["Sel, poivre", ""]] },
+  28: { servings: 2, items: [["Filets de daurade", "4"], ["Fenouil", "1"], ["Oignon jaune", "1"], ["Thym", "½ c. à s."], ["Huile d'olive", "2 c. à s."], ["Sel, poivre", ""]] },
+  29: { servings: 2, items: [["Aubergines longues", "4 petites"], ["Tomates", "3"], ["Courgette", "1"], ["Oignons blancs", "2"], ["Ail", "2 gousses"], ["Olives noires", "80 g"], ["Herbes de Provence", "1 c. à café"], ["Basilic", "½ bouquet"], ["Beurre", "10 g"], ["Huile d'olive", "10 cl"]] },
+  30: { servings: 4, items: [["Fenouil", "1 bulbe/pers."], ["Huile d'olive", "1 CAS"], ["Vinaigre balsamique", "1 CAS"], ["Sel, poivre", ""]] },
+  31: { servings: 4, items: [["Aubergines", "2-3"], ["Huile d'olive", "4 CAS"], ["Ail haché", "2 gousses"], ["Persil haché", "2 CAS"], ["Thym frais", "1 CAS"], ["Jus de citron", "2 CAS"], ["Sel, poivre", ""]] },
+  32: { servings: 2, items: [["Haricots verts cuits", "2 poignées"], ["Tomate", "1"], ["Oignon blanc", "½"], ["Thon (boite)", "140 g"], ["Persil haché", "1 c. à café"], ["Vinaigre balsamique", "1 CAS"], ["Huile d'olive", "1 CAS"], ["Sel, poivre", ""]] },
+  33: { servings: 2, items: [["Quinoa", "100 g"], ["Tomate", "1 grosse"], ["Échalote", "1"], ["Pois chiches cuits", "150 g"], ["Huile de noix", "1 CAS"], ["Vinaigre balsamique", "1 CAS"], ["Sel, poivre, persil", ""]] },
+  34: { servings: 4, items: [["Queues de crevettes", "24"], ["Ail", "6 gousses"], ["Échalotes", "2"], ["Huile d'olive", "35 cl"], ["Jus de citron vert", "½"], ["Persil ciselé", ""], ["Sel, poivre", ""]] },
+  35: { servings: 4, items: [["Moules", "2 kg"], ["Échalotes", "2"], ["Vin blanc sec", "6 CAS"], ["Persil", "6 brins"], ["Bouquet garni", "1"], ["Poivre", ""]] },
+  36: { servings: 4, items: [["Escalopes de dinde", "4"], ["Poivrons rouges", "3"], ["Poivrons verts", "3"], ["Courgette", "1"], ["Échalotes", "2"], ["Thym", "1 branche"], ["Beurre allégé", "1 noix"], ["Huile d'olive", "1 CAS"], ["Sel, poivre", ""]] },
+  37: { servings: 4, items: [["Blancs de poulet", "4"], ["Poivron rouge", "1"], ["Tomates", "3"], ["Échalote", "1"], ["Piment", "1 petit"], ["Cacahuètes", "1 CAS"], ["Sauce soja", "1 CAS"], ["Huile", "2 CAS"], ["Coriandre, curcuma, sésame", ""], ["Bouillon de volaille", "15 cl"]] },
+  38: { servings: 3, items: [["Filet de dinde", "800 g"], ["Poivron rouge", "1"], ["Poivron vert", "1"], ["Tomates", "4"], ["Oignons", "3"], ["Ail", "1 gousse"], ["Céleri", "2 branches"], ["Crème fraîche légère", "3 CAS"], ["Huile d'olive, persil, sel, poivre", ""]] },
+  39: { servings: 4, items: [["Tagliatelles de konjac", "400 g"], ["Pavés de saumon frais", "4"], ["Fromage à la crème allégé", "120 g"], ["Lait écrémé", "4 CAS"], ["Citron jaune", "1"], ["Huile d'olive", "2 CAS"], ["Ciboulette fraîche", "8 brins"], ["Sel, poivre", ""]] },
+  41: { servings: 4, items: [["Riz rond de konjac", "250 g"], ["Fenouil émincé", "400 g"], ["Oignon", "1"], ["Carottes", "2"], ["Huile d'olive", ""], ["Crème fraîche légère", "20 cl"], ["Bouillon de volaille allégé", "50 cl"], ["Sel, poivre", ""]] },
+  42: { servings: 4, items: [["Shirataki de konjac", "600 g"], ["Escalope de dinde", "600 g"], ["Basilic", "quelques feuilles"], ["Carotte", "1"], ["Haricots verts", "180 g"], ["Pois gourmands", "200 g"], ["Pousses de soja", "200 g"], ["Sauce soja (facultatif)", ""], ["Huile d'olive, poivre", ""]] },
+  43: { servings: 4, items: [["Spaghetti de konjac", "400 g"], ["Oignons nouveaux", "4"], ["Ail", "1 gousse"], ["Huile de tournesol", "1 CAS"], ["Piment oiseau", "1"], ["Gingembre frais râpé", "1 CAS"], ["Bouillon de bœuf allégé", "1 cube"], ["Sauce soja (facultatif)", ""], ["Champignons noirs déshydratés", "6"]] },
+  44: { servings: 4, items: [["Tagliatelles de konjac", "250 g"], ["Potiron pelé en cubes", "400 g"], ["Oignon émincé", "1"], ["Ail", "1 gousse"], ["Crème liquide légère", "100 ml"], ["Vin blanc", "1 petit verre"], ["Bouillon de légumes allégé", "1 cube"], ["Basilic frais", "quelques feuilles"], ["Sel, poivre", ""]] },
+};
+
 function buildCatalogCards() {
-  return ALIM_DATA.recettes.map((r, i) => ({
-    id: "cat-" + i,
-    slots: recetteToSlots(r[1]),
-    title: r[0],
-    items: null,
-    kc: 0,
-    ke: 0,
-    moment: r[1],
-    saison: r[2],
-    adapteClement: r[3],
-    note: r[4],
-    source: r[5],
-    niveau: r[6],
-  }));
+  return ALIM_DATA.recettes.map((r, i) => {
+    const ing = CATALOG_INGREDIENTS[i];
+    return {
+      id: "cat-" + i,
+      slots: recetteToSlots(r[1]),
+      title: r[0],
+      items: null,
+      groupItems: ing ? ing.items : null,
+      groupServings: ing ? ing.servings : null,
+      kc: 0,
+      ke: 0,
+      moment: r[1],
+      saison: r[2],
+      adapteClement: r[3],
+      note: r[4],
+      source: r[5],
+      niveau: r[6],
+    };
+  });
 }
 
 const ALL_PANIER_CARDS = [...buildMealCardLibrary(), ...buildExtraCards(), ...buildCatalogCards()];
@@ -3028,7 +3083,23 @@ function AlimPanierTab() {
                         <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 999, border: `1px solid ${alimTone(c.niveau)}`, color: alimTone(c.niveau) }}>{c.niveau}</span>
                       </div>
                       {c.note && <p style={{ fontSize: 12, color: COLORS.muted, fontStyle: "italic", margin: "0 0 4px", lineHeight: 1.4 }}>{c.note}</p>}
-                      <p style={{ fontSize: 11, color: COLORS.muted, margin: 0 }}>{c.saison} · {c.source} · ingrédients à définir (voir onglet Recettes)</p>
+                      {c.groupItems ? (
+                        <div style={{ marginBottom: 6 }}>
+                          <div style={{ fontSize: 11, color: COLORS.muted, marginBottom: 4 }}>Ingrédients pour {c.groupServings} personnes :</div>
+                          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
+                            <tbody>
+                              {c.groupItems.map(([al, q], i) => (
+                                <tr key={i} style={{ borderTop: `1px solid ${COLORS.track}` }}>
+                                  <td style={{ padding: "4px 0", color: COLORS.text }}>{al}</td>
+                                  <td style={{ padding: "4px 0", textAlign: "right", color: ALIM_ACCENT, whiteSpace: "nowrap" }}>{q}</td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      ) : (
+                        <p style={{ fontSize: 11, color: COLORS.muted, margin: "0 0 6px" }}>{c.saison} · {c.source} · ingrédients à définir (voir onglet Recettes)</p>
+                      )}
                     </div>
                   )}
                   <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -3149,26 +3220,39 @@ const ALIM_REC_FILTERS = [
 ];
 function AlimRecettes() {
   const [f, setF] = useState("ideal");
-  const list = ALIM_DATA.recettes.filter((r) =>
-    f === "tous" ? true : f === "ideal" ? r[6] === "Idéal" : f === "sova" ? r[5] === "Ebook SOVA" : /automne/i.test(r[2] || "")
-  );
+  const list = ALIM_DATA.recettes
+    .map((r, i) => ({ r, i }))
+    .filter(({ r }) => (f === "tous" ? true : f === "ideal" ? r[6] === "Idéal" : f === "sova" ? r[5] === "Ebook SOVA" : /automne/i.test(r[2] || "")));
   const tone = (v) => (v === "Idéal" || v === "Oui" ? COLORS.checked : /Plaisir|limiter|Écart/.test(v || "") ? "#E08A6E" : ALIM_ACCENT);
   return (
     <div>
       <PillTabs options={ALIM_REC_FILTERS} activeKey={f} onSelect={setF} accentOf={() => ALIM_ACCENT} marginBottom={14} />
       <p style={{ fontSize: 12, color: COLORS.muted, marginTop: 0 }}>{list.length} recettes</p>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 10 }}>
-        {list.map((r) => (
-          <div key={r[0]} style={alimCard}>
-            <div style={{ fontSize: 14, fontWeight: 600, color: COLORS.text, marginBottom: 6, lineHeight: 1.35 }}>{r[0]}</div>
-            <div style={{ fontSize: 12, color: COLORS.muted, marginBottom: 8 }}>{r[1]} · {r[2]} · {r[5]}</div>
-            <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: r[4] ? 8 : 0 }}>
-              <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 999, border: `1px solid ${tone(r[3])}`, color: tone(r[3]) }}>Clément : {r[3]}</span>
-              <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 999, border: `1px solid ${tone(r[6])}`, color: tone(r[6]) }}>Estelle : {r[6]}</span>
+        {list.map(({ r, i }) => {
+          const ing = CATALOG_INGREDIENTS[i];
+          return (
+            <div key={r[0]} style={alimCard}>
+              <div style={{ fontSize: 14, fontWeight: 600, color: COLORS.text, marginBottom: 6, lineHeight: 1.35 }}>{r[0]}</div>
+              <div style={{ fontSize: 12, color: COLORS.muted, marginBottom: 8 }}>{r[1]} · {r[2]} · {r[5]}</div>
+              <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: r[4] || ing ? 8 : 0 }}>
+                <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 999, border: `1px solid ${tone(r[3])}`, color: tone(r[3]) }}>Clément : {r[3]}</span>
+                <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 999, border: `1px solid ${tone(r[6])}`, color: tone(r[6]) }}>Estelle : {r[6]}</span>
+              </div>
+              {r[4] && <div style={{ fontSize: 12, color: COLORS.muted, fontStyle: "italic", lineHeight: 1.45, marginBottom: ing ? 8 : 0 }}>{r[4]}</div>}
+              {ing && (
+                <div>
+                  <div style={{ fontSize: 11, color: COLORS.muted, marginBottom: 4 }}>Ingrédients pour {ing.servings} personnes :</div>
+                  <ul style={{ margin: 0, paddingLeft: 16, fontSize: 12, color: COLORS.text, lineHeight: 1.6 }}>
+                    {ing.items.map(([al, q], j) => (
+                      <li key={j}>{al}{q ? <span style={{ color: ALIM_ACCENT }}> — {q}</span> : null}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
-            {r[4] && <div style={{ fontSize: 12, color: COLORS.muted, fontStyle: "italic", lineHeight: 1.45 }}>{r[4]}</div>}
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
