@@ -2420,6 +2420,12 @@ function AlimentationTab() {
 // --- "Ma semaine" : planning composé à la main à partir des recettes déjà détaillées sur le
 // site (5 rubriques par repas), ajoutées comme dans un panier ; la liste de courses se
 // recalcule automatiquement à partir de ce qui a été choisi, avec les portions Clément | Estelle.
+// Deux sources de recettes alimentent les rubriques :
+//  - les recettes "structurées" (ingrédients + quantités précises) : celles du menu deux semaines
+//    (ALIM_DATA.days) + de nouveaux petits-déjeuners/collations ajoutés ci-dessous pour varier ;
+//  - le catalogue "Recettes" existant (ALIM_DATA.recettes, issu des classeurs/ebooks déjà intégrés
+//    au site) : pas de quantités précises, mais affichées pour élargir le choix, avec les notes
+//    d'adaptation et le niveau (Idéal/OK/Plaisir…).
 function buildMealCardLibrary() {
   const cards = [];
   const seen = new Set();
@@ -2432,7 +2438,7 @@ function buildMealCardLibrary() {
       seen.add(dedupeKey);
       cards.push({
         id: dedupeKey.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, ""),
-        slot: m.name,
+        slots: [m.name],
         title,
         items: m.items,
         kc: m.kc,
@@ -2442,10 +2448,136 @@ function buildMealCardLibrary() {
   }
   return cards;
 }
-const MEAL_CARD_LIBRARY = buildMealCardLibrary();
-const MEAL_CARD_LIBRARY_BY_ID = Object.fromEntries(MEAL_CARD_LIBRARY.map((c) => [c.id, c]));
-const MEAL_CARDS_BY_SLOT = MEAL_CARD_LIBRARY.reduce((acc, c) => {
-  (acc[c.slot] = acc[c.slot] || []).push(c);
+
+// Petits-déjeuners et collations ajoutés pour varier au-delà du menu deux semaines
+// (recettes originales, sur le même principe SOPK-friendly que le reste du site : protéines +
+// bon gras + fibres au petit-déj, protéines + fruit en collation).
+const EXTRA_MEAL_CARDS = [
+  {
+    slots: ["Petit-déjeuner"],
+    title: "Bowl skyr, graines de chia & fruits rouges",
+    items: [["Skyr nature", "250 g", "200 g"], ["Graines de chia", "1 CAS", "1 CAS"], ["Amandes effilées", "15 g", "10 g"], ["Fruits rouges (frais ou surgelés)", "100 g", "100 g"], ["Cannelle", "1 pincée", "1 pincée"]],
+    kc: 430, ke: 360,
+  },
+  {
+    slots: ["Petit-déjeuner"],
+    title: "Omelette chèvre & épinards",
+    items: [["Œufs", "4", "3"], ["Fromage de chèvre", "30 g", "20 g"], ["Épinards", "80 g", "80 g"], ["Tomates cerises", "80 g", "80 g"]],
+    kc: 520, ke: 400,
+  },
+  {
+    slots: ["Petit-déjeuner"],
+    title: "Pancakes protéinés banane-avoine",
+    items: [["Œufs", "3", "2"], ["Banane", "1", "1"], ["Flocons d'avoine", "40 g", "30 g"], ["Noix du Brésil", "2", "2"], ["Cannelle", "1 pincée", "1 pincée"]],
+    kc: 500, ke: 400,
+  },
+  {
+    slots: ["Petit-déjeuner"],
+    title: "Avocat & œufs pochés (sans pain)",
+    items: [["Avocat", "1", "½"], ["Œufs", "2", "2"], ["Graines de tournesol", "1 CAS", "1 CAS"], ["Citron", "¼", "¼"]],
+    kc: 480, ke: 380,
+  },
+  {
+    slots: ["Petit-déjeuner"],
+    title: "Fromage blanc, compote maison & noix",
+    items: [["Fromage blanc", "200 g", "150 g"], ["Compote de pomme sans sucre ajouté", "100 g", "100 g"], ["Noix", "20 g", "15 g"], ["Cannelle", "1 pincée", "1 pincée"]],
+    kc: 410, ke: 340,
+  },
+  {
+    slots: ["Petit-déjeuner"],
+    title: "Œufs brouillés, saumon fumé & avocat",
+    items: [["Œufs", "3", "3"], ["Saumon fumé", "50 g", "40 g"], ["Avocat", "½", "½"], ["Citron", "¼", "¼"]],
+    kc: 520, ke: 460,
+  },
+  {
+    slots: ["Collation matin", "Collation après-midi"],
+    title: "Houmous & bâtonnets de légumes",
+    items: [["Houmous maison (pois chiches)", "60 g", "50 g"], ["Carotte, concombre en bâtonnets", "100 g", "100 g"]],
+    kc: 180, ke: 155,
+  },
+  {
+    slots: ["Collation matin", "Collation après-midi"],
+    title: "Œuf dur & tomates cerises",
+    items: [["Œufs", "1", "1"], ["Tomates cerises", "100 g", "100 g"]],
+    kc: 120, ke: 120,
+  },
+  {
+    slots: ["Collation matin", "Collation après-midi"],
+    title: "Fromage blanc & noix de cajou",
+    items: [["Fromage blanc", "150 g", "120 g"], ["Noix de cajou", "10", "10"]],
+    kc: 190, ke: 165,
+  },
+  {
+    slots: ["Collation matin", "Collation après-midi"],
+    title: "Thon & bâtonnets de concombre",
+    items: [["Thon au naturel", "80 g", "60 g"], ["Concombre en bâtonnets", "100 g", "100 g"]],
+    kc: 140, ke: 110,
+  },
+  {
+    slots: ["Collation matin", "Collation après-midi"],
+    title: "Yaourt de brebis & graines de courge",
+    items: [["Yaourt de brebis", "150 g", "120 g"], ["Graines de courge", "10 g", "10 g"], ["Cannelle", "1 pincée", "1 pincée"]],
+    kc: 170, ke: 145,
+  },
+  {
+    slots: ["Collation matin", "Collation après-midi"],
+    title: "Jambon blanc & bâtonnets de poivron",
+    items: [["Jambon blanc", "80 g", "60 g"], ["Poivron en bâtonnets", "100 g", "100 g"]],
+    kc: 130, ke: 100,
+  },
+];
+function buildExtraCards() {
+  const cards = [];
+  EXTRA_MEAL_CARDS.forEach((c, i) => {
+    c.slots.forEach((slot) => {
+      cards.push({
+        id: "extra-" + i + "-" + slot.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+        slots: [slot],
+        title: c.title,
+        items: c.items,
+        kc: c.kc,
+        ke: c.ke,
+      });
+    });
+  });
+  return cards;
+}
+
+// Rattache le "moment" du catalogue de recettes existant (ALIM_DATA.recettes) aux 5 rubriques.
+function recetteToSlots(moment) {
+  if (moment.startsWith("Petit-déjeuner")) return ["Petit-déjeuner"];
+  if (moment.startsWith("Collation")) return ["Collation matin", "Collation après-midi"];
+  if (moment.startsWith("Crudités")) return ["Collation après-midi"];
+  if (moment.startsWith("Dessert")) return ["Dîner"];
+  if (moment.startsWith("Accompagnement")) return ["Déjeuner", "Dîner"];
+  if (moment.includes("Déjeuner") && moment.toLowerCase().includes("dîner")) return ["Déjeuner", "Dîner"];
+  if (moment.startsWith("Déjeuner")) return ["Déjeuner"];
+  if (moment.startsWith("Dîner")) return ["Dîner"];
+  return ["Dîner"];
+}
+function buildCatalogCards() {
+  return ALIM_DATA.recettes.map((r, i) => ({
+    id: "cat-" + i,
+    slots: recetteToSlots(r[1]),
+    title: r[0],
+    items: null,
+    kc: 0,
+    ke: 0,
+    moment: r[1],
+    saison: r[2],
+    adapteClement: r[3],
+    note: r[4],
+    source: r[5],
+    niveau: r[6],
+  }));
+}
+
+const ALL_PANIER_CARDS = [...buildMealCardLibrary(), ...buildExtraCards(), ...buildCatalogCards()];
+const ALL_CARDS_BY_ID = Object.fromEntries(ALL_PANIER_CARDS.map((c) => [c.id, c]));
+const CARDS_BY_SLOT = ALL_PANIER_CARDS.reduce((acc, c) => {
+  c.slots.forEach((s) => {
+    (acc[s] = acc[s] || []).push(c);
+  });
   return acc;
 }, {});
 const ALIM_RAYON_BY_NAME = Object.fromEntries(ALIM_DATA.courses.map((c) => [c.al, c.rayon]));
@@ -2460,6 +2592,7 @@ const PANIER_VIEWS = [
   { key: "recettes", label: "Recettes" },
   { key: "courses", label: "Courses" },
 ];
+const alimTone = (v) => (v === "Idéal" || v === "Oui" ? COLORS.checked : /Plaisir|limiter|Écart/.test(v || "") ? "#E08A6E" : ALIM_ACCENT);
 
 function parseQty(raw) {
   if (!raw || raw === "–") return null;
@@ -2488,10 +2621,15 @@ function formatQty(unit, total) {
 
 function buildPanierCourses(panier, person) {
   const groups = {};
+  const unquantified = [];
   Object.entries(panier || {}).forEach(([cardId, count]) => {
     if (!count) return;
-    const card = MEAL_CARD_LIBRARY_BY_ID[cardId];
+    const card = ALL_CARDS_BY_ID[cardId];
     if (!card) return;
+    if (!card.items) {
+      if (person === 1) unquantified.push({ title: card.title, count });
+      return;
+    }
     card.items.forEach(([name, qc, qe]) => {
       const raw = person === 1 ? qc : qe;
       const parsed = parseQty(raw);
@@ -2508,11 +2646,12 @@ function buildPanierCourses(panier, person) {
       }
     });
   });
-  return Object.entries(groups).map(([name, g]) => ({
+  const items = Object.entries(groups).map(([name, g]) => ({
     name,
     rayon: ALIM_RAYON_BY_NAME[name] || "Autres",
     display: [g.total > 0 ? formatQty(g.unit, g.total) : null, ...g.rawParts].filter(Boolean).join(" + "),
   }));
+  return { items, unquantified };
 }
 
 function AlimPanierCourses({ panier, checked, onToggle }) {
@@ -2524,8 +2663,8 @@ function AlimPanierCourses({ panier, checked, onToggle }) {
       </p>
     );
   }
-  const clem = buildPanierCourses(panier, 1);
-  const est = buildPanierCourses(panier, 2);
+  const { items: clem, unquantified } = buildPanierCourses(panier, 1);
+  const { items: est } = buildPanierCourses(panier, 2);
   const byRayon = {};
   clem.forEach((it) => {
     byRayon[it.rayon] = byRayon[it.rayon] || {};
@@ -2560,6 +2699,19 @@ function AlimPanierCourses({ panier, checked, onToggle }) {
           })}
         </div>
       ))}
+      {unquantified.length > 0 && (
+        <div style={{ ...alimCard, borderLeft: `3px solid ${ALIM_ACCENT}` }}>
+          <h3 style={{ margin: "0 0 8px", fontFamily: FONT_DISPLAY, fontSize: 15, color: ALIM_ACCENT, fontWeight: 600 }}>Recettes sans quantités précises</h3>
+          <p style={{ fontSize: 12, color: COLORS.muted, marginBottom: 8, lineHeight: 1.5 }}>
+            Ces recettes viennent du catalogue (pas de grammages détaillés dans la source) : à peser au jugé ou à compléter toi-même.
+          </p>
+          {unquantified.map((u, i) => (
+            <div key={i} style={{ fontSize: 13, color: COLORS.text, padding: "4px 0", borderTop: i > 0 ? `1px solid ${COLORS.track}` : "none" }}>
+              {u.title}{u.count > 1 ? ` ×${u.count}` : ""}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -2618,7 +2770,7 @@ function AlimPanierTab() {
 
   if (!panier) return null;
 
-  const slotCount = (s) => (MEAL_CARDS_BY_SLOT[s] || []).reduce((sum, c) => sum + (panier[c.id] || 0), 0);
+  const slotCount = (s) => (CARDS_BY_SLOT[s] || []).reduce((sum, c) => sum + (panier[c.id] || 0), 0);
   const totalCount = Object.values(panier).reduce((s, n) => s + n, 0);
 
   return (
@@ -2636,8 +2788,11 @@ function AlimPanierTab() {
             accentOf={() => ALIM_ACCENT}
             marginBottom={14}
           />
+          <p style={{ fontSize: 11, color: COLORS.muted, marginBottom: 12 }}>
+            {(CARDS_BY_SLOT[slot] || []).length} recettes disponibles dans cette rubrique.
+          </p>
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            {(MEAL_CARDS_BY_SLOT[slot] || []).map((c) => {
+            {(CARDS_BY_SLOT[slot] || []).map((c) => {
               const count = panier[c.id] || 0;
               return (
                 <div key={c.id} style={alimCard}>
@@ -2649,18 +2804,29 @@ function AlimPanierTab() {
                       </span>
                     )}
                   </div>
-                  <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13, tableLayout: "fixed", marginBottom: 10 }}>
-                    <colgroup><col style={{ width: "56%" }} /><col style={{ width: "22%" }} /><col style={{ width: "22%" }} /></colgroup>
-                    <tbody>
-                      {c.items.map(([al, qc, qe], i) => (
-                        <tr key={i} style={{ borderTop: `1px solid ${COLORS.track}` }}>
-                          <td style={{ padding: "5px 0", color: COLORS.text }}>{al}</td>
-                          <td style={{ padding: "5px 0", textAlign: "right", color: COLORS.gold, whiteSpace: "nowrap" }}>{qc}</td>
-                          <td style={{ padding: "5px 0 5px 12px", textAlign: "right", color: qe === "–" ? COLORS.muted : "#7FBBAE", whiteSpace: "nowrap" }}>{qe}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                  {c.items ? (
+                    <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13, tableLayout: "fixed", marginBottom: 10 }}>
+                      <colgroup><col style={{ width: "56%" }} /><col style={{ width: "22%" }} /><col style={{ width: "22%" }} /></colgroup>
+                      <tbody>
+                        {c.items.map(([al, qc, qe], i) => (
+                          <tr key={i} style={{ borderTop: `1px solid ${COLORS.track}` }}>
+                            <td style={{ padding: "5px 0", color: COLORS.text }}>{al}</td>
+                            <td style={{ padding: "5px 0", textAlign: "right", color: COLORS.gold, whiteSpace: "nowrap" }}>{qc}</td>
+                            <td style={{ padding: "5px 0 5px 12px", textAlign: "right", color: qe === "–" ? COLORS.muted : "#7FBBAE", whiteSpace: "nowrap" }}>{qe}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  ) : (
+                    <div style={{ marginBottom: 10 }}>
+                      <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: c.note ? 6 : 0 }}>
+                        <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 999, border: `1px solid ${alimTone(c.adapteClement)}`, color: alimTone(c.adapteClement) }}>Clément : {c.adapteClement}</span>
+                        <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 999, border: `1px solid ${alimTone(c.niveau)}`, color: alimTone(c.niveau) }}>{c.niveau}</span>
+                      </div>
+                      {c.note && <p style={{ fontSize: 12, color: COLORS.muted, fontStyle: "italic", margin: "0 0 4px", lineHeight: 1.4 }}>{c.note}</p>}
+                      <p style={{ fontSize: 11, color: COLORS.muted, margin: 0 }}>{c.saison} · {c.source} · ingrédients à définir (voir onglet Recettes)</p>
+                    </div>
+                  )}
                   <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                     <button
                       onClick={() => setCount(c.id, count - 1)}
