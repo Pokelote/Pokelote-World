@@ -15,6 +15,14 @@
 <style>
   html, body { margin: 0; padding: 0; background: linear-gradient(180deg, #090C15, #123059); font-family: sans-serif; }
   * { box-sizing: border-box; }
+  /* Fondu à chaque changement d'onglet / d'espace (ajouté 30/09/2026) : le nouveau contenu apparaît
+     en douceur avec un léger glissement vers le haut. Désactivé si le système demande moins d'animations. */
+  @keyframes fade-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  @keyframes fade-in-soft { from { opacity: 0; } to { opacity: 1; } }
+  .fade-in { animation: fade-in 280ms ease-out both; }
+  /* Opacité seule pour le conteneur de l'app : un transform casserait le menu mobile en position fixe. */
+  .fade-in-soft { animation: fade-in-soft 280ms ease-out both; }
+  @media (prefers-reduced-motion: reduce) { .fade-in, .fade-in-soft { animation: none; } }
   #boot-message { padding: 40px; color: #F4F5F7; }
   #boot-error { padding: 24px; margin: 20px; background: #fff3f0; border: 1px solid #d4453f; border-radius: 8px; color: #7A1F1F; font-family: monospace; white-space: pre-wrap; font-size: 13px; display: none; }
 </style>
@@ -291,7 +299,7 @@ const HOME_BACKGROUND = "./fond-accueil.jpg";
 function HomeScreen({ onSelect }) {
   return (
     <div
-      className="home-screen"
+      className="home-screen fade-in"
       style={{
         position: "relative", minHeight: "100vh", overflow: "hidden", fontFamily: FONT_BODY, background: COLORS.bgTo,
         display: "flex", flexDirection: "column", justifyContent: "space-between",
@@ -858,7 +866,7 @@ function App() {
   const activeTab = currentSpaceTabs.find((t) => t.key === active);
 
   return (
-    <div style={{ minHeight: "640px", fontFamily: FONT_BODY, background: `linear-gradient(180deg, ${COLORS.bgFrom}, ${COLORS.bgTo})`, display: "flex", flexDirection: "column" }}>
+    <div className="fade-in-soft" style={{ minHeight: "640px", fontFamily: FONT_BODY, background: `linear-gradient(180deg, ${COLORS.bgFrom}, ${COLORS.bgTo})`, display: "flex", flexDirection: "column" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap');
         @media (max-width: 640px) {
@@ -920,6 +928,7 @@ function App() {
 
       {mobileMenuOpen && (
         <div
+          className="fade-in-soft"
           onClick={() => setMobileMenuOpen(false)}
           style={{ position: "fixed", inset: 0, background: "rgba(10,17,40,0.7)", zIndex: 50, display: "flex", flexDirection: "column" }}
         >
@@ -975,6 +984,8 @@ function App() {
       )}
 
       <main className="app-main" style={{ flex: 1, padding: "44px 56px", overflowY: "auto" }}>
+        {/* La clé change à chaque onglet → le conteneur est recréé et rejoue le fondu. */}
+        <div key={`${activeSpace}-${active}`} className="fade-in">
         {active === "accueil" && (
           <AccueilTab
             taskEvents={Object.values(taskArchive || {})}
@@ -1031,6 +1042,7 @@ function App() {
           active !== "alimentation" &&
           active !== "estelle-accueil" &&
           active !== "estelle-emploi" && <PlaceholderTab tab={activeTab} />}
+        </div>
       </main>
     </div>
   );
