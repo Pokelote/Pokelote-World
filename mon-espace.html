@@ -275,6 +275,62 @@ const SPACES = [
   { key: "estelle", label: "Estelle", accent: "#7FBBAE" },
 ];
 
+// Page d'accueil neutre (ajoutée 30/09/2026) : premier écran à l'ouverture, avant d'entrer dans un
+// espace. Trois cartes — Clément, Les Chatchats, Estelle — et rien de personnel affiché ici. Le titre
+// "Mon espace" dans l'en-tête ramène à cet écran.
+const SPACE_DESCRIPTIONS = {
+  clement: "Espace personnel de Clément",
+  chatchats: "Espace partagé",
+  estelle: "Espace personnel d'Estelle",
+};
+
+function HomeScreen({ onSelect }) {
+  return (
+    <div
+      style={{
+        minHeight: "100vh", fontFamily: FONT_BODY, background: `linear-gradient(180deg, ${COLORS.bgFrom}, ${COLORS.bgTo})`,
+        display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "48px 16px",
+      }}
+    >
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap');
+        .home-card { transition: transform 0.15s, border-color 0.15s, background 0.15s; }
+        .home-card:hover, .home-card:focus-visible { transform: translateY(-2px); background: #1A2842 !important; outline: none; }
+      `}</style>
+      <h1 style={{ fontFamily: FONT_DISPLAY, fontSize: 36, fontWeight: 600, color: COLORS.text, margin: "0 0 8px", textAlign: "center" }}>Mon espace</h1>
+      <p style={{ color: COLORS.muted, fontSize: 15, margin: "0 0 36px", textAlign: "center" }}>Choisis un espace</p>
+      <div style={{ display: "flex", flexDirection: "column", gap: 14, width: "100%", maxWidth: 420 }}>
+        {SPACES.map((space) => (
+          <button
+            key={space.key}
+            className="home-card"
+            onClick={() => onSelect(space.key)}
+            style={{
+              display: "flex", alignItems: "center", gap: 16, width: "100%", textAlign: "left", cursor: "pointer",
+              background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, borderLeft: `4px solid ${space.accent}`,
+              borderRadius: 12, padding: "20px 22px", fontFamily: FONT_BODY, color: COLORS.text,
+            }}
+          >
+            <span
+              style={{
+                width: 44, height: 44, borderRadius: "50%", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center",
+                background: `${space.accent}22`, color: space.accent, fontFamily: FONT_DISPLAY, fontSize: 20, fontWeight: 600,
+              }}
+            >
+              {space.label.replace("Les ", "").charAt(0)}
+            </span>
+            <span style={{ flex: 1, minWidth: 0 }}>
+              <span style={{ display: "block", fontFamily: FONT_DISPLAY, fontSize: 20, fontWeight: 600 }}>{space.label}</span>
+              <span style={{ display: "block", color: COLORS.muted, fontSize: 13, marginTop: 2 }}>{SPACE_DESCRIPTIONS[space.key]}</span>
+            </span>
+            <span aria-hidden="true" style={{ color: COLORS.muted, fontSize: 20 }}>›</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 const CLEMENT_TABS = [
   { key: "accueil", label: "Accueil", accent: COLORS.gold },
   { key: "news", label: "News", accent: "#C97B74" },
@@ -539,7 +595,8 @@ async function loadThemeStorage(themes, storagePrefix, defaultItems, defaultColl
 }
 
 function App() {
-  const [activeSpace, setActiveSpace] = useState("clement");
+  // null = page d'accueil neutre (choix de l'espace) ; ajouté 30/09/2026.
+  const [activeSpace, setActiveSpace] = useState(null);
   const [active, setActive] = useState("accueil");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [themeLists, setThemeLists] = useState(null);
@@ -769,6 +826,10 @@ function App() {
     );
   }
 
+  if (!activeSpace) {
+    return <HomeScreen onSelect={handleSpaceChange} />;
+  }
+
   const currentSpaceTabs = SPACE_TABS[activeSpace];
   const activeTab = currentSpaceTabs.find((t) => t.key === active);
 
@@ -787,7 +848,13 @@ function App() {
 
       <header className="app-header" style={{ background: COLORS.ink, padding: "24px 40px 0", borderBottom: `3px solid ${COLORS.gold}` }}>
         <div className="app-title-row" style={{ marginBottom: 14 }}>
-          <div style={{ fontFamily: FONT_DISPLAY, fontSize: 20, color: COLORS.text }}>Mon espace</div>
+          <button
+            onClick={() => setActiveSpace(null)}
+            aria-label="Retour à l'accueil"
+            style={{ background: "none", border: "none", padding: 0, cursor: "pointer", fontFamily: FONT_DISPLAY, fontSize: 20, color: COLORS.text }}
+          >
+            Mon espace
+          </button>
           <button
             className="app-menu-btn"
             onClick={() => setMobileMenuOpen(true)}
@@ -837,7 +904,16 @@ function App() {
             style={{ background: COLORS.ink, borderBottom: `1px solid ${COLORS.cardBorder}`, padding: "16px 20px 20px", maxHeight: "80vh", overflowY: "auto" }}
           >
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
-              <span style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: COLORS.text }}>Mon espace</span>
+              <button
+                onClick={() => {
+                  setActiveSpace(null);
+                  setMobileMenuOpen(false);
+                }}
+                aria-label="Retour à l'accueil"
+                style={{ background: "none", border: "none", padding: 0, cursor: "pointer", fontFamily: FONT_DISPLAY, fontSize: 18, color: COLORS.text }}
+              >
+                Mon espace
+              </button>
               <button
                 onClick={() => setMobileMenuOpen(false)}
                 aria-label="Fermer"
