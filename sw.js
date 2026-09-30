@@ -1,8 +1,12 @@
-const CACHE_NAME = "mon-espace-v74";
-const APP_SHELL = ["./mon-espace.html", "./manifest.json", "./icon.svg", "./fond-accueil.jpg", "./avatar-estelle.jpg", "./avatar-clement.jpg"];
+const CACHE_NAME = "mon-espace-v75";
+const APP_SHELL = ["./mon-espace.html", "./manifest.json", "./icon.svg", "./fond-accueil.jpg", "./avatar-estelle.jpg?v=1", "./avatar-clement.jpg?v=2"];
 
 self.addEventListener("install", (event) => {
-  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)));
+  // cache: "reload" = on va chercher les fichiers sur le serveur, pas dans le cache HTTP du navigateur
+  // (GitHub Pages le garde 10 min) — sinon une nouvelle version pouvait embarquer une ancienne photo.
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL.map((url) => new Request(url, { cache: "reload" }))))
+  );
   self.skipWaiting();
 });
 

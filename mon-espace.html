@@ -306,7 +306,9 @@ const SPACE_DESCRIPTIONS = {
 const HOME_BACKGROUND = "./fond-accueil.jpg";
 // Photo à la place de l'initiale dans la pastille (Estelle et Clément ajoutés 30/09/2026) ; les
 // espaces absents de cette liste gardent leur lettre.
-const SPACE_AVATARS = { clement: "./avatar-clement.jpg", estelle: "./avatar-estelle.jpg" };
+// Le ?v=N force le rechargement quand on remplace une photo en gardant le même nom de fichier (sinon le
+// téléphone garde l'ancienne en cache) : l'incrémenter à chaque nouvelle photo, ici ET dans sw.js.
+const SPACE_AVATARS = { clement: "./avatar-clement.jpg?v=2", estelle: "./avatar-estelle.jpg?v=1" };
 
 const HOME_LEAVE_MS = 420;
 
