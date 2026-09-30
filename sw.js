@@ -1,5 +1,5 @@
-const CACHE_NAME = "mon-espace-v71";
-const APP_SHELL = ["./mon-espace.html", "./manifest.json", "./icon.svg", "./fond-accueil.jpg"];
+const CACHE_NAME = "mon-espace-v72";
+const APP_SHELL = ["./mon-espace.html", "./manifest.json", "./icon.svg", "./fond-accueil.jpg", "./avatar-estelle.jpg"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)));

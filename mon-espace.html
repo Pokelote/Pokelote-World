@@ -304,6 +304,9 @@ const SPACE_DESCRIPTIONS = {
 // Fond d'écran (ajouté 30/09/2026) : photo des deux chats sur la couverture bleue, fondue dans le
 // bleu nuit de l'app par un dégradé — les cartes flottent dessus en verre dépoli.
 const HOME_BACKGROUND = "./fond-accueil.jpg";
+// Photo à la place de l'initiale dans la pastille (Estelle ajoutée 30/09/2026) ; les espaces absents
+// de cette liste gardent leur lettre.
+const SPACE_AVATARS = { estelle: "./avatar-estelle.jpg" };
 
 const HOME_LEAVE_MS = 420;
 
@@ -336,7 +339,7 @@ function HomeScreen({ onSelect }) {
         @media (max-width: 640px) {
           .home-cards { gap: 10px !important; padding: 24px 12px 32px !important; }
           .home-card { padding: 16px 6px 14px !important; gap: 8px !important; border-radius: 14px !important; }
-          .home-card-avatar { width: 40px !important; height: 40px !important; font-size: 18px !important; }
+          .home-card-avatar { width: 52px !important; height: 52px !important; font-size: 21px !important; }
           .home-card-name { font-size: 14px !important; }
           .home-card-desc { display: none; }
           .home-hero { height: 80vh; }
@@ -372,12 +375,17 @@ function HomeScreen({ onSelect }) {
             <span
               className="home-card-avatar"
               style={{
-                width: 48, height: 48, borderRadius: "50%", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center",
-                background: `${space.accent}33`, border: `1px solid ${space.accent}88`, color: space.accent,
-                fontFamily: FONT_DISPLAY, fontSize: 21, fontWeight: 600,
+                width: 60, height: 60, borderRadius: "50%", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center",
+                overflow: "hidden", background: `${space.accent}33`,
+                border: `${SPACE_AVATARS[space.key] ? 2 : 1}px solid ${SPACE_AVATARS[space.key] ? space.accent : `${space.accent}88`}`,
+                color: space.accent, fontFamily: FONT_DISPLAY, fontSize: 24, fontWeight: 600,
               }}
             >
-              {space.label.replace("Les ", "").charAt(0)}
+              {SPACE_AVATARS[space.key] ? (
+                <img src={SPACE_AVATARS[space.key]} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+              ) : (
+                space.label.replace("Les ", "").charAt(0)
+              )}
             </span>
             <span className="home-card-name" style={{ fontFamily: FONT_DISPLAY, fontSize: 20, fontWeight: 600, lineHeight: 1.2 }}>{space.label}</span>
             <span className="home-card-desc" style={{ color: COLORS.text, opacity: 0.7, fontSize: 13, lineHeight: 1.35 }}>{SPACE_DESCRIPTIONS[space.key]}</span>
