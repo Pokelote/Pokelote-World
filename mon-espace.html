@@ -301,14 +301,19 @@ const SPACE_DESCRIPTIONS = {
   estelle: "Espace personnel d'Estelle",
 };
 
-// Fond d'écran (ajouté 30/09/2026) : photo des deux chats sur la couverture bleue, fondue dans le
-// bleu nuit de l'app par un dégradé — les cartes flottent dessus en verre dépoli.
-const HOME_BACKGROUND = "./fond-accueil.jpg";
+// Fond d'écran (30/09/2026) : photo de Clément et Estelle un soir de feu d'artifice (remplace celle des
+// chats, passée en pastille des Chatchats), fondue dans le bleu nuit de l'app par un dégradé — les
+// cartes flottent dessus en verre dépoli. ?v=N à incrémenter si on remplace la photo (ici ET dans sw.js).
+const HOME_BACKGROUND = "./fond-accueil.jpg?v=2";
 // Photo à la place de l'initiale dans la pastille (Estelle et Clément ajoutés 30/09/2026) ; les
 // espaces absents de cette liste gardent leur lettre.
 // Le ?v=N force le rechargement quand on remplace une photo en gardant le même nom de fichier (sinon le
 // téléphone garde l'ancienne en cache) : l'incrémenter à chaque nouvelle photo, ici ET dans sw.js.
-const SPACE_AVATARS = { clement: "./avatar-clement.jpg?v=2", estelle: "./avatar-estelle.jpg?v=1" };
+const SPACE_AVATARS = {
+  clement: "./avatar-clement.jpg?v=2",
+  chatchats: "./avatar-chatchats.jpg?v=1",
+  estelle: "./avatar-estelle.jpg?v=1",
+};
 
 const HOME_LEAVE_MS = 420;
 
