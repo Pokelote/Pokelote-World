@@ -284,22 +284,44 @@ const SPACE_DESCRIPTIONS = {
   estelle: "Espace personnel d'Estelle",
 };
 
+// Fond d'écran (ajouté 30/09/2026) : photo des deux chats sur la couverture bleue, fondue dans le
+// bleu nuit de l'app par un dégradé — les cartes flottent dessus en verre dépoli.
+const HOME_BACKGROUND = "./fond-accueil.jpg";
+
 function HomeScreen({ onSelect }) {
   return (
     <div
+      className="home-screen"
       style={{
-        minHeight: "100vh", fontFamily: FONT_BODY, background: `linear-gradient(180deg, ${COLORS.bgFrom}, ${COLORS.bgTo})`,
-        display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "48px 16px",
+        position: "relative", minHeight: "100vh", overflow: "hidden", fontFamily: FONT_BODY, background: COLORS.bgTo,
+        display: "flex", flexDirection: "column", justifyContent: "space-between",
       }}
     >
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap');
-        .home-card { transition: transform 0.15s, border-color 0.15s, background 0.15s; }
-        .home-card:hover, .home-card:focus-visible { transform: translateY(-2px); background: #1A2842 !important; outline: none; }
+        .home-hero { position: absolute; top: 0; left: 0; right: 0; height: 100%; }
+        .home-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
+        .home-card { transition: transform 0.15s, background 0.15s; }
+        .home-card:hover, .home-card:focus-visible { transform: translateY(-2px); background: rgba(20, 31, 51, 0.72) !important; outline: none; }
+        @media (max-width: 640px) {
+          .home-hero { height: 64vh; }
+          .home-bg { object-position: 52% 78%; }
+        }
       `}</style>
-      <h1 style={{ fontFamily: FONT_DISPLAY, fontSize: 36, fontWeight: 600, color: COLORS.text, margin: "0 0 8px", textAlign: "center" }}>Mon espace</h1>
-      <p style={{ color: COLORS.muted, fontSize: 15, margin: "0 0 36px", textAlign: "center" }}>Choisis un espace</p>
-      <div style={{ display: "flex", flexDirection: "column", gap: 14, width: "100%", maxWidth: 420 }}>
+      <div className="home-hero" aria-hidden="true">
+        <img className="home-bg" src={HOME_BACKGROUND} alt="" />
+        <div
+          style={{
+            position: "absolute", inset: 0,
+            background: `linear-gradient(180deg, rgba(9,12,21,0.55) 0%, rgba(9,12,21,0.05) 22%, rgba(18,48,89,0) 45%, rgba(18,48,89,0.7) 75%, ${COLORS.bgTo} 100%)`,
+          }}
+        />
+      </div>
+      <header style={{ position: "relative", padding: "56px 16px 0", textAlign: "center" }}>
+        <h1 style={{ fontFamily: FONT_DISPLAY, fontSize: 38, fontWeight: 600, color: COLORS.text, margin: "0 0 6px", textShadow: "0 2px 16px rgba(0,0,0,0.45)" }}>Mon espace</h1>
+        <p style={{ color: COLORS.text, opacity: 0.85, fontSize: 15, margin: 0, textShadow: "0 1px 8px rgba(0,0,0,0.5)" }}>Choisis un espace</p>
+      </header>
+      <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: 12, width: "100%", maxWidth: 420, margin: "0 auto", padding: "32px 16px 40px", boxSizing: "border-box" }}>
         {SPACES.map((space) => (
           <button
             key={space.key}
@@ -307,23 +329,25 @@ function HomeScreen({ onSelect }) {
             onClick={() => onSelect(space.key)}
             style={{
               display: "flex", alignItems: "center", gap: 16, width: "100%", textAlign: "left", cursor: "pointer",
-              background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, borderLeft: `4px solid ${space.accent}`,
-              borderRadius: 12, padding: "20px 22px", fontFamily: FONT_BODY, color: COLORS.text,
+              background: "rgba(20, 31, 51, 0.5)", backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)",
+              border: "1px solid rgba(255,255,255,0.14)", borderRadius: 16, padding: "18px 20px",
+              fontFamily: FONT_BODY, color: COLORS.text, boxShadow: "0 8px 24px rgba(0,0,0,0.25)",
             }}
           >
             <span
               style={{
-                width: 44, height: 44, borderRadius: "50%", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center",
-                background: `${space.accent}22`, color: space.accent, fontFamily: FONT_DISPLAY, fontSize: 20, fontWeight: 600,
+                width: 42, height: 42, borderRadius: "50%", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center",
+                background: `${space.accent}33`, border: `1px solid ${space.accent}88`, color: space.accent,
+                fontFamily: FONT_DISPLAY, fontSize: 19, fontWeight: 600,
               }}
             >
               {space.label.replace("Les ", "").charAt(0)}
             </span>
             <span style={{ flex: 1, minWidth: 0 }}>
               <span style={{ display: "block", fontFamily: FONT_DISPLAY, fontSize: 20, fontWeight: 600 }}>{space.label}</span>
-              <span style={{ display: "block", color: COLORS.muted, fontSize: 13, marginTop: 2 }}>{SPACE_DESCRIPTIONS[space.key]}</span>
+              <span style={{ display: "block", color: COLORS.text, opacity: 0.7, fontSize: 13, marginTop: 2 }}>{SPACE_DESCRIPTIONS[space.key]}</span>
             </span>
-            <span aria-hidden="true" style={{ color: COLORS.muted, fontSize: 20 }}>›</span>
+            <span aria-hidden="true" style={{ color: COLORS.text, opacity: 0.6, fontSize: 20 }}>›</span>
           </button>
         ))}
       </div>
