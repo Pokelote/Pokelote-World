@@ -24,6 +24,8 @@
   .fade-in-soft { animation: fade-in-soft 280ms ease-out both; }
   /* Slide plus long entre la page d'accueil et les espaces (ajouté 30/09/2026) : l'accueil part vers
      la gauche en s'effaçant, puis l'espace arrive depuis la droite ; retour à l'accueil = sens inverse. */
+  @keyframes drawer-in { from { transform: translateX(-100%); } to { transform: none; } }
+  .menu-drawer { animation: drawer-in 260ms cubic-bezier(0.22, 0.61, 0.36, 1) backwards; }
   @keyframes home-leave { to { opacity: 0; transform: translateX(-60px); } }
   @keyframes space-enter { from { opacity: 0; transform: translateX(60px); } to { opacity: 1; transform: none; } }
   @keyframes home-enter { from { opacity: 0; transform: translateX(-60px); } to { opacity: 1; transform: none; } }
@@ -31,7 +33,7 @@
   .space-enter { animation: space-enter 750ms cubic-bezier(0.22, 0.61, 0.36, 1) backwards; }
   .home-enter { animation: home-enter 750ms cubic-bezier(0.22, 0.61, 0.36, 1) backwards; }
   html, body { overflow-x: hidden; }
-  @media (prefers-reduced-motion: reduce) { .fade-in, .fade-in-soft, .home-leave, .space-enter, .home-enter { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .fade-in, .fade-in-soft, .home-leave, .space-enter, .home-enter, .menu-drawer { animation: none; } }
   #boot-message { padding: 40px; color: #F4F5F7; }
   #boot-error { padding: 24px; margin: 20px; background: #fff3f0; border: 1px solid #d4453f; border-radius: 8px; color: #7A1F1F; font-family: monospace; white-space: pre-wrap; font-size: 13px; display: none; }
 </style>
@@ -913,6 +915,7 @@ function App() {
   }
 
   const currentSpaceTabs = SPACE_TABS[activeSpace];
+  const currentSpace = SPACES.find((sp) => sp.key === activeSpace);
   const activeTab = currentSpaceTabs.find((t) => t.key === active);
 
   return (
@@ -920,36 +923,39 @@ function App() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap');
         @media (max-width: 640px) {
-          .app-header { padding: 16px 16px !important; }
-          .app-title-row { display: flex !important; align-items: center; justify-content: space-between; }
+          .app-header { padding: 14px 16px 2px !important; }
+          .app-title { font-size: 17px !important; }
           .app-nav { display: none !important; }
-          .app-menu-btn { display: flex !important; }
           .app-main { padding: 20px 16px !important; }
         }
       `}</style>
 
-      <header className="app-header" style={{ background: COLORS.ink, padding: "24px 40px 0", borderBottom: `3px solid ${COLORS.gold}` }}>
-        <div className="app-title-row" style={{ marginBottom: 14 }}>
+      <header className="app-header" style={{ background: COLORS.ink, padding: "20px 40px 0", borderBottom: `3px solid ${currentSpace.accent}` }}>
+        {/* En-tête (30/09/2026) : menu ☰ à gauche + "CHATCHAT LAND – <espace>". Plus de sélecteur
+            d'espace ici : on change d'espace en repassant par l'accueil (titre ou menu). */}
+        <div className="app-title-row" style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 12 }}>
           <button
-            onClick={() => setActiveSpace(null)}
-            aria-label="Retour à l'accueil"
-            style={{ background: "none", border: "none", padding: 0, cursor: "pointer", fontFamily: FONT_DISPLAY, fontSize: 20, color: COLORS.text }}
-          >
-            CHATCHAT LAND
-          </button>
-          <button
-            className="app-menu-btn"
             onClick={() => setMobileMenuOpen(true)}
             aria-label="Menu"
             style={{
-              display: "none", background: "none", border: `1px solid ${COLORS.cardBorder}`, borderRadius: 8,
+              display: "flex", flexShrink: 0, background: "none", border: `1px solid ${COLORS.cardBorder}`, borderRadius: 8,
               color: COLORS.text, cursor: "pointer", padding: "8px 10px", alignItems: "center", justifyContent: "center",
             }}
           >
             <Menu size={18} />
           </button>
+          <button
+            className="app-title"
+            onClick={() => setActiveSpace(null)}
+            aria-label="Retour à l'accueil"
+            style={{
+              minWidth: 0, background: "none", border: "none", padding: 0, cursor: "pointer", textAlign: "left",
+              fontFamily: FONT_DISPLAY, fontSize: 20, color: COLORS.text, letterSpacing: "0.02em", lineHeight: 1.2,
+            }}
+          >
+            CHATCHAT LAND <span style={{ color: COLORS.muted }}>–</span> <span style={{ color: currentSpace.accent }}>{currentSpace.label}</span>
+          </button>
         </div>
-        <PillTabs options={SPACES} activeKey={activeSpace} onSelect={handleSpaceChange} accentOf={(s) => s.accent} marginBottom={14} fade={false} />
         <nav className="app-nav" style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
           {currentSpaceTabs.map((tab) => {
             const isActive = tab.key === active;
@@ -980,23 +986,19 @@ function App() {
         <div
           className="fade-in-soft"
           onClick={() => setMobileMenuOpen(false)}
-          style={{ position: "fixed", inset: 0, background: "rgba(10,17,40,0.7)", zIndex: 50, display: "flex", flexDirection: "column" }}
+          style={{ position: "fixed", inset: 0, background: "rgba(10,17,40,0.7)", zIndex: 50 }}
         >
           <div
+            className="menu-drawer"
             onClick={(e) => e.stopPropagation()}
-            style={{ background: COLORS.ink, borderBottom: `1px solid ${COLORS.cardBorder}`, padding: "16px 20px 20px", maxHeight: "80vh", overflowY: "auto" }}
+            style={{
+              position: "absolute", top: 0, left: 0, bottom: 0, width: "min(300px, 85vw)", background: COLORS.ink,
+              borderRight: `1px solid ${COLORS.cardBorder}`, padding: "18px 16px 20px", overflowY: "auto",
+              display: "flex", flexDirection: "column",
+            }}
           >
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
-              <button
-                onClick={() => {
-                  setActiveSpace(null);
-                  setMobileMenuOpen(false);
-                }}
-                aria-label="Retour à l'accueil"
-                style={{ background: "none", border: "none", padding: 0, cursor: "pointer", fontFamily: FONT_DISPLAY, fontSize: 18, color: COLORS.text }}
-              >
-                CHATCHAT LAND
-              </button>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16, paddingLeft: 4 }}>
+              <span style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: currentSpace.accent }}>{currentSpace.label}</span>
               <button
                 onClick={() => setMobileMenuOpen(false)}
                 aria-label="Fermer"
@@ -1005,7 +1007,6 @@ function App() {
                 <X size={22} />
               </button>
             </div>
-            <PillTabs options={SPACES} activeKey={activeSpace} onSelect={handleSpaceChange} accentOf={(s) => s.accent} marginBottom={14} fade={false} />
             <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
               {currentSpaceTabs.map((tab) => {
                 const isActive = tab.key === active;
@@ -1029,6 +1030,19 @@ function App() {
                 );
               })}
             </div>
+            <button
+              onClick={() => {
+                setActiveSpace(null);
+                setMobileMenuOpen(false);
+              }}
+              style={{
+                marginTop: "auto", display: "flex", alignItems: "center", gap: 10, textAlign: "left",
+                background: "none", border: "none", borderTop: `1px solid ${COLORS.cardBorder}`,
+                padding: "16px 12px 4px", fontFamily: FONT_DISPLAY, fontSize: 16, color: COLORS.text, cursor: "pointer",
+              }}
+            >
+              <span aria-hidden="true" style={{ color: COLORS.muted }}>←</span> Accueil CHATCHAT LAND
+            </button>
           </div>
         </div>
       )}
