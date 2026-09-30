@@ -334,8 +334,13 @@ function HomeScreen({ onSelect }) {
         .home-card { transition: transform 0.15s, background 0.15s; }
         .home-card:hover, .home-card:focus-visible { transform: translateY(-2px); background: rgba(20, 31, 51, 0.72) !important; outline: none; }
         @media (max-width: 640px) {
-          .home-hero { height: 64vh; }
-          .home-bg { object-position: 52% 78%; }
+          .home-cards { gap: 10px !important; padding: 24px 12px 32px !important; }
+          .home-card { padding: 16px 6px 14px !important; gap: 8px !important; border-radius: 14px !important; }
+          .home-card-avatar { width: 40px !important; height: 40px !important; font-size: 18px !important; }
+          .home-card-name { font-size: 14px !important; }
+          .home-card-desc { display: none; }
+          .home-hero { height: 80vh; }
+          .home-bg { object-position: 52% 80%; }
         }
       `}</style>
       <div className="home-hero" aria-hidden="true">
@@ -351,33 +356,31 @@ function HomeScreen({ onSelect }) {
         <h1 style={{ fontFamily: FONT_DISPLAY, fontSize: 38, fontWeight: 600, color: COLORS.text, margin: "0 0 6px", textShadow: "0 2px 16px rgba(0,0,0,0.45)" }}>Mon espace</h1>
         <p style={{ color: COLORS.text, opacity: 0.85, fontSize: 15, margin: 0, textShadow: "0 1px 8px rgba(0,0,0,0.5)" }}>Choisis un espace</p>
       </header>
-      <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: 12, width: "100%", maxWidth: 420, margin: "0 auto", padding: "32px 16px 40px", boxSizing: "border-box" }}>
+      <div className="home-cards" style={{ position: "relative", display: "flex", flexDirection: "row", gap: 14, width: "100%", maxWidth: 760, margin: "0 auto", padding: "32px 16px 40px", boxSizing: "border-box" }}>
         {SPACES.map((space) => (
           <button
             key={space.key}
             className="home-card"
             onClick={() => handleSelect(space.key)}
             style={{
-              display: "flex", alignItems: "center", gap: 16, width: "100%", textAlign: "left", cursor: "pointer",
+              flex: "1 1 0", minWidth: 0, display: "flex", flexDirection: "column", alignItems: "center", gap: 10, textAlign: "center", cursor: "pointer",
               background: "rgba(20, 31, 51, 0.5)", backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)",
-              border: "1px solid rgba(255,255,255,0.14)", borderRadius: 16, padding: "18px 20px",
+              border: "1px solid rgba(255,255,255,0.14)", borderTop: `3px solid ${space.accent}`, borderRadius: 16, padding: "22px 14px 20px",
               fontFamily: FONT_BODY, color: COLORS.text, boxShadow: "0 8px 24px rgba(0,0,0,0.25)",
             }}
           >
             <span
+              className="home-card-avatar"
               style={{
-                width: 42, height: 42, borderRadius: "50%", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center",
+                width: 48, height: 48, borderRadius: "50%", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center",
                 background: `${space.accent}33`, border: `1px solid ${space.accent}88`, color: space.accent,
-                fontFamily: FONT_DISPLAY, fontSize: 19, fontWeight: 600,
+                fontFamily: FONT_DISPLAY, fontSize: 21, fontWeight: 600,
               }}
             >
               {space.label.replace("Les ", "").charAt(0)}
             </span>
-            <span style={{ flex: 1, minWidth: 0 }}>
-              <span style={{ display: "block", fontFamily: FONT_DISPLAY, fontSize: 20, fontWeight: 600 }}>{space.label}</span>
-              <span style={{ display: "block", color: COLORS.text, opacity: 0.7, fontSize: 13, marginTop: 2 }}>{SPACE_DESCRIPTIONS[space.key]}</span>
-            </span>
-            <span aria-hidden="true" style={{ color: COLORS.text, opacity: 0.6, fontSize: 20 }}>›</span>
+            <span className="home-card-name" style={{ fontFamily: FONT_DISPLAY, fontSize: 20, fontWeight: 600, lineHeight: 1.2 }}>{space.label}</span>
+            <span className="home-card-desc" style={{ color: COLORS.text, opacity: 0.7, fontSize: 13, lineHeight: 1.35 }}>{SPACE_DESCRIPTIONS[space.key]}</span>
           </button>
         ))}
       </div>
