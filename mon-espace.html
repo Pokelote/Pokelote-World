@@ -51,6 +51,16 @@
     showBootError((e.message || "Erreur inconnue") + "\n(ligne " + e.lineno + ", colonne " + e.colno + ")");
   });
   if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) {
+    // Quand une nouvelle version du service worker prend la main, on recharge une fois la page pour
+    // l'afficher tout de suite (avant : il fallait fermer/rouvrir l'app deux fois). Pas de rechargement
+    // à la toute première installation (aucun contrôleur avant).
+    var hadController = !!navigator.serviceWorker.controller;
+    var reloading = false;
+    navigator.serviceWorker.addEventListener("controllerchange", function () {
+      if (!hadController || reloading) return;
+      reloading = true;
+      location.reload();
+    });
     window.addEventListener("load", function () {
       navigator.serviceWorker.register("sw.js").then(function (reg) {
         // Les navigateurs ne revérifient le sw.js qu'une fois par 24h par défaut sur simple navigation ;
@@ -72,7 +82,7 @@
 <script type="text/babel" data-presets="react">
 try {
 
-const { useState, useEffect, useCallback } = React;
+const { useState, useEffect, useCallback, useRef } = React;
 
 // --- Stockage local (remplace window.storage de Claude par le localStorage du navigateur) ---
 // Stockage synchronisé entre appareils via Supabase (projet "mon-espace"), avec localStorage
@@ -907,7 +917,7 @@ function App() {
   const activeTab = currentSpaceTabs.find((t) => t.key === active);
 
   return (
-    <div className="space-enter" style={{ minHeight: "640px", fontFamily: FONT_BODY, background: `linear-gradient(180deg, ${COLORS.bgFrom}, ${COLORS.bgTo})`, display: "flex", flexDirection: "column" }}>
+    <div className="space-enter" style={{ minHeight: "100vh", fontFamily: FONT_BODY, background: `linear-gradient(180deg, ${COLORS.bgFrom}, ${COLORS.bgTo})`, display: "flex", flexDirection: "column" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap');
         @media (max-width: 640px) {
@@ -940,7 +950,7 @@ function App() {
             <Menu size={18} />
           </button>
         </div>
-        <PillTabs options={SPACES} activeKey={activeSpace} onSelect={handleSpaceChange} accentOf={(s) => s.accent} marginBottom={14} />
+        <PillTabs options={SPACES} activeKey={activeSpace} onSelect={handleSpaceChange} accentOf={(s) => s.accent} marginBottom={14} fade={false} />
         <nav className="app-nav" style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
           {currentSpaceTabs.map((tab) => {
             const isActive = tab.key === active;
@@ -996,7 +1006,7 @@ function App() {
                 <X size={22} />
               </button>
             </div>
-            <PillTabs options={SPACES} activeKey={activeSpace} onSelect={handleSpaceChange} accentOf={(s) => s.accent} marginBottom={14} />
+            <PillTabs options={SPACES} activeKey={activeSpace} onSelect={handleSpaceChange} accentOf={(s) => s.accent} marginBottom={14} fade={false} />
             <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
               {currentSpaceTabs.map((tab) => {
                 const isActive = tab.key === active;
@@ -1276,9 +1286,29 @@ function LectureTab({ themeLists, updateThemeList, collections, updateCollection
   );
 }
 
-function PillTabs({ options, activeKey, onSelect, accentOf, marginBottom = 28, transition = false }) {
+// Fondu des sous-onglets (ajouté 30/09/2026) : quand le sous-onglet change, le contenu affiché sous la
+// barre (les éléments frères qui la suivent) rejoue un court fondu — sans toucher aux ~20 écrans qui
+// utilisent PillTabs. Web Animations sans "fill" : aucun style ne reste après l'animation.
+function fadeContentAfter(el) {
+  if (!el || !el.animate) return;
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  for (let sib = el.nextElementSibling; sib; sib = sib.nextElementSibling) {
+    sib.animate(
+      [{ opacity: 0, transform: "translateY(6px)" }, { opacity: 1, transform: "none" }],
+      { duration: 260, easing: "ease-out" }
+    );
+  }
+}
+
+function PillTabs({ options, activeKey, onSelect, accentOf, marginBottom = 28, transition = false, fade = true }) {
+  const barRef = useRef(null);
+  const prevKey = useRef(activeKey);
+  useEffect(() => {
+    if (fade && prevKey.current !== activeKey) fadeContentAfter(barRef.current);
+    prevKey.current = activeKey;
+  }, [activeKey, fade]);
   return (
-    <div style={{ display: "flex", gap: 8, marginBottom, flexWrap: "wrap" }}>
+    <div ref={barRef} style={{ display: "flex", gap: 8, marginBottom, flexWrap: "wrap" }}>
       {options.map((o) => {
         const accent = accentOf(o);
         const isActive = o.key === activeKey;
