@@ -514,6 +514,49 @@ const DEFAULT_COLLECTIONS = {
       ],
     },
   ],
+  // Collection ajoutée le 01/10/2026 (thème Mystères & Thrillers). Épisodes par saison des séries
+  // relevés sur TVmaze. watchOrder = ordre de visionnage conseillé, simple repère affiché en haut.
+  "mysteres-thrillers": [
+    {
+      id: "mafia-gangsters",
+      name: "Mafia & Gangsters",
+      watchOrder: ["Le Parrain 1 et 2", "Les Affranchis", "Les Soprano", "Scarface", "Il était une fois en Amérique"],
+      items: [
+        makeItem({ id: "maf-1", title: "Le Parrain", extra: "1972", phase: "Films — Les monuments", phaseColor: "#D9B36B" }),
+        makeItem({ id: "maf-2", title: "Le Parrain 2", extra: "1974", phase: "Films — Les monuments", phaseColor: "#D9B36B" }),
+        makeItem({ id: "maf-3", title: "Le Parrain 3", extra: "1990", phase: "Films — Les monuments", phaseColor: "#D9B36B" }),
+        makeItem({ id: "maf-4", title: "Les Affranchis", extra: "1990", phase: "Films — Les monuments", phaseColor: "#D9B36B" }),
+        makeItem({ id: "maf-5", title: "Scarface", extra: "1983", phase: "Films — Les monuments", phaseColor: "#D9B36B" }),
+        makeItem({ id: "maf-6", title: "Il était une fois en Amérique", extra: "1984", phase: "Films — Les monuments", phaseColor: "#D9B36B" }),
+        makeItem({ id: "maf-7", title: "Casino", extra: "1995", phase: "Films — Les monuments", phaseColor: "#D9B36B" }),
+        makeItem({ id: "maf-8", title: "Les Incorruptibles", extra: "1987", phase: "Films — Les monuments", phaseColor: "#D9B36B" }),
+        makeItem({ id: "maf-9", title: "Heat", extra: "1995", phase: "Films — Les monuments", phaseColor: "#D9B36B" }),
+        makeItem({ id: "maf-10", title: "Scarface", extra: "1932", phase: "Films — Les monuments", phaseColor: "#D9B36B" }),
+        makeItem({ id: "maf-11", title: "L'Ennemi public", extra: "1931", phase: "Films — Les monuments", phaseColor: "#D9B36B" }),
+        makeItem({ id: "maf-12", title: "Les Infiltrés", extra: "2006", phase: "Films — À voir ensuite", phaseColor: "#B37780" }),
+        makeItem({ id: "maf-13", title: "Gangs of New York", extra: "2002", phase: "Films — À voir ensuite", phaseColor: "#B37780" }),
+        makeItem({ id: "maf-14", title: "The Irishman", extra: "2019", phase: "Films — À voir ensuite", phaseColor: "#B37780" }),
+        makeItem({ id: "maf-15", title: "Donnie Brasco", extra: "1997", phase: "Films — À voir ensuite", phaseColor: "#B37780" }),
+        makeItem({ id: "maf-16", title: "Public Enemies", extra: "2009", phase: "Films — À voir ensuite", phaseColor: "#B37780" }),
+        makeItem({ id: "maf-17", title: "American Gangster", extra: "2007", phase: "Films — À voir ensuite", phaseColor: "#B37780" }),
+        makeItem({ id: "maf-18", title: "Gomorra", extra: "2008", phase: "Films — À voir ensuite", phaseColor: "#B37780" }),
+        makeItem({ id: "maf-19", title: "Miller's Crossing", extra: "1990", phase: "Films — À voir ensuite", phaseColor: "#B37780" }),
+        makeItem({ id: "maf-20", title: "Le Samouraï", extra: "1967", phase: "Films français", phaseColor: "#7FA8DD" }),
+        makeItem({ id: "maf-21", title: "Le Cercle rouge", extra: "1970", phase: "Films français", phaseColor: "#7FA8DD" }),
+        makeItem({ id: "maf-22", title: "Le Clan des Siciliens", extra: "1969", phase: "Films français", phaseColor: "#7FA8DD" }),
+        makeItem({ id: "maf-23", title: "Borsalino", extra: "1970", phase: "Films français", phaseColor: "#7FA8DD" }),
+        makeItem({ id: "maf-24", title: "Mesrine", extra: "2008 · les deux volets", phase: "Films français", phaseColor: "#7FA8DD" }),
+        makeItem({ id: "maf-25", title: "Un prophète", extra: "2009", phase: "Films français", phaseColor: "#7FA8DD" }),
+        makeItem({ id: "maf-26", title: "Les Soprano", extra: "1999-2007", type: "serie", episodeCounts: [13, 13, 13, 13, 13, 21], phase: "Séries", phaseColor: "#7FBBAE" }),
+        makeItem({ id: "maf-27", title: "Boardwalk Empire", extra: "2010-2014", type: "serie", episodeCounts: [12, 12, 12, 12, 8], phase: "Séries", phaseColor: "#7FBBAE" }),
+        makeItem({ id: "maf-28", title: "Peaky Blinders", extra: "2013-2022", type: "serie", episodeCounts: [6, 6, 6, 6, 6, 6], phase: "Séries", phaseColor: "#7FBBAE" }),
+        makeItem({ id: "maf-29", title: "Gomorra", extra: "2014-2021", type: "serie", episodeCounts: [12, 12, 12, 12, 10], phase: "Séries", phaseColor: "#7FBBAE" }),
+        makeItem({ id: "maf-30", title: "Narcos", extra: "2015-2017", type: "serie", episodeCounts: [10, 10, 10], phase: "Séries", phaseColor: "#7FBBAE" }),
+        makeItem({ id: "maf-31", title: "Breaking Bad", extra: "2008-2013", type: "serie", episodeCounts: [7, 13, 13, 13, 16], phase: "Séries", phaseColor: "#7FBBAE" }),
+        makeItem({ id: "maf-32", title: "The Wire", extra: "2002-2008", type: "serie", episodeCounts: [13, 12, 12, 13, 10], phase: "Séries", phaseColor: "#7FBBAE" }),
+      ],
+    },
+  ],
   horreur: [
     {
       id: "twd",
@@ -698,6 +741,21 @@ function App() {
     let cancelled = false;
     async function load() {
       const { lists, cols } = await loadThemeStorage(THEMES, "theme", DEFAULT_THEME_ITEMS, DEFAULT_COLLECTIONS);
+      // Collection « Mafia & Gangsters » (01/10/2026) : ajoutée une seule fois au thème Mystères &
+      // Thrillers même s'il avait déjà des collections enregistrées (sinon les valeurs par défaut ne
+      // s'appliquent pas) ; si elle est supprimée ensuite, elle ne revient pas.
+      try {
+        const seeded = await window.storage.get("collection-seeded-mafia-gangsters");
+        if (!seeded) {
+          const key = "mysteres-thrillers";
+          const current = cols[key] || [];
+          if (!current.some((c) => c.id === "mafia-gangsters")) {
+            cols[key] = [...current, DEFAULT_COLLECTIONS[key].find((c) => c.id === "mafia-gangsters")];
+            window.storage.set(`theme-${key}-collections`, JSON.stringify(cols[key])).catch(() => {});
+          }
+          window.storage.set("collection-seeded-mafia-gangsters", "1").catch(() => {});
+        }
+      } catch {}
       const { lists: lectureLists, cols: lectureCols } = await loadThemeStorage(
         LECTURE_THEMES,
         "lecture-theme",
@@ -1301,6 +1359,19 @@ function CollectionTab({ themes, defaultTheme, themeLists, updateThemeList, coll
             badge={trackableItems.length > 0 ? `${watchedCount} / ${trackableItems.length}` : null}
             onRemove={() => removeCollection(c.id)}
           >
+            {c.watchOrder && (
+              <div style={{ marginBottom: 22 }}>
+                <div style={{ fontSize: 11, color: COLORS.muted, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 8 }}>Ordre de visionnage conseillé</div>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                  {c.watchOrder.map((label, i) => (
+                    <span key={i} style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "5px 12px 5px 5px", borderRadius: 999, border: `1px solid ${COLORS.border}`, fontSize: 13, color: COLORS.text }}>
+                      <span style={{ width: 20, height: 20, borderRadius: "50%", background: cfg.accent, color: "white", fontSize: 11, fontWeight: 600, display: "flex", alignItems: "center", justifyContent: "center" }}>{i + 1}</span>
+                      {label}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
             <CollectionItems accent={cfg.accent} items={c.items} onChange={(fn) => updateCollectionItems(c.id, fn)} />
           </CollapsibleSection>
         );
