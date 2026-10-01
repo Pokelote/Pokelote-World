@@ -5019,6 +5019,48 @@ function RevisionConcoursContent() {
   );
 }
 
+// Inscription CRPE (01/10/2026) : ne concerne que Clément, donc suivie ici plutôt que dans l'Administratif
+// partagé des Chatchats. Même id et même stockage ("admin-checked") qu'avant : la coche est conservée.
+const CRPE_INSCRIPTION_TASK = {
+  id: "crpe-inscription-2027",
+  label: "S'inscrire au CRPE 2027 (externe bac+3) sur Cyclades",
+  frequency: "Inscriptions ouvertes du 1er octobre 2026 (12h) au 25 novembre 2026 (12h)",
+  nextDue: "2026-11-25",
+};
+
+function CrpeInscriptionTask() {
+  const [checked, setChecked] = useState(null);
+  useEffect(() => {
+    let cancelled = false;
+    window.storage
+      .get("admin-checked")
+      .then((res) => (res ? JSON.parse(res.value) : {}))
+      .catch(() => ({}))
+      .then((v) => !cancelled && setChecked(v));
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+  if (!checked) return null;
+  function toggle(id) {
+    // Relit la valeur à jour avant d'écrire pour ne pas écraser les coches de l'Administratif.
+    window.storage
+      .get("admin-checked")
+      .then((res) => (res ? JSON.parse(res.value) : {}))
+      .catch(() => ({}))
+      .then((cur) => {
+        const next = { ...cur, [id]: !cur[id] };
+        setChecked(next);
+        window.storage.set("admin-checked", JSON.stringify(next)).catch(() => {});
+      });
+  }
+  return (
+    <div style={{ background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, borderRadius: 10, padding: "4px 12px", marginBottom: 24 }}>
+      <AdminItemRow item={CRPE_INSCRIPTION_TASK} checked={!!checked[CRPE_INSCRIPTION_TASK.id]} onToggle={toggle} />
+    </div>
+  );
+}
+
 function InscriptionPratiquesContent() {
   const accent = ENSEIGNEMENT_ACCENT;
   return (
@@ -5035,12 +5077,14 @@ function InscriptionPratiquesContent() {
         <p style={{ fontSize: 13, color: COLORS.text, lineHeight: 1.6, margin: 0 }}>
           Les inscriptions au CRPE externe (bac+3) pour la session 2027 ouvrent le <strong>jeudi 1er octobre 2026 à 12h00</strong> sur Cyclades, selon
           le calendrier officiel publié par le ministère, et ferment le <strong>mercredi 25 novembre 2026 à 12h00</strong> (heure de Paris). Écrits attendus
-          les 30 et 31 mars 2027. Un rappel "Inscription CRPE 2027" est suivi dans l'onglet <strong>Administratif</strong> — détails officiels sur{" "}
+          les 30 et 31 mars 2027. La tâche d'inscription est à cocher juste en dessous — détails officiels sur{" "}
           <a href="https://www.devenirenseignant.gouv.fr/le-calendrier-des-concours-de-recrutement-de-professeurs-des-ecoles-de-la-session-2027-1091" target="_blank" rel="noreferrer" style={{ color: accent }}>
             devenirenseignant.gouv.fr
           </a>.
         </p>
       </div>
+
+      <CrpeInscriptionTask />
 
       <CollapsibleSection title="Ce qu'on demande réellement de réviser" accent={accent}>
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -8670,14 +8714,8 @@ const ADMIN_DEFAULT_ITEMS = {
       nextDue: "2026-12-31",
     },
   ],
-  concours: [
-    {
-      id: "crpe-inscription-2027",
-      label: "Inscription CRPE 2027 (externe bac+3)",
-      frequency: "Date officielle publiée sur devenirenseignant.gouv.fr — ouverture le 01/10/2026 à 12h sur Cyclades, clôture le 25/11/2026 à 12h",
-      nextDue: "2026-10-01",
-    },
-  ],
+  // L'inscription CRPE a déménagé chez Clément (Carrière → Enseignement) le 01/10/2026.
+  concours: [],
 };
 // Idées de choses à vérifier (01/10/2026) : les éléments génériques qui étaient pré-remplis dans les
 // catégories (pas de vraies tâches, pas d'échéance) — gardés à part pour se donner des idées, sans case.
