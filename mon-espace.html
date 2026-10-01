@@ -462,9 +462,8 @@ const THEMES = [
 // saison trouvé pour chacun (One Piece et les séries en diffusion évoluent encore :
 // le nombre d'épisodes peut être ajusté à la main si besoin).
 const DEFAULT_THEME_ITEMS = {
-  comedie: [
-    makeItem({ id: "seed-office", title: "The Office", type: "serie", episodeCounts: [6, 22, 25, 19, 28, 26, 26, 24, 25] }),
-  ],
+  // The Office a été déplacé dans la collection « Grands classiques » de Comédie (01/10/2026).
+  comedie: [],
 };
 
 const DEFAULT_COLLECTIONS = {
@@ -544,6 +543,7 @@ const DEFAULT_COLLECTIONS = {
         makeItem({ id: "gc-comedie-21", title: "Parks and Recreation", extra: "2009-2015", type: "serie", episodeCounts: [6, 24, 16, 22, 22, 22, 13], phase: "Séries", phaseColor: "#9B8FD9" }),
         makeItem({ id: "gc-comedie-22", title: "Seinfeld", extra: "1989-1998", type: "serie", episodeCounts: [5, 12, 23, 24, 22, 24, 24, 22, 24], phase: "Séries", phaseColor: "#9B8FD9" }),
         makeItem({ id: "gc-comedie-23", title: "Fawlty Towers", extra: "1975-1979", type: "serie", episodeCounts: [6, 6], phase: "Séries", phaseColor: "#9B8FD9" }),
+        makeItem({ id: "seed-office", title: "The Office", extra: "2005-2013", type: "serie", episodeCounts: [6, 22, 25, 19, 28, 26, 26, 24, 25], phase: "Séries", phaseColor: "#9B8FD9" }),
       ],
     },
   ],
@@ -924,6 +924,27 @@ function App() {
           window.storage.set(flag, "1").catch(() => {});
         } catch {}
       }
+      // The Office : déplacé de la liste Comédie vers « Grands classiques » (01/10/2026), une seule fois,
+      // en gardant la progression (épisodes cochés) si la liste l'avait déjà enregistré.
+      try {
+        if (!(await window.storage.get("moved-office-to-grands-classiques"))) {
+          const fromList = (lists.comedie || []).find((it) => normTitle(it.title) === "theoffice");
+          const colsCom = cols.comedie || [];
+          const gc = colsCom.find((c) => c.id === "grands-classiques-comedie");
+          if (gc) {
+            const base = DEFAULT_COLLECTIONS.comedie.find((c) => c.id === "grands-classiques-comedie").items.find((it) => it.id === "seed-office");
+            const office = fromList ? { ...fromList, extra: base.extra, phase: base.phase, phaseColor: base.phaseColor } : base;
+            const items = [...gc.items.filter((it) => normTitle(it.title) !== "theoffice"), office];
+            cols.comedie = colsCom.map((c) => (c.id === gc.id ? { ...c, items } : c));
+            window.storage.set("theme-comedie-collections", JSON.stringify(cols.comedie)).catch(() => {});
+            if (fromList) {
+              lists.comedie = (lists.comedie || []).filter((it) => it !== fromList);
+              window.storage.set("theme-comedie", JSON.stringify(lists.comedie)).catch(() => {});
+            }
+          }
+          window.storage.set("moved-office-to-grands-classiques", "1").catch(() => {});
+        }
+      } catch {}
       const { lists: lectureLists, cols: lectureCols } = await loadThemeStorage(
         LECTURE_THEMES,
         "lecture-theme",
@@ -1511,7 +1532,7 @@ function CollectionTab({ themes, defaultTheme, themeLists, updateThemeList, coll
       <PillTabs options={themes} activeKey={theme} onSelect={setTheme} accentOf={(t) => t.accent} />
 
       {mcu && theme === mcu.themeKey && (
-        <CollapsibleSection title="MCU" accent={cfg.accent} badge={`${mcu.checked.length} / ${MCU_TOTAL}`}>
+        <CollapsibleSection title="MCU" accent={cfg.accent} badge={`${mcu.checked.length} / ${MCU_TOTAL}`} defaultOpen>
           <McuList checked={mcu.checked} onToggle={mcu.toggle} />
         </CollapsibleSection>
       )}
@@ -1526,6 +1547,7 @@ function CollectionTab({ themes, defaultTheme, themeLists, updateThemeList, coll
             accent={cfg.accent}
             badge={trackableItems.length > 0 ? `${watchedCount} / ${trackableItems.length}` : null}
             onRemove={() => removeCollection(c.id)}
+            defaultOpen
           >
             {c.watchOrder && (
               <div style={{ marginBottom: 22 }}>
