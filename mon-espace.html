@@ -8588,6 +8588,7 @@ function MusculationTab() {
 const ADMIN_ACCENT = "#8899A6";
 
 const ADMIN_CATEGORIES = [
+  { key: "vie-commune", label: "Vie commune — fonctionner comme mariés" },
   { key: "identite", label: "Papiers d'identité" },
   { key: "vehicule", label: "Véhicule" },
   { key: "logement", label: "Logement & Assurances" },
@@ -8598,6 +8599,52 @@ const ADMIN_CATEGORIES = [
 ];
 
 const ADMIN_DEFAULT_ITEMS = {
+  // Ajouté le 01/10/2026 : objectif = fonctionner administrativement comme un couple marié (contrats aux
+  // deux noms, accès et charge partagés, plus tout sous le nom d'Estelle). Échéances proposées, à ajuster.
+  "vie-commune": [
+    {
+      id: "vc-abonnements-compte-commun",
+      label: "Mettre les abonnements séries & films sur le compte commun",
+      frequency: "Netflix, Prime, Disney+, Canal… : changer le moyen de paiement pour le compte commun",
+      nextDue: "2026-10-15",
+    },
+    {
+      id: "vc-banque-nouveau-compte",
+      label: "Choisir la banque du nouveau compte commun (pour quitter celui de la SG)",
+      frequency: "Comparer frais, carte(s), appli ; puis ouvrir le compte et y basculer les prélèvements",
+      nextDue: "2026-10-31",
+    },
+    {
+      id: "vc-inventaire-contrats",
+      label: "Faire l'inventaire de tous nos contrats (titulaire, échéance, prix)",
+      frequency: "Assurances, logement, énergie, box, mutuelle, abonnements… : noter qui est titulaire",
+      nextDue: "2026-10-31",
+    },
+    {
+      id: "vc-assurances-vehicules",
+      label: "Assurances véhicules : mettre les contrats à nos deux noms",
+      frequency: "Ajouter le second conducteur / co-titulaire, accès à l'espace client pour les deux",
+      nextDue: "2026-11-30",
+    },
+    {
+      id: "vc-logement",
+      label: "Logement : bail et assurance habitation à nos deux noms",
+      frequency: "Co-titulaires du bail et de l'assurance habitation",
+      nextDue: "2026-11-30",
+    },
+    {
+      id: "vc-autres-contrats",
+      label: "Autres contrats (énergie, box internet, mutuelle…) aux deux noms",
+      frequency: "Co-titulaire ou au moins second contact + accès partagé",
+      nextDue: "2026-12-15",
+    },
+    {
+      id: "vc-partage-acces",
+      label: "Partager tous les accès (espaces clients, mots de passe) et la charge administrative",
+      frequency: "Gestionnaire de mots de passe commun, répartition de qui suit quoi",
+      nextDue: "2026-12-31",
+    },
+  ],
   identite: [
     { id: "cni", label: "Carte nationale d'identité", frequency: "Renouvellement tous les 10 ans", nextDue: null },
     { id: "passeport", label: "Passeport", frequency: "Renouvellement tous les 10 ans", nextDue: null },
@@ -8680,6 +8727,15 @@ function AdminItemRow({ item, checked, onToggle }) {
           {item.label}
         </div>
         <div style={{ fontSize: 12, color: COLORS.muted, marginTop: 2 }}>{item.frequency}</div>
+        {item.nextDue && (
+          <div style={{ fontSize: 12, marginTop: 4, color: checked ? COLORS.muted : overdue ? "#B85C5C" : urgent ? "#D9A25C" : COLORS.text }}>
+            📅 Échéance : {(() => {
+              const dd = new Date(item.nextDue + "T00:00:00");
+              return `${dd.getDate()} ${FRENCH_MONTHS[dd.getMonth()]} ${dd.getFullYear()}`;
+            })()}
+            {!checked && d !== null && d >= 0 ? ` · dans ${d} j.` : ""}
+          </div>
+        )}
       </div>
       {(overdue || urgent) && (
         <span
@@ -8742,7 +8798,7 @@ function AdministratifTab() {
         const items = ADMIN_DEFAULT_ITEMS[cat.key] || [];
         const doneCount = items.filter((it) => checked[it.id]).length;
         return (
-          <CollapsibleSection key={cat.key} title={cat.label} accent={ADMIN_ACCENT} badge={`${doneCount} / ${items.length}`}>
+          <CollapsibleSection key={cat.key} title={cat.label} accent={ADMIN_ACCENT} badge={`${doneCount} / ${items.length}`} defaultOpen={cat.key === "vie-commune"}>
             {items.map((it) => (
               <AdminItemRow key={it.id} item={it} checked={!!checked[it.id]} onToggle={toggle} />
             ))}
