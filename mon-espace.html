@@ -8590,7 +8590,6 @@ function MusculationTab() {
 const ADMIN_ACCENT = "#8899A6";
 
 const ADMIN_CATEGORIES = [
-  { key: "vie-commune", label: "Vie commune — fonctionner comme mariés" },
   { key: "identite", label: "Papiers d'identité" },
   { key: "vehicule", label: "Véhicule" },
   { key: "logement", label: "Logement & Assurances" },
@@ -8601,20 +8600,68 @@ const ADMIN_CATEGORIES = [
 ];
 
 const ADMIN_DEFAULT_ITEMS = {
-  // Ajouté le 01/10/2026 : objectif = fonctionner administrativement comme un couple marié (contrats aux
-  // deux noms, accès et charge partagés, plus tout sous le nom d'Estelle). Échéances proposées, à ajuster.
-  "vie-commune": [
+  identite: [
+    { id: "cni", label: "Carte nationale d'identité", frequency: "Renouvellement tous les 10 ans", nextDue: null },
+    { id: "passeport", label: "Passeport", frequency: "Renouvellement tous les 10 ans", nextDue: null },
+    { id: "permis", label: "Permis de conduire", frequency: "À vérifier (validité, points)", nextDue: null },
+  ],
+  vehicule: [
+    // Tâches ajoutées le 01/10/2026 — objectif : fonctionner administrativement comme un couple marié
+    // (contrats aux deux noms, accès et charge partagés). Échéances proposées, à ajuster.
     {
-      id: "vc-abonnements-compte-commun",
-      label: "Mettre les abonnements séries & films sur le compte commun",
-      frequency: "Netflix, Prime, Disney+, Canal… : changer le moyen de paiement pour le compte commun",
-      nextDue: "2026-10-15",
+      id: "vc-assurances-vehicules",
+      label: "Assurances véhicules : mettre les contrats à nos deux noms",
+      frequency: "Ajouter le second conducteur / co-titulaire, accès à l'espace client pour les deux",
+      nextDue: "2026-11-30",
     },
+    { id: "carte-grise", label: "Carte grise", frequency: "À jour sauf changement de véhicule", nextDue: null },
+    { id: "assurance-auto", label: "Assurance véhicule", frequency: "Renouvellement annuel", nextDue: null },
+    { id: "controle-technique", label: "Contrôle technique", frequency: "Tous les 2 ans", nextDue: null },
+  ],
+  logement: [
+    // Tâches ajoutées le 01/10/2026 — objectif : fonctionner administrativement comme un couple marié
+    // (contrats aux deux noms, accès et charge partagés). Échéances proposées, à ajuster.
+    {
+      id: "vc-logement",
+      label: "Logement : bail et assurance habitation à nos deux noms",
+      frequency: "Co-titulaires du bail et de l'assurance habitation",
+      nextDue: "2026-11-30",
+    },
+    { id: "assurance-habitation", label: "Assurance habitation", frequency: "Renouvellement annuel", nextDue: null },
+    { id: "entretien-chaudiere", label: "Entretien chaudière", frequency: "Annuel", nextDue: null },
+  ],
+  sante: [
+    // Tâches ajoutées le 01/10/2026 — objectif : fonctionner administrativement comme un couple marié
+    // (contrats aux deux noms, accès et charge partagés). Échéances proposées, à ajuster.
+    {
+      id: "vc-mutuelle",
+      label: "Mutuelle : à nos deux noms ou couverture couple",
+      frequency: "Comparer une mutuelle commune, accès partagé à l'espace client",
+      nextDue: "2026-12-15",
+    },
+    { id: "mutuelle", label: "Mutuelle santé", frequency: "Renouvellement annuel", nextDue: null },
+    { id: "carte-vitale", label: "Carte vitale — mise à jour", frequency: "À vérifier régulièrement", nextDue: null },
+  ],
+  finances: [
+    // Tâches ajoutées le 01/10/2026 — objectif : fonctionner administrativement comme un couple marié
+    // (contrats aux deux noms, accès et charge partagés). Échéances proposées, à ajuster.
     {
       id: "vc-banque-nouveau-compte",
       label: "Choisir la banque du nouveau compte commun (pour quitter celui de la SG)",
       frequency: "Comparer frais, carte(s), appli ; puis ouvrir le compte et y basculer les prélèvements",
       nextDue: "2026-10-31",
+    },
+    { id: "declaration-revenus", label: "Déclaration de revenus", frequency: "Annuel — généralement en mai", nextDue: null },
+    { id: "taxe-fonciere-habitation", label: "Taxe foncière / d'habitation", frequency: "Annuel — automne", nextDue: null },
+  ],
+  abonnements: [
+    // Tâches ajoutées le 01/10/2026 — objectif : fonctionner administrativement comme un couple marié
+    // (contrats aux deux noms, accès et charge partagés). Échéances proposées, à ajuster.
+    {
+      id: "vc-abonnements-compte-commun",
+      label: "Mettre les abonnements séries & films sur le compte commun",
+      frequency: "Netflix, Prime, Disney+, Canal… : changer le moyen de paiement pour le compte commun",
+      nextDue: "2026-10-15",
     },
     {
       id: "vc-inventaire-contrats",
@@ -8623,20 +8670,8 @@ const ADMIN_DEFAULT_ITEMS = {
       nextDue: "2026-10-31",
     },
     {
-      id: "vc-assurances-vehicules",
-      label: "Assurances véhicules : mettre les contrats à nos deux noms",
-      frequency: "Ajouter le second conducteur / co-titulaire, accès à l'espace client pour les deux",
-      nextDue: "2026-11-30",
-    },
-    {
-      id: "vc-logement",
-      label: "Logement : bail et assurance habitation à nos deux noms",
-      frequency: "Co-titulaires du bail et de l'assurance habitation",
-      nextDue: "2026-11-30",
-    },
-    {
       id: "vc-autres-contrats",
-      label: "Autres contrats (énergie, box internet, mutuelle…) aux deux noms",
+      label: "Contrats énergie et box internet à nos deux noms",
       frequency: "Co-titulaire ou au moins second contact + accès partagé",
       nextDue: "2026-12-15",
     },
@@ -8646,30 +8681,6 @@ const ADMIN_DEFAULT_ITEMS = {
       frequency: "Gestionnaire de mots de passe commun, répartition de qui suit quoi",
       nextDue: "2026-12-31",
     },
-  ],
-  identite: [
-    { id: "cni", label: "Carte nationale d'identité", frequency: "Renouvellement tous les 10 ans", nextDue: null },
-    { id: "passeport", label: "Passeport", frequency: "Renouvellement tous les 10 ans", nextDue: null },
-    { id: "permis", label: "Permis de conduire", frequency: "À vérifier (validité, points)", nextDue: null },
-  ],
-  vehicule: [
-    { id: "carte-grise", label: "Carte grise", frequency: "À jour sauf changement de véhicule", nextDue: null },
-    { id: "assurance-auto", label: "Assurance véhicule", frequency: "Renouvellement annuel", nextDue: null },
-    { id: "controle-technique", label: "Contrôle technique", frequency: "Tous les 2 ans", nextDue: null },
-  ],
-  logement: [
-    { id: "assurance-habitation", label: "Assurance habitation", frequency: "Renouvellement annuel", nextDue: null },
-    { id: "entretien-chaudiere", label: "Entretien chaudière", frequency: "Annuel", nextDue: null },
-  ],
-  sante: [
-    { id: "mutuelle", label: "Mutuelle santé", frequency: "Renouvellement annuel", nextDue: null },
-    { id: "carte-vitale", label: "Carte vitale — mise à jour", frequency: "À vérifier régulièrement", nextDue: null },
-  ],
-  finances: [
-    { id: "declaration-revenus", label: "Déclaration de revenus", frequency: "Annuel — généralement en mai", nextDue: null },
-    { id: "taxe-fonciere-habitation", label: "Taxe foncière / d'habitation", frequency: "Annuel — automne", nextDue: null },
-  ],
-  abonnements: [
     { id: "box-internet", label: "Box internet / téléphone", frequency: "Contrat à vérifier périodiquement", nextDue: null },
     { id: "energie", label: "Contrat énergie (électricité / gaz)", frequency: "Contrat à vérifier périodiquement", nextDue: null },
   ],
@@ -8800,7 +8811,7 @@ function AdministratifTab() {
         const items = ADMIN_DEFAULT_ITEMS[cat.key] || [];
         const doneCount = items.filter((it) => checked[it.id]).length;
         return (
-          <CollapsibleSection key={cat.key} title={cat.label} accent={ADMIN_ACCENT} badge={`${doneCount} / ${items.length}`} defaultOpen={cat.key === "vie-commune"}>
+          <CollapsibleSection key={cat.key} title={cat.label} accent={ADMIN_ACCENT} badge={`${doneCount} / ${items.length}`}>
             {items.map((it) => (
               <AdminItemRow key={it.id} item={it} checked={!!checked[it.id]} onToggle={toggle} />
             ))}
