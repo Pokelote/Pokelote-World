@@ -440,6 +440,7 @@ const CHATCHATS_TABS = [
 const ESTELLE_TABS = [
   { key: "estelle-accueil", label: "Accueil", accent: "#7FBBAE" },
   { key: "estelle-emploi", label: "Recherche d'emploi", accent: "#7FBBAE" },
+  { key: "estelle-musculation", label: "Musculation", accent: "#7FBBAE" },
 ];
 
 const SPACE_TABS = { clement: CLEMENT_TABS, chatchats: CHATCHATS_TABS, estelle: ESTELLE_TABS };
@@ -1387,6 +1388,7 @@ function App() {
         {active === "alimentation" && <AlimentationTab />}
         {active === "estelle-accueil" && <EstelleAccueilTab offerStatus={offerStatus || {}} onNavigate={setActive} />}
         {active === "estelle-emploi" && <EstelleEmploiTab offerStatus={offerStatus || {}} setOfferStatus={setOfferStatus} />}
+        {active === "estelle-musculation" && <EstelleMusculationTab />}
         {active !== "accueil" &&
           active !== "news" &&
           active !== "calendrier" &&
@@ -1401,7 +1403,8 @@ function App() {
           active !== "logement-marseille" &&
           active !== "alimentation" &&
           active !== "estelle-accueil" &&
-          active !== "estelle-emploi" && <PlaceholderTab tab={activeTab} />}
+          active !== "estelle-emploi" &&
+          active !== "estelle-musculation" && <PlaceholderTab tab={activeTab} />}
         </div>
       </main>
     </div>
@@ -7949,6 +7952,112 @@ function EstelleAccueilTab({ offerStatus, onNavigate }) {
           </button>
         </>
       )}
+    </div>
+  );
+}
+
+// Musculation d'Estelle (01/10/2026) : séance fixe "Full Body Mix", affichée dans le même style que
+// le reste de l'appli — pas de suivi par semaines/maxes comme côté Clément, juste le programme.
+const ESTELLE_WOD = {
+  title: "Full Body Mix",
+  duration: "53-58 min",
+  blocks: [
+    {
+      icon: "🔥",
+      title: "1. Échauffement",
+      duration: "10 min",
+      items: ["500m rameur ou ski erg (allure facile)", "2 tours : 10 squats, 10 fentes alternées, 10 rotations d'épaules, 20 sec de gainage"],
+    },
+    {
+      icon: "🎯",
+      title: "2. EMOM",
+      duration: "8 min",
+      intro: "Chaque minute, départ d'une nouvelle série :",
+      items: ["10 kettlebell swings", "10 squats"],
+      note: "EMOM = « Every Minute On the Minute » : faire les 20 reps puis se reposer jusqu'à la minute suivante. Si ça dépasse 50-55 sec, réduire légèrement les reps.",
+    },
+    {
+      icon: "⏱️",
+      title: "3. Le WOD principal",
+      duration: "20 min",
+      highlight: true,
+      intro: "AMRAP 20 min (max de tours en 20 minutes)",
+      items: ["10 fentes marchées", "8 military press (6kg min.)", "10 zercher squats (6kg min.)", "12 rowing bûcherons (6kg min.)"],
+      note: "Objectif : compter le nombre de tours complets faits en 20 minutes, à une intensité qu'elle peut tenir du début à la fin.",
+    },
+    {
+      icon: "💪",
+      title: "4. Finisher core",
+      duration: "5-8 min",
+      intro: "3 tours :",
+      items: ["20 sec de gainage", "15 crunchs", "20 sec de gainage latéral (chaque côté)"],
+    },
+    {
+      icon: "🧘",
+      title: "5. Retour au calme",
+      duration: "10 min",
+      items: ["Marche", "Étirements : mollets, ischios, épaules, avant-bras, dos"],
+    },
+  ],
+  tips: [
+    "Zercher squat : barre ou kettlebell tenue au creux des coudes, dos bien droit — technique avant charge",
+    "Military press et rowing bûcheron : garder le dos gainé, ne pas cambrer pour pousser plus lourd",
+    "Si 6kg est trop lourd sur un mouvement, mieux vaut baisser la charge que perdre la forme",
+    "En cas de fatigue sur un mouvement : réduire les reps de moitié sur ce tour plutôt que s'arrêter",
+  ],
+};
+
+function EstelleMusculationTab() {
+  return (
+    <div>
+      <h1 style={{ fontFamily: FONT_DISPLAY, fontSize: 32, color: COLORS.text, margin: 0, marginBottom: 6, fontWeight: 600 }}>
+        {ESTELLE_WOD.title}
+      </h1>
+      <p style={{ color: COLORS.muted, fontSize: 14, marginBottom: 24 }}>Séance complète · {ESTELLE_WOD.duration}</p>
+
+      <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+        {ESTELLE_WOD.blocks.map((b) => (
+          <div
+            key={b.title}
+            style={{
+              background: COLORS.card,
+              border: `1px solid ${COLORS.cardBorder}`,
+              borderLeft: `4px solid ${b.highlight ? COLORS.gold : ESTELLE_ACCENT}`,
+              borderRadius: 10,
+              padding: "14px 16px",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 4, flexWrap: "wrap" }}>
+              <span style={{ fontFamily: FONT_DISPLAY, fontSize: 16, color: COLORS.text }}>
+                {b.icon} {b.title}
+              </span>
+              <span style={{ fontSize: 12, color: COLORS.muted }}>— {b.duration}</span>
+            </div>
+            {b.intro && <p style={{ fontSize: 13, color: COLORS.text, fontWeight: 600, margin: "6px 0 4px" }}>{b.intro}</p>}
+            <ul style={{ margin: "6px 0 0", paddingLeft: 18 }}>
+              {b.items.map((it, j) => (
+                <li key={j} style={{ fontSize: 14, color: COLORS.text, marginBottom: 4, lineHeight: 1.4 }}>
+                  {it}
+                </li>
+              ))}
+            </ul>
+            {b.note && <p style={{ marginTop: 10, fontSize: 13, color: COLORS.muted, fontStyle: "italic", lineHeight: 1.5 }}>💡 {b.note}</p>}
+          </div>
+        ))}
+      </div>
+
+      <div style={{ background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, borderRadius: 10, padding: "16px 18px", marginTop: 20 }}>
+        <div style={{ fontFamily: FONT_DISPLAY, fontSize: 16, color: ESTELLE_ACCENT, marginBottom: 10 }}>⚠️ Points de vigilance</div>
+        <ul style={{ margin: 0, paddingLeft: 18 }}>
+          {ESTELLE_WOD.tips.map((t, i) => (
+            <li key={i} style={{ fontSize: 13, color: COLORS.muted, marginBottom: 6, lineHeight: 1.5 }}>
+              {t}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <p style={{ textAlign: "center", marginTop: 20, fontSize: 14, color: COLORS.muted }}>Bonne séance ! 🙌</p>
     </div>
   );
 }
