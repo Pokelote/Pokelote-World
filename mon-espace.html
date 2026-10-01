@@ -2252,17 +2252,17 @@ function OfferStatusPicker({ status, onSelect }) {
   );
 }
 
-function JobOffersList({ data, title, accent, statusMap, onSetStatus }) {
+function JobOffersList({ data, title, accent, statusMap, onSetStatus, bare = false }) {
   return (
     <div>
-      <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 20, flexWrap: "wrap", gap: 8 }}>
+      {!bare && <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 20, flexWrap: "wrap", gap: 8 }}>
         <div>
           <h1 style={{ fontFamily: FONT_DISPLAY, fontSize: 32, color: COLORS.text, margin: 0, fontWeight: 600 }}>{title}</h1>
           <span style={{ fontSize: 13, color: COLORS.muted }}>{data.domain}</span>
           {data.note && <p style={{ fontSize: 12, color: COLORS.muted, fontStyle: "italic", margin: "6px 0 0", lineHeight: 1.5, maxWidth: 620 }}>{data.note}</p>}
         </div>
         <span style={{ fontSize: 12, color: COLORS.muted }}>Mis à jour le {data.updatedAt}</span>
-      </div>
+      </div>}
       <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
         {data.items.map((it) => {
           const status = statusMap[it.id] || null;
@@ -7275,63 +7275,395 @@ function ChatchatsAccueilTab({ offerStatus, onNavigate }) {
 const ESTELLE_ACCENT = "#7FBBAE";
 
 const ESTELLE_JOB_OFFERS = {
-  updatedAt: "23 septembre 2026",
-  domain: "Architecte d'intérieur, Design & Graphisme — Marseille (ou télétravail) — tous types de contrat hors alternance — offres postées ces derniers jours",
-  note: "Toujours aucune offre d'Architecte d'intérieur à Marseille ni dans les environs (France Travail et Hellowork vides, hors alternance). Les offres Design/Graphisme de Marseille-Aubagne sont les mêmes qu'hier (MONAPP, 2R&H, Signarama...) donc non répétées ; les offres ci-dessous sont des postes de graphiste/designer en CDI à Paris ou Lyon avec télétravail occasionnel uniquement (pas de 100 % télétravail trouvé ce jour).",
+  updatedAt: "1er octobre 2026",
+  domain: "Cœur de métier : architecture d'intérieur — élargi aux métiers voisins de son parcours (agencement, conception cuisine/bain, retail & visual merchandising, tertiaire, graphisme)",
+  note: "Profil : Master 2 Architecture intérieure (École Bleue, titre RNCP niv. 7), ~4 ans d'expérience — hôtellerie de luxe (Plaza Athénée, Raphael, Caviar Kaspia), retail (MAC EMEA, Le Tanneur), rénovations complètes APS → EXE, DCE et suivi de chantier. AutoCAD, SketchUp, Enscape, Illustrator, Photoshop, InDesign, Lightroom, Office ; anglais professionnel. Peu d'offres « architecte d'intérieur » pures autour de Marseille : les métiers voisins y sont donc mis en avant.",
+  // Offres classées par zone (marseille | hors) puis par type de poste (champ « categorie »).
   items: [
-      {
-        id: "estelle-cdi-ateliergambetta-graphiste-exe",
-        title: "Graphiste Exé (H/F)",
-        company: "Atelier Gambetta",
-        contract: "CDI",
-        location: "Romainville (Île-de-France) — télétravail occasionnel",
-        summary: "Poste de graphiste d'exécution, publié il y a 7 jours.",
-        source: "Welcome to the Jungle",
-        url: "https://www.welcometothejungle.com/fr/companies/atelier-gambetta/jobs/graphiste-exe_romainville",
-      },
-      {
-        id: "estelle-cdi-orus-brand-designer",
-        title: "Brand Designer (Print, Digital & Vidéo)",
-        company: "Orus",
-        contract: "CDI",
-        location: "Paris — télétravail occasionnel",
-        summary: "Poste de brand designer print, digital et vidéo, publié il y a 14 jours.",
-        source: "Welcome to the Jungle",
-        url: "https://www.welcometothejungle.com/fr/companies/orus/jobs/brand-designer-print-digital-video-paris-cdi_paris",
-      },
-      {
-        id: "estelle-cdi-whitemirror-graphiste-ads",
-        title: "Graphiste ads (F/H)",
-        company: "White Mirror",
-        contract: "CDI",
-        location: "Lyon — télétravail occasionnel",
-        summary: "Poste de graphiste publicitaire (ads), publié il y a 16 jours.",
-        source: "Welcome to the Jungle",
-        url: "https://www.welcometothejungle.com/fr/companies/white-mirror/jobs/graphiste-ads-f-h-pour-l-express-connect_lyon",
-      },
-      {
-        id: "estelle-cdi-armees-graphiste-qualite",
-        title: "Graphiste — Responsable de la qualité graphique du SSA",
-        company: "Ministère des Armées",
-        contract: "CDI",
-        location: "Paris — télétravail occasionnel",
-        summary: "Poste de graphiste responsable de la qualité graphique du Service de santé des armées, publié il y a 15 jours.",
-        source: "Welcome to the Jungle",
-        url: "https://www.welcometothejungle.com/fr/companies/ministere-des-armees-fr/jobs/responsable-de-la-qualite-graphique-du-ssa_paris",
-      },
+    {
+      "id": "estelle-1001-darty-concepteur",
+      "zone": "marseille",
+      "categorie": "Conception d'aménagement (cuisine, bain, dressing)",
+      "title": "Concepteur Vendeur Cuisine (H/F)",
+      "company": "Darty Cuisine",
+      "contract": "CDI",
+      "location": "Marseille — Cantini",
+      "summary": "Conception de cuisines et dressings sur mesure en 3D avec le client, du relevé au suivi de pose ; publié il y a 2 jours.",
+      "source": "France Travail",
+      "url": "https://candidat.francetravail.fr/offres/recherche/detail/7482653"
+    },
+    {
+      "id": "estelle-1001-socooc-vitrolles",
+      "zone": "marseille",
+      "categorie": "Conception d'aménagement (cuisine, bain, dressing)",
+      "title": "Vendeur - Concepteur de Cuisines (H/F)",
+      "company": "SoCoo'c",
+      "contract": "CDI",
+      "location": "Vitrolles",
+      "summary": "Découverte du projet client, conception et dessin 3D de la cuisine dans le respect du budget ; publié il y a 4 jours.",
+      "source": "France Travail",
+      "url": "https://candidat.francetravail.fr/offres/recherche/detail/7439108"
+    },
+    {
+      "id": "estelle-1001-ixina-pennes",
+      "zone": "marseille",
+      "categorie": "Conception d'aménagement (cuisine, bain, dressing)",
+      "title": "Concepteur vendeur de cuisines (H/F)",
+      "company": "ixina",
+      "contract": "CDI",
+      "location": "Les Pennes-Mirabeau",
+      "summary": "Conception et vente de cuisines sur mesure pour une enseigne nationale ; publié il y a 2 jours.",
+      "source": "France Travail",
+      "url": "https://candidat.francetravail.fr/offres/recherche/detail/7474322"
+    },
+    {
+      "id": "estelle-1001-jpag-charge-affaires",
+      "zone": "marseille",
+      "categorie": "Agencement & suivi de chantier",
+      "title": "Chargé d'Affaires Bois et Agencement (H/F)",
+      "company": "Poujol Bâtiment (groupe JPAG)",
+      "contract": "CDI",
+      "location": "Bouc-Bel-Air",
+      "summary": "Second œuvre architectural et agencement menuiserie intérieure : suivi des affaires du chiffrage à la réception — proche de son expérience DCE + suivi de chantier ; publié il y a 7 jours.",
+      "source": "Hellowork",
+      "url": "https://www.hellowork.com/fr-fr/emplois/72848325.html"
+    },
+    {
+      "id": "estelle-1001-workyou-stands",
+      "zone": "marseille",
+      "categorie": "Agencement & suivi de chantier",
+      "title": "Chargé d'Affaires Agencement et Stands (H/F)",
+      "company": "Work & You (pour un concepteur de stands)",
+      "contract": "CDI",
+      "location": "La Ciotat",
+      "summary": "Conception-réalisation de stands et espaces événementiels sur mesure, projets variés et créatifs ; publié il y a 8 jours.",
+      "source": "Hellowork",
+      "url": "https://www.hellowork.com/fr-fr/emplois/83681332.html"
+    },
+    {
+      "id": "estelle-1001-poujol-conducteur",
+      "zone": "marseille",
+      "categorie": "Agencement & suivi de chantier",
+      "title": "Conducteur de travaux Second Œuvre (F/H)",
+      "company": "Poujol Bâtiment",
+      "contract": "CDI",
+      "location": "Bouc-Bel-Air",
+      "summary": "Supervision de chantiers de construction et de rénovation (délais, budget, qualité) — valorise son expérience de coordination des entreprises ; publié aujourd'hui.",
+      "source": "France Travail",
+      "url": "https://candidat.francetravail.fr/offres/recherche/detail/7541578"
+    },
+    {
+      "id": "estelle-1001-mango-vm-marseille",
+      "zone": "marseille",
+      "categorie": "Retail, store design & visual merchandising",
+      "title": "Visual Merchandiser Manager — CDD 35h (H/F)",
+      "company": "MANGO",
+      "contract": "CDD",
+      "location": "Marseille",
+      "summary": "Garant de l'identité visuelle de la marque en magasin, implantations et mise en scène des collections ; publié il y a 14 jours.",
+      "source": "Hellowork",
+      "url": "https://www.hellowork.com/fr-fr/emplois/83448977.html"
+    },
+    {
+      "id": "estelle-1001-mango-vm-valette",
+      "zone": "marseille",
+      "categorie": "Retail, store design & visual merchandising",
+      "title": "Visual Merchandiser Manager (H/F)",
+      "company": "MANGO",
+      "contract": "CDI",
+      "location": "La Valette-du-Var (Toulon)",
+      "summary": "Merchandising mode et commercial, implantations et rotation des produits ; publié il y a 7 jours.",
+      "source": "France Travail",
+      "url": "https://candidat.francetravail.fr/offres/recherche/detail/7312585"
+    },
+    {
+      "id": "estelle-1001-ikea-vm-toulon",
+      "zone": "marseille",
+      "categorie": "Retail, store design & visual merchandising",
+      "title": "Visuel Merchandiser — CDI temps plein (H/F)",
+      "company": "IKEA",
+      "contract": "CDI",
+      "location": "Toulon",
+      "summary": "Mise en scène des produits et des espaces d'aménagement en magasin, profil merchandising visuel ou art ; publié le 28 septembre.",
+      "source": "Hellowork",
+      "url": "https://www.hellowork.com/fr-fr/emplois/83872670.html"
+    },
+    {
+      "id": "estelle-1001-sezane-vm",
+      "zone": "marseille",
+      "categorie": "Retail, store design & visual merchandising",
+      "title": "Conseiller de Vente - Visuel Merchandiser 35h (H/F)",
+      "company": "Sézane",
+      "contract": "CDI",
+      "location": "Marseille",
+      "summary": "Poste mixte vente / mise en scène de la boutique Sézane ; publié il y a 28 jours.",
+      "source": "Hellowork",
+      "url": "https://www.hellowork.com/fr-fr/emplois/82971218.html"
+    },
+    {
+      "id": "estelle-1001-oxysign-graphiste",
+      "zone": "marseille",
+      "categorie": "Graphisme",
+      "title": "Graphiste signalétique (H/F)",
+      "company": "OXYSIGN",
+      "contract": "CDD",
+      "location": "Aubagne",
+      "summary": "Préparation et vérification de fichiers graphiques pour la production de signalétique (Illustrator, Photoshop) ; publié il y a 15 jours.",
+      "source": "France Travail",
+      "url": "https://candidat.francetravail.fr/offres/recherche/detail/6938673"
+    },
+    {
+      "id": "estelle-1001-mpage-saint-tropez",
+      "zone": "hors",
+      "categorie": "Architecture d'intérieur & chef de projet",
+      "title": "Chef de Projets Design Intérieur & Architecture de Luxe (H/F)",
+      "company": "Michael Page (pour un concepteur-réalisateur)",
+      "contract": "CDI",
+      "location": "Saint-Tropez (Var, ≈ 1h45)",
+      "summary": "Propriétés de très haut standing pour une clientèle privée internationale, de la conception à la livraison ; publié il y a 23 jours.",
+      "source": "Hellowork",
+      "url": "https://www.hellowork.com/fr-fr/emplois/83136975.html"
+    },
+    {
+      "id": "estelle-1001-charrette-hotelier",
+      "zone": "hors",
+      "categorie": "Architecture d'intérieur & chef de projet",
+      "title": "Architecte d'Intérieur Chef de Projet — hôtellerie (H/F)",
+      "company": "Charrette Service (petite agence parisienne)",
+      "contract": "Intérim",
+      "location": "Paris — 100 % présentiel",
+      "summary": "Mission d'un an en agence d'architecture intérieure hôtelière : conception et plans AutoCAD jusqu'aux détails — très proche de sa mission Plaza Athénée ; publié il y a 4 jours.",
+      "source": "Hellowork",
+      "url": "https://www.hellowork.com/fr-fr/emplois/81729936.html"
+    },
+    {
+      "id": "estelle-1001-charrette-retail",
+      "zone": "hors",
+      "categorie": "Architecture d'intérieur & chef de projet",
+      "title": "Architecte d'Intérieur en Retail (H/F)",
+      "company": "Charrette Service",
+      "contract": "CDD",
+      "location": "Paris — sans télétravail",
+      "summary": "Profil 2 à 5 ans d'expérience, croquis à la main, anglais écrit, portfolio demandé — colle à son parcours MAC / Le Tanneur ; publié il y a 10 jours.",
+      "source": "Hellowork",
+      "url": "https://www.hellowork.com/fr-fr/emplois/81524757.html"
+    },
+    {
+      "id": "estelle-1001-vene-ffe",
+      "zone": "hors",
+      "categorie": "Architecture d'intérieur & chef de projet",
+      "title": "Architecte d'Intérieur Chargé de Projet FF&E (H/F)",
+      "company": "Vene Recrutement (agence de design d'intérieur)",
+      "contract": "CDI",
+      "location": "Paris 8e",
+      "summary": "Projets hôteliers haut de gamme, choix mobilier, matériaux et tissus ; publié il y a 13 jours.",
+      "source": "Hellowork",
+      "url": "https://www.hellowork.com/fr-fr/emplois/83489130.html"
+    },
+    {
+      "id": "estelle-1001-asap-ffe",
+      "zone": "hors",
+      "categorie": "Architecture d'intérieur & chef de projet",
+      "title": "Architecte d'Intérieur Responsable FF&E (H/F)",
+      "company": "asap.work",
+      "contract": "CDD",
+      "location": "Paris 7e",
+      "summary": "Conception d'aménagements axés matériaux, mobilier et tissus de luxe, plans et rendus AutoCAD + Photoshop ; publié il y a 16 jours.",
+      "source": "Hellowork",
+      "url": "https://www.hellowork.com/fr-fr/emplois/83359634.html"
+    },
+    {
+      "id": "estelle-1001-charrette-ffe-luxe",
+      "zone": "hors",
+      "categorie": "Architecture d'intérieur & chef de projet",
+      "title": "Architecte d'Intérieur FF&E — expérimenté (H/F)",
+      "company": "Charrette Service (agence résidentiel hyper-luxe)",
+      "contract": "Intérim",
+      "location": "Paris",
+      "summary": "Mission de quelques mois, 5 ans d'expérience demandés, AutoCAD courant, anglais courant ; publié il y a 7 jours.",
+      "source": "Hellowork",
+      "url": "https://www.hellowork.com/fr-fr/emplois/83717370.html"
+    },
+    {
+      "id": "estelle-1001-charrette-tertiaire",
+      "zone": "hors",
+      "categorie": "Aménagement tertiaire & space planning",
+      "title": "Architecte d'Intérieur — Espaces Tertiaires (H/F)",
+      "company": "Charrette Service (agence d'architecture intérieure)",
+      "contract": "CDI",
+      "location": "Paris 8e",
+      "summary": "Chargé de projet en aménagements tertiaires, plans AutoCAD en APS/APD/DCE (5 ans d'expérience demandés) ; publié il y a 13 jours.",
+      "source": "Hellowork",
+      "url": "https://www.hellowork.com/fr-fr/emplois/83511039.html"
+    },
+    {
+      "id": "estelle-1001-cacd-space-planner",
+      "zone": "hors",
+      "categorie": "Aménagement tertiaire & space planning",
+      "title": "Space Planner (H/F)",
+      "company": "CACD",
+      "contract": "CDI",
+      "location": "Île-de-France",
+      "summary": "Relevés, macro/micro-zoning et plans d'aménagement d'espaces de travail ; publié aujourd'hui.",
+      "source": "Hellowork",
+      "url": "https://www.hellowork.com/fr-fr/emplois/76220548.html"
+    },
+    {
+      "id": "estelle-1001-mpage-chef-projet-chantier",
+      "zone": "hors",
+      "categorie": "Architecture d'intérieur & chef de projet",
+      "title": "Architecte d'Intérieur — Chef de Projet Chantier (H/F)",
+      "company": "Michael Page (aménagement & mobilier haut de gamme)",
+      "contract": "CDI",
+      "location": "Paris 11e",
+      "summary": "Conception et déploiement d'aménagements pour l'hôtellerie et la restauration — proche de Beaubow (Kaspia, Andia) ; publié il y a 18 jours.",
+      "source": "Hellowork",
+      "url": "https://www.hellowork.com/fr-fr/emplois/83323953.html"
+    },
+    {
+      "id": "estelle-1001-ikea-responsable-ai",
+      "zone": "hors",
+      "categorie": "Architecture d'intérieur & chef de projet",
+      "title": "Responsable de Service Architecte d'Intérieur (H/F)",
+      "company": "IKEA",
+      "contract": "CDI",
+      "location": "Paris",
+      "summary": "Management d'une équipe d'architectes d'intérieur qui conçoit des solutions d'aménagement — poste d'encadrement ; publié le 29 septembre.",
+      "source": "Hellowork",
+      "url": "https://www.hellowork.com/fr-fr/emplois/83899644.html"
+    },
+    {
+      "id": "estelle-1001-domea-projeteur",
+      "zone": "hors",
+      "categorie": "Agencement & suivi de chantier",
+      "title": "Projeteur en Agencement (H/F)",
+      "company": "DOMEA (pour un agenceur haut de gamme)",
+      "contract": "CDI",
+      "location": "Paris",
+      "summary": "Plans techniques AutoCAD en bureau d'études d'agencement et menuiserie haut de gamme ; publié il y a 3 jours.",
+      "source": "Hellowork",
+      "url": "https://www.hellowork.com/fr-fr/emplois/83836194.html"
+    },
+    {
+      "id": "estelle-1001-lip-charge-affaires",
+      "zone": "hors",
+      "categorie": "Agencement & suivi de chantier",
+      "title": "Chargé d'Affaires Menuiserie Agencement (H/F)",
+      "company": "LIP Paris Agencement",
+      "contract": "CDI",
+      "location": "Paris 1er",
+      "summary": "Suivi des affaires d'un agenceur menuisier, qualité des prestations et coordination ; publié hier.",
+      "source": "Hellowork",
+      "url": "https://www.hellowork.com/fr-fr/emplois/83906821.html"
+    },
+    {
+      "id": "estelle-1001-bei-agencement-luxe",
+      "zone": "hors",
+      "categorie": "Agencement & suivi de chantier",
+      "title": "Chargé d'Affaires Agencement Luxe (H/F)",
+      "company": "Bureau d'Étude Intérimaire (BEI)",
+      "contract": "CDI",
+      "location": "Paris",
+      "summary": "Agencement luxe, de la conception à la remise des clés ; publié il y a 5 jours.",
+      "source": "Hellowork",
+      "url": "https://www.hellowork.com/fr-fr/emplois/80629077.html"
+    },
+    {
+      "id": "estelle-1001-retail-designer",
+      "zone": "hors",
+      "categorie": "Retail, store design & visual merchandising",
+      "title": "Retail Designer (H/F)",
+      "company": "Approach People Recruitment",
+      "contract": "CDI",
+      "location": "Paris",
+      "summary": "Conception de concepts d'aménagement d'espaces commerciaux, de l'idée au suivi de déploiement ; publié il y a 9 jours.",
+      "source": "Hellowork",
+      "url": "https://www.hellowork.com/fr-fr/emplois/81360012.html"
+    },
+    {
+      "id": "estelle-1001-mpage-vm-luxe",
+      "zone": "hors",
+      "categorie": "Retail, store design & visual merchandising",
+      "title": "Visual Merchandising Manager — Beauté & Luxe (H/F)",
+      "company": "Michael Page (marque premium beauté)",
+      "contract": "CDI",
+      "location": "Paris 8e",
+      "summary": "Visual merchandising d'une marque beauté/luxe présente à l'international — dans la continuité de MAC Cosmetics ; publié il y a 2 jours.",
+      "source": "Hellowork",
+      "url": "https://www.hellowork.com/fr-fr/emplois/83880592.html"
+    },
+    {
+      "id": "estelle-1001-lacoste-vm",
+      "zone": "hors",
+      "categorie": "Retail, store design & visual merchandising",
+      "title": "Visuel Merchandiser (H/F)",
+      "company": "Lacoste",
+      "contract": "CDI",
+      "location": "Paris",
+      "summary": "Application des guidelines visuelles, implantations in-store et vitrines ; publié hier.",
+      "source": "Hellowork",
+      "url": "https://www.hellowork.com/fr-fr/emplois/83939395.html"
+    }
   ],
 };
 
+
+// Recherche d'emploi d'Estelle (01/10/2026) : offres par zone (Marseille & alentours / hors Marseille)
+// puis par type de poste, avec les mêmes cartes et statuts que les autres listes d'offres.
+const ESTELLE_ZONES = [
+  { key: "marseille", label: "Marseille & alentours" },
+  { key: "hors", label: "Hors Marseille" },
+];
+const ESTELLE_CATEGORIES = [
+  "Architecture d'intérieur & chef de projet",
+  "Conception d'aménagement (cuisine, bain, dressing)",
+  "Agencement & suivi de chantier",
+  "Aménagement tertiaire & space planning",
+  "Retail, store design & visual merchandising",
+  "Graphisme",
+];
+
 function EstelleEmploiTab({ offerStatus, setOfferStatus }) {
   const setStatusFor = makeOfferStatusSetter(setOfferStatus);
+  const [zone, setZone] = useState("marseille");
+  const data = ESTELLE_JOB_OFFERS;
+  const zoneItems = data.items.filter((it) => it.zone === zone);
   return (
-    <JobOffersList
-      data={ESTELLE_JOB_OFFERS}
-      title="Recherche d'emploi"
-      accent={ESTELLE_ACCENT}
-      statusMap={offerStatus}
-      onSetStatus={setStatusFor}
-    />
+    <div>
+      <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 16, flexWrap: "wrap", gap: 8 }}>
+        <div>
+          <h1 style={{ fontFamily: FONT_DISPLAY, fontSize: 32, color: COLORS.text, margin: 0, fontWeight: 600 }}>Recherche d'emploi</h1>
+          <span style={{ fontSize: 13, color: COLORS.muted }}>{data.domain}</span>
+          <p style={{ fontSize: 12, color: COLORS.muted, fontStyle: "italic", margin: "6px 0 0", lineHeight: 1.5, maxWidth: 720 }}>{data.note}</p>
+        </div>
+        <span style={{ fontSize: 12, color: COLORS.muted }}>Mis à jour le {data.updatedAt}</span>
+      </div>
+      <PillTabs
+        options={ESTELLE_ZONES.map((z) => ({ ...z, label: `${z.label} · ${data.items.filter((it) => it.zone === z.key).length}` }))}
+        activeKey={zone}
+        onSelect={setZone}
+        accentOf={() => ESTELLE_ACCENT}
+        marginBottom={20}
+      />
+      {ESTELLE_CATEGORIES.map((cat) => {
+        const list = zoneItems.filter((it) => it.categorie === cat);
+        if (list.length === 0) return null;
+        return (
+          <div key={cat} style={{ marginBottom: 26 }}>
+            <div style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: ESTELLE_ACCENT, marginBottom: 10 }}>
+              {cat} <span style={{ fontFamily: FONT_BODY, fontSize: 12, color: COLORS.muted }}>· {list.length}</span>
+            </div>
+            <JobOffersList
+              data={{ ...data, items: list }}
+              accent={ESTELLE_ACCENT}
+              statusMap={offerStatus}
+              onSetStatus={setStatusFor}
+              bare
+            />
+          </div>
+        );
+      })}
+    </div>
   );
 }
 
