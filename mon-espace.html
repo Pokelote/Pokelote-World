@@ -2447,13 +2447,13 @@ function MarseilleLogementCard({ item, status, onSetStatus }) {
 // courses cochables (synchronisées), repères SOPK (ebooks SOVA), recettes, cibles. Les données sont
 // figées ici : pour les modifier, repasser par le classeur puis redemander la mise à jour à Claude.
 const ALIM_ACCENT = "#E0A458";
-const ALIM_DATA = {"days": [{"date": "2026-09-28", "jour": "Lundi", "semaine": 1, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Champignons de Paris", "80 g", "80 g"], ["Pomme", "1", "1"], ["Poire", "1", "–"]], "note": "Œufs en omelette aux champignons · thé vert plutôt 1 h après", "kc": 576, "ke": 404}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Prune", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 93, "ke": 93}, {"name": "Déjeuner", "items": [["Quinoa (cru)", "75 g", "45 g"], ["Saumon", "180 g", "150 g"], ["Brocoli", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Figue", "1", "–"]], "note": "Saumon, brocoli vapeur, sésame (gros poisson gras : 1×/sem.)", "kc": 870, "ke": 650}, {"name": "Collation après-midi", "items": [["Skyr nature", "200 g", "150 g"], ["Pomme", "1", "1"]], "note": "Protéine + fruit", "kc": 200, "ke": 170}, {"name": "Dîner", "items": [["Lentilles (cuites)", "250 g", "150 g"], ["Carottes", "200 g", "200 g"], ["Épinards", "100 g", "100 g"], ["Huile de colza", "1 CAS", "1 CAS"]], "note": "Dahl de lentilles & carottes au curcuma (SOVA) · + infusion", "kc": 495, "ke": 379}], "tot": [2234, 1696, 141, 107]}, {"date": "2026-09-29", "jour": "Mardi", "semaine": 1, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Épinards", "80 g", "80 g"], ["Raisin", "1 portion", "1 portion"], ["Figue", "1", "–"]], "note": "Œufs brouillés aux épinards & curry · thé vert plutôt 1 h après", "kc": 532, "ke": 414}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Poire", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 161, "ke": 161}, {"name": "Déjeuner", "items": [["Riz basmati (cru)", "75 g", "45 g"], ["Escalope de dinde", "180 g", "130 g"], ["Haricots verts", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Pomme", "1", "–"]], "note": "Escalope de dinde aux herbes & haricots verts à l'ail", "kc": 729, "ke": 477}, {"name": "Collation après-midi", "items": [["Blanc de poulet", "160 g", "100 g"], ["Poire", "1", "1"]], "note": "Protéine + fruit", "kc": 264, "ke": 198}, {"name": "Dîner", "items": [["Pois chiches (cuits)", "250 g", "150 g"], ["Aubergine", "150 g", "150 g"], ["Poivron", "150 g", "150 g"], ["Huile d'olive", "1 CAS", "1 CAS"]], "note": "Curry végé pois chiches, aubergine, poivron (SOVA) · + infusion", "kc": 533, "ke": 393}], "tot": [2219, 1643, 150, 106]}, {"date": "2026-09-30", "jour": "Mercredi", "semaine": 1, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Tomate", "80 g", "80 g"], ["Prune", "1", "1"], ["Pomme", "1", "–"]], "note": "Œufs en omelette aux tomates · thé vert plutôt 1 h après", "kc": 505, "ke": 342}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Figue", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 108, "ke": 108}, {"name": "Déjeuner", "items": [["Quinoa (cru)", "75 g", "45 g"], ["Crevettes décortiquées", "180 g", "150 g"], ["Courgette", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Poire", "1", "–"]], "note": "Poêlée de crevettes à l'ail, courgettes & quinoa", "kc": 696, "ke": 460}, {"name": "Collation après-midi", "items": [["Skyr nature", "200 g", "150 g"], ["Banane", "1", "1"]], "note": "Protéine + fruit", "kc": 228, "ke": 198}, {"name": "Dîner", "items": [["Concombre", "100 g", "100 g"], ["Vinaigre de cidre", "2 CAS", "2 CAS"], ["Haricots rouges (cuits)", "200 g", "120 g"], ["Bœuf haché 5 %", "100 g", "80 g"], ["Tomate", "150 g", "150 g"], ["Poivron", "150 g", "150 g"], ["Huile de colza", "1 CAS", "1 CAS"]], "note": "Chili con carne (SOVA) — viande rouge 1×/sem. pour le fer · + infusion", "kc": 542, "ke": 430}], "tot": [2079, 1538, 151, 115]}, {"date": "2026-10-01", "jour": "Jeudi", "semaine": 1, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Champignons de Paris", "80 g", "80 g"], ["Poire", "1", "1"], ["Raisin", "1 portion", "–"]], "note": "Œufs brouillés aux champignons & herbes · thé vert plutôt 1 h après", "kc": 584, "ke": 412}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Pomme", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 153, "ke": 153}, {"name": "Déjeuner", "items": [["Riz basmati (cru)", "75 g", "45 g"], ["Blanc de poulet", "180 g", "130 g"], ["Aubergine", "150 g", "150 g"], ["Poivron", "150 g", "150 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Raisin", "1 portion", "–"]], "note": "Curry au poulet et riz (SOVA)", "kc": 731, "ke": 484}, {"name": "Collation après-midi", "items": [["Cottage cheese", "200 g", "150 g"], ["Raisin", "1 portion", "1 portion"]], "note": "Protéine + fruit", "kc": 288, "ke": 238}, {"name": "Dîner", "items": [["Colin (lieu)", "150 g", "130 g"], ["Blettes", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"]], "note": "Colin & blettes sautées à l'ail · + infusion", "kc": 288, "ke": 262}], "tot": [2044, 1549, 144, 111]}, {"date": "2026-10-02", "jour": "Vendredi", "semaine": 1, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Épinards", "80 g", "80 g"], ["Pomme", "1", "1"], ["Figue", "1", "–"]], "note": "Œufs en omelette aux épinards · thé vert plutôt 1 h après", "kc": 524, "ke": 406}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Raisin", "1 portion", "1 portion"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 161, "ke": 161}, {"name": "Déjeuner", "items": [["Patate douce", "225 g", "130 g"], ["Maquereau", "180 g", "150 g"], ["Chou-fleur", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Chocolat noir 85 %", "1 carré", "1 carré"]], "note": "Maquereau grillé, chou-fleur rôti (petit poisson gras)", "kc": 778, "ke": 626}, {"name": "Collation après-midi", "items": [["Skyr nature", "200 g", "150 g"], ["Figue", "1", "1"]], "note": "Protéine + fruit", "kc": 154, "ke": 124}, {"name": "Dîner", "items": [["Lentilles (cuites)", "250 g", "150 g"], ["Poireaux", "150 g", "150 g"], ["Champignons de Paris", "150 g", "150 g"], ["Huile de noix", "1 CAS", "1 CAS"]], "note": "Lentilles, fondue de poireaux & champignons · + infusion", "kc": 476, "ke": 360}], "tot": [2093, 1677, 133, 103]}, {"date": "2026-10-03", "jour": "Samedi", "semaine": 1, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Poivron", "80 g", "80 g"], ["Banane", "1", "1"], ["Prune", "1", "–"]], "note": "Œufs au plat & poivrons poêlés · thé vert plutôt 1 h après", "kc": 541, "ke": 437}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Poire", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 161, "ke": 161}, {"name": "Déjeuner", "items": [["Quinoa (cru)", "75 g", "45 g"], ["Sardines", "180 g", "150 g"], ["Tomate", "150 g", "150 g"], ["Poivron", "150 g", "150 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Prune", "1", "–"]], "note": "Sardines grillées & tian de légumes (petit poisson gras)", "kc": 773, "ke": 592}, {"name": "Collation après-midi", "items": [["Jambon blanc", "160 g", "100 g"], ["Pomme", "1", "1"]], "note": "Protéine + fruit", "kc": 264, "ke": 194}, {"name": "Dîner", "items": [], "note": "Repas libre (règle 80/20) — sans culpabilité", "kc": 0, "ke": 0}], "tot": [1739, 1384, 121, 90]}, {"date": "2026-10-04", "jour": "Dimanche", "semaine": 1, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Courgette", "80 g", "80 g"], ["Poire", "1", "1"], ["Raisin", "1 portion", "–"]], "note": "Œufs à la coque + mouillettes de courgette · thé vert plutôt 1 h après", "kc": 580, "ke": 408}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Pomme", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 153, "ke": 153}, {"name": "Déjeuner", "items": [["Riz basmati (cru)", "75 g", "45 g"], ["Lapin", "180 g", "130 g"], ["Carottes", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Pomme", "1", "–"]], "note": "Lapin à la moutarde & carottes fondantes (sans miel)", "kc": 801, "ke": 531}, {"name": "Collation après-midi", "items": [["Skyr nature", "200 g", "150 g"], ["Poire", "1", "1"]], "note": "Protéine + fruit", "kc": 208, "ke": 178}, {"name": "Dîner", "items": [["Betterave cuite", "100 g", "100 g"], ["Vinaigre de cidre", "2 CAS", "2 CAS"], ["Pois chiches (cuits)", "250 g", "150 g"], ["Butternut", "300 g", "250 g"], ["Huile de noix", "1 CAS", "1 CAS"]], "note": "Butternut rôtie & pois chiches au cumin · + infusion", "kc": 629, "ke": 469}], "tot": [2371, 1739, 128, 93]}, {"date": "2026-10-05", "jour": "Lundi", "semaine": 2, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Champignons de Paris", "80 g", "80 g"], ["Pomme", "1", "1"], ["Raisin", "1 portion", "–"]], "note": "Œufs brouillés aux champignons · thé vert plutôt 1 h après", "kc": 575, "ke": 404}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Poire", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 161, "ke": 161}, {"name": "Déjeuner", "items": [["Riz basmati (cru)", "75 g", "45 g"], ["Blanc de poulet", "180 g", "130 g"], ["Brocoli", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Pomme", "1", "–"]], "note": "Poulet citron-thym & brocoli", "kc": 738, "ke": 484}, {"name": "Collation après-midi", "items": [["Skyr nature", "200 g", "150 g"], ["Poire", "1", "1"]], "note": "Protéine + fruit", "kc": 208, "ke": 178}, {"name": "Dîner", "items": [["Pois chiches (cuits)", "250 g", "150 g"], ["Chou-fleur", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"]], "note": "Chou-fleur rôti au curcuma & pois chiches · + infusion", "kc": 533, "ke": 380}], "tot": [2215, 1607, 141, 103]}, {"date": "2026-10-06", "jour": "Mardi", "semaine": 2, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Épinards", "80 g", "80 g"], ["Poire", "1", "1"], ["Figue", "1", "–"]], "note": "Œufs en omelette aux épinards · thé vert plutôt 1 h après", "kc": 533, "ke": 414}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Pomme", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 153, "ke": 153}, {"name": "Déjeuner", "items": [["Patate douce", "225 g", "130 g"], ["Saumon", "180 g", "150 g"], ["Épinards", "300 g", "250 g"], ["Huile de noix", "1 CAS", "1 CAS"], ["Poire", "1", "–"]], "note": "Saumon, épinards à l'ail & patate douce rôtie (gros poisson gras : 1×/sem.)", "kc": 824, "ke": 582}, {"name": "Collation après-midi", "items": [["Blanc de poulet", "160 g", "100 g"], ["Pomme", "1", "1"]], "note": "Protéine + fruit", "kc": 256, "ke": 190}, {"name": "Dîner", "items": [["Carottes", "100 g", "100 g"], ["Vinaigre de cidre", "2 CAS", "2 CAS"], ["Lentilles (cuites)", "250 g", "150 g"], ["Poireaux", "300 g", "250 g"], ["Huile de colza", "1 CAS", "1 CAS"]], "note": "Carottes râpées + lentilles aux poireaux (prébiotiques) · + infusion", "kc": 530, "ke": 399}], "tot": [2296, 1738, 151, 110]}, {"date": "2026-10-07", "jour": "Mercredi", "semaine": 2, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Poireaux", "80 g", "80 g"], ["Pomme", "1", "1"], ["Banane", "1", "–"]], "note": "Œufs en omelette aux herbes & poireaux · thé vert plutôt 1 h après", "kc": 602, "ke": 410}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Figue", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 108, "ke": 108}, {"name": "Déjeuner", "items": [["Quinoa (cru)", "75 g", "45 g"], ["Maquereau", "180 g", "150 g"], ["Endives", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Raisin", "1 portion", "–"]], "note": "Maquereau & endives braisées (petit poisson gras)", "kc": 866, "ke": 602}, {"name": "Collation après-midi", "items": [["Skyr nature", "200 g", "150 g"], ["Raisin", "1 portion", "1 portion"]], "note": "Protéine + fruit", "kc": 208, "ke": 178}, {"name": "Dîner", "items": [["Escalope de dinde", "150 g", "120 g"], ["Butternut", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"]], "note": "Butternut farcie à la dinde & épices (SOVA) · + infusion", "kc": 386, "ke": 334}], "tot": [2170, 1632, 145, 112]}, {"date": "2026-10-08", "jour": "Jeudi", "semaine": 2, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Champignons de Paris", "80 g", "80 g"], ["Raisin", "1 portion", "1 portion"], ["Poire", "1", "–"]], "note": "Œufs brouillés au curry & champignons · thé vert plutôt 1 h après", "kc": 584, "ke": 412}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Pomme", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 153, "ke": 153}, {"name": "Déjeuner", "items": [["Riz basmati (cru)", "75 g", "45 g"], ["Crevettes décortiquées", "180 g", "150 g"], ["Champignons de Paris", "150 g", "150 g"], ["Chou rouge", "150 g", "150 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Figue", "1", "–"]], "note": "Wok crevettes, champignons & chou au gingembre (sans sauce soja)", "kc": 654, "ke": 486}, {"name": "Collation après-midi", "items": [["Cottage cheese", "200 g", "150 g"], ["Figue", "1", "1"]], "note": "Protéine + fruit", "kc": 234, "ke": 184}, {"name": "Dîner", "items": [["Haricots rouges (cuits)", "200 g", "120 g"], ["Bœuf haché 5 %", "100 g", "80 g"], ["Carottes", "150 g", "150 g"], ["Poivron", "150 g", "150 g"], ["Huile de colza", "1 CAS", "1 CAS"]], "note": "Chili con carne (SOVA) — viande rouge 1×/sem. · + infusion", "kc": 549, "ke": 436}], "tot": [2174, 1671, 151, 117]}, {"date": "2026-10-09", "jour": "Vendredi", "semaine": 2, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Épinards", "80 g", "80 g"], ["Pomme", "1", "1"], ["Figue", "1", "–"]], "note": "Œufs en omelette aux épinards · thé vert plutôt 1 h après", "kc": 524, "ke": 406}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Poire", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 161, "ke": 161}, {"name": "Déjeuner", "items": [["Quinoa (cru)", "75 g", "45 g"], ["Lapin", "180 g", "130 g"], ["Haricots verts", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Chocolat noir 85 %", "1 carré", "1 carré"]], "note": "Lapin à la moutarde & haricots verts", "kc": 778, "ke": 584}, {"name": "Collation après-midi", "items": [["Skyr nature", "200 g", "150 g"], ["Banane", "1", "1"]], "note": "Protéine + fruit", "kc": 228, "ke": 198}, {"name": "Dîner", "items": [["Mâche / salade", "50 g", "50 g"], ["Betterave cuite", "100 g", "100 g"], ["Vinaigre de cidre", "2 CAS", "2 CAS"], ["Lentilles (cuites)", "250 g", "150 g"], ["Céleri-rave", "250 g", "250 g"], ["Huile de lin", "1 CAS", "1 CAS"]], "note": "Mâche-betterave + lentilles & purée de céleri · + infusion", "kc": 519, "ke": 403}], "tot": [2210, 1752, 143, 106]}, {"date": "2026-10-10", "jour": "Samedi", "semaine": 2, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Champignons de Paris", "80 g", "80 g"], ["Poire", "1", "1"], ["Pomme", "1", "–"]], "note": "Œufs au plat & champignons · thé vert plutôt 1 h après", "kc": 576, "ke": 412}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Raisin", "1 portion", "1 portion"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 161, "ke": 161}, {"name": "Déjeuner", "items": [["Riz basmati (cru)", "75 g", "45 g"], ["Sardines", "180 g", "150 g"], ["Fenouil", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Pomme", "1", "–"]], "note": "Sardines & fenouil braisé (petit poisson gras)", "kc": 807, "ke": 563}, {"name": "Collation après-midi", "items": [["Jambon blanc", "160 g", "100 g"], ["Poire", "1", "1"]], "note": "Protéine + fruit", "kc": 272, "ke": 203}, {"name": "Dîner", "items": [], "note": "Repas libre (règle 80/20) — sans culpabilité", "kc": 0, "ke": 0}], "tot": [1816, 1339, 118, 89]}, {"date": "2026-10-11", "jour": "Dimanche", "semaine": 2, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Épinards", "80 g", "80 g"], ["Raisin", "1 portion", "1 portion"], ["Pomme", "1", "–"]], "note": "Œufs à la coque + épinards · thé vert plutôt 1 h après", "kc": 577, "ke": 414}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Poire", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 161, "ke": 161}, {"name": "Déjeuner", "items": [["Patate douce", "225 g", "130 g"], ["Escalope de dinde", "180 g", "130 g"], ["Carottes", "150 g", "150 g"], ["Potiron / courge", "150 g", "150 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Pomme", "1", "–"]], "note": "Dinde & légumes d'automne rôtis au four", "kc": 669, "ke": 455}, {"name": "Collation après-midi", "items": [["Skyr nature", "200 g", "150 g"], ["Pomme", "1", "1"]], "note": "Protéine + fruit", "kc": 200, "ke": 170}, {"name": "Dîner", "items": [["Cabillaud", "150 g", "130 g"], ["Potiron / courge", "300 g", "250 g"], ["Huile de colza", "1 CAS", "1 CAS"]], "note": "Cabillaud & velouté de potiron au gingembre (sans crème) · + infusion", "kc": 318, "ke": 287}], "tot": [1925, 1487, 137, 107]}], "courses": [{"id": "betterave-cuite", "rayon": "Fruits & légumes", "al": "Betterave cuite", "w1": "200 g", "w2": "200 g"}, {"id": "concombre", "rayon": "Fruits & légumes", "al": "Concombre", "w1": "200 g", "w2": null}, {"id": "m-che-salade", "rayon": "Fruits & légumes", "al": "Mâche / salade", "w1": null, "w2": "100 g"}, {"id": "banane", "rayon": "Fruits & légumes", "al": "Banane", "w1": "4", "w2": "3"}, {"id": "figue", "rayon": "Fruits & légumes", "al": "Figue", "w1": "7", "w2": "7"}, {"id": "poire", "rayon": "Fruits & légumes", "al": "Poire", "w1": "14", "w2": "16"}, {"id": "pomme", "rayon": "Fruits & légumes", "al": "Pomme", "w1": "15", "w2": "19"}, {"id": "prune", "rayon": "Fruits & légumes", "al": "Prune", "w1": "6", "w2": null}, {"id": "raisin", "rayon": "Fruits & légumes", "al": "Raisin", "w1": "9 portion (125 g)", "w2": "10 portion (125 g)"}, {"id": "patate-douce", "rayon": "Fruits & légumes", "al": "Patate douce", "w1": "355 g", "w2": "710 g"}, {"id": "aubergine", "rayon": "Fruits & légumes", "al": "Aubergine", "w1": "600 g", "w2": null}, {"id": "blettes", "rayon": "Fruits & légumes", "al": "Blettes", "w1": "550 g", "w2": null}, {"id": "brocoli", "rayon": "Fruits & légumes", "al": "Brocoli", "w1": "550 g", "w2": "550 g"}, {"id": "butternut", "rayon": "Fruits & légumes", "al": "Butternut", "w1": "550 g", "w2": "550 g"}, {"id": "carottes", "rayon": "Fruits & légumes", "al": "Carottes", "w1": "950 g", "w2": "800 g"}, {"id": "champignons-de-paris", "rayon": "Fruits & légumes", "al": "Champignons de Paris", "w1": "620 g", "w2": "780 g"}, {"id": "chou-rouge", "rayon": "Fruits & légumes", "al": "Chou rouge", "w1": null, "w2": "300 g"}, {"id": "chou-fleur", "rayon": "Fruits & légumes", "al": "Chou-fleur", "w1": "550 g", "w2": "550 g"}, {"id": "courgette", "rayon": "Fruits & légumes", "al": "Courgette", "w1": "710 g", "w2": null}, {"id": "c-leri-rave", "rayon": "Fruits & légumes", "al": "Céleri-rave", "w1": null, "w2": "500 g"}, {"id": "endives", "rayon": "Fruits & légumes", "al": "Endives", "w1": null, "w2": "550 g"}, {"id": "fenouil", "rayon": "Fruits & légumes", "al": "Fenouil", "w1": null, "w2": "550 g"}, {"id": "haricots-verts", "rayon": "Fruits & légumes", "al": "Haricots verts", "w1": "550 g", "w2": "550 g"}, {"id": "poireaux", "rayon": "Fruits & légumes", "al": "Poireaux", "w1": "300 g", "w2": "710 g"}, {"id": "poivron", "rayon": "Fruits & légumes", "al": "Poivron", "w1": "1,4 kg", "w2": "300 g"}, {"id": "potiron-courge", "rayon": "Fruits & légumes", "al": "Potiron / courge", "w1": null, "w2": "850 g"}, {"id": "tomate", "rayon": "Fruits & légumes", "al": "Tomate", "w1": "760 g", "w2": null}, {"id": "-pinards", "rayon": "Fruits & légumes", "al": "Épinards", "w1": "520 g", "w2": "1,0 kg"}, {"id": "cabillaud", "rayon": "Poissonnerie", "al": "Cabillaud", "w1": null, "w2": "280 g"}, {"id": "colin-lieu-", "rayon": "Poissonnerie", "al": "Colin (lieu)", "w1": "280 g", "w2": null}, {"id": "crevettes-d-cortiqu-es", "rayon": "Poissonnerie", "al": "Crevettes décortiquées", "w1": "330 g", "w2": "330 g"}, {"id": "maquereau", "rayon": "Poissonnerie", "al": "Maquereau", "w1": "330 g", "w2": "330 g"}, {"id": "sardines", "rayon": "Poissonnerie", "al": "Sardines", "w1": "330 g", "w2": "330 g"}, {"id": "saumon", "rayon": "Poissonnerie", "al": "Saumon", "w1": "330 g", "w2": "330 g"}, {"id": "blanc-de-poulet", "rayon": "Boucherie / volaille", "al": "Blanc de poulet", "w1": "570 g", "w2": "570 g"}, {"id": "b-uf-hach-5-", "rayon": "Boucherie / volaille", "al": "Bœuf haché 5 %", "w1": "180 g", "w2": "180 g"}, {"id": "escalope-de-dinde", "rayon": "Boucherie / volaille", "al": "Escalope de dinde", "w1": "310 g", "w2": "580 g"}, {"id": "lapin", "rayon": "Boucherie / volaille", "al": "Lapin", "w1": "310 g", "w2": "310 g"}, {"id": "cottage-cheese", "rayon": "Frais / crèmerie", "al": "Cottage cheese", "w1": "350 g", "w2": "350 g"}, {"id": "jambon-blanc", "rayon": "Frais / crèmerie", "al": "Jambon blanc", "w1": "260 g", "w2": "260 g"}, {"id": "skyr-nature", "rayon": "Frais / crèmerie", "al": "Skyr nature", "w1": "1,4 kg", "w2": "1,4 kg"}, {"id": "-ufs", "rayon": "Frais / crèmerie", "al": "Œufs", "w1": "49", "w2": "49"}, {"id": "vinaigre-de-cidre", "rayon": "Épicerie", "al": "Vinaigre de cidre", "w1": "8 CAS", "w2": "8 CAS"}, {"id": "chocolat-noir-85-", "rayon": "Épicerie", "al": "Chocolat noir 85 %", "w1": "2 carré", "w2": "2 carré"}, {"id": "quinoa-cru-", "rayon": "Épicerie", "al": "Quinoa (cru)", "w1": "360 g", "w2": "240 g"}, {"id": "riz-basmati-cru-", "rayon": "Épicerie", "al": "Riz basmati (cru)", "w1": "360 g", "w2": "360 g"}, {"id": "haricots-rouges-cuits-", "rayon": "Épicerie", "al": "Haricots rouges (cuits)", "w1": "320 g", "w2": "320 g"}, {"id": "lentilles-cuites-", "rayon": "Épicerie", "al": "Lentilles (cuites)", "w1": "800 g", "w2": "800 g"}, {"id": "pois-chiches-cuits-", "rayon": "Épicerie", "al": "Pois chiches (cuits)", "w1": "800 g", "w2": "400 g"}, {"id": "huile-d-olive", "rayon": "Épicerie", "al": "Huile d'olive", "w1": "18 CAS", "w2": "16 CAS"}, {"id": "huile-de-colza", "rayon": "Épicerie", "al": "Huile de colza", "w1": "4 CAS", "w2": "6 CAS"}, {"id": "huile-de-lin", "rayon": "Épicerie", "al": "Huile de lin", "w1": null, "w2": "2 CAS"}, {"id": "huile-de-noix", "rayon": "Épicerie", "al": "Huile de noix", "w1": "4 CAS", "w2": "2 CAS"}, {"id": "amandes", "rayon": "Épicerie", "al": "Amandes", "w1": "140", "w2": "140"}, {"id": "noix-du-br-sil", "rayon": "Épicerie", "al": "Noix du Brésil", "w1": "28", "w2": "28"}], "cibles": {"rows": [["Poids (kg)", 110, 95], ["Taille (cm)", 175, 168], ["Âge (ans)", 29, 29], ["Facteur d'activité", 1.45, 1.4], ["Déficit visé (kcal/jour)", 900, 400], ["Protéines (g par kg)", 2, 1.6], ["Lipides (g par kg)", 0.6, 0.9]], "res": [["Métabolisme de base (kcal)", 2054.0, 1694.0], ["Maintenance estimée (kcal)", 2978.0, 2372.0], ["CIBLE CALORIES (kcal/jour)", 2078.0, 1972.0], ["CIBLE PROTÉINES (g/jour)", 220, 152], ["CIBLE LIPIDES (g/jour)", 66, 86.0], ["CIBLE GLUCIDES (g/jour)", 151.0, 149.0], ["Glucides en % des calories", 0.29, 0.3], ["Perte estimée (kg/semaine)", 0.82, 0.36]]}, "reperes": [{"t": "Pourquoi adapter l'alimentation", "items": [["Résistance à l'insuline", "Présente chez environ 70 % des femmes SOPK : trop d'insuline pousse les ovaires à produire plus d'androgènes (acné, pilosité, cycles irréguliers). Objectif : une glycémie stable."], ["Inflammation", "Inflammation chronique de bas grade, qui entretient la résistance à l'insuline : on privilégie les aliments anti-inflammatoires."], ["Poids", "Si surpoids, perdre 5 à 10 % du poids améliore déjà les symptômes. Mais le surpoids n'est pas la cause du SOPK, et l'objectif n'est pas de maigrir à tout prix."]]}, {"t": "L'assiette", "items": [["Composition", "½ assiette de légumes · ¼ de protéines · ¼ de féculents ou légumineuses · 1 source de bon gras."], ["Ordre de repas", "Légumes d'abord, puis protéines et bon gras, féculents en dernier : le pic de glycémie est plus faible."], ["Petit-déjeuner", "Salé, protéiné et gras (œufs) : le corps est très sensible à l'insuline le matin. Idéalement 1-2 protéines, 1-2 bons gras, 2-3 sources de fibres (d'où les légumes dans les œufs)."]]}, {"t": "Glucides & IG", "items": [["À privilégier", "Quinoa, lentilles, pois chiches, haricots rouges, patate douce, riz basmati, sarrasin, pâtes complètes al dente."], ["À limiter", "Pommes de terre (IG élevé, sauf refroidies en salade), pain blanc, riz blanc rond, céréales soufflées, semoule, pâtisseries, sucres, jus de fruits, sodas."], ["Cuisson", "Al dente : plus un féculent est cuit, plus il fait monter la glycémie."], ["Fruits", "2-3 par jour, pas trop mûrs, jamais seuls : avec des amandes, un laitage, ou après un repas riche en fibres."]]}, {"t": "Protéines & graisses", "items": [["Protéines", "À chaque repas et collation. SOVA : au moins 1 g/kg/jour pour Estelle."], ["Oméga 3", "Petits poissons gras (sardines, maquereau, hareng, anchois) au moins 2×/semaine. Saumon et thon 1×/semaine maximum (métaux lourds). Huiles de colza, noix, lin crues pour l'assaisonnement ; olive pour cuire."], ["Viandes", "Viande blanche à privilégier ; viande rouge 1×/semaine pour le fer ; charcuterie à limiter."], ["Laitiers", "Pas plus de 2 par jour (SOVA), moins si inconfort digestif."]]}, {"t": "Au quotidien", "items": [["Thé vert / café", "Plutôt 1 h après le repas : ils gênent l'absorption du fer. Les infusions, elles, ne posent pas de problème."], ["Épices", "Curcuma, cannelle, gingembre, thym, romarin, origan : riches en antioxydants."], ["Microbiote", "Prébiotiques : poireau, topinambour, artichaut, oignon, betterave. Probiotiques : légumes lacto-fermentés (choucroute, kimchi), kéfir."], ["Bouger", "10 min de marche après le repas réduit le pic de glycémie ; la musculation améliore la sensibilité à l'insuline."]]}, {"t": "Meal prep", "items": [["Contenants", "Boîtes en verre plutôt qu'en plastique, surtout pour réchauffer au micro-ondes (perturbateurs endocriniens)."], ["Portions", "Une taille de boîte par personne évite de tout repeser ; doubler les légumes dans la préparation."]]}, {"t": "État d'esprit", "items": [["Règle 80/20", "80 % d'aliments favorables, 20 % de plaisir, sans culpabilité. On parle d'habitudes, pas de régime. Intégrer les changements un par un."], ["Vigilance", "Les troubles du comportement alimentaire sont plus fréquents avec un SOPK : si l'alimentation devient source d'angoisse ou de culpabilité, en parler à un professionnel."]]}, {"t": "Ce qu'on a changé dans le menu commun", "items": [["Pour vous deux", "Pommes de terre remplacées par quinoa, riz basmati ou patate douce · légumes ajoutés aux œufs chaque matin · protéines variées sur la semaine : 3 poissons (saumon 1×, petits poissons gras 2×) + 1 poisson blanc, volailles (poulet, dinde), lapin, crevettes, bœuf 1×, légumineuses 3-4 soirs · huile de colza · thé à distance des repas."], ["Pour Estelle", "3 œufs, ~45 g de féculents crus, légumineuses et poisson en portions réduites, 3 fruits par jour toujours accompagnés, pas de fruit en dessert."]]}, {"t": "À propos des sources", "items": [["Note", "SOVA est une marque de compléments associée à une naturopathe. Les principes glycémie, protéines, oméga 3, légumes et activité rejoignent les recommandations médicales. Les conseils sur le gluten, les laitiers ou les cures (glutamine, compléments) sont moins bien étayés : à discuter avec son médecin avant de les suivre."]]}], "recettes": [["Dos de cabillaud au fenouil (et à l'orange)", "Déjeuner / dîner", "Automne", "Oui", "1 CAS d'huile au lieu de 20 cl ; 180 g de cabillaud", "Menu d'automne", "Idéal"], ["Papillote de saumon, compotée de chou rouge aux pommes", "Déjeuner", "Automne", "À adapter", "Supprimer le miel ; la pomme compte comme fruit", "Menu d'automne", "OK"], ["Rouget et topinambours au fenouil sauvage", "Déjeuner", "Automne", "Oui", "Topinambours = légume ; cuisson huile plutôt que beurre", "Menu d'automne", "Idéal"], ["Poêlée de carottes et topinambours au thym", "Accompagnement", "Automne", "Oui", "1 CAS d'huile pour la portion", "Menu d'automne", "Idéal"], ["Vapeur de carottes aux épices et jus de persil", "Accompagnement", "Automne", "Oui", null, "Menu d'automne", "OK"], ["Potiron rôti au four, ail et huile d'olive", "Accompagnement", "Automne", "Oui", null, "Menu d'automne", "OK"], ["Poêlée de butternut", "Accompagnement", "Automne", "À adapter", "Les pommes de terre remplacent le féculent (225 g)", "Menu d'automne", "OK"], ["Légumes d'automne rôtis au four", "Déjeuner", "Automne", "À adapter", "Sans vin blanc ; pommes de terre = féculent du repas", "Menu d'automne", "OK"], ["Poêlée d'endives aux cèpes et aux noisettes", "Accompagnement", "Automne", "À adapter", "Noisettes : les compter dans les oléagineux", "Menu d'automne", "OK"], ["Topinambours poêlés aux champignons", "Accompagnement", "Automne", "Oui", null, "Menu d'automne", "OK"], ["Purée de courge butternut au curry", "Accompagnement / dîner", "Automne", "À adapter", "Sans crème ; bouillon uniquement", "Menu d'automne", "OK"], ["Velouté potimarron au lait d'amande", "Dîner", "Automne", "À adapter", "Retirer la pomme de terre si féculent déjà pris", "Menu d'automne", "OK"], ["Soupe de patate douce, poireaux et coco", "Dîner", "Automne", "Occasionnel", "Lait de coco riche en graisses : ½ brique max", "Menu d'automne", "OK"], ["Velouté de carottes au curry", "Dîner", "Automne", "Oui", null, "Menu d'automne", "OK"], ["Soupe pomme, betteraves, noisettes", "Dîner", "Automne", "À adapter", "Huile de noisette = ta CAS d'huile", "Menu d'automne", "Idéal"], ["Wok fondant de légumes et poulet mariné", "Dîner (version 1)", "Automne", "À adapter", "Sauce soja à éviter (soja) ; 160 g poulet", "Menu d'automne", "OK"], ["Poulet au gingembre grillé", "Dîner (version 1)", "Automne", "À adapter", "Blanc plutôt que haut de cuisse ; sans sauce soja", "Menu d'automne", "OK"], ["Colombo de poulet au butternut", "Dîner (version 1)", "Automne", "Oui", null, "Menu d'automne", "Idéal"], ["Aubergine roulée farcie (pois chiches, tahini)", "Dîner", "Automne", "Oui", "Les pois chiches comptent dans les 250 g", "Menu d'automne", "Idéal"], ["Hachis marocain patates douces et panais", "Déjeuner", "Automne", "À adapter", "Bœuf haché 5 % ; sans sucre ni raisins secs", "Menu d'automne", "OK (sans sucre ajouté)"], ["Ceviche de poisson, citron, tomates séchées, amandes", "Déjeuner", "Automne", "Oui", "Amandes = ta collation", "Menu d'automne", "Idéal"], ["Filet de daurade aux petits légumes", "Déjeuner / dîner", "Automne", "Oui", null, "Menu d'automne", "Idéal"], ["Œuf mollet, poêlée et crème de girolles", "Déjeuner (4 œufs)", "Automne", "À adapter", "Crème liquide à remplacer par un peu de bouillon", "Menu d'automne", "OK"], ["Salade d'endives et d'avocat", "Crudités", "Automne", "Occasionnel", "Noix de cajou et avocat : petite portion", "Menu d'automne", "OK"], ["Salade de potiron rôti, féta et quinoa", "Déjeuner", "Automne", "Écart", "Féta = fromage (interdit 4 premières semaines)", "Menu d'automne", "OK (féta avec modération)"], ["Poulet à la crème et aux champignons", "—", "Automne", "Écart", "Crème + vin blanc : repas libre", "Menu d'automne", "À limiter (crème)"], ["Mac and cheese de potimarron · Gratin de butternut", "—", "Automne", "Écart", "Fromage / crème : repas libre", "Menu d'automne", "À limiter"], ["Papillote de poisson à la provençale", "Déjeuner / dîner", "Été", "Oui", null, "Menu d'été", "Idéal"], ["Filet de daurade au fenouil et aux tomates", "Déjeuner / dîner", "Été", "Oui", null, "Menu d'été", "Idéal"], ["Tian de légumes à la provençale", "Accompagnement", "Été → début automne", "Oui", null, "Menu d'été", "OK"], ["Fenouil braisé", "Accompagnement", "Été → automne", "Oui", null, "Menu d'été", "OK"], ["Aubergines grillées ail et thym", "Accompagnement", "Été → sept.", "Oui", "1 CAS d'huile", "Menu d'été", "OK"], ["Salade de haricots verts et thon", "Déjeuner", "Été → sept.", "Oui", "+ 225 g pommes de terre", "Menu d'été", "Idéal"], ["Salade de quinoa aux pois chiches et tomate", "Déjeuner", "Été", "À adapter", "Choisir quinoa OU pois chiches selon le repas", "Menu d'été", "OK"], ["Brochettes de crevettes marinées", "Déjeuner", "Été", "Oui", null, "Menu d'été", "OK"], ["Moules marinières légères", "Dîner", "Sept · Oct", "Oui", "Moules de saison en sept./oct.", "Menu d'été", "Idéal"], ["Escalope de dinde aux échalotes, poivrons, courgettes", "Dîner (version 1)", "Été → sept.", "Oui", null, "Menu d'été", "OK"], ["Blanc de poulet aux épices", "Dîner (version 1)", "Toute l'année", "Oui", null, "Menu d'été", "OK"], ["Mijoté de dinde aux poivrons", "Dîner (version 1)", "Été → sept.", "Oui", null, "Menu d'été", "OK"], ["Tagliatelles de konjac au saumon et citron", "Déjeuner / dîner", "Toute l'année", "À adapter", "Philadelphia = fromage : remplacer par du skyr", "Recettes konjac", "OK"], ["Riz de konjac sauté au poulet, poivrons, piment doux", "Dîner", "Toute l'année", "Oui", "Remplace un féculent si tu veux alléger", "Recettes konjac", "Idéal"], ["Risotto de carottes et fenouil au riz de konjac", "Dîner", "Automne", "Oui", null, "Recettes konjac", "OK"], ["Wok de shirataki aux légumes et dinde", "Dîner", "Toute l'année", "À adapter", "Sauce à base de soja : l'éviter", "Recettes konjac", "OK"], ["Soupe épicée asiatique au konjac", "Dîner", "Automne", "Oui", null, "Recettes konjac", "Idéal"], ["Tagliatelles de konjac au potiron", "Dîner", "Automne", "Oui", null, "Recettes konjac", "OK"], ["Omelette salée (légumes au choix)", "Petit-déjeuner", "Toute l'année", "Oui", "Déjà la base de vos petits-déjeuners", "Ebook SOVA", "Idéal"], ["Pancakes protéinés (œufs, banane)", "Petit-déjeuner", "Toute l'année", "À adapter", "Sans farine ni sirop pour Clément", "Ebook SOVA", "OK"], ["Tartine saumon & œufs pochés", "Petit-déjeuner", "Toute l'année", "À adapter", "Pain interdit à Clément les 4 premières semaines : servir sans pain", "Ebook SOVA", "Idéal"], ["Chia pudding", "Petit-déjeuner", "Toute l'année", "Occasionnel", "Ajouter une protéine (skyr)", "Ebook SOVA", "OK avec protéine"], ["Dahl de lentilles corail", "Dîner", "Automne", "Oui", "Lentilles = les 250 g du dîner ; lait de coco en petite quantité", "Ebook SOVA", "Idéal"], ["Curry végé (légumineuses & légumes)", "Dîner", "Toute l'année", "Oui", "Crème végétale en option, petite quantité", "Ebook SOVA", "Idéal"], ["Chili con carne", "Dîner", "Automne", "Oui", "Bœuf 5 % + haricots rouges ; viande rouge 1×/semaine", "Ebook SOVA", "Idéal"], ["Curry au poulet et riz", "Déjeuner", "Toute l'année", "Oui", "Riz basmati 75 g / 45 g", "Ebook SOVA", "Idéal"], ["Butternut farcie", "Dîner", "Automne", "Oui", "Farce poulet ou légumineuses", "Ebook SOVA", "Idéal"], ["Quinotto aux légumes", "Déjeuner", "Automne", "Oui", "Quinoa façon risotto, sans parmesan pour Clément", "Ebook SOVA", "Idéal"], ["Courgettes farcies", "Déjeuner / dîner", "Été → sept.", "Oui", null, "Ebook SOVA", "Idéal"], ["Quiche sans pâte", "Dîner", "Toute l'année", "À adapter", "Sans fromage pour Clément les 4 premières semaines", "Ebook SOVA", "OK"], ["Parmentier de poissons et légumes", "Dîner", "Automne", "À adapter", "Purée de patate douce ou de céleri plutôt que pommes de terre", "Ebook SOVA", "OK"], ["Lasagnes saumon épinards", "Déjeuner", "Toute l'année", "Occasionnel", "Pâtes + béchamel : version plaisir", "Ebook SOVA", "Plaisir"], ["Chakchouka et riz basmati", "Déjeuner", "Été → sept.", "Oui", "Œufs + poivrons + tomates", "Ebook SOVA", "Idéal"], ["Boulettes de lentilles corail aux épices", "Dîner", "Toute l'année", "Oui", null, "Ebook SOVA", "Idéal"], ["Poke bowl", "Déjeuner", "Toute l'année", "À adapter", "Sauce soja à éviter pour Clément", "Ebook SOVA", "OK"], ["Galette de sarrasin automnale", "Déjeuner", "Automne", "Occasionnel", "Sarrasin naturellement sans gluten", "Ebook SOVA", "OK"], ["Salade de quinoa", "Déjeuner", "Été → sept.", "Oui", null, "Ebook SOVA", "Idéal"], ["Brochettes de poisson à la plancha", "Déjeuner / dîner", "Été → sept.", "Oui", null, "Ebook SOVA", "Idéal"], ["Soupe de courgette et basilic", "Dîner", "Été → sept.", "Oui", null, "Ebook SOVA", "OK"], ["Pois chiches rôtis aux épices", "Collation", "Toute l'année", "Oui", "Idéal en collation salée", "Ebook SOVA", "Idéal"], ["Houmous tomates séchées & poivrons", "Collation", "Toute l'année", "Oui", "Avec des bâtonnets de légumes", "Ebook SOVA", "Idéal"], ["Tzatziki", "Collation / crudités", "Été → sept.", "Oui", "Skyr à la place du yaourt grec", "Ebook SOVA", "OK"], ["Mousse au chocolat IG bas", "Dessert", "Toute l'année", "Occasionnel", "Plaisir, dans les 20 %", "Ebook SOVA", "Plaisir"], ["Energy ball coco", "Collation", "Toute l'année", "Écart", "Contient sucres (miel/agave) : plaisir occasionnel", "Ebook SOVA", "Plaisir (sucres)"]]};
+const ALIM_DATA = {"days": [{"date": "2026-09-28", "jour": "Lundi", "semaine": 1, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs en omelette · thé vert plutôt 1 h après", "kc": 558, "ke": 386}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 93, "ke": 93}, {"name": "Déjeuner", "items": [["Quinoa (cru)", "75 g", "45 g"], ["Saumon", "180 g", "150 g"], ["Brocoli", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Saumon, brocoli vapeur, sésame (gros poisson gras : 1×/sem.)", "kc": 870, "ke": 650}, {"name": "Collation après-midi", "items": [["Skyr nature", "200 g", "150 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 200, "ke": 170}, {"name": "Dîner", "items": [["Lentilles (cuites)", "250 g", "150 g"], ["Carottes", "200 g", "200 g"], ["Épinards", "100 g", "100 g"], ["Huile de colza", "1 CAS", "1 CAS"]], "note": "Dahl de lentilles & carottes au curcuma (SOVA) · + infusion", "kc": 495, "ke": 379}], "tot": [2216, 1678, 141, 107]}, {"date": "2026-09-29", "jour": "Mardi", "semaine": 1, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs brouillés au curry · thé vert plutôt 1 h après", "kc": 514, "ke": 396}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 161, "ke": 161}, {"name": "Déjeuner", "items": [["Riz basmati (cru)", "75 g", "45 g"], ["Escalope de dinde", "180 g", "130 g"], ["Haricots verts", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Escalope de dinde aux herbes & haricots verts à l'ail", "kc": 729, "ke": 477}, {"name": "Collation après-midi", "items": [["Blanc de poulet", "160 g", "100 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 264, "ke": 198}, {"name": "Dîner", "items": [["Pois chiches (cuits)", "250 g", "150 g"], ["Aubergine", "150 g", "150 g"], ["Poivron", "150 g", "150 g"], ["Huile d'olive", "1 CAS", "1 CAS"]], "note": "Curry végé pois chiches, aubergine, poivron (SOVA) · + infusion", "kc": 533, "ke": 393}], "tot": [2201, 1625, 150, 106]}, {"date": "2026-09-30", "jour": "Mercredi", "semaine": 1, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs en omelette · thé vert plutôt 1 h après", "kc": 491, "ke": 328}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 108, "ke": 108}, {"name": "Déjeuner", "items": [["Quinoa (cru)", "75 g", "45 g"], ["Crevettes décortiquées", "180 g", "150 g"], ["Courgette", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Poêlée de crevettes à l'ail, courgettes & quinoa", "kc": 696, "ke": 460}, {"name": "Collation après-midi", "items": [["Skyr nature", "200 g", "150 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 228, "ke": 198}, {"name": "Dîner", "items": [["Concombre", "100 g", "100 g"], ["Vinaigre de cidre", "2 CAS", "2 CAS"], ["Haricots rouges (cuits)", "200 g", "120 g"], ["Bœuf haché 5 %", "100 g", "80 g"], ["Tomate", "150 g", "150 g"], ["Poivron", "150 g", "150 g"], ["Huile de colza", "1 CAS", "1 CAS"]], "note": "Chili con carne (SOVA) — viande rouge 1×/sem. pour le fer · + infusion", "kc": 542, "ke": 430}], "tot": [2065, 1524, 151, 115]}, {"date": "2026-10-01", "jour": "Jeudi", "semaine": 1, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs brouillés aux herbes · thé vert plutôt 1 h après", "kc": 566, "ke": 394}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 153, "ke": 153}, {"name": "Déjeuner", "items": [["Riz basmati (cru)", "75 g", "45 g"], ["Blanc de poulet", "180 g", "130 g"], ["Aubergine", "150 g", "150 g"], ["Poivron", "150 g", "150 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Curry au poulet et riz (SOVA)", "kc": 731, "ke": 484}, {"name": "Collation après-midi", "items": [["Cottage cheese", "200 g", "150 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 288, "ke": 238}, {"name": "Dîner", "items": [["Colin (lieu)", "150 g", "130 g"], ["Blettes", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"]], "note": "Colin & blettes sautées à l'ail · + infusion", "kc": 288, "ke": 262}], "tot": [2026, 1531, 144, 111]}, {"date": "2026-10-02", "jour": "Vendredi", "semaine": 1, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs en omelette · thé vert plutôt 1 h après", "kc": 506, "ke": 388}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 161, "ke": 161}, {"name": "Déjeuner", "items": [["Patate douce", "225 g", "130 g"], ["Maquereau", "180 g", "150 g"], ["Chou-fleur", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Chocolat noir 85 %", "1 carré", "1 carré"]], "note": "Maquereau grillé, chou-fleur rôti (petit poisson gras)", "kc": 778, "ke": 626}, {"name": "Collation après-midi", "items": [["Skyr nature", "200 g", "150 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 154, "ke": 124}, {"name": "Dîner", "items": [["Lentilles (cuites)", "250 g", "150 g"], ["Poireaux", "150 g", "150 g"], ["Champignons de Paris", "150 g", "150 g"], ["Huile de noix", "1 CAS", "1 CAS"]], "note": "Lentilles, fondue de poireaux & champignons · + infusion", "kc": 476, "ke": 360}], "tot": [2075, 1659, 133, 103]}, {"date": "2026-10-03", "jour": "Samedi", "semaine": 1, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs au plat · thé vert plutôt 1 h après", "kc": 520, "ke": 416}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 161, "ke": 161}, {"name": "Déjeuner", "items": [["Quinoa (cru)", "75 g", "45 g"], ["Sardines", "180 g", "150 g"], ["Tomate", "150 g", "150 g"], ["Poivron", "150 g", "150 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Sardines grillées & tian de légumes (petit poisson gras)", "kc": 773, "ke": 592}, {"name": "Collation après-midi", "items": [["Jambon blanc", "160 g", "100 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 264, "ke": 194}, {"name": "Dîner", "items": [], "note": "Repas libre (règle 80/20) — sans culpabilité", "kc": 0, "ke": 0}], "tot": [1718, 1363, 121, 90]}, {"date": "2026-10-04", "jour": "Dimanche", "semaine": 1, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs à la coque · thé vert plutôt 1 h après", "kc": 566, "ke": 394}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 153, "ke": 153}, {"name": "Déjeuner", "items": [["Riz basmati (cru)", "75 g", "45 g"], ["Lapin", "180 g", "130 g"], ["Carottes", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Lapin à la moutarde & carottes fondantes (sans miel)", "kc": 801, "ke": 531}, {"name": "Collation après-midi", "items": [["Skyr nature", "200 g", "150 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 208, "ke": 178}, {"name": "Dîner", "items": [["Betterave cuite", "100 g", "100 g"], ["Vinaigre de cidre", "2 CAS", "2 CAS"], ["Pois chiches (cuits)", "250 g", "150 g"], ["Butternut", "300 g", "250 g"], ["Huile de noix", "1 CAS", "1 CAS"]], "note": "Butternut rôtie & pois chiches au cumin · + infusion", "kc": 629, "ke": 469}], "tot": [2357, 1725, 128, 93]}, {"date": "2026-10-05", "jour": "Lundi", "semaine": 2, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs brouillés · thé vert plutôt 1 h après", "kc": 557, "ke": 386}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 161, "ke": 161}, {"name": "Déjeuner", "items": [["Riz basmati (cru)", "75 g", "45 g"], ["Blanc de poulet", "180 g", "130 g"], ["Brocoli", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Poulet citron-thym & brocoli", "kc": 738, "ke": 484}, {"name": "Collation après-midi", "items": [["Skyr nature", "200 g", "150 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 208, "ke": 178}, {"name": "Dîner", "items": [["Pois chiches (cuits)", "250 g", "150 g"], ["Chou-fleur", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"]], "note": "Chou-fleur rôti au curcuma & pois chiches · + infusion", "kc": 533, "ke": 380}], "tot": [2197, 1589, 141, 103]}, {"date": "2026-10-06", "jour": "Mardi", "semaine": 2, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs en omelette · thé vert plutôt 1 h après", "kc": 515, "ke": 396}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 153, "ke": 153}, {"name": "Déjeuner", "items": [["Patate douce", "225 g", "130 g"], ["Saumon", "180 g", "150 g"], ["Épinards", "300 g", "250 g"], ["Huile de noix", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Saumon, épinards à l'ail & patate douce rôtie (gros poisson gras : 1×/sem.)", "kc": 824, "ke": 582}, {"name": "Collation après-midi", "items": [["Blanc de poulet", "160 g", "100 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 256, "ke": 190}, {"name": "Dîner", "items": [["Carottes", "100 g", "100 g"], ["Vinaigre de cidre", "2 CAS", "2 CAS"], ["Lentilles (cuites)", "250 g", "150 g"], ["Poireaux", "300 g", "250 g"], ["Huile de colza", "1 CAS", "1 CAS"]], "note": "Carottes râpées + lentilles aux poireaux (prébiotiques) · + infusion", "kc": 530, "ke": 399}], "tot": [2278, 1720, 151, 110]}, {"date": "2026-10-07", "jour": "Mercredi", "semaine": 2, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs en omelette aux herbes · thé vert plutôt 1 h après", "kc": 577, "ke": 385}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 108, "ke": 108}, {"name": "Déjeuner", "items": [["Quinoa (cru)", "75 g", "45 g"], ["Maquereau", "180 g", "150 g"], ["Endives", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Maquereau & endives braisées (petit poisson gras)", "kc": 866, "ke": 602}, {"name": "Collation après-midi", "items": [["Skyr nature", "200 g", "150 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 208, "ke": 178}, {"name": "Dîner", "items": [["Escalope de dinde", "150 g", "120 g"], ["Butternut", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"]], "note": "Butternut farcie à la dinde & épices (SOVA) · + infusion", "kc": 386, "ke": 334}], "tot": [2145, 1607, 145, 112]}, {"date": "2026-10-08", "jour": "Jeudi", "semaine": 2, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs brouillés au curry · thé vert plutôt 1 h après", "kc": 566, "ke": 394}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 153, "ke": 153}, {"name": "Déjeuner", "items": [["Riz basmati (cru)", "75 g", "45 g"], ["Crevettes décortiquées", "180 g", "150 g"], ["Champignons de Paris", "150 g", "150 g"], ["Chou rouge", "150 g", "150 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Wok crevettes, champignons & chou au gingembre (sans sauce soja)", "kc": 654, "ke": 486}, {"name": "Collation après-midi", "items": [["Cottage cheese", "200 g", "150 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 234, "ke": 184}, {"name": "Dîner", "items": [["Haricots rouges (cuits)", "200 g", "120 g"], ["Bœuf haché 5 %", "100 g", "80 g"], ["Carottes", "150 g", "150 g"], ["Poivron", "150 g", "150 g"], ["Huile de colza", "1 CAS", "1 CAS"]], "note": "Chili con carne (SOVA) — viande rouge 1×/sem. · + infusion", "kc": 549, "ke": 436}], "tot": [2156, 1653, 151, 117]}, {"date": "2026-10-09", "jour": "Vendredi", "semaine": 2, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs en omelette · thé vert plutôt 1 h après", "kc": 506, "ke": 388}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 161, "ke": 161}, {"name": "Déjeuner", "items": [["Quinoa (cru)", "75 g", "45 g"], ["Lapin", "180 g", "130 g"], ["Haricots verts", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Chocolat noir 85 %", "1 carré", "1 carré"]], "note": "Lapin à la moutarde & haricots verts", "kc": 778, "ke": 584}, {"name": "Collation après-midi", "items": [["Skyr nature", "200 g", "150 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 228, "ke": 198}, {"name": "Dîner", "items": [["Mâche / salade", "50 g", "50 g"], ["Betterave cuite", "100 g", "100 g"], ["Vinaigre de cidre", "2 CAS", "2 CAS"], ["Lentilles (cuites)", "250 g", "150 g"], ["Céleri-rave", "250 g", "250 g"], ["Huile de lin", "1 CAS", "1 CAS"]], "note": "Mâche-betterave + lentilles & purée de céleri · + infusion", "kc": 519, "ke": 403}], "tot": [2192, 1734, 143, 106]}, {"date": "2026-10-10", "jour": "Samedi", "semaine": 2, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs au plat · thé vert plutôt 1 h après", "kc": 558, "ke": 394}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 161, "ke": 161}, {"name": "Déjeuner", "items": [["Riz basmati (cru)", "75 g", "45 g"], ["Sardines", "180 g", "150 g"], ["Fenouil", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Sardines & fenouil braisé (petit poisson gras)", "kc": 807, "ke": 563}, {"name": "Collation après-midi", "items": [["Jambon blanc", "160 g", "100 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 272, "ke": 203}, {"name": "Dîner", "items": [], "note": "Repas libre (règle 80/20) — sans culpabilité", "kc": 0, "ke": 0}], "tot": [1798, 1321, 118, 89]}, {"date": "2026-10-11", "jour": "Dimanche", "semaine": 2, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs à la coque · thé vert plutôt 1 h après", "kc": 559, "ke": 396}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 161, "ke": 161}, {"name": "Déjeuner", "items": [["Patate douce", "225 g", "130 g"], ["Escalope de dinde", "180 g", "130 g"], ["Carottes", "150 g", "150 g"], ["Potiron / courge", "150 g", "150 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Dinde & légumes d'automne rôtis au four", "kc": 669, "ke": 455}, {"name": "Collation après-midi", "items": [["Skyr nature", "200 g", "150 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 200, "ke": 170}, {"name": "Dîner", "items": [["Cabillaud", "150 g", "130 g"], ["Potiron / courge", "300 g", "250 g"], ["Huile de colza", "1 CAS", "1 CAS"]], "note": "Cabillaud & velouté de potiron au gingembre (sans crème) · + infusion", "kc": 318, "ke": 287}], "tot": [1907, 1469, 137, 107]}], "courses": [{"id": "betterave-cuite", "rayon": "Fruits & légumes", "al": "Betterave cuite", "w1": "200 g", "w2": "200 g"}, {"id": "concombre", "rayon": "Fruits & légumes", "al": "Concombre", "w1": "200 g", "w2": null}, {"id": "m-che-salade", "rayon": "Fruits & légumes", "al": "Mâche / salade", "w1": null, "w2": "100 g"}, {"id": "fruit", "rayon": "Fruits & légumes", "al": "Fruit", "w1": "55 (au choix)", "w2": "55 (au choix)"}, {"id": "patate-douce", "rayon": "Fruits & légumes", "al": "Patate douce", "w1": "355 g", "w2": "710 g"}, {"id": "aubergine", "rayon": "Fruits & légumes", "al": "Aubergine", "w1": "600 g", "w2": null}, {"id": "blettes", "rayon": "Fruits & légumes", "al": "Blettes", "w1": "550 g", "w2": null}, {"id": "brocoli", "rayon": "Fruits & légumes", "al": "Brocoli", "w1": "550 g", "w2": "550 g"}, {"id": "butternut", "rayon": "Fruits & légumes", "al": "Butternut", "w1": "550 g", "w2": "550 g"}, {"id": "carottes", "rayon": "Fruits & légumes", "al": "Carottes", "w1": "950 g", "w2": "800 g"}, {"id": "champignons-de-paris", "rayon": "Fruits & légumes", "al": "Champignons de Paris", "w1": "300 g", "w2": "300 g"}, {"id": "chou-rouge", "rayon": "Fruits & légumes", "al": "Chou rouge", "w1": null, "w2": "300 g"}, {"id": "chou-fleur", "rayon": "Fruits & légumes", "al": "Chou-fleur", "w1": "550 g", "w2": "550 g"}, {"id": "courgette", "rayon": "Fruits & légumes", "al": "Courgette", "w1": "550 g", "w2": null}, {"id": "c-leri-rave", "rayon": "Fruits & légumes", "al": "Céleri-rave", "w1": null, "w2": "500 g"}, {"id": "endives", "rayon": "Fruits & légumes", "al": "Endives", "w1": null, "w2": "550 g"}, {"id": "fenouil", "rayon": "Fruits & légumes", "al": "Fenouil", "w1": null, "w2": "550 g"}, {"id": "haricots-verts", "rayon": "Fruits & légumes", "al": "Haricots verts", "w1": "550 g", "w2": "550 g"}, {"id": "poireaux", "rayon": "Fruits & légumes", "al": "Poireaux", "w1": "300 g", "w2": "550 g"}, {"id": "poivron", "rayon": "Fruits & légumes", "al": "Poivron", "w1": "1,2 kg", "w2": "300 g"}, {"id": "potiron-courge", "rayon": "Fruits & légumes", "al": "Potiron / courge", "w1": null, "w2": "850 g"}, {"id": "tomate", "rayon": "Fruits & légumes", "al": "Tomate", "w1": "600 g", "w2": null}, {"id": "-pinards", "rayon": "Fruits & légumes", "al": "Épinards", "w1": "200 g", "w2": "550 g"}, {"id": "cabillaud", "rayon": "Poissonnerie", "al": "Cabillaud", "w1": null, "w2": "280 g"}, {"id": "colin-lieu-", "rayon": "Poissonnerie", "al": "Colin (lieu)", "w1": "280 g", "w2": null}, {"id": "crevettes-d-cortiqu-es", "rayon": "Poissonnerie", "al": "Crevettes décortiquées", "w1": "330 g", "w2": "330 g"}, {"id": "maquereau", "rayon": "Poissonnerie", "al": "Maquereau", "w1": "330 g", "w2": "330 g"}, {"id": "sardines", "rayon": "Poissonnerie", "al": "Sardines", "w1": "330 g", "w2": "330 g"}, {"id": "saumon", "rayon": "Poissonnerie", "al": "Saumon", "w1": "330 g", "w2": "330 g"}, {"id": "blanc-de-poulet", "rayon": "Boucherie / volaille", "al": "Blanc de poulet", "w1": "570 g", "w2": "570 g"}, {"id": "b-uf-hach-5-", "rayon": "Boucherie / volaille", "al": "Bœuf haché 5 %", "w1": "180 g", "w2": "180 g"}, {"id": "escalope-de-dinde", "rayon": "Boucherie / volaille", "al": "Escalope de dinde", "w1": "310 g", "w2": "580 g"}, {"id": "lapin", "rayon": "Boucherie / volaille", "al": "Lapin", "w1": "310 g", "w2": "310 g"}, {"id": "cottage-cheese", "rayon": "Frais / crèmerie", "al": "Cottage cheese", "w1": "350 g", "w2": "350 g"}, {"id": "jambon-blanc", "rayon": "Frais / crèmerie", "al": "Jambon blanc", "w1": "260 g", "w2": "260 g"}, {"id": "skyr-nature", "rayon": "Frais / crèmerie", "al": "Skyr nature", "w1": "1,4 kg", "w2": "1,4 kg"}, {"id": "-ufs", "rayon": "Frais / crèmerie", "al": "Œufs", "w1": "49", "w2": "49"}, {"id": "vinaigre-de-cidre", "rayon": "Épicerie", "al": "Vinaigre de cidre", "w1": "8 CAS", "w2": "8 CAS"}, {"id": "chocolat-noir-85-", "rayon": "Épicerie", "al": "Chocolat noir 85 %", "w1": "2 carré", "w2": "2 carré"}, {"id": "quinoa-cru-", "rayon": "Épicerie", "al": "Quinoa (cru)", "w1": "360 g", "w2": "240 g"}, {"id": "riz-basmati-cru-", "rayon": "Épicerie", "al": "Riz basmati (cru)", "w1": "360 g", "w2": "360 g"}, {"id": "haricots-rouges-cuits-", "rayon": "Épicerie", "al": "Haricots rouges (cuits)", "w1": "320 g", "w2": "320 g"}, {"id": "lentilles-cuites-", "rayon": "Épicerie", "al": "Lentilles (cuites)", "w1": "800 g", "w2": "800 g"}, {"id": "pois-chiches-cuits-", "rayon": "Épicerie", "al": "Pois chiches (cuits)", "w1": "800 g", "w2": "400 g"}, {"id": "huile-d-olive", "rayon": "Épicerie", "al": "Huile d'olive", "w1": "18 CAS", "w2": "16 CAS"}, {"id": "huile-de-colza", "rayon": "Épicerie", "al": "Huile de colza", "w1": "4 CAS", "w2": "6 CAS"}, {"id": "huile-de-lin", "rayon": "Épicerie", "al": "Huile de lin", "w1": null, "w2": "2 CAS"}, {"id": "huile-de-noix", "rayon": "Épicerie", "al": "Huile de noix", "w1": "4 CAS", "w2": "2 CAS"}, {"id": "amandes", "rayon": "Épicerie", "al": "Amandes", "w1": "140", "w2": "140"}, {"id": "noix-du-br-sil", "rayon": "Épicerie", "al": "Noix du Brésil", "w1": "28", "w2": "28"}], "cibles": {"rows": [["Poids (kg)", 110, 95], ["Taille (cm)", 175, 168], ["Âge (ans)", 29, 29], ["Facteur d'activité", 1.45, 1.4], ["Déficit visé (kcal/jour)", 900, 400], ["Protéines (g par kg)", 2, 1.6], ["Lipides (g par kg)", 0.6, 0.9]], "res": [["Métabolisme de base (kcal)", 2054.0, 1694.0], ["Maintenance estimée (kcal)", 2978.0, 2372.0], ["CIBLE CALORIES (kcal/jour)", 2078.0, 1972.0], ["CIBLE PROTÉINES (g/jour)", 220, 152], ["CIBLE LIPIDES (g/jour)", 66, 86.0], ["CIBLE GLUCIDES (g/jour)", 151.0, 149.0], ["Glucides en % des calories", 0.29, 0.3], ["Perte estimée (kg/semaine)", 0.82, 0.36]]}, "reperes": [{"t": "Pourquoi adapter l'alimentation", "items": [["Résistance à l'insuline", "Présente chez environ 70 % des femmes SOPK : trop d'insuline pousse les ovaires à produire plus d'androgènes (acné, pilosité, cycles irréguliers). Objectif : une glycémie stable."], ["Inflammation", "Inflammation chronique de bas grade, qui entretient la résistance à l'insuline : on privilégie les aliments anti-inflammatoires."], ["Poids", "Si surpoids, perdre 5 à 10 % du poids améliore déjà les symptômes. Mais le surpoids n'est pas la cause du SOPK, et l'objectif n'est pas de maigrir à tout prix."]]}, {"t": "L'assiette", "items": [["Composition", "½ assiette de légumes · ¼ de protéines · ¼ de féculents ou légumineuses · 1 source de bon gras."], ["Ordre de repas", "Légumes d'abord, puis protéines et bon gras, féculents en dernier : le pic de glycémie est plus faible."], ["Petit-déjeuner", "Salé, protéiné et gras (œufs) : le corps est très sensible à l'insuline le matin. Idéalement 1-2 protéines, 1-2 bons gras, 2-3 sources de fibres (d'où les légumes dans les œufs)."]]}, {"t": "Glucides & IG", "items": [["À privilégier", "Quinoa, lentilles, pois chiches, haricots rouges, patate douce, riz basmati, sarrasin, pâtes complètes al dente."], ["À limiter", "Pommes de terre (IG élevé, sauf refroidies en salade), pain blanc, riz blanc rond, céréales soufflées, semoule, pâtisseries, sucres, jus de fruits, sodas."], ["Cuisson", "Al dente : plus un féculent est cuit, plus il fait monter la glycémie."], ["Fruits", "2-3 par jour, pas trop mûrs, jamais seuls : avec des amandes, un laitage, ou après un repas riche en fibres."]]}, {"t": "Protéines & graisses", "items": [["Protéines", "À chaque repas et collation. SOVA : au moins 1 g/kg/jour pour Estelle."], ["Oméga 3", "Petits poissons gras (sardines, maquereau, hareng, anchois) au moins 2×/semaine. Saumon et thon 1×/semaine maximum (métaux lourds). Huiles de colza, noix, lin crues pour l'assaisonnement ; olive pour cuire."], ["Viandes", "Viande blanche à privilégier ; viande rouge 1×/semaine pour le fer ; charcuterie à limiter."], ["Laitiers", "Pas plus de 2 par jour (SOVA), moins si inconfort digestif."]]}, {"t": "Au quotidien", "items": [["Thé vert / café", "Plutôt 1 h après le repas : ils gênent l'absorption du fer. Les infusions, elles, ne posent pas de problème."], ["Épices", "Curcuma, cannelle, gingembre, thym, romarin, origan : riches en antioxydants."], ["Microbiote", "Prébiotiques : poireau, topinambour, artichaut, oignon, betterave. Probiotiques : légumes lacto-fermentés (choucroute, kimchi), kéfir."], ["Bouger", "10 min de marche après le repas réduit le pic de glycémie ; la musculation améliore la sensibilité à l'insuline."]]}, {"t": "Meal prep", "items": [["Contenants", "Boîtes en verre plutôt qu'en plastique, surtout pour réchauffer au micro-ondes (perturbateurs endocriniens)."], ["Portions", "Une taille de boîte par personne évite de tout repeser ; doubler les légumes dans la préparation."]]}, {"t": "État d'esprit", "items": [["Règle 80/20", "80 % d'aliments favorables, 20 % de plaisir, sans culpabilité. On parle d'habitudes, pas de régime. Intégrer les changements un par un."], ["Vigilance", "Les troubles du comportement alimentaire sont plus fréquents avec un SOPK : si l'alimentation devient source d'angoisse ou de culpabilité, en parler à un professionnel."]]}, {"t": "Ce qu'on a changé dans le menu commun", "items": [["Pour vous deux", "Pommes de terre remplacées par quinoa, riz basmati ou patate douce · légumes ajoutés aux œufs chaque matin · protéines variées sur la semaine : 3 poissons (saumon 1×, petits poissons gras 2×) + 1 poisson blanc, volailles (poulet, dinde), lapin, crevettes, bœuf 1×, légumineuses 3-4 soirs · huile de colza · thé à distance des repas."], ["Pour Estelle", "3 œufs, ~45 g de féculents crus, légumineuses et poisson en portions réduites, 3 fruits par jour toujours accompagnés, pas de fruit en dessert."]]}, {"t": "À propos des sources", "items": [["Note", "SOVA est une marque de compléments associée à une naturopathe. Les principes glycémie, protéines, oméga 3, légumes et activité rejoignent les recommandations médicales. Les conseils sur le gluten, les laitiers ou les cures (glutamine, compléments) sont moins bien étayés : à discuter avec son médecin avant de les suivre."]]}], "recettes": [["Dos de cabillaud au fenouil (et à l'orange)", "Déjeuner / dîner", "Automne", "Oui", "1 CAS d'huile au lieu de 20 cl ; 180 g de cabillaud", "Menu d'automne", "Idéal"], ["Papillote de saumon, compotée de chou rouge aux pommes", "Déjeuner", "Automne", "À adapter", "Supprimer le miel ; la pomme compte comme fruit", "Menu d'automne", "OK"], ["Rouget et topinambours au fenouil sauvage", "Déjeuner", "Automne", "Oui", "Topinambours = légume ; cuisson huile plutôt que beurre", "Menu d'automne", "Idéal"], ["Poêlée de carottes et topinambours au thym", "Accompagnement", "Automne", "Oui", "1 CAS d'huile pour la portion", "Menu d'automne", "Idéal"], ["Vapeur de carottes aux épices et jus de persil", "Accompagnement", "Automne", "Oui", null, "Menu d'automne", "OK"], ["Potiron rôti au four, ail et huile d'olive", "Accompagnement", "Automne", "Oui", null, "Menu d'automne", "OK"], ["Poêlée de butternut", "Accompagnement", "Automne", "À adapter", "Les pommes de terre remplacent le féculent (225 g)", "Menu d'automne", "OK"], ["Légumes d'automne rôtis au four", "Déjeuner", "Automne", "À adapter", "Sans vin blanc ; pommes de terre = féculent du repas", "Menu d'automne", "OK"], ["Poêlée d'endives aux cèpes et aux noisettes", "Accompagnement", "Automne", "À adapter", "Noisettes : les compter dans les oléagineux", "Menu d'automne", "OK"], ["Topinambours poêlés aux champignons", "Accompagnement", "Automne", "Oui", null, "Menu d'automne", "OK"], ["Purée de courge butternut au curry", "Accompagnement / dîner", "Automne", "À adapter", "Sans crème ; bouillon uniquement", "Menu d'automne", "OK"], ["Velouté potimarron au lait d'amande", "Dîner", "Automne", "À adapter", "Retirer la pomme de terre si féculent déjà pris", "Menu d'automne", "OK"], ["Soupe de patate douce, poireaux et coco", "Dîner", "Automne", "Occasionnel", "Lait de coco riche en graisses : ½ brique max", "Menu d'automne", "OK"], ["Velouté de carottes au curry", "Dîner", "Automne", "Oui", null, "Menu d'automne", "OK"], ["Soupe pomme, betteraves, noisettes", "Dîner", "Automne", "À adapter", "Huile de noisette = ta CAS d'huile", "Menu d'automne", "Idéal"], ["Wok fondant de légumes et poulet mariné", "Dîner (version 1)", "Automne", "À adapter", "Sauce soja à éviter (soja) ; 160 g poulet", "Menu d'automne", "OK"], ["Poulet au gingembre grillé", "Dîner (version 1)", "Automne", "À adapter", "Blanc plutôt que haut de cuisse ; sans sauce soja", "Menu d'automne", "OK"], ["Colombo de poulet au butternut", "Dîner (version 1)", "Automne", "Oui", null, "Menu d'automne", "Idéal"], ["Aubergine roulée farcie (pois chiches, tahini)", "Dîner", "Automne", "Oui", "Les pois chiches comptent dans les 250 g", "Menu d'automne", "Idéal"], ["Hachis marocain patates douces et panais", "Déjeuner", "Automne", "À adapter", "Bœuf haché 5 % ; sans sucre ni raisins secs", "Menu d'automne", "OK (sans sucre ajouté)"], ["Ceviche de poisson, citron, tomates séchées, amandes", "Déjeuner", "Automne", "Oui", "Amandes = ta collation", "Menu d'automne", "Idéal"], ["Filet de daurade aux petits légumes", "Déjeuner / dîner", "Automne", "Oui", null, "Menu d'automne", "Idéal"], ["Œuf mollet, poêlée et crème de girolles", "Déjeuner (4 œufs)", "Automne", "À adapter", "Crème liquide à remplacer par un peu de bouillon", "Menu d'automne", "OK"], ["Salade d'endives et d'avocat", "Crudités", "Automne", "Occasionnel", "Noix de cajou et avocat : petite portion", "Menu d'automne", "OK"], ["Salade de potiron rôti, féta et quinoa", "Déjeuner", "Automne", "Écart", "Féta = fromage (interdit 4 premières semaines)", "Menu d'automne", "OK (féta avec modération)"], ["Poulet à la crème et aux champignons", "—", "Automne", "Écart", "Crème + vin blanc : repas libre", "Menu d'automne", "À limiter (crème)"], ["Mac and cheese de potimarron · Gratin de butternut", "—", "Automne", "Écart", "Fromage / crème : repas libre", "Menu d'automne", "À limiter"], ["Papillote de poisson à la provençale", "Déjeuner / dîner", "Été", "Oui", null, "Menu d'été", "Idéal"], ["Filet de daurade au fenouil et aux tomates", "Déjeuner / dîner", "Été", "Oui", null, "Menu d'été", "Idéal"], ["Tian de légumes à la provençale", "Accompagnement", "Été → début automne", "Oui", null, "Menu d'été", "OK"], ["Fenouil braisé", "Accompagnement", "Été → automne", "Oui", null, "Menu d'été", "OK"], ["Aubergines grillées ail et thym", "Accompagnement", "Été → sept.", "Oui", "1 CAS d'huile", "Menu d'été", "OK"], ["Salade de haricots verts et thon", "Déjeuner", "Été → sept.", "Oui", "+ 225 g pommes de terre", "Menu d'été", "Idéal"], ["Salade de quinoa aux pois chiches et tomate", "Déjeuner", "Été", "À adapter", "Choisir quinoa OU pois chiches selon le repas", "Menu d'été", "OK"], ["Brochettes de crevettes marinées", "Déjeuner", "Été", "Oui", null, "Menu d'été", "OK"], ["Moules marinières légères", "Dîner", "Sept · Oct", "Oui", "Moules de saison en sept./oct.", "Menu d'été", "Idéal"], ["Escalope de dinde aux échalotes, poivrons, courgettes", "Dîner (version 1)", "Été → sept.", "Oui", null, "Menu d'été", "OK"], ["Blanc de poulet aux épices", "Dîner (version 1)", "Toute l'année", "Oui", null, "Menu d'été", "OK"], ["Mijoté de dinde aux poivrons", "Dîner (version 1)", "Été → sept.", "Oui", null, "Menu d'été", "OK"], ["Tagliatelles de konjac au saumon et citron", "Déjeuner / dîner", "Toute l'année", "À adapter", "Philadelphia = fromage : remplacer par du skyr", "Recettes konjac", "OK"], ["Riz de konjac sauté au poulet, poivrons, piment doux", "Dîner", "Toute l'année", "Oui", "Remplace un féculent si tu veux alléger", "Recettes konjac", "Idéal"], ["Risotto de carottes et fenouil au riz de konjac", "Dîner", "Automne", "Oui", null, "Recettes konjac", "OK"], ["Wok de shirataki aux légumes et dinde", "Dîner", "Toute l'année", "À adapter", "Sauce à base de soja : l'éviter", "Recettes konjac", "OK"], ["Soupe épicée asiatique au konjac", "Dîner", "Automne", "Oui", null, "Recettes konjac", "Idéal"], ["Tagliatelles de konjac au potiron", "Dîner", "Automne", "Oui", null, "Recettes konjac", "OK"], ["Omelette salée (légumes au choix)", "Petit-déjeuner", "Toute l'année", "Oui", "Déjà la base de vos petits-déjeuners", "Ebook SOVA", "Idéal"], ["Pancakes protéinés (œufs, banane)", "Petit-déjeuner", "Toute l'année", "À adapter", "Sans farine ni sirop pour Clément", "Ebook SOVA", "OK"], ["Tartine saumon & œufs pochés", "Petit-déjeuner", "Toute l'année", "À adapter", "Pain interdit à Clément les 4 premières semaines : servir sans pain", "Ebook SOVA", "Idéal"], ["Chia pudding", "Petit-déjeuner", "Toute l'année", "Occasionnel", "Ajouter une protéine (skyr)", "Ebook SOVA", "OK avec protéine"], ["Dahl de lentilles corail", "Dîner", "Automne", "Oui", "Lentilles = les 250 g du dîner ; lait de coco en petite quantité", "Ebook SOVA", "Idéal"], ["Curry végé (légumineuses & légumes)", "Dîner", "Toute l'année", "Oui", "Crème végétale en option, petite quantité", "Ebook SOVA", "Idéal"], ["Chili con carne", "Dîner", "Automne", "Oui", "Bœuf 5 % + haricots rouges ; viande rouge 1×/semaine", "Ebook SOVA", "Idéal"], ["Curry au poulet et riz", "Déjeuner", "Toute l'année", "Oui", "Riz basmati 75 g / 45 g", "Ebook SOVA", "Idéal"], ["Butternut farcie", "Dîner", "Automne", "Oui", "Farce poulet ou légumineuses", "Ebook SOVA", "Idéal"], ["Quinotto aux légumes", "Déjeuner", "Automne", "Oui", "Quinoa façon risotto, sans parmesan pour Clément", "Ebook SOVA", "Idéal"], ["Courgettes farcies", "Déjeuner / dîner", "Été → sept.", "Oui", null, "Ebook SOVA", "Idéal"], ["Quiche sans pâte", "Dîner", "Toute l'année", "À adapter", "Sans fromage pour Clément les 4 premières semaines", "Ebook SOVA", "OK"], ["Parmentier de poissons et légumes", "Dîner", "Automne", "À adapter", "Purée de patate douce ou de céleri plutôt que pommes de terre", "Ebook SOVA", "OK"], ["Lasagnes saumon épinards", "Déjeuner", "Toute l'année", "Occasionnel", "Pâtes + béchamel : version plaisir", "Ebook SOVA", "Plaisir"], ["Chakchouka et riz basmati", "Déjeuner", "Été → sept.", "Oui", "Œufs + poivrons + tomates", "Ebook SOVA", "Idéal"], ["Boulettes de lentilles corail aux épices", "Dîner", "Toute l'année", "Oui", null, "Ebook SOVA", "Idéal"], ["Poke bowl", "Déjeuner", "Toute l'année", "À adapter", "Sauce soja à éviter pour Clément", "Ebook SOVA", "OK"], ["Galette de sarrasin automnale", "Déjeuner", "Automne", "Occasionnel", "Sarrasin naturellement sans gluten", "Ebook SOVA", "OK"], ["Salade de quinoa", "Déjeuner", "Été → sept.", "Oui", null, "Ebook SOVA", "Idéal"], ["Brochettes de poisson à la plancha", "Déjeuner / dîner", "Été → sept.", "Oui", null, "Ebook SOVA", "Idéal"], ["Soupe de courgette et basilic", "Dîner", "Été → sept.", "Oui", null, "Ebook SOVA", "OK"], ["Pois chiches rôtis aux épices", "Collation", "Toute l'année", "Oui", "Idéal en collation salée", "Ebook SOVA", "Idéal"], ["Houmous tomates séchées & poivrons", "Collation", "Toute l'année", "Oui", "Avec des bâtonnets de légumes", "Ebook SOVA", "Idéal"], ["Tzatziki", "Collation / crudités", "Été → sept.", "Oui", "Skyr à la place du yaourt grec", "Ebook SOVA", "OK"], ["Mousse au chocolat IG bas", "Dessert", "Toute l'année", "Occasionnel", "Plaisir, dans les 20 %", "Ebook SOVA", "Plaisir"], ["Energy ball coco", "Collation", "Toute l'année", "Écart", "Contient sucres (miel/agave) : plaisir occasionnel", "Ebook SOVA", "Plaisir (sucres)"]]};
 const ALIM_SECTIONS = [
   { key: "ma-semaine", label: "Ma semaine" },
   { key: "courses", label: "Courses" },
-  { key: "sopk", label: "Repères SOPK" },
   { key: "recettes", label: "Recettes" },
   { key: "cibles", label: "Cibles" },
+  { key: "sopk", label: "Repères SOPK" },
 ];
 const ALIM_WEEKS = [
   { key: 1, label: "Semaine 1 · 28/09 → 04/10" },
@@ -2483,6 +2483,802 @@ function AlimentationTab() {
   );
 }
 
+// Étapes de préparation par recette (ajoutées 01/10/2026). Clé = titre exact de la carte. Rédigées à
+// partir des ingrédients et quantités de chaque recette : les sources (menu, ebooks) ne fournissaient
+// que les ingrédients — étapes proposées, à adapter. Les quantités sont celles de la carte (Clément | Estelle).
+const RECIPE_STEPS = {
+  // --- Petits-déjeuners (menu) ---
+  "Œufs en omelette · thé vert plutôt 1 h après": [
+    "Battre les œufs avec sel, poivre et une pincée d'herbes.",
+    "Chauffer une poêle antiadhésive à feu moyen avec quelques gouttes d'huile.",
+    "Verser les œufs, laisser prendre 2–3 min en ramenant les bords vers le centre, plier l'omelette.",
+    "Servir avec les noix du Brésil et le fruit à côté.",
+  ],
+  "Œufs brouillés au curry · thé vert plutôt 1 h après": [
+    "Battre les œufs avec ½ c. à café de curry, sel et poivre.",
+    "Cuire à feu doux dans une poêle légèrement huilée en remuant sans cesse avec une spatule.",
+    "Retirer du feu quand les œufs sont encore crémeux (ils finissent de cuire hors du feu).",
+    "Servir avec les noix du Brésil et le fruit.",
+  ],
+  "Œufs brouillés aux herbes · thé vert plutôt 1 h après": [
+    "Ciseler ciboulette, persil ou aneth.",
+    "Battre les œufs avec sel et poivre, cuire à feu doux en remuant sans cesse.",
+    "Ajouter les herbes en fin de cuisson, quand les œufs sont encore crémeux.",
+    "Servir avec les noix du Brésil et le fruit.",
+  ],
+  "Œufs au plat · thé vert plutôt 1 h après": [
+    "Chauffer une poêle avec quelques gouttes d'huile à feu moyen.",
+    "Casser les œufs délicatement, couvrir et cuire 3–4 min jusqu'à ce que le blanc soit pris.",
+    "Saler, poivrer, servir avec les noix du Brésil et le fruit.",
+  ],
+  "Œufs à la coque · thé vert plutôt 1 h après": [
+    "Porter une casserole d'eau à ébullition.",
+    "Y plonger délicatement les œufs sortis du frigo à l'aide d'une cuillère, cuire 3 min (jaune coulant).",
+    "Servir dans des coquetiers avec sel et poivre, les noix du Brésil et le fruit.",
+  ],
+  "Œufs brouillés · thé vert plutôt 1 h après": [
+    "Battre les œufs avec sel et poivre.",
+    "Cuire à feu doux dans une poêle légèrement huilée en remuant sans cesse.",
+    "Retirer du feu quand ils sont encore crémeux, servir avec les noix du Brésil et le fruit.",
+  ],
+  "Œufs en omelette aux herbes · thé vert plutôt 1 h après": [
+    "Ciseler une poignée d'herbes fraîches (persil, ciboulette, cerfeuil).",
+    "Battre les œufs avec les herbes, sel et poivre.",
+    "Cuire 2–3 min dans une poêle légèrement huilée à feu moyen, plier l'omelette.",
+    "Servir avec les noix du Brésil et le fruit.",
+  ],
+  // --- Petits-déjeuners (ajoutés) ---
+  "Bowl skyr, graines de chia & fruit": [
+    "La veille (ou 10 min avant), mélanger le skyr et les graines de chia pour qu'elles gonflent.",
+    "Couper le fruit en morceaux.",
+    "Verser dans un bol, ajouter le fruit, les amandes effilées et la cannelle.",
+  ],
+  "Omelette chèvre & épinards": [
+    "Faire tomber les épinards 2 min à la poêle, couper les tomates cerises en deux.",
+    "Battre les œufs avec sel et poivre, verser sur les épinards.",
+    "Émietter le chèvre et ajouter les tomates, cuire 3 min à feu moyen, plier.",
+  ],
+  "Pancakes protéinés banane-avoine": [
+    "Écraser la banane à la fourchette, ajouter les œufs, les flocons d'avoine et la cannelle ; mélanger.",
+    "Laisser reposer 5 min.",
+    "Cuire de petites louches de pâte 2 min par face dans une poêle légèrement huilée.",
+    "Servir avec les noix du Brésil.",
+  ],
+  "Avocat & œufs pochés (sans pain)": [
+    "Porter de l'eau à frémissement avec un trait de vinaigre.",
+    "Casser chaque œuf dans une tasse, le glisser dans l'eau tourbillonnante, cuire 3 min, égoutter.",
+    "Couper l'avocat en tranches, arroser de citron, saler, poivrer.",
+    "Déposer les œufs sur l'avocat et parsemer de graines de tournesol.",
+  ],
+  "Fromage blanc, compote maison & noix": [
+    "Verser le fromage blanc dans un bol.",
+    "Ajouter la compote sans sucre ajouté par-dessus.",
+    "Concasser grossièrement les noix, parsemer avec la cannelle.",
+  ],
+  "Œufs brouillés, saumon fumé & avocat": [
+    "Battre les œufs, cuire à feu doux en remuant jusqu'à texture crémeuse.",
+    "Couper le saumon fumé en lanières et l'avocat en tranches, arroser l'avocat de citron.",
+    "Servir les œufs avec le saumon et l'avocat, poivrer.",
+  ],
+  "Œufs cocotte, brebis & tomates": [
+    "Préchauffer le four à 180 °C.",
+    "Couper les tomates en dés, les répartir dans des ramequins.",
+    "Casser les œufs par-dessus, parsemer de brebis râpé, saler, poivrer.",
+    "Cuire au bain-marie 12–15 min (blanc pris, jaune coulant).",
+  ],
+  "Skyr, flocons d'avoine & fruits secs": [
+    "Mélanger le skyr et les flocons d'avoine (laisser gonfler 5 min, ou la veille au frigo).",
+    "Couper les figues séchées en morceaux.",
+    "Ajouter les figues et les amandes concassées.",
+  ],
+  "Œufs brouillés, jambon & poivrons": [
+    "Couper les poivrons en petits dés et les faire revenir 5 min à la poêle.",
+    "Ajouter le jambon en lanières.",
+    "Verser les œufs battus, cuire à feu doux en remuant jusqu'à texture crémeuse.",
+  ],
+  "Skyr, noix de pécan & fruit rôti à la cannelle": [
+    "Couper le fruit en quartiers, le saupoudrer de cannelle.",
+    "Le faire rôtir 5–8 min à la poêle à feu moyen (ou 15 min au four à 200 °C) jusqu'à ce qu'il soit tendre.",
+    "Servir chaud sur le skyr avec les noix de pécan concassées.",
+  ],
+  "Omelette champignons & noisettes": [
+    "Émincer les champignons et les faire dorer 5 min à la poêle.",
+    "Verser les œufs battus salés et poivrés, cuire 3 min.",
+    "Parsemer de noisettes concassées et plier l'omelette.",
+  ],
+  "Œufs mollets, avocat & graines de sésame": [
+    "Plonger les œufs 6 min dans l'eau bouillante puis dans l'eau froide, les écaler.",
+    "Couper l'avocat en tranches.",
+    "Servir les œufs coupés en deux sur l'avocat, saler, poivrer, parsemer de sésame.",
+  ],
+  // --- Collations ---
+  "Fruit toujours avec les amandes, jamais seul": [
+    "Compter les amandes.",
+    "Les manger avec le fruit (jamais le fruit seul, pour limiter le pic de sucre).",
+  ],
+  "Protéine + fruit": [
+    "Verser le skyr dans un bol.",
+    "Couper le fruit en morceaux par-dessus.",
+  ],
+  "Houmous & bâtonnets de légumes": [
+    "Houmous maison : mixer des pois chiches cuits avec 1 CAS de tahin, ½ citron, ½ gousse d'ail, sel et un peu d'eau.",
+    "Couper carotte et concombre en bâtonnets.",
+    "Servir les bâtonnets avec la portion de houmous.",
+  ],
+  "Œuf dur & tomates cerises": [
+    "Cuire l'œuf 9–10 min dans l'eau bouillante, le refroidir et l'écaler.",
+    "Servir avec les tomates cerises, sel et poivre.",
+  ],
+  "Fromage blanc & noix de cajou": [
+    "Verser le fromage blanc dans un bol.",
+    "Ajouter les noix de cajou (et une pincée de cannelle si envie).",
+  ],
+  "Thon & bâtonnets de concombre": [
+    "Égoutter le thon, l'assaisonner d'un filet de citron et de poivre.",
+    "Couper le concombre en bâtonnets et servir avec le thon.",
+  ],
+  "Yaourt de brebis & graines de courge": [
+    "Verser le yaourt dans un bol.",
+    "Parsemer de graines de courge et de cannelle.",
+  ],
+  "Jambon blanc & bâtonnets de poivron": [
+    "Couper le poivron en bâtonnets.",
+    "Rouler les tranches de jambon et servir avec les bâtonnets.",
+  ],
+  "Amandes & abricots secs": [
+    "Compter les amandes et les abricots secs, les manger ensemble.",
+  ],
+  "Bâtonnets de céleri & fromage frais": [
+    "Laver et couper le céleri en bâtonnets.",
+    "Assaisonner le fromage frais (poivre, herbes) et y tremper les bâtonnets.",
+  ],
+  "Œuf dur & radis": [
+    "Cuire l'œuf 9–10 min dans l'eau bouillante, le refroidir et l'écaler.",
+    "Laver les radis et servir avec l'œuf, une pincée de sel.",
+  ],
+  "Noix de cajou & fruit": [
+    "Compter les noix de cajou.",
+    "Les manger avec le fruit.",
+  ],
+  "Skyr & graines de lin": [
+    "Verser le skyr dans un bol.",
+    "Ajouter les graines de lin moulues et mélanger.",
+  ],
+  "Blanc de poulet froid & tomates cerises": [
+    "Couper le blanc de poulet cuit en lamelles (reste du meal prep).",
+    "Servir avec les tomates cerises, sel et poivre.",
+  ],
+  "Fromage de chèvre frais & noix": [
+    "Servir le chèvre frais poivré avec les noix concassées.",
+  ],
+  "Fruit & beurre d'amande": [
+    "Couper le fruit en quartiers.",
+    "Tremper ou tartiner chaque morceau de beurre d'amande.",
+  ],
+  // --- Déjeuners (menu) ---
+  "Saumon, brocoli vapeur, sésame (gros poisson gras : 1×/sem.)": [
+    "Rincer le quinoa et le cuire 12–15 min dans 2 fois son volume d'eau salée.",
+    "Cuire le brocoli en fleurettes 6–8 min à la vapeur.",
+    "Cuire le saumon 4 min par face à la poêle (ou 12 min au four à 200 °C).",
+    "Servir avec l'huile d'olive et une pincée de sésame ; le fruit en dessert.",
+  ],
+  "Escalope de dinde aux herbes & haricots verts à l'ail": [
+    "Cuire le riz basmati 10–11 min dans l'eau bouillante salée.",
+    "Cuire les haricots verts 8–10 min à l'eau ou à la vapeur, puis les faire sauter 2 min avec l'huile et l'ail haché.",
+    "Saisir l'escalope 3–4 min par face avec des herbes de Provence, sel et poivre.",
+    "Servir ; le fruit en dessert.",
+  ],
+  "Poêlée de crevettes à l'ail, courgettes & quinoa": [
+    "Cuire le quinoa 12–15 min dans 2 fois son volume d'eau.",
+    "Couper les courgettes en demi-rondelles et les faire sauter 6–8 min avec l'huile.",
+    "Ajouter les crevettes et une gousse d'ail hachée, cuire 3 min jusqu'à ce qu'elles soient roses.",
+    "Servir avec le quinoa ; le fruit en dessert.",
+  ],
+  "Curry au poulet et riz (SOVA)": [
+    "Cuire le riz basmati 10–11 min.",
+    "Couper aubergine et poivron en dés, le poulet en morceaux.",
+    "Faire dorer le poulet dans l'huile, ajouter les légumes et 1 CAS de curry, cuire 15 min à couvert avec un fond d'eau.",
+    "Servir avec le riz ; le fruit en dessert.",
+  ],
+  "Maquereau grillé, chou-fleur rôti (petit poisson gras)": [
+    "Préchauffer le four à 200 °C.",
+    "Couper la patate douce en cubes et le chou-fleur en fleurettes, mélanger avec l'huile, saler, rôtir 25–30 min.",
+    "Cuire le maquereau 4 min par face à la poêle ou 10 min au four.",
+    "Servir ; le carré de chocolat en dessert.",
+  ],
+  "Sardines grillées & tian de légumes (petit poisson gras)": [
+    "Préchauffer le four à 200 °C, cuire le quinoa 12–15 min.",
+    "Couper tomates et poivrons en rondelles/lanières, les disposer dans un plat avec l'huile, herbes de Provence, sel ; cuire 30 min.",
+    "Griller les sardines 3 min par face à la poêle ou sous le grill.",
+    "Servir ; le fruit en dessert.",
+  ],
+  "Lapin à la moutarde & carottes fondantes (sans miel)": [
+    "Badigeonner le lapin de moutarde, le faire dorer dans l'huile 5 min.",
+    "Ajouter les carottes en rondelles et un verre d'eau, couvrir et mijoter 35–40 min.",
+    "Cuire le riz basmati 10–11 min.",
+    "Servir ; le fruit en dessert.",
+  ],
+  "Poulet citron-thym & brocoli": [
+    "Mariner le poulet avec le jus d'½ citron, du thym, sel et poivre (10 min minimum).",
+    "Cuire le riz basmati 10–11 min et le brocoli 6–8 min à la vapeur.",
+    "Saisir le poulet 5–6 min par face dans l'huile.",
+    "Servir ; le fruit en dessert.",
+  ],
+  "Saumon, épinards à l'ail & patate douce rôtie (gros poisson gras : 1×/sem.)": [
+    "Préchauffer le four à 200 °C, rôtir la patate douce en cubes 25–30 min.",
+    "Cuire le saumon 4 min par face à la poêle.",
+    "Faire tomber les épinards 2–3 min avec une gousse d'ail hachée.",
+    "Servir avec l'huile de noix en assaisonnement ; le fruit en dessert.",
+  ],
+  "Maquereau & endives braisées (petit poisson gras)": [
+    "Cuire le quinoa 12–15 min.",
+    "Couper les endives en deux, les faire dorer dans l'huile puis braiser 20 min à couvert avec un fond d'eau.",
+    "Cuire le maquereau 4 min par face à la poêle.",
+    "Servir ; le fruit en dessert.",
+  ],
+  "Wok crevettes, champignons & chou au gingembre (sans sauce soja)": [
+    "Cuire le riz basmati 10–11 min.",
+    "Émincer le chou rouge et les champignons, râper 1 cm de gingembre.",
+    "Faire sauter les légumes 6–8 min à feu vif dans l'huile, ajouter les crevettes et le gingembre, cuire 3 min.",
+    "Servir avec le riz ; le fruit en dessert.",
+  ],
+  "Lapin à la moutarde & haricots verts": [
+    "Badigeonner le lapin de moutarde, le faire dorer 5 min dans l'huile, puis mijoter 35 min à couvert avec un fond d'eau.",
+    "Cuire le quinoa 12–15 min et les haricots verts 8–10 min.",
+    "Servir ; le carré de chocolat en dessert.",
+  ],
+  "Sardines & fenouil braisé (petit poisson gras)": [
+    "Couper le fenouil en quartiers, le faire dorer dans l'huile puis braiser 20–25 min à couvert avec un fond d'eau.",
+    "Cuire le riz basmati 10–11 min.",
+    "Griller les sardines 3 min par face.",
+    "Servir ; le fruit en dessert.",
+  ],
+  "Dinde & légumes d'automne rôtis au four": [
+    "Préchauffer le four à 200 °C.",
+    "Couper patate douce, carottes et potiron en cubes, mélanger avec l'huile, herbes, sel ; rôtir 30 min.",
+    "Ajouter la dinde en morceaux à mi-cuisson (15 dernières minutes).",
+    "Servir ; le fruit en dessert.",
+  ],
+  // --- Déjeuners (ajoutés) ---
+  "Cabillaud, quinoa & épinards au citron": [
+    "Cuire le quinoa 12–15 min.",
+    "Cuire le cabillaud 10–12 min au four à 200 °C ou à la vapeur, arroser de citron.",
+    "Faire tomber les épinards 2–3 min dans l'huile.",
+    "Servir ensemble, saler, poivrer.",
+  ],
+  "Poulet rôti, patate douce & brocoli": [
+    "Préchauffer le four à 200 °C, rôtir la patate douce en cubes avec l'huile 25–30 min.",
+    "Ajouter le poulet assaisonné au plat pour les 20 dernières minutes.",
+    "Cuire le brocoli 6–8 min à la vapeur et servir.",
+  ],
+  "Salade de lentilles, thon & tomates": [
+    "Égoutter les lentilles cuites et le thon.",
+    "Couper les tomates en dés.",
+    "Mélanger avec l'huile, un trait de vinaigre, sel, poivre et des herbes.",
+  ],
+  "Dinde aux herbes, riz basmati & courgettes": [
+    "Cuire le riz basmati 10–11 min.",
+    "Faire sauter les courgettes en rondelles 6–8 min dans l'huile.",
+    "Saisir la dinde 3–4 min par face avec des herbes, sel et poivre, servir.",
+  ],
+  "Crevettes, sarrasin & poivrons": [
+    "Cuire le sarrasin 10–12 min dans 2 fois son volume d'eau salée.",
+    "Faire sauter les poivrons en lanières 8 min dans l'huile.",
+    "Ajouter les crevettes, cuire 3 min, servir avec le sarrasin.",
+  ],
+  "Pois chiches, patate douce & épinards au curry": [
+    "Cuire la patate douce en cubes 12–15 min à la vapeur ou à la poêle avec l'huile.",
+    "Ajouter les pois chiches égouttés et 1 c. à café de curry, cuire 5 min.",
+    "Incorporer les épinards et laisser tomber 2–3 min, saler, servir.",
+  ],
+  "Saumon, quinoa & haricots verts": [
+    "Cuire le quinoa 12–15 min et les haricots verts 8–10 min.",
+    "Cuire le saumon 4 min par face à la poêle.",
+    "Servir avec l'huile en assaisonnement.",
+  ],
+  "Bœuf haché, riz basmati & carottes": [
+    "Cuire le riz basmati 10–11 min et les carottes en rondelles 15 min à la vapeur.",
+    "Faire dorer le bœuf haché 5 min dans l'huile, saler, poivrer, ajouter cumin ou paprika.",
+    "Servir ensemble.",
+  ],
+  "Truite, lentilles & fenouil": [
+    "Couper le fenouil en lamelles et le braiser 20 min dans l'huile avec un fond d'eau.",
+    "Réchauffer les lentilles cuites.",
+    "Cuire la truite 3–4 min par face, servir sur les lentilles avec le fenouil.",
+  ],
+  "Poulet, pois chiches & courgettes au curcuma": [
+    "Faire dorer le poulet en morceaux dans l'huile.",
+    "Ajouter les courgettes en dés et 1 c. à café de curcuma, cuire 10 min.",
+    "Ajouter les pois chiches égouttés, réchauffer 5 min, saler, poivrer.",
+  ],
+  // --- Dîners (menu) ---
+  "Dahl de lentilles & carottes au curcuma (SOVA) · + infusion": [
+    "Faire revenir un oignon émincé dans l'huile avec 1 c. à café de curcuma et du cumin.",
+    "Ajouter les carottes en dés et un verre d'eau, cuire 15 min.",
+    "Ajouter les lentilles cuites et les épinards, mijoter 5 min, saler.",
+    "Servir avec une infusion.",
+  ],
+  "Curry végé pois chiches, aubergine, poivron (SOVA) · + infusion": [
+    "Couper aubergine et poivron en dés.",
+    "Les faire revenir 10 min dans l'huile avec 1 CAS de curry.",
+    "Ajouter les pois chiches et un fond d'eau, mijoter 10 min, saler.",
+    "Servir avec une infusion.",
+  ],
+  "Chili con carne (SOVA) — viande rouge 1×/sem. pour le fer · + infusion": [
+    "Concombre en rondelles avec le vinaigre de cidre en entrée.",
+    "Faire dorer le bœuf haché dans l'huile, ajouter le poivron en dés et les tomates concassées.",
+    "Ajouter les haricots rouges, paprika, cumin (piment au goût), mijoter 20 min.",
+    "Servir avec une infusion.",
+  ],
+  "Colin & blettes sautées à l'ail · + infusion": [
+    "Séparer les côtes et les feuilles de blettes, couper les côtes en tronçons.",
+    "Faire sauter les côtes 8 min dans l'huile avec l'ail, ajouter les feuilles 3 min.",
+    "Cuire le colin 8–10 min à la vapeur ou à la poêle, servir avec une infusion.",
+  ],
+  "Lentilles, fondue de poireaux & champignons · + infusion": [
+    "Émincer les poireaux et les faire fondre 15 min à feu doux avec un fond d'eau.",
+    "Ajouter les champignons émincés, cuire 8 min.",
+    "Incorporer les lentilles cuites, réchauffer, assaisonner avec l'huile de noix hors du feu.",
+  ],
+  "Butternut rôtie & pois chiches au cumin · + infusion": [
+    "Préchauffer le four à 200 °C, rôtir la butternut en cubes 30 min avec un peu d'eau ou d'huile.",
+    "Ajouter les pois chiches et 1 c. à café de cumin pour les 10 dernières minutes.",
+    "En entrée : betterave en dés avec le vinaigre de cidre.",
+    "Assaisonner avec l'huile de noix, servir avec une infusion.",
+  ],
+  "Chou-fleur rôti au curcuma & pois chiches · + infusion": [
+    "Préchauffer le four à 200 °C.",
+    "Mélanger chou-fleur en fleurettes et pois chiches avec l'huile, 1 c. à café de curcuma, sel, poivre.",
+    "Rôtir 25–30 min en remuant à mi-cuisson, servir avec une infusion.",
+  ],
+  "Carottes râpées + lentilles aux poireaux (prébiotiques) · + infusion": [
+    "Râper les carottes et les assaisonner avec le vinaigre de cidre.",
+    "Émincer les poireaux et les faire fondre 15 min à feu doux.",
+    "Ajouter les lentilles cuites, réchauffer, assaisonner avec l'huile de colza.",
+  ],
+  "Butternut farcie à la dinde & épices (SOVA) · + infusion": [
+    "Préchauffer le four à 200 °C, couper la butternut en deux, l'épépiner et la rôtir 35 min.",
+    "Faire dorer la dinde hachée ou en petits dés dans l'huile avec cumin, paprika, sel.",
+    "Creuser un peu la chair, mélanger à la dinde, farcir et repasser 10 min au four.",
+  ],
+  "Chili con carne (SOVA) — viande rouge 1×/sem. · + infusion": [
+    "Faire dorer le bœuf haché dans l'huile.",
+    "Ajouter carottes et poivron en dés, cuire 5 min.",
+    "Ajouter les haricots rouges, paprika, cumin et un fond d'eau, mijoter 20 min.",
+  ],
+  "Mâche-betterave + lentilles & purée de céleri · + infusion": [
+    "Cuire le céleri-rave en cubes 20 min à l'eau salée, mixer en purée avec un peu d'eau de cuisson.",
+    "Réchauffer les lentilles.",
+    "Mâche et betterave en dés assaisonnées de vinaigre de cidre et d'huile de lin.",
+  ],
+  "Cabillaud & velouté de potiron au gingembre (sans crème) · + infusion": [
+    "Cuire le potiron en cubes 20 min dans de l'eau avec 1 cm de gingembre râpé, mixer en velouté, saler.",
+    "Cuire le cabillaud 8–10 min à la vapeur.",
+    "Servir avec l'huile de colza en filet, et une infusion.",
+  ],
+  // --- Dîners (ajoutés) ---
+  "Velouté de courgette & escalope de dinde": [
+    "Cuire les courgettes en rondelles 15 min dans un peu d'eau, mixer en velouté, saler, poivrer.",
+    "Saisir l'escalope 3–4 min par face dans l'huile.",
+    "Servir le velouté avec la dinde.",
+  ],
+  "Lentilles corail au curcuma & épinards": [
+    "Si les lentilles sont crues : les cuire 12 min dans 2,5 fois leur volume d'eau.",
+    "Les faire revenir dans l'huile avec 1 c. à café de curcuma.",
+    "Ajouter les épinards, laisser tomber 3 min, saler.",
+  ],
+  "Cabillaud vapeur & purée de chou-fleur": [
+    "Cuire le chou-fleur 15 min à l'eau ou à la vapeur, mixer avec l'huile d'olive, sel, muscade.",
+    "Cuire le cabillaud 8–10 min à la vapeur, servir sur la purée.",
+  ],
+  "Pois chiches rôtis, poivrons & tomates": [
+    "Préchauffer le four à 200 °C.",
+    "Mélanger pois chiches, poivrons en lanières et tomates en quartiers avec l'huile, paprika, sel.",
+    "Rôtir 25 min en remuant à mi-cuisson.",
+  ],
+  "Omelette légère aux légumes du soir": [
+    "Faire tomber les épinards 2 min dans l'huile, ajouter les tomates en dés.",
+    "Verser les œufs battus, sel, poivre, cuire 3–4 min à feu moyen et plier.",
+  ],
+  "Sardines grillées & fenouil braisé": [
+    "Couper le fenouil en quartiers, le dorer dans l'huile puis braiser 20–25 min à couvert avec un fond d'eau.",
+    "Griller les sardines 3 min par face, servir.",
+  ],
+  "Haricots rouges, courgettes & cumin": [
+    "Faire sauter les courgettes en dés 8 min dans l'huile.",
+    "Ajouter les haricots rouges égouttés et 1 c. à café de cumin, réchauffer 5 min, saler.",
+  ],
+  "Blanc de poulet, brocoli & gingembre": [
+    "Cuire le brocoli 6 min à la vapeur.",
+    "Faire sauter le poulet en lamelles 6–8 min dans l'huile avec 1 cm de gingembre râpé.",
+    "Ajouter le brocoli 2 min, servir.",
+  ],
+  "Crevettes sautées, chou rouge & sésame": [
+    "Émincer finement le chou rouge, le faire sauter 8 min dans l'huile.",
+    "Ajouter les crevettes, cuire 3 min, parsemer de sésame.",
+  ],
+  "Soupe de lentilles & carottes au cumin": [
+    "Faire revenir les carottes en rondelles dans l'huile avec 1 c. à café de cumin.",
+    "Couvrir d'eau, cuire 20 min, ajouter les lentilles cuites 5 min.",
+    "Mixer (ou laisser en morceaux), saler, poivrer.",
+  ],
+  // --- Catalogue Recettes (menu d'automne / d'été, konjac, ebook SOVA) ---
+  "Dos de cabillaud au fenouil (et à l'orange)": [
+    "Émincer finement fenouils et poireau, les faire fondre 15 min à feu doux dans 1 CAS d'huile.",
+    "Préchauffer le four à 180 °C, déposer le cabillaud sur les légumes dans un plat.",
+    "Arroser de jus de citron (et d'orange si utilisée), saler, poivrer, cuire 15 min.",
+  ],
+  "Papillote de saumon, compotée de chou rouge aux pommes": [
+    "Émincer le chou rouge, le cuire 25 min à couvert avec les pommes en dés et le vinaigre de cidre (sans miel).",
+    "Préchauffer le four à 200 °C, déposer chaque pavé de saumon sur du papier cuisson, saler, poivrer, filet d'huile.",
+    "Fermer les papillotes et cuire 12–15 min, servir sur la compotée.",
+  ],
+  "Rouget et topinambours au fenouil sauvage": [
+    "Éplucher les topinambours, les couper en rondelles et les cuire 15 min à la poêle dans l'huile avec du thym.",
+    "Cuire les filets de rouget 2 min côté peau puis 1 min de l'autre, avec un peu de gingembre râpé.",
+    "Parsemer de fenouil sauvage ciselé et servir.",
+  ],
+  "Poêlée de carottes et topinambours au thym": [
+    "Éplucher et couper carottes et topinambours en rondelles.",
+    "Les faire revenir 5 min dans l'huile avec l'ail écrasé.",
+    "Ajouter un fond de bouillon et le thym, cuire 20 min à couvert, saler, poivrer.",
+  ],
+  "Vapeur de carottes aux épices et jus de persil": [
+    "Couper les carottes en bâtonnets, les cuire 15 min à la vapeur au-dessus du bouillon avec le cumin.",
+    "Mixer le persil avec un peu de bouillon chaud pour obtenir un jus vert.",
+    "Napper les carottes du jus de persil, saler, poivrer.",
+  ],
+  "Potiron rôti au four, ail et huile d'olive": [
+    "Préchauffer le four à 200 °C.",
+    "Disposer les tranches de potiron et les gousses d'ail en chemise dans un plat, arroser d'huile, herbes de Provence.",
+    "Rôtir 30–35 min, servir avec fleur de sel et poivre.",
+  ],
+  "Poêlée de butternut": [
+    "Éplucher et couper butternut et pommes de terre en cubes, émincer l'oignon.",
+    "Faire revenir le tout dans l'huile 5 min, ajouter le thym.",
+    "Couvrir et cuire 20 min à feu moyen en remuant, saler, poivrer.",
+  ],
+  "Légumes d'automne rôtis au four": [
+    "Préchauffer le four à 200 °C.",
+    "Couper pommes de terre, patate douce, potimarron, carottes et oignon en morceaux.",
+    "Mélanger avec l'huile, herbes de Provence, paprika, piment d'Espelette, sel (sans vin blanc).",
+    "Rôtir 40 min en remuant à mi-cuisson.",
+  ],
+  "Poêlée d'endives aux cèpes et aux noisettes": [
+    "Couper les endives en lanières et les cèpes en lamelles, émincer oignon et ail.",
+    "Faire dorer les cèpes 5 min, réserver ; faire fondre oignon et endives 10 min.",
+    "Remettre les cèpes, ajouter persil et noisettes concassées, saler, poivrer.",
+  ],
+  "Topinambours poêlés aux champignons": [
+    "Éplucher les topinambours et les couper en dés, les cuire 15 min à la poêle avec l'oignon.",
+    "Ajouter girolles et champignons rosés émincés, l'ail, cuire 8 min.",
+    "Parsemer de persil et de baies roses, saler, poivrer.",
+  ],
+  "Purée de courge butternut au curry": [
+    "Éplucher la butternut, la couper en cubes avec l'oignon.",
+    "Cuire 20 min dans le bouillon de volaille avec la pâte de curry.",
+    "Mixer avec la moutarde (et un peu de bouillon plutôt que du lait/crème), saler.",
+  ],
+  "Velouté potimarron au lait d'amande": [
+    "Laver les potimarrons (peau comestible), les épépiner et les couper en cubes (avec la pomme de terre si pas d'autre féculent).",
+    "Les faire revenir 5 min dans l'huile avec le curcuma.",
+    "Couvrir de lait d'amande, cuire 25 min, mixer, saler, poivrer.",
+  ],
+  "Soupe de patate douce, poireaux et coco": [
+    "Émincer poireaux et oignon, couper patates douces et carottes en dés.",
+    "Faire revenir dans l'huile 5 min, ajouter le bouillon, le laurier et de l'eau à hauteur.",
+    "Cuire 25 min, retirer le laurier, ajouter ½ brique de lait de coco maximum, mixer.",
+  ],
+  "Velouté de carottes au curry": [
+    "Couper carottes, courgettes et oignon en morceaux.",
+    "Les faire revenir dans l'huile avec le curry, couvrir d'eau, cuire 25 min.",
+    "Mixer, assaisonner (muscade, sel, poivre), servir avec les amandes effilées.",
+  ],
+  "Soupe pomme, betteraves, noisettes": [
+    "Couper betteraves cuites, pommes et pomme de terre en morceaux.",
+    "Cuire la pomme de terre et les pommes 15 min dans un peu d'eau, ajouter les betteraves et mixer.",
+    "Servir avec noisettes concassées, estragon et un filet d'huile de noisette (sans crème).",
+  ],
+  "Wok fondant de légumes et poulet mariné": [
+    "Mariner le poulet en lanières avec l'ail et le gingembre râpé (sans sauce soja).",
+    "Faire sauter le poulet 5 min à feu vif, ajouter les légumes, cuire 6–8 min.",
+    "Parsemer de noix de cajou et de noisettes concassées.",
+  ],
+  "Poulet au gingembre grillé": [
+    "Mariner le poulet (blanc de préférence) avec le jus de citron vert, le gingembre râpé, l'huile, sel, poivre, 30 min.",
+    "Griller à la poêle ou au four à 200 °C 20–25 min selon l'épaisseur.",
+    "Servir avec des légumes vapeur.",
+  ],
+  "Colombo de poulet au butternut": [
+    "Couper le poulet en morceaux, la butternut et l'aubergine en cubes.",
+    "Faire dorer le poulet dans l'huile avec l'ail et la poudre de colombo.",
+    "Ajouter légumes, aromates (laurier, thym, cumin, girofle, moutarde) et eau à mi-hauteur, mijoter 35 min.",
+    "Finir avec le jus de citron vert et les cives ciselées.",
+  ],
+  "Aubergine roulée farcie (pois chiches, tahini)": [
+    "Couper l'aubergine en fines tranches dans la longueur, les griller à la poêle ou au four.",
+    "Écraser les pois chiches avec l'oignon et l'ail revenus, le tahini, le curcuma et le paprika.",
+    "Rouler chaque tranche autour d'une cuillerée de farce, passer 10 min au four à 180 °C, parsemer de coriandre.",
+  ],
+  "Hachis marocain patates douces et panais": [
+    "Cuire patates douces et panais en morceaux 20 min à l'eau, écraser en purée.",
+    "Faire revenir oignon, ail et carottes en dés, ajouter le bœuf, les tomates concassées, le raz el hanout et le laurier, mijoter 15 min (sans raisins secs).",
+    "Étaler la viande dans un plat, couvrir de purée, parsemer d'amandes, gratiner 20 min à 200 °C.",
+  ],
+  "Ceviche de poisson, citron, tomates séchées, amandes": [
+    "Couper le poisson très frais en petits dés.",
+    "Le couvrir du jus des citrons et citrons verts, avec l'ail, l'oignon vert et le piment émincés ; réserver 30 min au frais.",
+    "Égoutter, ajouter tomates séchées en lanières, coriandre et amandes effilées.",
+  ],
+  "Filet de daurade aux petits légumes": [
+    "Couper carottes, artichauts poivrade et oignons nouveaux en petits morceaux.",
+    "Les cuire 15 min dans le bouillon avec un filet d'huile (bien moins que les 20 cl de la recette).",
+    "Cuire les filets de daurade 3 min côté peau à la poêle, servir sur les légumes avec la coriandre.",
+  ],
+  "Œuf mollet, poêlée et crème de girolles": [
+    "Nettoyer les girolles, les faire sauter dans l'huile avec échalotes et ail émincés, 8 min.",
+    "En mixer une partie avec un peu de bouillon (à la place de la crème) pour la sauce.",
+    "Cuire les œufs 6 min dans l'eau bouillante, les écaler, servir sur la poêlée et la crème, persil ciselé.",
+  ],
+  "Salade d'endives et d'avocat": [
+    "Émincer les endives et l'oignon rouge, couper l'avocat en dés.",
+    "Mélanger le yaourt grec avec le jus de citron, sel et poivre.",
+    "Assembler avec le persil et les noix de cajou concassées.",
+  ],
+  "Salade de potiron rôti, féta et quinoa": [
+    "Rôtir le potiron en cubes avec l'ail et l'huile 25 min à 200 °C.",
+    "Cuire le quinoa 12–15 min.",
+    "Mélanger avec pousses d'épinards, menthe, noisettes et vinaigre de cidre ; féta émiettée par-dessus.",
+  ],
+  "Poulet à la crème et aux champignons": [
+    "Faire dorer le poulet en morceaux et l'oignon émincé dans l'huile.",
+    "Ajouter les champignons, déglacer au vin blanc, laisser réduire.",
+    "Ajouter la crème et la moutarde, mijoter 15 min (repas libre).",
+  ],
+  "Mac and cheese de potimarron · Gratin de butternut": [
+    "Cuire la butternut en cubes 15 min à la vapeur.",
+    "Faire revenir oignon et ail, ajouter jambon en dés, crème et curry.",
+    "Mélanger avec la courge dans un plat, parsemer de comté, gratiner 20 min à 200 °C (repas libre).",
+  ],
+  "Papillote de poisson à la provençale": [
+    "Préchauffer le four à 200 °C.",
+    "Déposer chaque filet sur du papier cuisson avec carottes en julienne, oignon émincé et tomates cerises coupées.",
+    "Arroser d'un filet d'huile, saler, poivrer, fermer et cuire 15–18 min.",
+  ],
+  "Filet de daurade au fenouil et aux tomates": [
+    "Émincer fenouil et oignon, les faire fondre 15 min dans l'huile avec le thym.",
+    "Déposer les filets de daurade dessus, couvrir et cuire 8 min à feu doux.",
+    "Saler, poivrer, servir.",
+  ],
+  "Tian de légumes à la provençale": [
+    "Préchauffer le four à 180 °C, faire fondre oignons et ail émincés dans un peu d'huile, les étaler au fond du plat.",
+    "Disposer en alternance des rondelles d'aubergine, tomate et courgette, serrées.",
+    "Arroser d'huile (bien moins que 10 cl suffit), herbes de Provence, olives, cuire 1 h ; basilic au service.",
+  ],
+  "Fenouil braisé": [
+    "Couper chaque bulbe en quartiers.",
+    "Les faire dorer dans l'huile, ajouter un fond d'eau et le vinaigre balsamique.",
+    "Couvrir et braiser 25 min jusqu'à ce qu'ils soient fondants, saler, poivrer.",
+  ],
+  "Aubergines grillées ail et thym": [
+    "Couper les aubergines en tranches, les badigeonner d'1 CAS d'huile au total.",
+    "Les griller au four à 220 °C 20 min ou à la plancha.",
+    "Assaisonner d'ail, persil, thym, jus de citron, sel et poivre.",
+  ],
+  "Salade de haricots verts et thon": [
+    "Cuire les haricots verts 10 min (et les pommes de terre si prévues), refroidir.",
+    "Ajouter tomate en dés, oignon émincé et thon égoutté.",
+    "Assaisonner de vinaigre balsamique, huile, persil, sel, poivre.",
+  ],
+  "Salade de quinoa aux pois chiches et tomate": [
+    "Cuire le quinoa 12–15 min, laisser refroidir.",
+    "Ajouter les pois chiches, la tomate en dés et l'échalote émincée.",
+    "Assaisonner d'huile de noix, vinaigre balsamique, persil, sel, poivre.",
+  ],
+  "Brochettes de crevettes marinées": [
+    "Mélanger ail haché, échalotes, jus de citron vert, persil et un peu d'huile (pas besoin des 35 cl).",
+    "Y mariner les crevettes 30 min au frais.",
+    "Les enfiler sur des pics et les griller 2 min par face.",
+  ],
+  "Moules marinières légères": [
+    "Gratter et rincer les moules.",
+    "Faire suer les échalotes émincées, ajouter vin blanc, bouquet garni et poivre.",
+    "Ajouter les moules, couvrir et cuire 5–7 min à feu vif en secouant, jusqu'à ouverture ; parsemer de persil.",
+  ],
+  "Escalope de dinde aux échalotes, poivrons, courgettes": [
+    "Couper poivrons et courgette en lanières, émincer les échalotes.",
+    "Les faire revenir 15 min dans l'huile avec le thym.",
+    "Saisir les escalopes 3–4 min par face, servir avec les légumes.",
+  ],
+  "Blanc de poulet aux épices": [
+    "Couper le poulet en morceaux, le faire dorer dans l'huile avec curcuma et coriandre.",
+    "Ajouter échalote, poivron, tomates et piment, puis le bouillon ; mijoter 20 min.",
+    "Parsemer de sésame et de cacahuètes concassées (sauce soja facultative, à éviter pour Clément).",
+  ],
+  "Mijoté de dinde aux poivrons": [
+    "Couper la dinde en cubes, les faire dorer dans l'huile.",
+    "Ajouter oignons, ail, céleri et poivrons émincés, puis les tomates en dés.",
+    "Mijoter 40 min à couvert, ajouter un peu de crème légère en fin de cuisson si souhaité, persil.",
+  ],
+  "Tagliatelles de konjac au saumon et citron": [
+    "Rincer abondamment les tagliatelles de konjac, les blanchir 2 min, les égoutter et les sécher à la poêle.",
+    "Cuire le saumon en dés 3–4 min dans l'huile.",
+    "Mélanger le skyr (à la place du fromage à la crème) avec le zeste et le jus de citron, la ciboulette ; enrober le tout.",
+  ],
+  "Riz de konjac sauté au poulet, poivrons, piment doux": [
+    "Rincer le riz de konjac, le faire sécher à la poêle 3 min.",
+    "Faire sauter le poulet en dés avec les poivrons en lanières et le piment doux.",
+    "Ajouter le riz de konjac, mélanger 3 min, assaisonner.",
+  ],
+  "Risotto de carottes et fenouil au riz de konjac": [
+    "Rincer le riz de konjac et l'égoutter.",
+    "Faire revenir oignon, fenouil et carottes en petits dés dans l'huile, ajouter le bouillon peu à peu et cuire 20 min.",
+    "Ajouter le konjac 5 min, puis la crème légère, saler, poivrer.",
+  ],
+  "Wok de shirataki aux légumes et dinde": [
+    "Rincer les shirataki, les blanchir 2 min, égoutter.",
+    "Faire sauter la dinde en lanières, puis carotte, haricots verts, pois gourmands et pousses de soja.",
+    "Ajouter les shirataki, poivrer, basilic ciselé (sans sauce soja).",
+  ],
+  "Soupe épicée asiatique au konjac": [
+    "Réhydrater les champignons noirs 15 min dans l'eau chaude.",
+    "Faire revenir oignons nouveaux, ail, gingembre et piment dans l'huile, ajouter 1 L d'eau et le cube de bouillon.",
+    "Ajouter champignons et spaghetti de konjac rincés, cuire 5 min.",
+  ],
+  "Tagliatelles de konjac au potiron": [
+    "Faire revenir oignon et ail, ajouter le potiron en cubes, le bouillon et le vin blanc, cuire 20 min.",
+    "Mixer une partie avec la crème légère pour la sauce.",
+    "Ajouter les tagliatelles de konjac rincées et blanchies, réchauffer, basilic.",
+  ],
+  "Omelette salée (légumes au choix)": [
+    "Faire revenir les légumes choisis coupés en petits morceaux 5 min.",
+    "Verser les œufs battus avec la protéine choisie (jambon, fromage…), sel, poivre.",
+    "Cuire 3 min à feu moyen, plier et servir.",
+  ],
+  "Pancakes protéinés (œufs, banane)": [
+    "Écraser la banane, ajouter les œufs, la farine de pois chiche et la protéine en poudre ; mélanger.",
+    "Cuire de petites louches 2 min par face dans une poêle légèrement huilée.",
+    "Servir avec un peu de beurre d'oléagineux (sans sirop pour Clément).",
+  ],
+  "Tartine saumon & œufs pochés": [
+    "Pocher l'œuf 3 min dans une eau frémissante vinaigrée.",
+    "Écraser l'avocat avec le citron, sel et poivre.",
+    "Monter : fromage frais, avocat, saumon fumé, œuf poché, herbes (sans pain pour Clément).",
+  ],
+  "Chia pudding": [
+    "Mélanger graines de chia et lait végétal, laisser gonfler au moins 2 h (idéalement la nuit) au frigo.",
+    "Ajouter une portion de skyr pour la protéine.",
+    "Servir avec le fruit et le topping choisi.",
+  ],
+  "Dahl de lentilles corail": [
+    "Faire revenir oignon et ail émincés avec les épices.",
+    "Ajouter lentilles rincées, carottes et patate douce en dés, concentré de tomate, lait de coco (petite quantité) et eau à hauteur.",
+    "Cuire 20 min, ajouter petits pois et épinards 5 min, coriandre au service.",
+  ],
+  "Curry végé (légumineuses & légumes)": [
+    "Faire revenir l'oignon avec le curry.",
+    "Ajouter les légumes en morceaux et les légumineuses (rincées si crues), le lait de coco et de l'eau.",
+    "Mijoter 20–30 min selon la légumineuse, herbes fraîches au service.",
+  ],
+  "Chili con carne": [
+    "Faire revenir oignon, poivrons et carotte en dés dans l'huile.",
+    "Ajouter le bœuf haché, le faire dorer, puis tomates, concentré, paprika (piment en option).",
+    "Ajouter haricots rouges et maïs égouttés, mijoter 20 min.",
+  ],
+  "Curry au poulet et riz": [
+    "Cuire le riz.",
+    "Faire dorer le poulet en morceaux avec l'oignon et le curry, ajouter les légumes.",
+    "Ajouter un peu de lait de coco, mijoter 15 min, servir avec herbes et cacahuètes ou cajou.",
+  ],
+  "Butternut farcie": [
+    "Couper la butternut en deux, l'épépiner, la rôtir 35 min à 200 °C.",
+    "Préparer la farce : oignon revenu + poulet, légumineuses ou tofu fumé, quinoa ou sarrasin cuit, herbes.",
+    "Farcir, ajouter un peu de chèvre si toléré, repasser 10 min au four.",
+  ],
+  "Quinotto aux légumes": [
+    "Faire suer les échalotes dans l'huile, ajouter le quinoa rincé et le nacrer 1 min.",
+    "Déglacer au vin blanc, puis ajouter le bouillon chaud peu à peu avec la courgette en dés (20 min).",
+    "Finir avec un peu de crème végétale et le basilic, saumon fumé en lanières (sans parmesan pour Clément).",
+  ],
+  "Courgettes farcies": [
+    "Couper les courgettes en deux, les évider.",
+    "Faire revenir l'oignon et la chair, ajouter les protéines de soja réhydratées, la sauce tomate et les herbes.",
+    "Farcir, (parmesan en option), cuire 30 min à 180 °C.",
+  ],
+  "Quiche sans pâte": [
+    "Préchauffer le four à 180 °C.",
+    "Battre des œufs avec un peu de lait, sel, poivre, muscade.",
+    "Ajouter les légumes revenus (et le jambon), verser dans un moule huilé, cuire 30–35 min (sans fromage pour Clément).",
+  ],
+  "Parmentier de poissons et légumes": [
+    "Cuire patate douce (et pommes de terre ou céleri) et carottes 20 min, écraser en purée avec le lait et l'œuf.",
+    "Pocher le poisson 8 min, l'émietter avec les herbes de Provence.",
+    "Poisson au fond du plat, purée par-dessus, gratiner 20 min à 200 °C.",
+  ],
+  "Lasagnes saumon épinards": [
+    "Faire fondre l'oignon dans l'huile, ajouter les épinards, cuire 5 min.",
+    "Couper le saumon en dés.",
+    "Alterner lasagnes, épinards, saumon et crème ; gruyère en option, cuire 35 min à 180 °C (version plaisir).",
+  ],
+  "Chakchouka et riz basmati": [
+    "Faire revenir oignon et poivrons émincés, ajouter tomates concassées, cumin, paprika, mijoter 15 min.",
+    "Creuser des puits, y casser les œufs, couvrir et cuire 6–8 min.",
+    "Servir avec le riz basmati.",
+  ],
+  "Boulettes de lentilles corail aux épices": [
+    "Cuire les lentilles corail 12 min, bien les égoutter.",
+    "Mélanger avec carottes râpées, oignon, ail, gingembre, épices, coriandre et la farine.",
+    "Former des boulettes, les dorer à la poêle avec un peu d'huile ou 20 min au four à 200 °C.",
+  ],
+  "Poke bowl": [
+    "Cuire le riz ou le quinoa, laisser tiédir.",
+    "Préparer la protéine (poisson cru en dés, poulet cuit, crevettes, œuf dur…) et couper les légumes.",
+    "Assembler dans un bol, ajouter les toppings (sans sauce soja pour Clément).",
+  ],
+  "Galette de sarrasin automnale": [
+    "Faire revenir oignon, carottes et butternut en petits dés 15 min avec les épices.",
+    "Ajouter le poulet en lamelles et un peu de crème végétale.",
+    "Garnir les galettes réchauffées à la poêle, plier.",
+  ],
+  "Salade de quinoa": [
+    "Cuire le quinoa, laisser refroidir.",
+    "Ajouter tomates, poivron, courgette, oignon rouge en dés, olives et féta.",
+    "Assaisonner d'huile, vinaigre de cidre, ail, herbes, paprika, sel, poivre.",
+  ],
+  "Brochettes de poisson à la plancha": [
+    "Couper le poisson en gros cubes, mariner avec jus de citron, thym, huile, sel, poivre.",
+    "Enfiler en alternant tomates cerises, oignons nouveaux et dés de féta ou halloumi.",
+    "Cuire 6–8 min à la plancha en retournant.",
+  ],
+  "Soupe de courgette et basilic": [
+    "Faire revenir oignon et ail dans l'huile.",
+    "Ajouter les courgettes en morceaux, couvrir d'eau, cuire 15 min.",
+    "Mixer avec le basilic, assaisonner (sel, poivre, piment d'Espelette).",
+  ],
+  "Pois chiches rôtis aux épices": [
+    "Préchauffer le four à 200 °C, bien sécher les pois chiches égouttés.",
+    "Les mélanger avec huile, paprika, cumin, ail en poudre, sel (Cayenne en option).",
+    "Rôtir 25–30 min en remuant, jusqu'à ce qu'ils soient croustillants.",
+  ],
+  "Houmous tomates séchées & poivrons": [
+    "Griller les poivrons (four 220 °C, 20 min), les peler.",
+    "Mixer avec pois chiches, ail, tomates confites, jus de citron, huile et tahin.",
+    "Saler, poivrer, servir avec des bâtonnets de légumes.",
+  ],
+  "Tzatziki": [
+    "Râper le concombre, le saler et le presser pour retirer l'eau.",
+    "Mélanger avec le yaourt (ou le skyr), l'huile, l'ail râpé et la menthe ciselée.",
+    "Poivrer, réserver au frais.",
+  ],
+  "Mousse au chocolat IG bas": [
+    "Faire fondre le chocolat au bain-marie.",
+    "Séparer les blancs des jaunes, incorporer les jaunes au chocolat tiédi.",
+    "Monter les blancs en neige ferme, les incorporer délicatement ; 4 h au frais minimum.",
+  ],
+  "Energy ball coco": [
+    "Mélanger purée d'amandes, farine de coco et sirop.",
+    "Former des boules de la taille d'une noix.",
+    "Les rouler dans la noix de coco râpée, réserver au frais.",
+  ],
+};
+
+// Anciens identifiants des petits-déjeuners aux œufs (avant le retrait des légumes le 01/10/2026,
+// leurs titres ont changé) -> nouveaux, pour ne pas perdre ce qui était déjà dans le panier.
+const LEGACY_CARD_IDS = {
+  "petit-d-jeuner-ufs-en-omelette-aux-champignons-th-vert-plut-t-1-h-apr-s": "petit-d-jeuner-ufs-en-omelette-th-vert-plut-t-1-h-apr-s",
+  "petit-d-jeuner-ufs-brouill-s-aux-pinards-curry-th-vert-plut-t-1-h-apr-s": "petit-d-jeuner-ufs-brouill-s-au-curry-th-vert-plut-t-1-h-apr-s",
+  "petit-d-jeuner-ufs-en-omelette-aux-tomates-th-vert-plut-t-1-h-apr-s": "petit-d-jeuner-ufs-en-omelette-th-vert-plut-t-1-h-apr-s",
+  "petit-d-jeuner-ufs-brouill-s-aux-champignons-herbes-th-vert-plut-t-1-h-apr-s": "petit-d-jeuner-ufs-brouill-s-aux-herbes-th-vert-plut-t-1-h-apr-s",
+  "petit-d-jeuner-ufs-en-omelette-aux-pinards-th-vert-plut-t-1-h-apr-s": "petit-d-jeuner-ufs-en-omelette-th-vert-plut-t-1-h-apr-s",
+  "petit-d-jeuner-ufs-au-plat-poivrons-po-l-s-th-vert-plut-t-1-h-apr-s": "petit-d-jeuner-ufs-au-plat-th-vert-plut-t-1-h-apr-s",
+  "petit-d-jeuner-ufs-la-coque-mouillettes-de-courgette-th-vert-plut-t-1-h-apr-s": "petit-d-jeuner-ufs-la-coque-th-vert-plut-t-1-h-apr-s",
+  "petit-d-jeuner-ufs-brouill-s-aux-champignons-th-vert-plut-t-1-h-apr-s": "petit-d-jeuner-ufs-brouill-s-th-vert-plut-t-1-h-apr-s",
+  "petit-d-jeuner-ufs-en-omelette-aux-herbes-poireaux-th-vert-plut-t-1-h-apr-s": "petit-d-jeuner-ufs-en-omelette-aux-herbes-th-vert-plut-t-1-h-apr-s",
+  "petit-d-jeuner-ufs-brouill-s-au-curry-champignons-th-vert-plut-t-1-h-apr-s": "petit-d-jeuner-ufs-brouill-s-au-curry-th-vert-plut-t-1-h-apr-s",
+  "petit-d-jeuner-ufs-au-plat-champignons-th-vert-plut-t-1-h-apr-s": "petit-d-jeuner-ufs-au-plat-th-vert-plut-t-1-h-apr-s",
+  "petit-d-jeuner-ufs-la-coque-pinards-th-vert-plut-t-1-h-apr-s": "petit-d-jeuner-ufs-la-coque-th-vert-plut-t-1-h-apr-s"
+};
+
 // --- "Ma semaine" : planning composé à la main à partir des recettes déjà détaillées sur le
 // site (5 rubriques par repas), ajoutées comme dans un panier ; la liste de courses se
 // recalcule automatiquement à partir de ce qui a été choisi, avec les portions Clément | Estelle.
@@ -2509,6 +3305,7 @@ function buildMealCardLibrary() {
         items: m.items,
         kc: m.kc,
         ke: m.ke,
+        steps: RECIPE_STEPS[title] || null,
       });
     }
   }
@@ -2521,8 +3318,8 @@ function buildMealCardLibrary() {
 const EXTRA_MEAL_CARDS = [
   {
     slots: ["Petit-déjeuner"],
-    title: "Bowl skyr, graines de chia & fruits rouges",
-    items: [["Skyr nature", "250 g", "200 g"], ["Graines de chia", "1 CAS", "1 CAS"], ["Amandes effilées", "15 g", "10 g"], ["Fruits rouges (frais ou surgelés)", "100 g", "100 g"], ["Cannelle", "1 pincée", "1 pincée"]],
+    title: "Bowl skyr, graines de chia & fruit",
+    items: [["Skyr nature", "250 g", "200 g"], ["Graines de chia", "1 CAS", "1 CAS"], ["Amandes effilées", "15 g", "10 g"], ["Fruit", "1", "1"], ["Cannelle", "1 pincée", "1 pincée"]],
     kc: 430, ke: 360,
   },
   {
@@ -2611,8 +3408,8 @@ const EXTRA_MEAL_CARDS = [
   },
   {
     slots: ["Petit-déjeuner"],
-    title: "Skyr, noix de pécan & pomme rôtie à la cannelle",
-    items: [["Skyr nature", "250 g", "200 g"], ["Noix de pécan", "15 g", "10 g"], ["Pomme", "1", "1"], ["Cannelle", "1 pincée", "1 pincée"]],
+    title: "Skyr, noix de pécan & fruit rôti à la cannelle",
+    items: [["Skyr nature", "250 g", "200 g"], ["Noix de pécan", "15 g", "10 g"], ["Fruit", "1", "1"], ["Cannelle", "1 pincée", "1 pincée"]],
     kc: 450, ke: 380,
   },
   {
@@ -2647,8 +3444,8 @@ const EXTRA_MEAL_CARDS = [
   },
   {
     slots: ["Collation matin", "Collation après-midi"],
-    title: "Noix de cajou & mandarine",
-    items: [["Noix de cajou", "15", "12"], ["Mandarine", "1", "1"]],
+    title: "Noix de cajou & fruit",
+    items: [["Noix de cajou", "15", "12"], ["Fruit", "1", "1"]],
     kc: 150, ke: 120,
   },
   {
@@ -2671,8 +3468,8 @@ const EXTRA_MEAL_CARDS = [
   },
   {
     slots: ["Collation matin", "Collation après-midi"],
-    title: "Pomme & beurre d'amande",
-    items: [["Pomme", "1", "1"], ["Beurre d'amande", "1 CAS", "1 CC"]],
+    title: "Fruit & beurre d'amande",
+    items: [["Fruit", "1", "1"], ["Beurre d'amande", "1 CAS", "1 CC"]],
     kc: 170, ke: 120,
   },
   {
@@ -2807,6 +3604,7 @@ function buildExtraCards() {
         items: c.items,
         kc: c.kc,
         ke: c.ke,
+        steps: RECIPE_STEPS[c.title] || null,
       });
     });
   });
@@ -2917,6 +3715,7 @@ function buildCatalogCards() {
       note: r[4],
       source: r[5],
       niveau: r[6],
+      steps: RECIPE_STEPS[r[0]] || null,
     };
   });
 }
@@ -2938,9 +3737,36 @@ const PLAN_MEAL_TYPES = [
   { slot: "Dîner", label: "Dîner" },
 ];
 const PANIER_VIEWS = [
-  { key: "recettes", label: "Recettes" },
+  { key: "suivi", label: "Suivi de la semaine" },
+  { key: "recettes", label: "Choisir" },
   { key: "courses", label: "Courses" },
 ];
+// Le panier est compté PAR RUBRIQUE (clé "<rubrique>|<id>", depuis le 01/10/2026) : une recette
+// proposée à la fois en collation matin et après-midi n'est plus cochée dans les deux à la fois.
+const panierKey = (slot, id) => slot + "|" + id;
+function parsePanierKey(key) {
+  const i = key.indexOf("|");
+  return i < 0 ? { slot: null, id: key } : { slot: key.slice(0, i), id: key.slice(i + 1) };
+}
+// Ancien format (clé = id seul) -> nouveau : rangé dans la 1re rubrique de la recette.
+function migratePanier(raw) {
+  const panier = {};
+  let changed = false;
+  Object.entries(raw || {}).forEach(([k, n]) => {
+    if (!n) return;
+    if (k.includes("|")) {
+      panier[k] = (panier[k] || 0) + n;
+      return;
+    }
+    changed = true;
+    const id = LEGACY_CARD_IDS[k] || k;
+    const card = ALL_CARDS_BY_ID[id];
+    if (!card) return;
+    const nk = panierKey(card.slots[0], id);
+    panier[nk] = (panier[nk] || 0) + n;
+  });
+  return { panier, changed };
+}
 const alimTone = (v) => (v === "Idéal" || v === "Oui" ? COLORS.checked : /Plaisir|limiter|Écart/.test(v || "") ? "#E08A6E" : ALIM_ACCENT);
 
 function parseQty(raw) {
@@ -2971,9 +3797,9 @@ function formatQty(unit, total) {
 function buildPanierCourses(panier, person) {
   const groups = {};
   const unquantified = [];
-  Object.entries(panier || {}).forEach(([cardId, count]) => {
+  Object.entries(panier || {}).forEach(([key, count]) => {
     if (!count) return;
-    const card = ALL_CARDS_BY_ID[cardId];
+    const card = ALL_CARDS_BY_ID[parsePanierKey(key).id];
     if (!card) return;
     if (!card.items) {
       if (person === 1) unquantified.push({ title: card.title, count });
@@ -3001,6 +3827,90 @@ function buildPanierCourses(panier, person) {
     display: [g.total > 0 ? formatQty(g.unit, g.total) : null, ...g.rawParts].filter(Boolean).join(" + "),
   }));
   return { items, unquantified };
+}
+
+// --- Détail d'une recette (ajouté 01/10/2026) : ingrédients Clément | Estelle (ou pour X personnes
+// pour le catalogue) + étapes de préparation. Utilisé dans le suivi de la semaine et en dépliant une
+// recette dans « Choisir ».
+function RecipeSteps({ steps }) {
+  if (!steps || steps.length === 0) {
+    return <p style={{ fontSize: 12, color: COLORS.muted, fontStyle: "italic", margin: 0 }}>Pas encore d'étapes pour cette recette.</p>;
+  }
+  return (
+    <div>
+      <div style={{ fontSize: 11, color: COLORS.muted, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 8 }}>Préparation</div>
+      <ol style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
+        {steps.map((st, i) => (
+          <li key={i} style={{ display: "flex", gap: 10, fontSize: 13, color: COLORS.text, lineHeight: 1.5 }}>
+            <span
+              style={{
+                flexShrink: 0, width: 22, height: 22, borderRadius: "50%", background: `${ALIM_ACCENT}26`, color: ALIM_ACCENT,
+                fontSize: 12, fontWeight: 600, display: "flex", alignItems: "center", justifyContent: "center", marginTop: 1,
+              }}
+            >
+              {i + 1}
+            </span>
+            <span>{st}</span>
+          </li>
+        ))}
+      </ol>
+      <p style={{ fontSize: 11, color: COLORS.muted, fontStyle: "italic", margin: "10px 0 0" }}>Étapes proposées à partir des ingrédients de la recette, à adapter.</p>
+    </div>
+  );
+}
+
+function RecipeIngredients({ card }) {
+  if (card.items) {
+    return (
+      <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13, tableLayout: "fixed" }}>
+        <colgroup><col style={{ width: "56%" }} /><col style={{ width: "22%" }} /><col style={{ width: "22%" }} /></colgroup>
+        <thead>
+          <tr style={{ fontSize: 11 }}>
+            <th style={{ textAlign: "left", fontWeight: 500, color: COLORS.muted, paddingBottom: 4 }}>Ingrédient</th>
+            <th style={{ textAlign: "right", fontWeight: 500, color: COLORS.gold, paddingBottom: 4 }}>Clément</th>
+            <th style={{ textAlign: "right", fontWeight: 500, color: "#7FBBAE", paddingBottom: 4 }}>Estelle</th>
+          </tr>
+        </thead>
+        <tbody>
+          {card.items.map(([al, qc, qe], i) => (
+            <tr key={i} style={{ borderTop: `1px solid ${COLORS.track}` }}>
+              <td style={{ padding: "5px 0", color: COLORS.text }}>{al}</td>
+              <td style={{ padding: "5px 0", textAlign: "right", color: COLORS.gold, whiteSpace: "nowrap" }}>{qc}</td>
+              <td style={{ padding: "5px 0 5px 12px", textAlign: "right", color: qe === "–" ? COLORS.muted : "#7FBBAE", whiteSpace: "nowrap" }}>{qe}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
+  }
+  if (card.groupItems) {
+    return (
+      <div>
+        <div style={{ fontSize: 11, color: COLORS.muted, marginBottom: 4 }}>Ingrédients pour {card.groupServings} personnes :</div>
+        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
+          <tbody>
+            {card.groupItems.map(([al, q], i) => (
+              <tr key={i} style={{ borderTop: `1px solid ${COLORS.track}` }}>
+                <td style={{ padding: "4px 0", color: COLORS.text }}>{al}</td>
+                <td style={{ padding: "4px 0", textAlign: "right", color: ALIM_ACCENT, whiteSpace: "nowrap" }}>{q}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
+  }
+  return <p style={{ fontSize: 12, color: COLORS.muted, margin: 0 }}>Ingrédients non détaillés dans la source.</p>;
+}
+
+function RecipeDetails({ card }) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+      {card.note && <p style={{ fontSize: 12, color: COLORS.muted, fontStyle: "italic", margin: 0, lineHeight: 1.45 }}>{card.note}</p>}
+      <RecipeIngredients card={card} />
+      <RecipeSteps steps={card.steps} />
+    </div>
+  );
 }
 
 function AlimPanierCourses({ panier, checked, onToggle }) {
@@ -3065,32 +3975,179 @@ function AlimPanierCourses({ panier, checked, onToggle }) {
   );
 }
 
+// --- Suivi de la semaine (ajouté 01/10/2026) : une fois la sélection validée, les recettes
+// apparaissent rangées par repas ; on en ouvre une pour voir la recette à cuisiner, et on la marque
+// « faite » — elle disparaît (ou son compteur baisse si elle est prévue plusieurs fois).
+// Stocké dans "alim-semaine-suivi" : { validatedAt, entries: { "<rubrique>|<id>": nb prévu }, done: { même clé: nb faits } }.
+function AlimSuivi({ plan, onDone, onUndo, onReset, onChoose }) {
+  const [openKey, setOpenKey] = useState(null);
+  const [showDone, setShowDone] = useState(false);
+  if (!plan) {
+    return (
+      <div style={{ ...alimCard, textAlign: "center", padding: "28px 20px" }}>
+        <div style={{ fontSize: 15, color: COLORS.text, marginBottom: 6 }}>Aucune semaine validée pour l'instant.</div>
+        <p style={{ fontSize: 13, color: COLORS.muted, margin: "0 0 16px" }}>Choisis tes recettes, puis appuie sur « Valider ma sélection ».</p>
+        <button onClick={onChoose} style={{ background: ALIM_ACCENT, color: "#1d1405", border: "none", borderRadius: 999, padding: "9px 18px", fontWeight: 600, fontSize: 13, cursor: "pointer" }}>
+          Choisir les recettes
+        </button>
+      </div>
+    );
+  }
+  const rows = Object.entries(plan.entries)
+    .map(([key, total]) => {
+      const { slot, id } = parsePanierKey(key);
+      const card = ALL_CARDS_BY_ID[id];
+      const done = Math.min(plan.done[key] || 0, total);
+      return card ? { key, slot, card, total, done, left: total - done } : null;
+    })
+    .filter(Boolean);
+  const total = rows.reduce((s, r) => s + r.total, 0);
+  const doneCount = rows.reduce((s, r) => s + r.done, 0);
+  const doneRows = rows.filter((r) => r.done > 0);
+  const validated = new Date(plan.validatedAt);
+  const validatedLabel = `${validated.getDate()} ${FRENCH_MONTHS[validated.getMonth()]}`;
+  return (
+    <div>
+      <div style={{ ...alimCard, marginBottom: 16, display: "flex", flexWrap: "wrap", alignItems: "center", gap: 12 }}>
+        <div style={{ flex: "1 1 220px" }}>
+          <div style={{ fontSize: 14, color: COLORS.text, marginBottom: 6 }}>
+            <span style={{ color: ALIM_ACCENT, fontWeight: 600 }}>{doneCount}</span> / {total} repas cuisinés
+            <span style={{ color: COLORS.muted, fontSize: 12 }}> · sélection validée le {validatedLabel}</span>
+          </div>
+          <div style={{ height: 6, borderRadius: 999, background: COLORS.track, overflow: "hidden" }}>
+            <div style={{ width: `${total ? (doneCount / total) * 100 : 0}%`, height: "100%", background: ALIM_ACCENT, transition: "width 0.3s" }} />
+          </div>
+        </div>
+        <button
+          onClick={() => {
+            if (window.confirm("Repartir sur une nouvelle semaine ? Le suivi actuel sera effacé (ta sélection de recettes reste).")) onReset();
+          }}
+          style={{ background: "transparent", border: `1px solid ${COLORS.border}`, color: COLORS.muted, borderRadius: 999, padding: "6px 12px", fontSize: 12, cursor: "pointer" }}
+        >
+          Nouvelle semaine
+        </button>
+      </div>
+
+      {doneCount === total && total > 0 && (
+        <p style={{ fontSize: 14, color: COLORS.checked, margin: "0 0 16px" }}>Tout est cuisiné pour cette semaine 🎉</p>
+      )}
+
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(300px, 100%), 1fr))", gap: 14, alignItems: "start" }}>
+        {PLAN_MEAL_TYPES.map((m) => {
+          const list = rows.filter((r) => r.slot === m.slot && r.left > 0);
+          if (list.length === 0) return null;
+          return (
+            <div key={m.slot} style={{ ...alimCard, padding: 12 }}>
+              <h3 style={{ margin: "2px 4px 10px", fontFamily: FONT_DISPLAY, fontSize: 17, color: ALIM_ACCENT, fontWeight: 600 }}>
+                {ALIM_MEAL_ICON[m.slot]} {m.label}
+              </h3>
+              <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                {list.map((r) => {
+                  const open = openKey === r.key;
+                  return (
+                    <div key={r.key} style={{ borderRadius: 10, border: `1px solid ${open ? ALIM_ACCENT : COLORS.cardBorder}`, background: open ? "rgba(224,164,88,0.06)" : COLORS.track }}>
+                      <button
+                        onClick={() => setOpenKey(open ? null : r.key)}
+                        style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", textAlign: "left", background: "none", border: "none", padding: "11px 12px", cursor: "pointer", color: COLORS.text, fontFamily: FONT_BODY }}
+                      >
+                        <span style={{ flex: 1, fontSize: 14, lineHeight: 1.35 }}>{r.card.title.replace(" · thé vert plutôt 1 h après", "").replace(" · + infusion", "")}</span>
+                        {r.left > 1 && <span style={{ fontSize: 12, color: ALIM_ACCENT, border: `1px solid ${ALIM_ACCENT}66`, borderRadius: 999, padding: "1px 8px" }}>×{r.left}</span>}
+                        <ChevronDown size={16} style={{ color: COLORS.muted, transform: open ? "rotate(180deg)" : "none", transition: "transform 0.2s", flexShrink: 0 }} />
+                      </button>
+                      {open && (
+                        <div style={{ padding: "4px 12px 14px" }}>
+                          <RecipeDetails card={r.card} />
+                          <div style={{ display: "flex", gap: 8, marginTop: 16, flexWrap: "wrap" }}>
+                            <button
+                              onClick={() => {
+                                onDone(r.key, 1);
+                                if (r.left <= 1) setOpenKey(null);
+                              }}
+                              style={{ background: COLORS.checked, color: "#0b1a0c", border: "none", borderRadius: 999, padding: "9px 16px", fontWeight: 600, fontSize: 13, cursor: "pointer" }}
+                            >
+                              ✓ Fait
+                            </button>
+                            {r.left > 1 && (
+                              <button
+                                onClick={() => {
+                                  onDone(r.key, r.left);
+                                  setOpenKey(null);
+                                }}
+                                style={{ background: "transparent", color: COLORS.checked, border: `1px solid ${COLORS.checked}`, borderRadius: 999, padding: "9px 16px", fontSize: 13, cursor: "pointer" }}
+                              >
+                                Tout fait (×{r.left})
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {doneRows.length > 0 && (
+        <div style={{ marginTop: 18 }}>
+          <button
+            onClick={() => setShowDone((v) => !v)}
+            style={{ display: "flex", alignItems: "center", gap: 6, background: "none", border: "none", color: COLORS.muted, fontSize: 13, cursor: "pointer", padding: 0 }}
+          >
+            <ChevronDown size={14} style={{ transform: showDone ? "rotate(180deg)" : "none", transition: "transform 0.2s" }} />
+            Déjà cuisinés ({doneCount})
+          </button>
+          {showDone && (
+            <div style={{ ...alimCard, marginTop: 8, padding: "6px 14px" }}>
+              {doneRows.map((r, i) => (
+                <div key={r.key} style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 0", borderTop: i > 0 ? `1px solid ${COLORS.track}` : "none" }}>
+                  <span style={{ flex: 1, fontSize: 13, color: COLORS.muted, textDecoration: "line-through" }}>
+                    {ALIM_MEAL_ICON[r.slot]} {r.card.title.replace(" · thé vert plutôt 1 h après", "").replace(" · + infusion", "")}{r.done > 1 ? ` ×${r.done}` : ""}
+                  </span>
+                  <button onClick={() => onUndo(r.key)} style={{ background: "transparent", border: `1px solid ${COLORS.border}`, color: COLORS.muted, borderRadius: 999, padding: "3px 10px", fontSize: 11, cursor: "pointer" }}>
+                    Annuler
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function AlimPanierTab() {
   const [panier, setPanier] = useState(null);
   const [checked, setChecked] = useState({});
+  const [plan, setPlan] = useState(null);
   const [slot, setSlot] = useState(PLAN_MEAL_TYPES[0].slot);
-  const [view, setView] = useState("recettes");
+  const [view, setView] = useState(null);
+  const [openRecipe, setOpenRecipe] = useState(null);
 
   useEffect(() => {
     let cancelled = false;
+    const read = async (key) => {
+      try {
+        const res = await window.storage.get(key);
+        return res ? JSON.parse(res.value) : null;
+      } catch {
+        return null;
+      }
+    };
     (async () => {
-      let p = {};
-      try {
-        const res = await window.storage.get("alim-panier-semaine");
-        p = res ? JSON.parse(res.value) : {};
-      } catch {
-        p = {};
-      }
-      let c = {};
-      try {
-        const res = await window.storage.get("alim-panier-courses-checked");
-        c = res ? JSON.parse(res.value) : {};
-      } catch {
-        c = {};
-      }
+      const rawPanier = (await read("alim-panier-semaine")) || {};
+      const { panier: p, changed } = migratePanier(rawPanier);
+      if (changed) window.storage.set("alim-panier-semaine", JSON.stringify(p)).catch(() => {});
+      const c = (await read("alim-panier-courses-checked")) || {};
+      const pl = await read("alim-semaine-suivi");
       if (!cancelled) {
         setPanier(p);
         setChecked(c);
+        setPlan(pl && pl.entries ? pl : null);
+        setView(pl && pl.entries ? "suivi" : "recettes");
       }
     })();
     return () => {
@@ -3098,11 +4155,11 @@ function AlimPanierTab() {
     };
   }, []);
 
-  function setCount(cardId, count) {
+  function setCount(key, count) {
     setPanier((prev) => {
       const next = { ...(prev || {}) };
-      if (count <= 0) delete next[cardId];
-      else next[cardId] = count;
+      if (count <= 0) delete next[key];
+      else next[key] = count;
       window.storage.set("alim-panier-semaine", JSON.stringify(next)).catch(() => {});
       return next;
     });
@@ -3116,20 +4173,72 @@ function AlimPanierTab() {
       return next;
     });
   }
+  function savePlan(next) {
+    setPlan(next);
+    if (next) window.storage.set("alim-semaine-suivi", JSON.stringify(next)).catch(() => {});
+    else window.storage.set("alim-semaine-suivi", "null").catch(() => {});
+  }
+  function validate() {
+    const entries = {};
+    Object.entries(panier).forEach(([k, n]) => {
+      if (n > 0) entries[k] = n;
+    });
+    // Revalider garde ce qui a déjà été cuisiné (dans la limite du nouveau nombre prévu).
+    const done = {};
+    if (plan) Object.entries(plan.done || {}).forEach(([k, n]) => entries[k] && (done[k] = Math.min(n, entries[k])));
+    savePlan({ validatedAt: plan ? plan.validatedAt : new Date().toISOString(), entries, done });
+    setView("suivi");
+  }
+  function markDone(key, n) {
+    if (!plan) return;
+    const cur = plan.done[key] || 0;
+    savePlan({ ...plan, done: { ...plan.done, [key]: Math.min(cur + n, plan.entries[key] || 0) } });
+  }
+  function undo(key) {
+    if (!plan) return;
+    const nextDone = { ...plan.done };
+    nextDone[key] = Math.max((nextDone[key] || 0) - 1, 0);
+    if (!nextDone[key]) delete nextDone[key];
+    savePlan({ ...plan, done: nextDone });
+  }
 
-  if (!panier) return null;
+  if (!panier || !view) return null;
 
-  const slotCount = (s) => (CARDS_BY_SLOT[s] || []).reduce((sum, c) => sum + (panier[c.id] || 0), 0);
+  const slotCount = (s) => (CARDS_BY_SLOT[s] || []).reduce((sum, c) => sum + (panier[panierKey(s, c.id)] || 0), 0);
   const totalCount = Object.values(panier).reduce((s, n) => s + n, 0);
+  const planInSync =
+    plan && Object.keys(plan.entries).length === Object.keys(panier).filter((k) => panier[k] > 0).length && Object.entries(panier).every(([k, n]) => !n || plan.entries[k] === n);
 
   return (
     <div>
       <PillTabs options={PANIER_VIEWS} activeKey={view} onSelect={setView} accentOf={() => ALIM_ACCENT} marginBottom={14} />
+      {view === "suivi" && <AlimSuivi plan={plan} onDone={markDone} onUndo={undo} onReset={() => savePlan(null)} onChoose={() => setView("recettes")} />}
       {view === "recettes" && (
         <div>
-          <p style={{ fontSize: 12, color: COLORS.muted, marginBottom: 12 }}>
-            {totalCount} repas dans le panier de la semaine · vise environ 7 par rubrique, à ajuster selon vos besoins et vos sorties.
-          </p>
+          <div
+            style={{
+              ...alimCard, padding: "12px 14px", marginBottom: 14, display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap",
+              position: "sticky", top: 8, zIndex: 5, background: "rgba(20,31,51,0.94)", backdropFilter: "blur(8px)",
+            }}
+          >
+            <span style={{ flex: "1 1 180px", fontSize: 13, color: COLORS.text }}>
+              <span style={{ color: ALIM_ACCENT, fontWeight: 600 }}>{totalCount}</span> repas sélectionnés
+              <span style={{ color: COLORS.muted, fontSize: 12 }}>
+                {plan ? (planInSync ? " · déjà validés" : " · modifiés depuis la validation") : " · vise environ 7 par rubrique"}
+              </span>
+            </span>
+            <button
+              onClick={validate}
+              disabled={totalCount === 0 || planInSync}
+              style={{
+                background: totalCount === 0 || planInSync ? "transparent" : ALIM_ACCENT, color: totalCount === 0 || planInSync ? COLORS.muted : "#1d1405",
+                border: `1px solid ${totalCount === 0 || planInSync ? COLORS.border : ALIM_ACCENT}`, borderRadius: 999, padding: "8px 16px",
+                fontWeight: 600, fontSize: 13, cursor: totalCount === 0 || planInSync ? "default" : "pointer",
+              }}
+            >
+              {plan ? "Mettre à jour le suivi" : "Valider ma sélection"}
+            </button>
+          </div>
           <PillTabs
             options={PLAN_MEAL_TYPES.map((m) => ({ key: m.slot, label: `${m.label} · ${slotCount(m.slot)}` }))}
             activeKey={slot}
@@ -3142,9 +4251,11 @@ function AlimPanierTab() {
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             {(CARDS_BY_SLOT[slot] || []).map((c) => {
-              const count = panier[c.id] || 0;
+              const key = panierKey(slot, c.id);
+              const count = panier[key] || 0;
+              const open = openRecipe === key;
               return (
-                <div key={c.id} style={alimCard}>
+                <div key={key} style={alimCard}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 8, marginBottom: 8, flexWrap: "wrap" }}>
                     <div style={{ fontSize: 14, color: count > 0 ? ALIM_ACCENT : COLORS.text, fontWeight: count > 0 ? 600 : 400 }}>{c.title}</div>
                     {c.kc > 0 && (
@@ -3153,48 +4264,24 @@ function AlimPanierTab() {
                       </span>
                     )}
                   </div>
-                  {c.items ? (
-                    <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13, tableLayout: "fixed", marginBottom: 10 }}>
-                      <colgroup><col style={{ width: "56%" }} /><col style={{ width: "22%" }} /><col style={{ width: "22%" }} /></colgroup>
-                      <tbody>
-                        {c.items.map(([al, qc, qe], i) => (
-                          <tr key={i} style={{ borderTop: `1px solid ${COLORS.track}` }}>
-                            <td style={{ padding: "5px 0", color: COLORS.text }}>{al}</td>
-                            <td style={{ padding: "5px 0", textAlign: "right", color: COLORS.gold, whiteSpace: "nowrap" }}>{qc}</td>
-                            <td style={{ padding: "5px 0 5px 12px", textAlign: "right", color: qe === "–" ? COLORS.muted : "#7FBBAE", whiteSpace: "nowrap" }}>{qe}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  ) : (
-                    <div style={{ marginBottom: 10 }}>
-                      <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: c.note ? 6 : 0 }}>
-                        <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 999, border: `1px solid ${alimTone(c.adapteClement)}`, color: alimTone(c.adapteClement) }}>Clément : {c.adapteClement}</span>
-                        <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 999, border: `1px solid ${alimTone(c.niveau)}`, color: alimTone(c.niveau) }}>{c.niveau}</span>
-                      </div>
-                      {c.note && <p style={{ fontSize: 12, color: COLORS.muted, fontStyle: "italic", margin: "0 0 4px", lineHeight: 1.4 }}>{c.note}</p>}
-                      {c.groupItems ? (
-                        <div style={{ marginBottom: 6 }}>
-                          <div style={{ fontSize: 11, color: COLORS.muted, marginBottom: 4 }}>Ingrédients pour {c.groupServings} personnes :</div>
-                          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
-                            <tbody>
-                              {c.groupItems.map(([al, q], i) => (
-                                <tr key={i} style={{ borderTop: `1px solid ${COLORS.track}` }}>
-                                  <td style={{ padding: "4px 0", color: COLORS.text }}>{al}</td>
-                                  <td style={{ padding: "4px 0", textAlign: "right", color: ALIM_ACCENT, whiteSpace: "nowrap" }}>{q}</td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </table>
-                        </div>
-                      ) : (
-                        <p style={{ fontSize: 11, color: COLORS.muted, margin: "0 0 6px" }}>{c.saison} · {c.source} · ingrédients à définir (voir onglet Recettes)</p>
-                      )}
+                  {!c.items && (
+                    <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 8 }}>
+                      <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 999, border: `1px solid ${alimTone(c.adapteClement)}`, color: alimTone(c.adapteClement) }}>Clément : {c.adapteClement}</span>
+                      <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 999, border: `1px solid ${alimTone(c.niveau)}`, color: alimTone(c.niveau) }}>{c.niveau}</span>
                     </div>
                   )}
-                  <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                  {c.note && <p style={{ fontSize: 12, color: COLORS.muted, fontStyle: "italic", margin: "0 0 8px", lineHeight: 1.4 }}>{c.note}</p>}
+                  <div style={{ marginBottom: 10 }}>
+                    <RecipeIngredients card={c} />
+                  </div>
+                  {open && (
+                    <div style={{ borderTop: `1px solid ${COLORS.track}`, paddingTop: 12, marginBottom: 12 }}>
+                      <RecipeSteps steps={c.steps} />
+                    </div>
+                  )}
+                  <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
                     <button
-                      onClick={() => setCount(c.id, count - 1)}
+                      onClick={() => setCount(key, count - 1)}
                       disabled={count === 0}
                       style={{ width: 32, height: 32, borderRadius: 8, border: `1px solid ${COLORS.border}`, background: "transparent", color: count === 0 ? COLORS.muted : COLORS.text, fontSize: 16, cursor: count === 0 ? "default" : "pointer", opacity: count === 0 ? 0.5 : 1 }}
                     >
@@ -3202,12 +4289,21 @@ function AlimPanierTab() {
                     </button>
                     <span style={{ fontSize: 15, fontWeight: 600, color: COLORS.text, minWidth: 20, textAlign: "center" }}>{count}</span>
                     <button
-                      onClick={() => setCount(c.id, count + 1)}
+                      onClick={() => setCount(key, count + 1)}
                       style={{ width: 32, height: 32, borderRadius: 8, border: `1px solid ${ALIM_ACCENT}`, background: "transparent", color: ALIM_ACCENT, fontSize: 16, cursor: "pointer" }}
                     >
                       +
                     </button>
                     {count > 0 && <span style={{ fontSize: 12, color: COLORS.muted }}>dans le panier</span>}
+                    {c.steps && (
+                      <button
+                        onClick={() => setOpenRecipe(open ? null : key)}
+                        style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 4, background: "none", border: "none", color: ALIM_ACCENT, fontSize: 12, cursor: "pointer", padding: 4 }}
+                      >
+                        {open ? "Masquer la recette" : "Voir la recette"}
+                        <ChevronDown size={14} style={{ transform: open ? "rotate(180deg)" : "none", transition: "transform 0.2s" }} />
+                      </button>
+                    )}
                   </div>
                 </div>
               );
@@ -3310,6 +4406,7 @@ const ALIM_REC_FILTERS = [
 ];
 function AlimRecettes() {
   const [f, setF] = useState("ideal");
+  const [openIdx, setOpenIdx] = useState(null);
   const list = ALIM_DATA.recettes
     .map((r, i) => ({ r, i }))
     .filter(({ r }) => (f === "tous" ? true : f === "ideal" ? r[6] === "Idéal" : f === "sova" ? r[5] === "Ebook SOVA" : /automne/i.test(r[2] || "")));
@@ -3338,6 +4435,22 @@ function AlimRecettes() {
                       <li key={j}>{al}{q ? <span style={{ color: ALIM_ACCENT }}> — {q}</span> : null}</li>
                     ))}
                   </ul>
+                </div>
+              )}
+              {RECIPE_STEPS[r[0]] && (
+                <div style={{ marginTop: 10 }}>
+                  <button
+                    onClick={() => setOpenIdx(openIdx === i ? null : i)}
+                    style={{ display: "flex", alignItems: "center", gap: 4, background: "none", border: "none", color: ALIM_ACCENT, fontSize: 12, cursor: "pointer", padding: 0 }}
+                  >
+                    {openIdx === i ? "Masquer la recette" : "Voir la recette"}
+                    <ChevronDown size={14} style={{ transform: openIdx === i ? "rotate(180deg)" : "none", transition: "transform 0.2s" }} />
+                  </button>
+                  {openIdx === i && (
+                    <div style={{ marginTop: 10 }}>
+                      <RecipeSteps steps={RECIPE_STEPS[r[0]]} />
+                    </div>
+                  )}
                 </div>
               )}
             </div>
