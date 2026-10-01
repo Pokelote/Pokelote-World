@@ -8601,9 +8601,6 @@ const ADMIN_CATEGORIES = [
 
 const ADMIN_DEFAULT_ITEMS = {
   identite: [
-    { id: "cni", label: "Carte nationale d'identité", frequency: "Renouvellement tous les 10 ans", nextDue: null },
-    { id: "passeport", label: "Passeport", frequency: "Renouvellement tous les 10 ans", nextDue: null },
-    { id: "permis", label: "Permis de conduire", frequency: "À vérifier (validité, points)", nextDue: null },
   ],
   vehicule: [
     // Tâches ajoutées le 01/10/2026 — objectif : fonctionner administrativement comme un couple marié
@@ -8614,9 +8611,6 @@ const ADMIN_DEFAULT_ITEMS = {
       frequency: "Ajouter le second conducteur / co-titulaire, accès à l'espace client pour les deux",
       nextDue: "2026-11-30",
     },
-    { id: "carte-grise", label: "Carte grise", frequency: "À jour sauf changement de véhicule", nextDue: null },
-    { id: "assurance-auto", label: "Assurance véhicule", frequency: "Renouvellement annuel", nextDue: null },
-    { id: "controle-technique", label: "Contrôle technique", frequency: "Tous les 2 ans", nextDue: null },
   ],
   logement: [
     // Tâches ajoutées le 01/10/2026 — objectif : fonctionner administrativement comme un couple marié
@@ -8627,8 +8621,6 @@ const ADMIN_DEFAULT_ITEMS = {
       frequency: "Co-titulaires du bail et de l'assurance habitation",
       nextDue: "2026-11-30",
     },
-    { id: "assurance-habitation", label: "Assurance habitation", frequency: "Renouvellement annuel", nextDue: null },
-    { id: "entretien-chaudiere", label: "Entretien chaudière", frequency: "Annuel", nextDue: null },
   ],
   sante: [
     // Tâches ajoutées le 01/10/2026 — objectif : fonctionner administrativement comme un couple marié
@@ -8639,8 +8631,6 @@ const ADMIN_DEFAULT_ITEMS = {
       frequency: "Comparer une mutuelle commune, accès partagé à l'espace client",
       nextDue: "2026-12-15",
     },
-    { id: "mutuelle", label: "Mutuelle santé", frequency: "Renouvellement annuel", nextDue: null },
-    { id: "carte-vitale", label: "Carte vitale — mise à jour", frequency: "À vérifier régulièrement", nextDue: null },
   ],
   finances: [
     // Tâches ajoutées le 01/10/2026 — objectif : fonctionner administrativement comme un couple marié
@@ -8651,8 +8641,6 @@ const ADMIN_DEFAULT_ITEMS = {
       frequency: "Comparer frais, carte(s), appli ; puis ouvrir le compte et y basculer les prélèvements",
       nextDue: "2026-10-31",
     },
-    { id: "declaration-revenus", label: "Déclaration de revenus", frequency: "Annuel — généralement en mai", nextDue: null },
-    { id: "taxe-fonciere-habitation", label: "Taxe foncière / d'habitation", frequency: "Annuel — automne", nextDue: null },
   ],
   abonnements: [
     // Tâches ajoutées le 01/10/2026 — objectif : fonctionner administrativement comme un couple marié
@@ -8681,8 +8669,6 @@ const ADMIN_DEFAULT_ITEMS = {
       frequency: "Gestionnaire de mots de passe commun, répartition de qui suit quoi",
       nextDue: "2026-12-31",
     },
-    { id: "box-internet", label: "Box internet / téléphone", frequency: "Contrat à vérifier périodiquement", nextDue: null },
-    { id: "energie", label: "Contrat énergie (électricité / gaz)", frequency: "Contrat à vérifier périodiquement", nextDue: null },
   ],
   concours: [
     {
@@ -8693,6 +8679,80 @@ const ADMIN_DEFAULT_ITEMS = {
     },
   ],
 };
+// Idées de choses à vérifier (01/10/2026) : les éléments génériques qui étaient pré-remplis dans les
+// catégories (pas de vraies tâches, pas d'échéance) — gardés à part pour se donner des idées, sans case.
+const ADMIN_IDEAS = {
+  "identite": [
+    [
+      "Carte nationale d'identité",
+      "Renouvellement tous les 10 ans"
+    ],
+    [
+      "Passeport",
+      "Renouvellement tous les 10 ans"
+    ],
+    [
+      "Permis de conduire",
+      "À vérifier (validité, points)"
+    ]
+  ],
+  "vehicule": [
+    [
+      "Carte grise",
+      "À jour sauf changement de véhicule"
+    ],
+    [
+      "Assurance véhicule",
+      "Renouvellement annuel"
+    ],
+    [
+      "Contrôle technique",
+      "Tous les 2 ans"
+    ]
+  ],
+  "logement": [
+    [
+      "Assurance habitation",
+      "Renouvellement annuel"
+    ],
+    [
+      "Entretien chaudière",
+      "Annuel"
+    ]
+  ],
+  "sante": [
+    [
+      "Mutuelle santé",
+      "Renouvellement annuel"
+    ],
+    [
+      "Carte vitale — mise à jour",
+      "À vérifier régulièrement"
+    ]
+  ],
+  "finances": [
+    [
+      "Déclaration de revenus",
+      "Annuel — généralement en mai"
+    ],
+    [
+      "Taxe foncière / d'habitation",
+      "Annuel — automne"
+    ]
+  ],
+  "abonnements": [
+    [
+      "Box internet / téléphone",
+      "Contrat à vérifier périodiquement"
+    ],
+    [
+      "Contrat énergie (électricité / gaz)",
+      "Contrat à vérifier périodiquement"
+    ]
+  ]
+};
+
+
 
 function daysUntil(dateStr) {
   if (!dateStr) return null;
@@ -8812,12 +8872,31 @@ function AdministratifTab() {
         const doneCount = items.filter((it) => checked[it.id]).length;
         return (
           <CollapsibleSection key={cat.key} title={cat.label} accent={ADMIN_ACCENT} badge={`${doneCount} / ${items.length}`}>
+            {items.length === 0 && <p style={{ color: COLORS.muted, fontSize: 13, fontStyle: "italic", margin: "4px 4px 0" }}>Rien à faire pour l'instant.</p>}
             {items.map((it) => (
               <AdminItemRow key={it.id} item={it} checked={!!checked[it.id]} onToggle={toggle} />
             ))}
           </CollapsibleSection>
         );
       })}
+
+      <div style={{ marginTop: 28 }}>
+        <div style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: COLORS.text, marginBottom: 4 }}>💡 Idées de choses à vérifier</div>
+        <p style={{ color: COLORS.muted, fontSize: 13, margin: "0 0 12px" }}>Pense-bête, sans échéance : à transformer en vraie tâche si besoin.</p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(260px, 100%), 1fr))", gap: 10 }}>
+          {ADMIN_CATEGORIES.filter((cat) => ADMIN_IDEAS[cat.key]).map((cat) => (
+            <div key={cat.key} style={{ background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, borderRadius: 10, padding: "12px 14px" }}>
+              <div style={{ fontSize: 12, color: ADMIN_ACCENT, textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 600, marginBottom: 8 }}>{cat.label}</div>
+              {ADMIN_IDEAS[cat.key].map(([label, detail]) => (
+                <div key={label} style={{ padding: "5px 0" }}>
+                  <div style={{ fontSize: 13, color: COLORS.text }}>{label}</div>
+                  <div style={{ fontSize: 11, color: COLORS.muted }}>{detail}</div>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
