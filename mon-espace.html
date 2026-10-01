@@ -2447,6 +2447,7 @@ const TERRAIN_ZONE_LABELS = { lac: "Lac", montagne: "Montagne", mer: "Mer" };
 
 const TERRAIN_TOP_SECTIONS = [
   { key: "annonces", label: "Annonces" },
+  { key: "favoris", label: "⭐ Favoris" },
   { key: "historique", label: "Historique" },
 ];
 
@@ -2567,9 +2568,10 @@ function TerrainStatusPicker({ status, onSelect }) {
   );
 }
 
-function TerrainListingCard({ item, status, onSetStatus }) {
+function TerrainListingCard({ item, status, onSetStatus, favori, onToggleFavori }) {
   return (
     <div
+      {...favoriDragProps(item)}
       style={{
         background: COLORS.card,
         borderRadius: 10,
@@ -2582,7 +2584,10 @@ function TerrainListingCard({ item, status, onSetStatus }) {
         <span style={{ fontSize: 14, fontWeight: 500, color: COLORS.text, textDecoration: status === "vendu" ? "line-through" : "none" }}>
           {item.title}
         </span>
-        <span style={{ fontSize: 14, fontWeight: 600, color: TERRAIN_ACCENT, flexShrink: 0, whiteSpace: "nowrap" }}>{item.price}</span>
+        <span style={{ display: "flex", alignItems: "baseline", gap: 6, flexShrink: 0 }}>
+          <span style={{ fontSize: 14, fontWeight: 600, color: TERRAIN_ACCENT, whiteSpace: "nowrap" }}>{item.price}</span>
+          {onToggleFavori && <FavoriStar active={favori} onClick={onToggleFavori} />}
+        </span>
       </div>
       <div style={{ fontSize: 12, color: COLORS.muted, marginBottom: 8 }}>
         {item.location} · {TERRAIN_ZONE_LABELS[item.zoneType]} · {item.distance}
@@ -2609,6 +2614,7 @@ const MARSEILLE_STATUSES = [
 const MARSEILLE_SECTIONS = [
   { key: "achat", label: "Achat" },
   { key: "location", label: "Location" },
+  { key: "favoris", label: "⭐ Favoris" },
 ];
 
 const MARSEILLE_LOGEMENT = {
@@ -2723,9 +2729,10 @@ function MarseilleStatusPicker({ status, onSelect }) {
   );
 }
 
-function MarseilleLogementCard({ item, status, onSetStatus }) {
+function MarseilleLogementCard({ item, status, onSetStatus, favori, onToggleFavori }) {
   return (
     <div
+      {...favoriDragProps(item)}
       style={{
         background: COLORS.card,
         borderRadius: 10,
@@ -2738,7 +2745,10 @@ function MarseilleLogementCard({ item, status, onSetStatus }) {
         <span style={{ fontSize: 14, fontWeight: 500, color: COLORS.text, textDecoration: status === "indisponible" ? "line-through" : "none" }}>
           {item.title}
         </span>
-        <span style={{ fontSize: 14, fontWeight: 600, color: MARSEILLE_ACCENT, flexShrink: 0, whiteSpace: "nowrap" }}>{item.price}</span>
+        <span style={{ display: "flex", alignItems: "baseline", gap: 6, flexShrink: 0 }}>
+          <span style={{ fontSize: 14, fontWeight: 600, color: MARSEILLE_ACCENT, whiteSpace: "nowrap" }}>{item.price}</span>
+          {onToggleFavori && <FavoriStar active={favori} onClick={onToggleFavori} />}
+        </span>
       </div>
       <div style={{ fontSize: 12, color: COLORS.muted, marginBottom: 8 }}>{item.location} · {item.rooms}</div>
       <p style={{ fontSize: 13, color: COLORS.text, lineHeight: 1.5, margin: "0 0 6px" }}>{item.features}</p>
@@ -4840,11 +4850,130 @@ function AlimCibles() {
   );
 }
 
+// Favoris immo (ajouté 01/10/2026, demande explicite) : annonces gardées de côté, qu'on sélectionne avec
+// l'étoile ou qu'on glisse (ordinateur) sur la zone "Favoris". Stocké dans "immo-favoris" (synchronisé) :
+// { [id]: { kind: "terrain" | "logement", item: <copie complète de l'annonce>, savedAt } }. La copie
+// complète fait que les favoris restent intacts quand Claude remplace les annonces par de nouvelles.
+function useImmoFavoris() {
+  const [favs, setFavs] = useState({});
+  useEffect(() => {
+    let cancelled = false;
+    window.storage
+      .get("immo-favoris")
+      .then((res) => (res ? JSON.parse(res.value) : null))
+      .catch(() => null)
+      .then((v) => {
+        if (!cancelled && v && typeof v === "object") setFavs(v);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+  function save(next) {
+    setFavs(next);
+    window.storage.set("immo-favoris", JSON.stringify(next)).catch(() => {});
+  }
+  function toggle(kind, item) {
+    const next = { ...favs };
+    if (next[item.id]) delete next[item.id];
+    else next[item.id] = { kind, item, savedAt: Date.now() };
+    save(next);
+  }
+  function add(kind, item) {
+    if (!item || favs[item.id]) return;
+    save({ ...favs, [item.id]: { kind, item, savedAt: Date.now() } });
+  }
+  function list(kind) {
+    return Object.values(favs)
+      .filter((f) => f.kind === kind)
+      .sort((a, b) => b.savedAt - a.savedAt)
+      .map((f) => f.item);
+  }
+  return { favs, toggle, add, list };
+}
+
+function favoriDragProps(item) {
+  return {
+    draggable: true,
+    onDragStart: (e) => {
+      e.dataTransfer.setData("text/plain", item.id);
+      e.dataTransfer.effectAllowed = "copy";
+    },
+  };
+}
+
+function FavoriStar({ active, onClick }) {
+  return (
+    <button
+      onClick={onClick}
+      title={active ? "Retirer des favoris" : "Ajouter aux favoris"}
+      aria-label={active ? "Retirer des favoris" : "Ajouter aux favoris"}
+      style={{
+        border: "none",
+        background: "transparent",
+        cursor: "pointer",
+        padding: "0 2px",
+        fontSize: 18,
+        lineHeight: 1,
+        color: active ? "#E0A458" : COLORS.muted,
+      }}
+    >
+      {active ? "★" : "☆"}
+    </button>
+  );
+}
+
+function FavorisDropZone({ accent, count, onDropId, onOpen }) {
+  const [over, setOver] = useState(false);
+  return (
+    <div
+      onDragOver={(e) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = "copy";
+        if (!over) setOver(true);
+      }}
+      onDragLeave={() => setOver(false)}
+      onDrop={(e) => {
+        e.preventDefault();
+        setOver(false);
+        const id = e.dataTransfer.getData("text/plain");
+        if (id) onDropId(id);
+      }}
+      onClick={onOpen}
+      style={{
+        border: `1.5px dashed ${over ? accent : COLORS.border}`,
+        background: over ? `${accent}22` : "transparent",
+        borderRadius: 10,
+        padding: "10px 14px",
+        marginBottom: 16,
+        fontSize: 12,
+        color: over ? COLORS.text : COLORS.muted,
+        cursor: "pointer",
+        transition: "background 0.15s, border-color 0.15s",
+      }}
+    >
+      ⭐ <strong style={{ fontWeight: 600 }}>Favoris ({count})</strong> — glisse une annonce ici ou touche ☆ pour la garder de côté
+    </div>
+  );
+}
+
+function FavorisEmpty() {
+  return (
+    <p style={{ color: COLORS.muted, fontSize: 13, fontStyle: "italic" }}>
+      Aucun favori pour l'instant — touche ☆ sur une annonce (ou glisse-la sur la zone Favoris). Les favoris restent ici même quand
+      de nouvelles annonces sont cherchées.
+    </p>
+  );
+}
+
 function LogementMarseilleTab({ offerStatus, setOfferStatus }) {
   const [section, setSection] = useState("achat");
   const setStatusFor = makeOfferStatusSetter(setOfferStatus);
+  const fav = useImmoFavoris();
   const d = MARSEILLE_LOGEMENT;
-  const items = d.items.filter((it) => it.dealType === section);
+  const favItems = fav.list("logement");
+  const items = section === "favoris" ? favItems : d.items.filter((it) => it.dealType === section);
+  const sections = MARSEILLE_SECTIONS.map((o) => (o.key === "favoris" ? { ...o, label: `⭐ Favoris (${favItems.length})` } : o));
 
   return (
     <div>
@@ -4852,19 +4981,43 @@ function LogementMarseilleTab({ offerStatus, setOfferStatus }) {
         <h1 style={{ fontFamily: FONT_DISPLAY, fontSize: 32, color: COLORS.text, margin: 0, fontWeight: 600 }}>Logement Marseille</h1>
         <p style={{ color: COLORS.muted, fontSize: 13, marginTop: 8, marginBottom: 4, lineHeight: 1.5 }}>{d.criteria}</p>
         <p style={{ color: COLORS.muted, fontSize: 12, fontStyle: "italic", marginBottom: 4, lineHeight: 1.5 }}>
-          {section === "achat" ? d.noteAchat : d.noteLocation}
+          {section === "favoris"
+            ? "Annonces gardées de côté : elles restent ici quand de nouvelles annonces sont cherchées."
+            : section === "achat"
+            ? d.noteAchat
+            : d.noteLocation}
         </p>
         <span style={{ fontSize: 12, color: COLORS.muted }}>Mis à jour le {d.updatedAt}</span>
       </div>
 
-      <PillTabs options={MARSEILLE_SECTIONS} activeKey={section} onSelect={setSection} accentOf={() => MARSEILLE_ACCENT} />
+      <PillTabs options={sections} activeKey={section} onSelect={setSection} accentOf={() => MARSEILLE_ACCENT} marginBottom={16} />
+
+      {section !== "favoris" && (
+        <FavorisDropZone
+          accent={MARSEILLE_ACCENT}
+          count={favItems.length}
+          onDropId={(id) => fav.add("logement", d.items.find((it) => it.id === id))}
+          onOpen={() => setSection("favoris")}
+        />
+      )}
 
       {items.length === 0 ? (
-        <p style={{ color: COLORS.muted, fontSize: 13, fontStyle: "italic" }}>Aucune annonce pour l'instant dans cette rubrique.</p>
+        section === "favoris" ? (
+          <FavorisEmpty />
+        ) : (
+          <p style={{ color: COLORS.muted, fontSize: 13, fontStyle: "italic" }}>Aucune annonce pour l'instant dans cette rubrique.</p>
+        )
       ) : (
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           {items.map((item) => (
-            <MarseilleLogementCard key={item.id} item={item} status={offerStatus[item.id] || null} onSetStatus={setStatusFor} />
+            <MarseilleLogementCard
+              key={item.id}
+              item={item}
+              status={offerStatus[item.id] || null}
+              onSetStatus={setStatusFor}
+              favori={!!fav.favs[item.id]}
+              onToggleFavori={() => fav.toggle("logement", item)}
+            />
           ))}
         </div>
       )}
@@ -4878,6 +5031,10 @@ function TerrainTab({ offerStatus, setOfferStatus, terrainArchive, setTerrainArc
   const d = TERRAIN_LISTINGS;
   const items = zone === "tous" ? d.items : d.items.filter((it) => it.zoneType === zone);
   const historyItems = Object.values(terrainArchive || {});
+  const fav = useImmoFavoris();
+  const favItems = fav.list("terrain");
+  const topSections = TERRAIN_TOP_SECTIONS.map((o) => (o.key === "favoris" ? { ...o, label: `⭐ Favoris (${favItems.length})` } : o));
+  const favProps = (item) => ({ favori: !!fav.favs[item.id], onToggleFavori: () => fav.toggle("terrain", item) });
 
   function setStatusFor(item, status) {
     setOfferStatus((prev) => {
@@ -4903,10 +5060,16 @@ function TerrainTab({ offerStatus, setOfferStatus, terrainArchive, setTerrainArc
         <span style={{ fontSize: 12, color: COLORS.muted }}>Mis à jour le {d.updatedAt}</span>
       </div>
 
-      <PillTabs options={TERRAIN_TOP_SECTIONS} activeKey={section} onSelect={setSection} accentOf={() => TERRAIN_ACCENT} marginBottom={16} />
+      <PillTabs options={topSections} activeKey={section} onSelect={setSection} accentOf={() => TERRAIN_ACCENT} marginBottom={16} />
 
       {section === "annonces" && (
         <div>
+          <FavorisDropZone
+            accent={TERRAIN_ACCENT}
+            count={favItems.length}
+            onDropId={(id) => fav.add("terrain", d.items.find((it) => it.id === id))}
+            onOpen={() => setSection("favoris")}
+          />
           <PillTabs options={TERRAIN_SECTIONS} activeKey={zone} onSelect={setZone} accentOf={() => TERRAIN_ACCENT} />
 
           {items.length === 0 ? (
@@ -4914,7 +5077,33 @@ function TerrainTab({ offerStatus, setOfferStatus, terrainArchive, setTerrainArc
           ) : (
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
               {items.map((item) => (
-                <TerrainListingCard key={item.id} item={item} status={offerStatus[item.id] || null} onSetStatus={(id, s) => setStatusFor(item, s)} />
+                <TerrainListingCard
+                  key={item.id}
+                  item={item}
+                  status={offerStatus[item.id] || null}
+                  onSetStatus={(id, s) => setStatusFor(item, s)}
+                  {...favProps(item)}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {section === "favoris" && (
+        <div>
+          {favItems.length === 0 ? (
+            <FavorisEmpty />
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              {favItems.map((item) => (
+                <TerrainListingCard
+                  key={item.id}
+                  item={item}
+                  status={offerStatus[item.id] || null}
+                  onSetStatus={(id, s) => setStatusFor(item, s)}
+                  {...favProps(item)}
+                />
               ))}
             </div>
           )}
@@ -4935,6 +5124,7 @@ function TerrainTab({ offerStatus, setOfferStatus, terrainArchive, setTerrainArc
                   item={item}
                   status={offerStatus[item.id] || "interessant"}
                   onSetStatus={(id, s) => setStatusFor(item, s)}
+                  {...favProps(item)}
                 />
               ))}
             </div>
