@@ -6552,11 +6552,17 @@ function AccueilTab({ taskEvents, taskChecks, toggleTask, offerStatus, onNavigat
 //   { repasStart: "AAAA-MM-JJ", repas: { clement: { "AAAA-MM-JJ": true }, estelle: {…} },
 //     alcool: { clement: { "AAAA-MM-JJ": true } },   ← défi « sans alcool » de Clément (ajouté 01/10/2026)
 //     sport: { clement: { "<lundi AAAA-MM-JJ>": nb }, estelle: {…} } }
-// Lignes du défi des 30 jours : chaque personne a « sans écart », Clément aussi « sans alcool ».
-const OBJ_TRACKS = [
-  { person: "clement", track: "repas", label: "Sans écart", todo: "Pas d'écart aujourd'hui" },
-  { person: "clement", track: "alcool", label: "Sans alcool", todo: "Pas d'alcool aujourd'hui" },
-  { person: "estelle", track: "repas", label: "Sans écart", todo: "Pas d'écart aujourd'hui" },
+// Défi des 30 jours : un calendrier par personne. Clément a deux critères (sans écart + sans alcool) :
+// sa journée n'est validée que quand les DEUX sont cochés ; un seul = case à moitié teintée.
+const OBJ_ROWS = [
+  {
+    person: "clement",
+    tracks: [
+      { track: "repas", todo: "Pas d'écart", done: "Sans écart" },
+      { track: "alcool", todo: "Pas d'alcool", done: "Sans alcool" },
+    ],
+  },
+  { person: "estelle", tracks: [{ track: "repas", todo: "Pas d'écart aujourd'hui", done: "Journée validée" }] },
 ];
 const OBJ_DAYS = 30;
 const OBJ_SPORT_GOAL = 3;
@@ -6654,47 +6660,76 @@ function ObjectifsCard() {
       <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
         {/* Repas */}
         <div>
-          <h3 style={sectionTitle}>🍽️ 30 jours sans écart · 🚫🍷 sans alcool</h3>
+          <h3 style={sectionTitle}>🍽️ 30 jours sans écart</h3>
           <p style={sub}>
             Du {fmtDay(start)} au {fmtDay(end)}
             {finished ? " · défi terminé" : ` · jour ${Math.min(dayIndex + 1, OBJ_DAYS)}/${OBJ_DAYS}`}
           </p>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 18 }}>
-            {OBJ_TRACKS.map(({ person, track, label, todo }) => {
+            {OBJ_ROWS.map(({ person, tracks }) => {
               const p = OBJ_PEOPLE.find((x) => x.key === person);
-              const days = (data[track] || {})[p.key] || {};
-              const done = challengeDays.filter((d) => days[dateKey(d)]).length;
-              const streak = objStreak(days, today);
-              const todayOk = !!days[todayKey];
+              const marks = tracks.map((t) => (data[t.track] || {})[p.key] || {});
+              const nbOk = (k) => marks.filter((m) => m[k]).length;
+              // Journée validée = tous les critères de la personne cochés ce jour-là.
+              const full = {};
+              challengeDays.forEach((d) => {
+                const k = dateKey(d);
+                if (nbOk(k) === tracks.length) full[k] = true;
+              });
+              const done = Object.keys(full).length;
+              const streak = objStreak(full, today);
               const inChallenge = dayIndex >= 0 && !finished;
+              const toggleWholeDay = (k) => {
+                // Clic dans le calendrier : coche tous les critères du jour, ou les décoche s'ils l'étaient tous.
+                const setAll = nbOk(k) !== tracks.length;
+                let next = { ...data };
+                tracks.forEach((t) => {
+                  const all = next[t.track] || {};
+                  const mine = { ...(all[p.key] || {}) };
+                  if (setAll) mine[k] = true;
+                  else delete mine[k];
+                  next = { ...next, [t.track]: { ...all, [p.key]: mine } };
+                });
+                save(next);
+              };
               return (
-                <div key={p.key + track}>
+                <div key={p.key}>
                   <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8, flexWrap: "wrap" }}>
                     <ObjAvatar person={p} />
                     <span style={{ fontSize: 14, color: COLORS.text, fontWeight: 600 }}>
-                      {p.label} <span style={{ fontWeight: 400, color: COLORS.muted }}>· {label}</span>
+                      {p.label}
+                      {tracks.length > 1 && <span style={{ fontWeight: 400, color: COLORS.muted }}> · sans écart & sans alcool</span>}
                     </span>
                     <span style={{ fontSize: 12, color: COLORS.muted }}>
                       {streak > 0 ? `🔥 ${streak} jour${streak > 1 ? "s" : ""} d'affilée · ` : ""}
                       {done}/{OBJ_DAYS}
                     </span>
-                    {inChallenge && (
-                      <button
-                        onClick={() => toggleDay(track, p.key, todayKey)}
-                        style={{
-                          marginLeft: "auto", borderRadius: 999, padding: "7px 14px", fontSize: 12, fontWeight: 600, cursor: "pointer",
-                          border: `1px solid ${todayOk ? COLORS.checked : p.color}`,
-                          background: todayOk ? COLORS.checked : "transparent",
-                          color: todayOk ? "#0b1a0c" : p.color,
-                          transition: "background 0.2s, color 0.2s",
-                        }}
-                      >
-                        {todayOk ? "✓ Journée validée" : todo}
-                      </button>
-                    )}
                   </div>
+                  {inChallenge && (
+                    <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 10, maxWidth: 240 }}>
+                      {tracks.map((t, i) => {
+                        const on = !!marks[i][todayKey];
+                        return (
+                          <button
+                            key={t.track}
+                            onClick={() => toggleDay(t.track, p.key, todayKey)}
+                            style={{
+                              flex: "1 1 0", whiteSpace: "nowrap", borderRadius: 999, padding: "7px 12px", fontSize: 12, fontWeight: 600, cursor: "pointer",
+                              border: `1px solid ${on ? COLORS.checked : p.color}`,
+                              background: on ? COLORS.checked : "transparent",
+                              color: on ? "#0b1a0c" : p.color,
+                              transition: "background 0.2s, color 0.2s",
+                            }}
+                          >
+                            {on ? `✓ ${t.done}` : t.todo}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
                   {/* Mini-calendrier (01/10/2026) : colonnes lundi → dimanche, seuls les 30 jours du défi
-                      sont numérotés ; jour coché = rempli de la couleur de la personne. */}
+                      sont numérotés ; journée validée = remplie de la couleur de la personne ; un seul des
+                      deux critères de Clément = moitié teintée. */}
                   <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 3, maxWidth: 240 }}>
                     {["L", "M", "M", "J", "V", "S", "D"].map((w, i) => (
                       <div key={"h" + i} style={{ textAlign: "center", fontSize: 10, color: COLORS.muted, paddingBottom: 2 }}>{w}</div>
@@ -6704,22 +6739,31 @@ function ObjectifsCard() {
                     ))}
                     {challengeDays.map((d) => {
                       const k = dateKey(d);
-                      const ok = !!days[k];
+                      const n = nbOk(k);
+                      const ok = n === tracks.length;
+                      const partial = n > 0 && !ok;
                       const future = d > today;
                       const isToday = k === todayKey;
+                      const label = tracks.filter((t, i) => marks[i][k]).map((t) => t.done.toLowerCase()).join(" + ");
                       return (
                         <button
                           key={k}
-                          title={`${fmtDay(d)}${ok ? " · " + label.toLowerCase() : ""}`}
+                          title={`${fmtDay(d)}${label ? " · " + label : ""}`}
                           disabled={future}
-                          onClick={() => toggleDay(track, p.key, k)}
+                          onClick={() => toggleWholeDay(k)}
                           style={{
                             aspectRatio: "1", minWidth: 0, padding: 0, borderRadius: 7, cursor: future ? "default" : "pointer",
-                            fontSize: 11, fontFamily: FONT_BODY, fontWeight: ok || isToday ? 600 : 400,
+                            fontSize: 11, fontFamily: FONT_BODY, fontWeight: ok || partial || isToday ? 600 : 400,
                             display: "flex", alignItems: "center", justifyContent: "center",
-                            background: ok ? p.color : future ? "transparent" : "rgba(255,255,255,0.05)",
+                            background: ok
+                              ? p.color
+                              : partial
+                              ? `linear-gradient(135deg, ${p.color}88 50%, rgba(255,255,255,0.05) 50%)`
+                              : future
+                              ? "transparent"
+                              : "rgba(255,255,255,0.05)",
                             color: ok ? "#1a1406" : future ? COLORS.muted : COLORS.text,
-                            border: `1px solid ${isToday ? COLORS.text : ok ? p.color : "rgba(255,255,255,0.08)"}`,
+                            border: `1px solid ${isToday ? COLORS.text : ok || partial ? p.color : "rgba(255,255,255,0.08)"}`,
                             opacity: future ? 0.5 : 1,
                           }}
                         >
