@@ -2455,10 +2455,6 @@ const ALIM_SECTIONS = [
   { key: "cibles", label: "Cibles" },
   { key: "sopk", label: "Repères SOPK" },
 ];
-const ALIM_WEEKS = [
-  { key: 1, label: "Semaine 1 · 28/09 → 04/10" },
-  { key: 2, label: "Semaine 2 · 05/10 → 11/10" },
-];
 const ALIM_MEAL_ICON = { "Petit-déjeuner": "☀️", "Collation matin": "🍎", "Déjeuner": "🍽️", "Collation après-midi": "🥣", "Dîner": "🌙" };
 const alimCard = { background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, borderRadius: 12, padding: 16 };
 
@@ -3739,7 +3735,6 @@ const PLAN_MEAL_TYPES = [
 const PANIER_VIEWS = [
   { key: "suivi", label: "Suivi de la semaine" },
   { key: "recettes", label: "Choisir" },
-  { key: "courses", label: "Courses" },
 ];
 // Le panier est compté PAR RUBRIQUE (clé "<rubrique>|<id>", depuis le 01/10/2026) : une recette
 // proposée à la fois en collation matin et après-midi n'est plus cochée dans les deux à la fois.
@@ -3913,13 +3908,16 @@ function RecipeDetails({ card }) {
   );
 }
 
-function AlimPanierCourses({ panier, checked, onToggle }) {
+function AlimPanierCourses({ panier, checked, onToggle, onReset, onCheckAll }) {
   const hasAny = Object.values(panier || {}).some((n) => n > 0);
   if (!hasAny) {
     return (
-      <p style={{ fontSize: 13, color: COLORS.muted }}>
-        Ajoute des recettes à ton panier pour voir la liste de courses se remplir automatiquement.
-      </p>
+      <div style={{ ...alimCard, textAlign: "center", padding: "28px 20px" }}>
+        <div style={{ fontSize: 15, color: COLORS.text, marginBottom: 6 }}>Pas encore de liste de courses.</div>
+        <p style={{ fontSize: 13, color: COLORS.muted, margin: 0 }}>
+          Choisis tes recettes dans « Ma semaine » puis valide ta sélection : la liste se calcule toute seule.
+        </p>
+      </div>
     );
   }
   const { items: clem, unquantified } = buildPanierCourses(panier, 1);
@@ -3936,11 +3934,29 @@ function AlimPanierCourses({ panier, checked, onToggle }) {
     byRayon[it.rayon][it.name].e = it.display;
   });
   const rayons = Object.keys(byRayon);
+  const allKeys = rayons.flatMap((r) => Object.keys(byRayon[r]).map((name) => "panier:" + name));
+  const doneCount = allKeys.filter((k) => checked[k]).length;
+  const pillBtn = { background: "transparent", border: `1px solid ${COLORS.border}`, color: COLORS.muted, borderRadius: 999, padding: "5px 12px", fontSize: 12, cursor: "pointer" };
   return (
     <div>
-      <p style={{ fontSize: 12, color: COLORS.muted, marginBottom: 12 }}>
-        Calculée automatiquement à partir des recettes de ton panier (quantités Clément | Estelle).
-      </p>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap", marginBottom: 12 }}>
+        <span style={{ fontSize: 12, color: COLORS.muted }}>
+          Calculée à partir de la sélection validée (quantités <span style={{ color: COLORS.gold }}>Clément</span> |{" "}
+          <span style={{ color: "#7FBBAE" }}>Estelle</span>) · {doneCount}/{allKeys.length} cochés
+        </span>
+        <div style={{ display: "flex", gap: 8 }}>
+          {onCheckAll && (
+            <button onClick={() => onCheckAll(allKeys)} style={pillBtn}>
+              Tout cocher
+            </button>
+          )}
+          {onReset && (
+            <button onClick={onReset} style={pillBtn}>
+              Tout décocher
+            </button>
+          )}
+        </div>
+      </div>
       {rayons.map((r) => (
         <div key={r} style={{ ...alimCard, marginBottom: 12 }}>
           <h3 style={{ margin: "0 0 8px", fontFamily: FONT_DISPLAY, fontSize: 17, color: ALIM_ACCENT, fontWeight: 600 }}>{r}</h3>
@@ -4212,7 +4228,11 @@ function AlimPanierTab() {
   return (
     <div>
       <PillTabs options={PANIER_VIEWS} activeKey={view} onSelect={setView} accentOf={() => ALIM_ACCENT} marginBottom={14} />
-      {view === "suivi" && <AlimSuivi plan={plan} onDone={markDone} onUndo={undo} onReset={() => savePlan(null)} onChoose={() => setView("recettes")} />}
+      {view === "suivi" && <AlimSuivi plan={plan} onDone={markDone} onUndo={undo} onReset={() => {
+            savePlan(null);
+            setChecked({});
+            window.storage.set("alim-panier-courses-checked", "{}").catch(() => {});
+          }} onChoose={() => setView("recettes")} />}
       {view === "recettes" && (
         <div>
           <div
@@ -4311,68 +4331,57 @@ function AlimPanierTab() {
           </div>
         </div>
       )}
-      {view === "courses" && <AlimPanierCourses panier={panier} checked={checked} onToggle={toggleChecked} />}
     </div>
   );
 }
 
+// Onglet « Courses » (01/10/2026) : uniquement la liste issue de la sélection validée dans
+// « Ma semaine » (plus de listes fixes semaine 1 / semaine 2). Cases cochées partagées dans
+// "alim-panier-courses-checked", remises à zéro avec « Nouvelle semaine ».
 function AlimCourses() {
-  const [week, setWeek] = useState(1);
+  const [plan, setPlan] = useState(undefined);
   const [checked, setChecked] = useState({});
   useEffect(() => {
+    let cancelled = false;
     (async () => {
+      let pl = null;
+      let c = {};
       try {
-        const res = await window.storage.get("alimentation-courses-checked");
-        if (res && res.value) setChecked(JSON.parse(res.value));
+        const res = await window.storage.get("alim-semaine-suivi");
+        pl = res ? JSON.parse(res.value) : null;
       } catch {}
+      try {
+        const res = await window.storage.get("alim-panier-courses-checked");
+        c = res ? JSON.parse(res.value) || {} : {};
+      } catch {}
+      if (!cancelled) {
+        setPlan(pl && pl.entries ? pl : null);
+        setChecked(c);
+      }
     })();
+    return () => {
+      cancelled = true;
+    };
   }, []);
   function save(next) {
     setChecked(next);
-    window.storage.set("alimentation-courses-checked", JSON.stringify(next)).catch(() => {});
+    window.storage.set("alim-panier-courses-checked", JSON.stringify(next)).catch(() => {});
   }
-  const wk = "w" + week;
-  const items = ALIM_DATA.courses.filter((c) => c[wk]);
-  const rayons = [...new Set(items.map((c) => c.rayon))];
-  const done = items.filter((c) => checked[wk + ":" + c.id]).length;
-  function toggle(id) {
-    const k = wk + ":" + id;
+  function toggle(key) {
     const next = { ...checked };
-    if (next[k]) delete next[k];
-    else next[k] = true;
+    if (next[key]) delete next[key];
+    else next[key] = true;
     save(next);
   }
-  function reset() {
-    const next = { ...checked };
-    Object.keys(next).forEach((k) => k.startsWith(wk + ":") && delete next[k]);
-    save(next);
-  }
+  if (plan === undefined) return null;
   return (
     <div>
-      <PillTabs options={ALIM_WEEKS} activeKey={week} onSelect={setWeek} accentOf={() => ALIM_ACCENT} marginBottom={12} />
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14, gap: 12, flexWrap: "wrap" }}>
-        <span style={{ fontSize: 13, color: COLORS.muted }}>Quantités pour vous deux · {done}/{items.length} cochés</span>
-        <button onClick={reset} style={{ background: "transparent", border: `1px solid ${COLORS.border}`, color: COLORS.muted, borderRadius: 999, padding: "5px 12px", fontSize: 12, cursor: "pointer" }}>
-          Tout décocher
-        </button>
-      </div>
-      {rayons.map((r) => (
-        <div key={r} style={{ ...alimCard, marginBottom: 12 }}>
-          <h3 style={{ margin: "0 0 8px", fontFamily: FONT_DISPLAY, fontSize: 17, color: ALIM_ACCENT, fontWeight: 600 }}>{r}</h3>
-          {items.filter((c) => c.rayon === r).map((c) => {
-            const on = !!checked[wk + ":" + c.id];
-            return (
-              <label key={c.id} style={{ display: "flex", alignItems: "center", gap: 10, padding: "6px 0", borderTop: `1px solid ${COLORS.track}`, cursor: "pointer" }}>
-                <input type="checkbox" checked={on} onChange={() => toggle(c.id)} style={{ width: 18, height: 18, accentColor: COLORS.checked }} />
-                <span style={{ flex: 1, fontSize: 14, color: on ? COLORS.muted : COLORS.text, textDecoration: on ? "line-through" : "none" }}>{c.al}</span>
-                <span style={{ fontSize: 13, color: on ? COLORS.muted : COLORS.text, whiteSpace: "nowrap" }}>{c[wk]}</span>
-              </label>
-            );
-          })}
-        </div>
-      ))}
-      <p style={{ fontSize: 12, color: COLORS.muted, fontStyle: "italic", lineHeight: 1.5 }}>
-        Placard (non compté) : thé vert, infusions, citrons bio (≈ 7/semaine), curcuma, cumin, curry, thym, gingembre, ail, oignons, gomasio.
+      <AlimPanierCourses panier={plan ? plan.entries : {}} checked={checked} onToggle={toggle}
+        onReset={() => save({})}
+        onCheckAll={(keys) => save({ ...checked, ...Object.fromEntries(keys.map((k) => [k, true])) })}
+      />
+      <p style={{ fontSize: 12, color: COLORS.muted, fontStyle: "italic", lineHeight: 1.5, marginTop: 4 }}>
+        Placard (non compté) : thé vert, infusions, citrons bio, curcuma, cumin, curry, thym, gingembre, ail, oignons, gomasio.
         Légumineuses comptées cuites : 400 g cuites ≈ 160 g sèches ou 1 grande boîte égouttée.
       </p>
     </div>
