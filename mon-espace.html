@@ -8087,33 +8087,9 @@ function MusculationWeekDots({ checked, selectedWeek, onSelect }) {
   );
 }
 
-function MusculationSeanceCards({ week, seance, log, onLogChange, maxes }) {
-  function renderInput(id) {
-    return (
-      <input
-        type="text"
-        value={log[id] || ""}
-        onChange={(e) => onLogChange(id, e.target.value)}
-        placeholder="Charge, reps…"
-        style={{
-          width: "100%",
-          background: COLORS.card,
-          border: `1px solid ${COLORS.border}`,
-          borderRadius: 6,
-          padding: "8px 10px",
-          fontSize: 14,
-          fontFamily: FONT_BODY,
-          color: COLORS.text,
-          boxSizing: "border-box",
-        }}
-        onFocus={(e) => (e.target.style.borderColor = MUSCU_ACCENT)}
-        onBlur={(e) => (e.target.style.borderColor = COLORS.border)}
-      />
-    );
-  }
-
-  const skipPart = (p) => p === "Warm-up" || p === "Med Ball";
-
+// Plus de champs de notes dans les séances (01/10/2026, demande explicite) : on affiche le programme
+// et la charge calculée depuis les maxes ; le suivi se fait uniquement en cochant les séances faites.
+function MusculationSeanceCards({ week, seance, maxes }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
       {seance.blocks.map((b, i) => {
@@ -8127,17 +8103,15 @@ function MusculationSeanceCards({ week, seance, log, onLogChange, maxes }) {
             key={i}
             style={{ background: COLORS.track, border: `1px solid ${COLORS.border}`, borderRadius: 8, padding: "10px 12px" }}
           >
-            <div style={{ fontSize: 13, fontWeight: 600, color: COLORS.text, marginBottom: 8 }}>{b.title}</div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: COLORS.text, marginBottom: 6 }}>{b.title}</div>
             {parts.map((part, j) => {
-              const id = parts.length > 1 ? `${week.n}__${seance.key}__${i}__${j}` : `${week.n}__${seance.key}__${i}`;
               const weight = b.liftKey ? computeWeightFromMax(extractPercent(part), parseFloat(maxes[b.liftKey])) : null;
               return (
-                <div key={j} style={{ marginTop: j === 0 ? 0 : 10 }}>
-                  <div style={{ fontSize: 13, color: COLORS.muted, marginBottom: skipPart(part) ? 0 : 6 }}>
+                <div key={j} style={{ marginTop: j === 0 ? 0 : 4 }}>
+                  <div style={{ fontSize: 13, color: COLORS.muted }}>
                     {part}
                     {weight != null && <span style={{ color: MUSCU_ACCENT, fontWeight: 600, marginLeft: 6 }}>→ {weight} kg</span>}
                   </div>
-                  {!skipPart(part) && renderInput(id)}
                 </div>
               );
             })}
@@ -8148,7 +8122,7 @@ function MusculationSeanceCards({ week, seance, log, onLogChange, maxes }) {
   );
 }
 
-function MusculationWeekDetail({ week, checked, onToggleSeance, log, onLogChange, maxes }) {
+function MusculationWeekDetail({ week, checked, onToggleSeance, maxes }) {
   return (
     <div style={{ background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, borderRadius: 10, padding: "18px 18px 20px" }}>
       <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 14, flexWrap: "wrap", gap: 8 }}>
@@ -8175,12 +8149,29 @@ function MusculationWeekDetail({ week, checked, onToggleSeance, log, onLogChange
           );
         })}
       </div>
-      {MUSCU_SEANCES.map((seance) => (
-        <div key={seance.key} style={{ marginBottom: 18 }}>
-          <div style={{ fontFamily: FONT_DISPLAY, fontSize: 15, color: MUSCU_ACCENT, marginBottom: 8 }}>{seance.title}</div>
-          <MusculationSeanceCards week={week} seance={seance} log={log} onLogChange={onLogChange} maxes={maxes} />
-        </div>
-      ))}
+      {MUSCU_SEANCES.map((seance) => {
+        const done = !!checked[`${week.n}-${seance.key}`];
+        return (
+          <div key={seance.key} style={{ marginBottom: 18 }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, marginBottom: 8 }}>
+              <div style={{ fontFamily: FONT_DISPLAY, fontSize: 15, color: done ? COLORS.checked : MUSCU_ACCENT }}>{seance.title}</div>
+              <button
+                onClick={() => onToggleSeance(week.n, seance.key)}
+                style={{
+                  display: "flex", alignItems: "center", gap: 6, padding: "6px 12px", borderRadius: 999, cursor: "pointer", flexShrink: 0,
+                  border: `1px solid ${done ? COLORS.checked : COLORS.border}`,
+                  background: done ? COLORS.checked : "transparent",
+                  color: done ? "white" : COLORS.muted, fontFamily: FONT_BODY, fontSize: 12, fontWeight: done ? 600 : 400,
+                }}
+              >
+                {done && <Check size={11} color="white" />}
+                {done ? "Faite" : "Pas faite"}
+              </button>
+            </div>
+            <MusculationSeanceCards week={week} seance={seance} maxes={maxes} />
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -8233,7 +8224,6 @@ function MusculationMaxesForm({ maxes, onChange }) {
 
 function MusculationTab() {
   const [checked, setChecked] = useState(null);
-  const [log, setLog] = useState(null);
   const [maxes, setMaxes] = useState(null);
   const [section, setSection] = useState("programme");
   const [selectedWeek, setSelectedWeek] = useState(null);
@@ -8248,13 +8238,6 @@ function MusculationTab() {
       } catch {
         val = {};
       }
-      let logVal = {};
-      try {
-        const res = await window.storage.get("musculation-log");
-        logVal = res ? JSON.parse(res.value) : {};
-      } catch {
-        logVal = {};
-      }
       let maxesVal = {};
       try {
         const res = await window.storage.get("musculation-maxes");
@@ -8264,7 +8247,6 @@ function MusculationTab() {
       }
       if (!cancelled) {
         setChecked(val);
-        setLog(logVal);
         setMaxes(maxesVal);
         const current = MUSCU_WEEKS.find((w) => isMusculationCurrentWeek(w));
         setSelectedWeek(current ? current.n : 1);
@@ -8286,14 +8268,6 @@ function MusculationTab() {
     });
   }
 
-  function onLogChange(id, value) {
-    setLog((prev) => {
-      const next = { ...(prev || {}), [id]: value };
-      window.storage.set("musculation-log", JSON.stringify(next)).catch(() => {});
-      return next;
-    });
-  }
-
   function onMaxChange(key, value) {
     setMaxes((prev) => {
       const next = { ...(prev || {}), [key]: value };
@@ -8302,7 +8276,7 @@ function MusculationTab() {
     });
   }
 
-  if (!checked || !log || !maxes || selectedWeek == null) return null;
+  if (!checked || !maxes || selectedWeek == null) return null;
 
   const totalUnits = MUSCU_WEEKS.length * MUSCU_SEANCES.length;
   const doneUnits = MUSCU_WEEKS.reduce((sum, w) => sum + musculationWeekStatus(checked, w).done, 0);
@@ -8343,7 +8317,7 @@ function MusculationTab() {
           </div>
 
           <MusculationWeekDots checked={checked} selectedWeek={selectedWeek} onSelect={setSelectedWeek} />
-          <MusculationWeekDetail week={week} checked={checked} onToggleSeance={toggleSeance} log={log} onLogChange={onLogChange} maxes={maxes} />
+          <MusculationWeekDetail week={week} checked={checked} onToggleSeance={toggleSeance} maxes={maxes} />
         </div>
       )}
     </div>
