@@ -922,10 +922,13 @@ function App() {
     <div className="space-enter" style={{ minHeight: "100vh", fontFamily: FONT_BODY, background: `linear-gradient(180deg, ${COLORS.bgFrom}, ${COLORS.bgTo})`, display: "flex", flexDirection: "column" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap');
+        .tab-bubble:not(.is-active):hover { background: rgba(255,255,255,0.09) !important; border-color: var(--tab-accent) !important; }
+        .tab-bubble:active { transform: scale(0.97); }
         @media (max-width: 640px) {
           .app-header { padding: 14px 16px 2px !important; }
           .app-title { font-size: 17px !important; }
-          .app-nav { display: none !important; }
+          .app-nav { gap: 6px !important; padding-bottom: 12px !important; }
+          .tab-bubble { padding: 9px 12px !important; font-size: 13px !important; gap: 6px !important; }
           .app-main { padding: 20px 16px !important; }
         }
       `}</style>
@@ -956,25 +959,39 @@ function App() {
             CHATCHAT LAND <span style={{ color: COLORS.muted }}>–</span> <span style={{ color: currentSpace.accent }}>{currentSpace.label}</span>
           </button>
         </div>
-        <nav className="app-nav" style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
+        {/* Onglets en bulles (01/10/2026) : ils se partagent toute la largeur (flex 1) et passent à
+            la ligne sur petit écran ; un onglet ajouté dans *_TABS se cale tout seul. */}
+        <nav className="app-nav" style={{ display: "flex", gap: 8, flexWrap: "wrap", paddingBottom: 16 }}>
           {currentSpaceTabs.map((tab) => {
             const isActive = tab.key === active;
             return (
               <button
                 key={tab.key}
+                className={`tab-bubble${isActive ? " is-active" : ""}`}
                 onClick={() => setActive(tab.key)}
                 style={{
-                  background: "none",
-                  border: "none",
+                  "--tab-accent": tab.accent,
+                  flex: "1 1 0",
+                  minWidth: "max-content",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 8,
                   cursor: "pointer",
-                  padding: "10px 18px",
+                  padding: "10px 14px",
+                  borderRadius: 999,
                   fontFamily: FONT_BODY,
                   fontSize: 14,
-                  color: isActive ? COLORS.text : COLORS.barMuted,
-                  borderBottom: `2px solid ${isActive ? tab.accent : "transparent"}`,
-                  transition: "color 0.15s",
+                  fontWeight: isActive ? 600 : 500,
+                  whiteSpace: "nowrap",
+                  color: isActive ? "#fff" : COLORS.text,
+                  background: isActive ? `linear-gradient(135deg, ${tab.accent}, ${darken(tab.accent, 22)})` : "rgba(255,255,255,0.04)",
+                  border: `1px solid ${isActive ? "transparent" : "rgba(255,255,255,0.10)"}`,
+                  boxShadow: isActive ? `0 6px 18px ${tab.accent}55, inset 0 1px 0 rgba(255,255,255,0.25)` : "none",
+                  transition: "background 0.2s, box-shadow 0.2s, transform 0.15s, border-color 0.2s",
                 }}
               >
+                {!isActive && <span style={{ width: 7, height: 7, borderRadius: "50%", background: tab.accent, flexShrink: 0 }} />}
                 {tab.label}
               </button>
             );
