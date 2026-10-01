@@ -2284,7 +2284,8 @@ function JobOffersList({ data, title, accent, statusMap, onSetStatus, bare = fal
                   {it.contract}
                 </span>
               </div>
-              <div style={{ fontSize: 12, color: COLORS.muted, marginBottom: 8 }}>{it.company} · {it.location}</div>
+              <div style={{ fontSize: 12, color: COLORS.muted, marginBottom: it.teletravail ? 2 : 8 }}>{it.company} · {it.location}</div>
+              {it.teletravail && <div style={{ fontSize: 12, color: it.remote ? accent : COLORS.muted, marginBottom: 8 }}>🏠 {it.teletravail}</div>}
               <p style={{ fontSize: 13, color: COLORS.text, lineHeight: 1.5, margin: "0 0 6px" }}>{it.summary}</p>
               <a href={it.url} target="_blank" rel="noreferrer" style={{ fontSize: 11, color: COLORS.muted }}>{it.source}</a>
               <OfferStatusPicker status={status} onSelect={(s) => onSetStatus(it.id, s)} />
@@ -7469,6 +7470,8 @@ const ESTELLE_JOB_OFFERS = {
   domain: "Cœur de métier : architecture d'intérieur — élargi aux métiers voisins de son parcours (agencement, conception cuisine/bain, retail & visual merchandising, tertiaire, graphisme)",
   note: "Profil : Master 2 Architecture intérieure (École Bleue, titre RNCP niv. 7), ~4 ans d'expérience — hôtellerie de luxe (Plaza Athénée, Raphael, Caviar Kaspia), retail (MAC EMEA, Le Tanneur), rénovations complètes APS → EXE, DCE et suivi de chantier. AutoCAD, SketchUp, Enscape, Illustrator, Photoshop, InDesign, Lightroom, Office ; anglais professionnel. Peu d'offres « architecte d'intérieur » pures autour de Marseille : les métiers voisins y sont donc mis en avant.",
   // Offres classées par zone (marseille | hors) puis par type de poste (champ « categorie »).
+  // Hors Marseille (demande du 01/10/2026) : « remote » (true/false) + « teletravail » (ce que dit l'annonce) —
+  // classées en Avec / Sans télétravail ; une annonce qui ne parle pas de télétravail va dans « Sans ».
   items: [
     {
       "id": "estelle-1001-darty-concepteur",
@@ -7610,6 +7613,8 @@ const ESTELLE_JOB_OFFERS = {
       "company": "Michael Page (pour un concepteur-réalisateur)",
       "contract": "CDI",
       "location": "Saint-Tropez (Var, ≈ 1h45)",
+      "remote": false,
+      "teletravail": "Télétravail non mentionné dans l'annonce",
       "summary": "Propriétés de très haut standing pour une clientèle privée internationale, de la conception à la livraison ; publié il y a 23 jours.",
       "source": "Hellowork",
       "url": "https://www.hellowork.com/fr-fr/emplois/83136975.html"
@@ -7622,6 +7627,8 @@ const ESTELLE_JOB_OFFERS = {
       "company": "Charrette Service (petite agence parisienne)",
       "contract": "Intérim",
       "location": "Paris — 100 % présentiel",
+      "remote": false,
+      "teletravail": "100 % présentiel (précisé dans l'annonce)",
       "summary": "Mission d'un an en agence d'architecture intérieure hôtelière : conception et plans AutoCAD jusqu'aux détails — très proche de sa mission Plaza Athénée ; publié il y a 4 jours.",
       "source": "Hellowork",
       "url": "https://www.hellowork.com/fr-fr/emplois/81729936.html"
@@ -7634,6 +7641,8 @@ const ESTELLE_JOB_OFFERS = {
       "company": "Charrette Service",
       "contract": "CDD",
       "location": "Paris — sans télétravail",
+      "remote": false,
+      "teletravail": "Pas de télétravail (précisé dans l'annonce)",
       "summary": "Profil 2 à 5 ans d'expérience, croquis à la main, anglais écrit, portfolio demandé — colle à son parcours MAC / Le Tanneur ; publié il y a 10 jours.",
       "source": "Hellowork",
       "url": "https://www.hellowork.com/fr-fr/emplois/81524757.html"
@@ -7646,6 +7655,8 @@ const ESTELLE_JOB_OFFERS = {
       "company": "Vene Recrutement (agence de design d'intérieur)",
       "contract": "CDI",
       "location": "Paris 8e",
+      "remote": false,
+      "teletravail": "Télétravail non mentionné dans l'annonce",
       "summary": "Projets hôteliers haut de gamme, choix mobilier, matériaux et tissus ; publié il y a 13 jours.",
       "source": "Hellowork",
       "url": "https://www.hellowork.com/fr-fr/emplois/83489130.html"
@@ -7658,6 +7669,8 @@ const ESTELLE_JOB_OFFERS = {
       "company": "asap.work",
       "contract": "CDD",
       "location": "Paris 7e",
+      "remote": false,
+      "teletravail": "Télétravail non mentionné dans l'annonce",
       "summary": "Conception d'aménagements axés matériaux, mobilier et tissus de luxe, plans et rendus AutoCAD + Photoshop ; publié il y a 16 jours.",
       "source": "Hellowork",
       "url": "https://www.hellowork.com/fr-fr/emplois/83359634.html"
@@ -7670,6 +7683,8 @@ const ESTELLE_JOB_OFFERS = {
       "company": "Charrette Service (agence résidentiel hyper-luxe)",
       "contract": "Intérim",
       "location": "Paris",
+      "remote": false,
+      "teletravail": "Télétravail non mentionné dans l'annonce",
       "summary": "Mission de quelques mois, 5 ans d'expérience demandés, AutoCAD courant, anglais courant ; publié il y a 7 jours.",
       "source": "Hellowork",
       "url": "https://www.hellowork.com/fr-fr/emplois/83717370.html"
@@ -7682,6 +7697,8 @@ const ESTELLE_JOB_OFFERS = {
       "company": "Charrette Service (agence d'architecture intérieure)",
       "contract": "CDI",
       "location": "Paris 8e",
+      "remote": false,
+      "teletravail": "Télétravail non mentionné dans l'annonce",
       "summary": "Chargé de projet en aménagements tertiaires, plans AutoCAD en APS/APD/DCE (5 ans d'expérience demandés) ; publié il y a 13 jours.",
       "source": "Hellowork",
       "url": "https://www.hellowork.com/fr-fr/emplois/83511039.html"
@@ -7694,6 +7711,8 @@ const ESTELLE_JOB_OFFERS = {
       "company": "CACD",
       "contract": "CDI",
       "location": "Île-de-France",
+      "remote": false,
+      "teletravail": "Télétravail non mentionné dans l'annonce",
       "summary": "Relevés, macro/micro-zoning et plans d'aménagement d'espaces de travail ; publié aujourd'hui.",
       "source": "Hellowork",
       "url": "https://www.hellowork.com/fr-fr/emplois/76220548.html"
@@ -7706,6 +7725,8 @@ const ESTELLE_JOB_OFFERS = {
       "company": "Michael Page (aménagement & mobilier haut de gamme)",
       "contract": "CDI",
       "location": "Paris 11e",
+      "remote": false,
+      "teletravail": "Télétravail non mentionné dans l'annonce",
       "summary": "Conception et déploiement d'aménagements pour l'hôtellerie et la restauration — proche de Beaubow (Kaspia, Andia) ; publié il y a 18 jours.",
       "source": "Hellowork",
       "url": "https://www.hellowork.com/fr-fr/emplois/83323953.html"
@@ -7718,6 +7739,8 @@ const ESTELLE_JOB_OFFERS = {
       "company": "IKEA",
       "contract": "CDI",
       "location": "Paris",
+      "remote": false,
+      "teletravail": "Télétravail non mentionné dans l'annonce",
       "summary": "Management d'une équipe d'architectes d'intérieur qui conçoit des solutions d'aménagement — poste d'encadrement ; publié le 29 septembre.",
       "source": "Hellowork",
       "url": "https://www.hellowork.com/fr-fr/emplois/83899644.html"
@@ -7730,6 +7753,8 @@ const ESTELLE_JOB_OFFERS = {
       "company": "DOMEA (pour un agenceur haut de gamme)",
       "contract": "CDI",
       "location": "Paris",
+      "remote": true,
+      "teletravail": "Télétravail possible selon les projets",
       "summary": "Plans techniques AutoCAD en bureau d'études d'agencement et menuiserie haut de gamme ; publié il y a 3 jours.",
       "source": "Hellowork",
       "url": "https://www.hellowork.com/fr-fr/emplois/83836194.html"
@@ -7742,6 +7767,8 @@ const ESTELLE_JOB_OFFERS = {
       "company": "LIP Paris Agencement",
       "contract": "CDI",
       "location": "Paris 1er",
+      "remote": false,
+      "teletravail": "Télétravail non mentionné dans l'annonce",
       "summary": "Suivi des affaires d'un agenceur menuisier, qualité des prestations et coordination ; publié hier.",
       "source": "Hellowork",
       "url": "https://www.hellowork.com/fr-fr/emplois/83906821.html"
@@ -7754,6 +7781,8 @@ const ESTELLE_JOB_OFFERS = {
       "company": "Bureau d'Étude Intérimaire (BEI)",
       "contract": "CDI",
       "location": "Paris",
+      "remote": false,
+      "teletravail": "Télétravail non mentionné dans l'annonce",
       "summary": "Agencement luxe, de la conception à la remise des clés ; publié il y a 5 jours.",
       "source": "Hellowork",
       "url": "https://www.hellowork.com/fr-fr/emplois/80629077.html"
@@ -7766,6 +7795,8 @@ const ESTELLE_JOB_OFFERS = {
       "company": "Approach People Recruitment",
       "contract": "CDI",
       "location": "Paris",
+      "remote": false,
+      "teletravail": "Télétravail non mentionné dans l'annonce",
       "summary": "Conception de concepts d'aménagement d'espaces commerciaux, de l'idée au suivi de déploiement ; publié il y a 9 jours.",
       "source": "Hellowork",
       "url": "https://www.hellowork.com/fr-fr/emplois/81360012.html"
@@ -7778,6 +7809,8 @@ const ESTELLE_JOB_OFFERS = {
       "company": "Michael Page (marque premium beauté)",
       "contract": "CDI",
       "location": "Paris 8e",
+      "remote": true,
+      "teletravail": "1 jour de télétravail par semaine après la période d'essai",
       "summary": "Visual merchandising d'une marque beauté/luxe présente à l'international — dans la continuité de MAC Cosmetics ; publié il y a 2 jours.",
       "source": "Hellowork",
       "url": "https://www.hellowork.com/fr-fr/emplois/83880592.html"
@@ -7790,6 +7823,8 @@ const ESTELLE_JOB_OFFERS = {
       "company": "Lacoste",
       "contract": "CDI",
       "location": "Paris",
+      "remote": false,
+      "teletravail": "Télétravail non mentionné dans l'annonce",
       "summary": "Application des guidelines visuelles, implantations in-store et vitrines ; publié hier.",
       "source": "Hellowork",
       "url": "https://www.hellowork.com/fr-fr/emplois/83939395.html"
@@ -7811,6 +7846,12 @@ const ESTELLE_CATEGORIES = [
   "Aménagement tertiaire & space planning",
   "Retail, store design & visual merchandising",
   "Graphisme",
+];
+
+// Hors Marseille : d'abord Avec / Sans télétravail, puis par type de poste.
+const ESTELLE_REMOTE_GROUPS = [
+  { key: "remote", label: "🏠 Avec télétravail", match: (it) => it.remote === true },
+  { key: "onsite", label: "🏢 Sans télétravail", match: (it) => it.remote !== true },
 ];
 
 function EstelleEmploiTab({ offerStatus, setOfferStatus }) {
@@ -7835,21 +7876,34 @@ function EstelleEmploiTab({ offerStatus, setOfferStatus }) {
         accentOf={() => ESTELLE_ACCENT}
         marginBottom={20}
       />
-      {ESTELLE_CATEGORIES.map((cat) => {
-        const list = zoneItems.filter((it) => it.categorie === cat);
-        if (list.length === 0) return null;
+      {(zone === "hors" ? ESTELLE_REMOTE_GROUPS : [{ key: "all", match: () => true }]).map((g) => {
+        const groupItems = zoneItems.filter(g.match);
+        if (groupItems.length === 0) return null;
         return (
-          <div key={cat} style={{ marginBottom: 26 }}>
-            <div style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: ESTELLE_ACCENT, marginBottom: 10 }}>
-              {cat} <span style={{ fontFamily: FONT_BODY, fontSize: 12, color: COLORS.muted }}>· {list.length}</span>
-            </div>
-            <JobOffersList
-              data={{ ...data, items: list }}
-              accent={ESTELLE_ACCENT}
-              statusMap={offerStatus}
-              onSetStatus={setStatusFor}
-              bare
-            />
+          <div key={g.key}>
+            {g.label && (
+              <div style={{ fontFamily: FONT_DISPLAY, fontSize: 22, color: COLORS.text, margin: "6px 0 14px", paddingBottom: 6, borderBottom: `1px solid ${COLORS.border}` }}>
+                {g.label} <span style={{ fontFamily: FONT_BODY, fontSize: 12, color: COLORS.muted }}>· {groupItems.length}</span>
+              </div>
+            )}
+            {ESTELLE_CATEGORIES.map((cat) => {
+              const list = groupItems.filter((it) => it.categorie === cat);
+              if (list.length === 0) return null;
+              return (
+                <div key={cat} style={{ marginBottom: 26 }}>
+                  <div style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: ESTELLE_ACCENT, marginBottom: 10 }}>
+                    {cat} <span style={{ fontFamily: FONT_BODY, fontSize: 12, color: COLORS.muted }}>· {list.length}</span>
+                  </div>
+                  <JobOffersList
+                    data={{ ...data, items: list }}
+                    accent={ESTELLE_ACCENT}
+                    statusMap={offerStatus}
+                    onSetStatus={setStatusFor}
+                    bare
+                  />
+                </div>
+              );
+            })}
           </div>
         );
       })}
