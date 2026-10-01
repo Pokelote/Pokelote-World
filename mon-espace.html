@@ -430,6 +430,7 @@ const CLEMENT_TABS = [
 // directs ici, dans l'espace partagé.
 const CHATCHATS_TABS = [
   { key: "chatchats-accueil", label: "Accueil", accent: "#D98FB3" },
+  { key: "chatchats-agenda", label: "Agenda", accent: "#D98FB3" },
   { key: "administratif", label: "Administratif", accent: "#8899A6" },
   { key: "terrain", label: "Terrain & Immo", accent: "#9CA66B" },
   { key: "logement-marseille", label: "Logement Marseille", accent: "#6FA8C9" },
@@ -1352,6 +1353,9 @@ function App() {
         )}
         {active === "news" && <NewsTab taskEvents={Object.values(taskArchive || {})} taskChecks={taskChecks || {}} toggleTask={toggleTask} />}
         {active === "calendrier" && <CalendrierTab />}
+        {active === "chatchats-agenda" && (
+          <CalendrierTab title="Agenda des Chatchats" accent="#D98FB3" events={CHATCHATS_CALENDAR_DATA.events} updatedAt={CHATCHATS_CALENDAR_DATA.updatedAt} />
+        )}
         {active === "culture" && (
           <CultureTab
             themeLists={themeLists}
@@ -1391,6 +1395,7 @@ function App() {
           active !== "apprentissage" &&
           active !== "musculation" &&
           active !== "chatchats-accueil" &&
+          active !== "chatchats-agenda" &&
           active !== "administratif" &&
           active !== "terrain" &&
           active !== "logement-marseille" &&
@@ -8349,14 +8354,14 @@ function CalendarMonthView({ eventsByDate, accent, refDate }) {
 
   return (
     <div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 6, marginBottom: 6 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(7, minmax(0, 1fr))", gap: 6, marginBottom: 6 }}>
         {FRENCH_WEEKDAYS_SHORT.map((w) => (
           <div key={w} style={{ fontSize: 11, color: COLORS.muted, textAlign: "center", textTransform: "uppercase", letterSpacing: 0.4 }}>
             {w}
           </div>
         ))}
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 6 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(7, minmax(0, 1fr))", gap: 6 }}>
         {days.map((d) => {
           const key = dateKey(d);
           const inMonth = d.getMonth() === month;
@@ -8485,11 +8490,87 @@ const MUSCU_EVENTS = [
   { date: "2026-11-09", time: "Cette semaine", title: "🏋️ Musculation Argonautes — Semaine 9 (séances #1, #2, #3 + extra)" },
 ];
 
-function CalendrierTab() {
-  const accent = "#7FB3A3";
+// Agenda partagé des Chatchats (ajouté 01/10/2026) — copie de l'agenda Google « ChatChat's ».
+// Pas de lien direct : pour le rafraîchir, redemander à Claude (ou lancer la tâche « MAJ agenda »).
+// Les événements sur plusieurs jours sont répétés chaque jour (À partir de… / Toute la journée / Jusqu'à…).
+const CHATCHATS_CALENDAR_DATA = {
+  updatedAt: "1er octobre 2026",
+  events: [
+    { date: "2026-10-03", time: "15h50 – 17h50", title: "🖼️ Expo permanente et temporaire — Musée d'Orsay" },
+    { date: "2026-10-03", time: "20h00 – 23h55", title: "🎂 Anniversaire Martin (dodo chez Thomas et Clara)" },
+    { date: "2026-10-17", time: "12h30 – 16h00", title: "🍽️ Déj rue Lecourbe avec Maïa et Gab + visite de l'appart" },
+    { date: "2026-10-17", time: "16h00 – 19h30", title: "🖼️ Musée de l'Orangerie avec Maïa et Gab" },
+    { date: "2026-10-17", time: "19h30 – 23h00", title: "🎉 Soirée sœur de Maïa à la Java avec Maïa et Gab" },
+    { date: "2026-10-28", time: "10h00 – 11h00", title: "💊 Prendre 2e ampoule vitamine" },
+    { date: "2026-10-28", time: "20h00 – 21h00", title: "🎭 Spectacle Salima Passion" },
+    { date: "2026-10-29", time: "Toute la journée", title: "🏨 Plaza Athénée" },
+    { date: "2026-10-30", time: "Toute la journée", title: "🏨 Plaza Athénée" },
+    { date: "2026-10-31", time: "Toute la journée", title: "🚢 Croisière Égypte — Estelle & Maïa" },
+    { date: "2026-11-01", time: "Toute la journée", title: "🚢 Croisière Égypte — Estelle & Maïa" },
+    { date: "2026-11-02", time: "Toute la journée", title: "🚢 Croisière Égypte — Estelle & Maïa" },
+    { date: "2026-11-03", time: "Toute la journée", title: "🚢 Croisière Égypte — Estelle & Maïa" },
+    { date: "2026-11-04", time: "Toute la journée", title: "🚢 Croisière Égypte — Estelle & Maïa" },
+    { date: "2026-11-05", time: "Toute la journée", title: "🚢 Croisière Égypte — Estelle & Maïa" },
+    { date: "2026-11-06", time: "Toute la journée", title: "🚢 Croisière Égypte — Estelle & Maïa" },
+    { date: "2026-11-07", time: "Toute la journée", title: "🚢 Croisière Égypte — Estelle & Maïa" },
+    { date: "2026-11-09", time: "17h00 – 24h00", title: "💻 Apprendre Archicad sur Graphisoft" },
+    { date: "2026-11-10", time: "Toute la journée", title: "💻 Apprendre Archicad sur Graphisoft" },
+    { date: "2026-11-11", time: "Toute la journée", title: "💻 Apprendre Archicad sur Graphisoft" },
+    { date: "2026-11-12", time: "Toute la journée", title: "💻 Apprendre Archicad sur Graphisoft" },
+    { date: "2026-11-13", time: "00h00 – 18h00", title: "💻 Apprendre Archicad sur Graphisoft" },
+    { date: "2026-11-16", time: "Toute la journée", title: "📸 Shooting avec Anna (Paris)" },
+    { date: "2026-11-17", time: "Toute la journée", title: "📸 Shooting avec Anna (Paris)" },
+    { date: "2026-11-17", time: "Toute la journée", title: "📸 Shooting avec Anna (Belle-Île)" },
+    { date: "2026-11-18", time: "Toute la journée", title: "📸 Shooting avec Anna (Belle-Île)" },
+    { date: "2026-11-19", time: "Toute la journée", title: "📸 Shooting avec Anna (Belle-Île)" },
+    { date: "2026-11-20", time: "Toute la journée", title: "📸 Shooting avec Anna (Belle-Île)" },
+    { date: "2026-11-21", time: "11h00 – 11h30", title: "💆 Massage Ko Bi Do — Spa 5 Mondes" },
+    { date: "2026-11-26", time: "13h00 – 24h00", title: "✈️ Singapour" },
+    { date: "2026-11-27", time: "Toute la journée", title: "✈️ Singapour" },
+    { date: "2026-11-28", time: "Toute la journée", title: "✈️ Singapour" },
+    { date: "2026-11-29", time: "00h00 – 14h00", title: "✈️ Singapour" },
+    { date: "2026-11-30", time: "13h00 – 24h00", title: "✈️ Xi'an — Chine" },
+    { date: "2026-12-01", time: "Toute la journée", title: "✈️ Xi'an — Chine" },
+    { date: "2026-12-02", time: "00h00 – 14h00", title: "✈️ Xi'an — Chine" },
+    { date: "2026-12-02", time: "13h00 – 24h00", title: "✈️ Shanghai — Chine" },
+    { date: "2026-12-03", time: "Toute la journée", title: "✈️ Shanghai — Chine" },
+    { date: "2026-12-04", time: "Toute la journée", title: "✈️ Shanghai — Chine" },
+    { date: "2026-12-05", time: "Toute la journée", title: "✈️ Shanghai — Chine" },
+    { date: "2026-12-06", time: "00h00 – 14h00", title: "✈️ Shanghai — Chine" },
+    { date: "2026-12-06", time: "13h00 – 24h00", title: "✈️ Kyoto — Japon" },
+    { date: "2026-12-07", time: "Toute la journée", title: "✈️ Kyoto — Japon" },
+    { date: "2026-12-08", time: "Toute la journée", title: "✈️ Kyoto — Japon" },
+    { date: "2026-12-09", time: "00h00 – 14h00", title: "✈️ Kyoto — Japon" },
+    { date: "2026-12-09", time: "14h00 – 24h00", title: "✈️ Île de Naoshima — Japon" },
+    { date: "2026-12-10", time: "Toute la journée", title: "✈️ Île de Naoshima — Japon" },
+    { date: "2026-12-11", time: "00h00 – 15h00", title: "✈️ Île de Naoshima — Japon" },
+    { date: "2026-12-12", time: "14h00 – 24h00", title: "✈️ Singapour" },
+    { date: "2026-12-13", time: "Toute la journée", title: "✈️ Singapour" },
+    { date: "2026-12-14", time: "00h00 – 15h00", title: "✈️ Singapour" },
+    { date: "2026-12-24", time: "10h00 – 24h00", title: "🎄 Noël Feau en Dordogne" },
+    { date: "2026-12-25", time: "Toute la journée", title: "🎄 Noël Feau en Dordogne" },
+    { date: "2026-12-26", time: "Toute la journée", title: "🎄 Noël Feau en Dordogne" },
+    { date: "2026-12-27", time: "00h00 – 11h00", title: "🎄 Noël Feau en Dordogne" },
+    { date: "2026-12-30", time: "11h00 – 24h00", title: "🥂 Nouvel an copains" },
+    { date: "2026-12-31", time: "Toute la journée", title: "🥂 Nouvel an copains" },
+    { date: "2027-01-01", time: "Toute la journée", title: "🥂 Nouvel an copains" },
+    { date: "2027-01-02", time: "Toute la journée", title: "🥂 Nouvel an copains" },
+    { date: "2027-01-03", time: "00h00 – 12h00", title: "🥂 Nouvel an copains" },
+    { date: "2027-03-04", time: "14h00 – 15h00", title: "🩺 Endocrinologue" },
+    { date: "2027-05-15", time: "20h00 – 21h00", title: "💍 Mariage Gab et Leilouilleeeee" },
+  ],
+};
+
+// Utilisé par le Calendrier de Clément et par l'Agenda des Chatchats (mêmes vues jour / semaine / mois).
+function CalendrierTab({
+  title = "Calendrier",
+  accent = "#7FB3A3",
+  events = [...CALENDAR_DATA.events, ...SPORTS_EVENTS, ...MUSCU_EVENTS],
+  updatedAt = CALENDAR_DATA.updatedAt,
+}) {
   const [view, setView] = useState("semaine");
   const [refDate, setRefDate] = useState(() => new Date());
-  const eventsByDate = groupEventsByDate([...CALENDAR_DATA.events, ...SPORTS_EVENTS, ...MUSCU_EVENTS]);
+  const eventsByDate = groupEventsByDate(events);
 
   function shiftDate(amount) {
     setRefDate((d) => {
@@ -8517,8 +8598,8 @@ function CalendrierTab() {
   return (
     <div>
       <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 20, flexWrap: "wrap", gap: 8 }}>
-        <h1 style={{ fontFamily: FONT_DISPLAY, fontSize: 28, color: COLORS.text, margin: 0, fontWeight: 600 }}>Calendrier</h1>
-        <span style={{ fontSize: 12, color: COLORS.muted }}>Mis à jour le {CALENDAR_DATA.updatedAt}</span>
+        <h1 style={{ fontFamily: FONT_DISPLAY, fontSize: 28, color: COLORS.text, margin: 0, fontWeight: 600 }}>{title}</h1>
+        <span style={{ fontSize: 12, color: COLORS.muted }}>Mis à jour le {updatedAt}</span>
       </div>
 
       <PillTabs options={CALENDAR_VIEWS} activeKey={view} onSelect={setView} accentOf={() => accent} marginBottom={20} />
