@@ -6675,161 +6675,140 @@ function ObjectifsCard() {
   const weekKey = dateKey(weekStart);
   const fmtDay = (d) => `${d.getDate()} ${FRENCH_MONTHS[d.getMonth()]}`;
 
-  const sectionTitle = { fontFamily: FONT_DISPLAY, fontSize: 16, color: COLORS.text, margin: "0 0 4px", fontWeight: 600 };
-  const sub = { fontSize: 12, color: COLORS.muted, margin: "0 0 14px" };
+  const inChallenge = dayIndex >= 0 && !finished;
+  const smallTitle = { fontSize: 11, color: COLORS.muted, letterSpacing: "0.08em", textTransform: "uppercase", margin: "0 0 10px", fontWeight: 600 };
 
+  // Mise en page par personne (01/10/2026) : une colonne Clément, une colonne Estelle, chacune avec
+  // le même ordre — en-tête, défi des 30 jours (boutons + mini-calendrier), sport de la semaine.
   return (
-    <div style={{ ...{ background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, borderRadius: 16 }, borderTop: `3px solid ${OBJ_ACCENT}`, padding: 18, marginBottom: 28 }}>
-      <div style={{ fontFamily: FONT_DISPLAY, fontSize: 20, color: OBJ_ACCENT, fontWeight: 600, marginBottom: 16 }}>Objectifs</div>
-      <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-        {/* Repas */}
-        <div>
-          <h3 style={sectionTitle}>🍽️ 30 jours sans écart</h3>
-          <p style={sub}>
-            Du {fmtDay(start)} au {fmtDay(end)}
-            {finished ? " · défi terminé" : ` · jour ${Math.min(dayIndex + 1, OBJ_DAYS)}/${OBJ_DAYS}`}
-          </p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 18 }}>
-            {OBJ_ROWS.map(({ person, tracks }) => {
-              const p = OBJ_PEOPLE.find((x) => x.key === person);
-              const marks = tracks.map((t) => (data[t.track] || {})[p.key] || {});
-              const nbOk = (k) => marks.filter((m) => m[k]).length;
-              // Journée validée = tous les critères de la personne cochés ce jour-là.
-              const full = {};
-              challengeDays.forEach((d) => {
-                const k = dateKey(d);
-                if (nbOk(k) === tracks.length) full[k] = true;
-              });
-              const done = Object.keys(full).length;
-              const streak = objStreak(full, today);
-              const inChallenge = dayIndex >= 0 && !finished;
-              const toggleWholeDay = (k) => {
-                // Clic dans le calendrier : coche tous les critères du jour, ou les décoche s'ils l'étaient tous.
-                const setAll = nbOk(k) !== tracks.length;
-                let next = { ...data };
-                tracks.forEach((t) => {
-                  const all = next[t.track] || {};
-                  const mine = { ...(all[p.key] || {}) };
-                  if (setAll) mine[k] = true;
-                  else delete mine[k];
-                  next = { ...next, [t.track]: { ...all, [p.key]: mine } };
-                });
-                save(next);
-              };
-              return (
-                <div key={p.key}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8, flexWrap: "wrap" }}>
-                    <ObjAvatar person={p} />
-                    <span style={{ fontSize: 14, color: COLORS.text, fontWeight: 600 }}>
-                      {p.label}
-                      {tracks.length > 1 && <span style={{ fontWeight: 400, color: COLORS.muted }}> · sans écart & sans alcool</span>}
-                    </span>
-                    <span style={{ fontSize: 12, color: COLORS.muted }}>
-                      {streak > 0 ? `🔥 ${streak} jour${streak > 1 ? "s" : ""} d'affilée · ` : ""}
-                      {done}/{OBJ_DAYS}
-                    </span>
+    <div style={{ background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, borderTop: `3px solid ${OBJ_ACCENT}`, borderRadius: 16, padding: 18, marginBottom: 28 }}>
+      <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 12, flexWrap: "wrap", marginBottom: 16 }}>
+        <div style={{ fontFamily: FONT_DISPLAY, fontSize: 20, color: OBJ_ACCENT, fontWeight: 600 }}>Objectifs</div>
+        <div style={{ fontSize: 12, color: COLORS.muted }}>
+          Défi du {fmtDay(start)} au {fmtDay(end)}
+          {finished ? " · terminé" : ` · jour ${Math.min(dayIndex + 1, OBJ_DAYS)}/${OBJ_DAYS}`}
+        </div>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(300px, 100%), 1fr))", gap: 16 }}>
+        {OBJ_ROWS.map(({ person, tracks }) => {
+          const p = OBJ_PEOPLE.find((x) => x.key === person);
+          const marks = tracks.map((t) => (data[t.track] || {})[p.key] || {});
+          const nbOk = (k) => marks.filter((m) => m[k]).length;
+          // Journée validée = tous les critères de la personne cochés ce jour-là.
+          const full = {};
+          challengeDays.forEach((d) => {
+            const k = dateKey(d);
+            if (nbOk(k) === tracks.length) full[k] = true;
+          });
+          const done = Object.keys(full).length;
+          const streak = objStreak(full, today);
+          const toggleWholeDay = (k) => {
+            // Clic dans le calendrier : coche tous les critères du jour, ou les décoche s'ils l'étaient tous.
+            const setAll = nbOk(k) !== tracks.length;
+            let next = { ...data };
+            tracks.forEach((t) => {
+              const all = next[t.track] || {};
+              const mine = { ...(all[p.key] || {}) };
+              if (setAll) mine[k] = true;
+              else delete mine[k];
+              next = { ...next, [t.track]: { ...all, [p.key]: mine } };
+            });
+            save(next);
+          };
+          const weeks = data.sport[p.key] || {};
+          const n = weeks[weekKey] || 0;
+          const reussies = Object.values(weeks).filter((v) => v >= OBJ_SPORT_GOAL).length;
+          return (
+            <div key={p.key} style={{ background: "rgba(255,255,255,0.025)", border: `1px solid ${COLORS.cardBorder}`, borderTop: `3px solid ${p.color}`, borderRadius: 14, padding: 16 }}>
+              {/* En-tête de la personne */}
+              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
+                <ObjAvatar person={p} size={40} />
+                <div style={{ minWidth: 0 }}>
+                  <div style={{ fontFamily: FONT_DISPLAY, fontSize: 19, color: COLORS.text, fontWeight: 600, lineHeight: 1.1 }}>{p.label}</div>
+                  <div style={{ fontSize: 12, color: COLORS.muted, marginTop: 3 }}>
+                    {streak > 0 ? `🔥 ${streak} jour${streak > 1 ? "s" : ""} d'affilée · ` : ""}
+                    {done}/{OBJ_DAYS} jours validés
                   </div>
-                  {inChallenge && (
-                    <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 10, maxWidth: 240 }}>
-                      {tracks.map((t, i) => {
-                        const on = !!marks[i][todayKey];
-                        return (
-                          <button
-                            key={t.track}
-                            onClick={() => toggleDay(t.track, p.key, todayKey)}
-                            style={{
-                              flex: "1 1 0", whiteSpace: "nowrap", borderRadius: 999, padding: "7px 12px", fontSize: 12, fontWeight: 600, cursor: "pointer",
-                              border: `1px solid ${on ? COLORS.checked : p.color}`,
-                              background: on ? COLORS.checked : "transparent",
-                              color: on ? "#0b1a0c" : p.color,
-                              transition: "background 0.2s, color 0.2s",
-                            }}
-                          >
-                            {on ? `✓ ${t.done}` : t.todo}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  )}
-                  {/* Mini-calendrier (01/10/2026) : colonnes lundi → dimanche, seuls les 30 jours du défi
-                      sont numérotés ; journée validée = remplie de la couleur de la personne ; un seul des
-                      deux critères de Clément = moitié teintée. */}
-                  <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 3, maxWidth: 240 }}>
-                    {["L", "M", "M", "J", "V", "S", "D"].map((w, i) => (
-                      <div key={"h" + i} style={{ textAlign: "center", fontSize: 10, color: COLORS.muted, paddingBottom: 2 }}>{w}</div>
-                    ))}
-                    {Array.from({ length: (start.getDay() + 6) % 7 }, (_, i) => (
-                      <div key={"pad" + i} />
-                    ))}
-                    {challengeDays.map((d) => {
-                      const k = dateKey(d);
-                      const n = nbOk(k);
-                      const ok = n === tracks.length;
-                      const partial = n > 0 && !ok;
-                      const future = d > today;
-                      const isToday = k === todayKey;
-                      const label = tracks.filter((t, i) => marks[i][k]).map((t) => t.done.toLowerCase()).join(" + ");
+                </div>
+              </div>
+
+              {/* Défi des 30 jours */}
+              <div style={{ maxWidth: 300, margin: "0 auto" }}>
+                <div style={smallTitle}>🍽️ {tracks.map((t) => t.done.toLowerCase().replace("journée validée", "sans écart")).join(" & ")}</div>
+                {inChallenge && (
+                  <div style={{ display: "flex", gap: 8, marginBottom: 12 }}>
+                    {tracks.map((t, i) => {
+                      const on = !!marks[i][todayKey];
                       return (
                         <button
-                          key={k}
-                          title={`${fmtDay(d)}${label ? " · " + label : ""}`}
-                          disabled={future}
-                          onClick={() => toggleWholeDay(k)}
+                          key={t.track}
+                          onClick={() => toggleDay(t.track, p.key, todayKey)}
                           style={{
-                            aspectRatio: "1", minWidth: 0, padding: 0, borderRadius: 7, cursor: future ? "default" : "pointer",
-                            fontSize: 11, fontFamily: FONT_BODY, fontWeight: ok || partial || isToday ? 600 : 400,
-                            display: "flex", alignItems: "center", justifyContent: "center",
-                            background: ok
-                              ? p.color
-                              : partial
-                              ? `linear-gradient(135deg, ${p.color}88 50%, rgba(255,255,255,0.05) 50%)`
-                              : future
-                              ? "transparent"
-                              : "rgba(255,255,255,0.05)",
-                            color: ok ? "#1a1406" : future ? COLORS.muted : COLORS.text,
-                            border: `1px solid ${isToday ? COLORS.text : ok || partial ? p.color : "rgba(255,255,255,0.08)"}`,
-                            opacity: future ? 0.5 : 1,
+                            flex: "1 1 0", whiteSpace: "nowrap", borderRadius: 999, padding: "8px 12px", fontSize: 12, fontWeight: 600, cursor: "pointer",
+                            border: `1px solid ${on ? COLORS.checked : p.color}`,
+                            background: on ? COLORS.checked : "transparent",
+                            color: on ? "#0b1a0c" : p.color,
+                            transition: "background 0.2s, color 0.2s",
                           }}
                         >
-                          {d.getDate()}
+                          {on ? `✓ ${t.done}` : t.todo}
                         </button>
                       );
                     })}
                   </div>
+                )}
+                {/* Mini-calendrier : colonnes lundi → dimanche, seuls les 30 jours du défi sont numérotés ;
+                    journée validée = remplie de la couleur de la personne ; un seul critère = moitié teintée. */}
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 4 }}>
+                  {["L", "M", "M", "J", "V", "S", "D"].map((w, i) => (
+                    <div key={"h" + i} style={{ textAlign: "center", fontSize: 10, color: COLORS.muted, paddingBottom: 2 }}>{w}</div>
+                  ))}
+                  {Array.from({ length: (start.getDay() + 6) % 7 }, (_, i) => (
+                    <div key={"pad" + i} />
+                  ))}
+                  {challengeDays.map((d) => {
+                    const k = dateKey(d);
+                    const cnt = nbOk(k);
+                    const ok = cnt === tracks.length;
+                    const partial = cnt > 0 && !ok;
+                    const future = d > today;
+                    const isToday = k === todayKey;
+                    const label = tracks.filter((t, i) => marks[i][k]).map((t) => t.done.toLowerCase()).join(" + ");
+                    return (
+                      <button
+                        key={k}
+                        title={`${fmtDay(d)}${label ? " · " + label : ""}`}
+                        disabled={future}
+                        onClick={() => toggleWholeDay(k)}
+                        style={{
+                          aspectRatio: "1", minWidth: 0, padding: 0, borderRadius: 8, cursor: future ? "default" : "pointer",
+                          fontSize: 11, fontFamily: FONT_BODY, fontWeight: ok || partial || isToday ? 600 : 400,
+                          display: "flex", alignItems: "center", justifyContent: "center",
+                          background: ok
+                            ? p.color
+                            : partial
+                            ? `linear-gradient(135deg, ${p.color}88 50%, rgba(255,255,255,0.05) 50%)`
+                            : future
+                            ? "transparent"
+                            : "rgba(255,255,255,0.05)",
+                          color: ok ? "#1a1406" : future ? COLORS.muted : COLORS.text,
+                          border: `1px solid ${isToday ? COLORS.text : ok || partial ? p.color : "rgba(255,255,255,0.08)"}`,
+                          opacity: future ? 0.5 : 1,
+                        }}
+                      >
+                        {d.getDate()}
+                      </button>
+                    );
+                  })}
                 </div>
-              );
-            })}
-          </div>
-          {finished && (
-            <button
-              onClick={() => save({ ...data, repasStart: todayKey, repas: {}, alcool: {} })}
-              style={{ marginTop: 14, background: "transparent", border: `1px solid ${OBJ_ACCENT}`, color: OBJ_ACCENT, borderRadius: 999, padding: "7px 14px", fontSize: 12, cursor: "pointer" }}
-            >
-              Relancer un défi de 30 jours
-            </button>
-          )}
-        </div>
 
-        {/* Sport */}
-        <div>
-          <h3 style={sectionTitle}>🏃 Sport : 3 séances par semaine</h3>
-          <p style={sub}>Semaine du {fmtDay(weekStart)} au {fmtDay(addDays(weekStart, 6))}</p>
-          <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-            {OBJ_PEOPLE.map((p) => {
-              const weeks = data.sport[p.key] || {};
-              const n = weeks[weekKey] || 0;
-              const reussies = Object.values(weeks).filter((v) => v >= OBJ_SPORT_GOAL).length;
-              return (
-                <div key={p.key} style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
-                  <ObjAvatar person={p} />
-                  <div style={{ minWidth: 90 }}>
-                    <div style={{ fontSize: 14, color: COLORS.text, fontWeight: 600 }}>{p.label}</div>
-                    <div style={{ fontSize: 12, color: COLORS.muted }}>
-                      {n >= OBJ_SPORT_GOAL ? "Objectif atteint 💪" : `${n}/${OBJ_SPORT_GOAL} cette semaine`}
-                      {reussies > 0 ? ` · ${reussies} sem. réussie${reussies > 1 ? "s" : ""}` : ""}
-                    </div>
+                {/* Sport de la semaine */}
+                <div style={{ borderTop: `1px solid ${COLORS.cardBorder}`, marginTop: 18, paddingTop: 14 }}>
+                  <div style={{ ...smallTitle, display: "flex", justifyContent: "space-between", gap: 8 }}>
+                    <span>🏃 Sport cette semaine</span>
+                    <span style={{ color: n >= OBJ_SPORT_GOAL ? COLORS.checked : COLORS.muted }}>{n >= OBJ_SPORT_GOAL ? "Objectif atteint 💪" : `${n}/${OBJ_SPORT_GOAL}`}</span>
                   </div>
-                  <div style={{ display: "flex", gap: 8, marginLeft: "auto" }}>
+                  <div style={{ display: "flex", gap: 10, justifyContent: "center" }}>
                     {Array.from({ length: OBJ_SPORT_GOAL }, (_, i) => {
                       const on = i < n;
                       return (
@@ -6838,7 +6817,7 @@ function ObjectifsCard() {
                           aria-label={`Séance ${i + 1}`}
                           onClick={() => setSport(p.key, weekKey, on && i === n - 1 ? n - 1 : i + 1)}
                           style={{
-                            width: 40, height: 40, borderRadius: "50%", cursor: "pointer", fontSize: 17, padding: 0,
+                            flex: "1 1 0", height: 40, borderRadius: 999, cursor: "pointer", fontSize: 14, padding: 0, fontWeight: 600,
                             display: "flex", alignItems: "center", justifyContent: "center",
                             background: on ? p.color : "rgba(255,255,255,0.05)",
                             border: `1px solid ${on ? p.color : "rgba(255,255,255,0.14)"}`,
@@ -6847,18 +6826,32 @@ function ObjectifsCard() {
                             transition: "background 0.2s, box-shadow 0.2s",
                           }}
                         >
-                          {on ? "✓" : i + 1}
+                          {on ? "✓" : `Séance ${i + 1}`}
                         </button>
                       );
                     })}
                   </div>
+                  <div style={{ fontSize: 11, color: COLORS.muted, textAlign: "center", marginTop: 8 }}>
+                    Semaine du {fmtDay(weekStart)} au {fmtDay(addDays(weekStart, 6))}
+                    {reussies > 0 ? ` · ${reussies} sem. réussie${reussies > 1 ? "s" : ""}` : ""}
+                  </div>
                 </div>
-              );
-            })}
-          </div>
-          <p style={{ fontSize: 11, color: COLORS.muted, fontStyle: "italic", margin: "14px 0 0" }}>Touche une bulle pour compter une séance, retouche la dernière pour l'annuler. Le compteur repart à zéro chaque lundi.</p>
-        </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
+      {finished && (
+        <button
+          onClick={() => save({ ...data, repasStart: todayKey, repas: {}, alcool: {} })}
+          style={{ marginTop: 14, background: "transparent", border: `1px solid ${OBJ_ACCENT}`, color: OBJ_ACCENT, borderRadius: 999, padding: "7px 14px", fontSize: 12, cursor: "pointer" }}
+        >
+          Relancer un défi de 30 jours
+        </button>
+      )}
+      <p style={{ fontSize: 11, color: COLORS.muted, fontStyle: "italic", margin: "14px 0 0" }}>
+        Touche un jour passé du calendrier pour le rattraper. Sport : touche une séance pour la compter, retouche la dernière pour l'annuler — remise à zéro chaque lundi.
+      </p>
     </div>
   );
 }
