@@ -351,7 +351,7 @@ function HomeScreen({ onSelect }) {
       }}
     >
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=Anton&family=Oswald:wght@400;500;600;700&display=swap');
         .home-hero { position: absolute; top: 0; left: 0; right: 0; height: 100%; }
         .home-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 88%; }
         .home-card { transition: transform 0.15s, background 0.15s; }
@@ -422,7 +422,7 @@ const CLEMENT_TABS = [
   { key: "culture", label: "Culture", accent: "#D9B36B" },
   { key: "carriere", label: "Carrière", accent: "#8FA6B3" },
   { key: "apprentissage", label: "Apprentissage", accent: "#A088BB" },
-  { key: "musculation", label: "Musculation", accent: "#B0785A" },
+  { key: "musculation", label: "Musculation", accent: "#E63B2E" },
 ];
 
 // Administratif et Terrain & Immo étaient avant sous-onglets d'un seul onglet "Administratif &
@@ -440,7 +440,7 @@ const CHATCHATS_TABS = [
 const ESTELLE_TABS = [
   { key: "estelle-accueil", label: "Accueil", accent: "#7FBBAE" },
   { key: "estelle-emploi", label: "Recherche d'emploi", accent: "#7FBBAE" },
-  { key: "estelle-musculation", label: "Musculation", accent: "#7FBBAE" },
+  { key: "estelle-musculation", label: "Musculation", accent: "#E63B2E" },
 ];
 
 const SPACE_TABS = { clement: CLEMENT_TABS, chatchats: CHATCHATS_TABS, estelle: ESTELLE_TABS };
@@ -1170,7 +1170,7 @@ function App() {
   return (
     <div className="space-enter" style={{ minHeight: "100vh", fontFamily: FONT_BODY, background: `linear-gradient(180deg, ${COLORS.bgFrom}, ${COLORS.bgTo})`, display: "flex", flexDirection: "column" }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=Anton&family=Oswald:wght@400;500;600;700&display=swap');
         .tab-bubble:not(.is-active):hover { background: rgba(255,255,255,0.06) !important; color: ${COLORS.text} !important; border-color: rgba(255,255,255,0.22) !important; }
         .tab-bubble:active { transform: scale(0.97); }
         @media (max-width: 640px) {
@@ -7956,6 +7956,102 @@ function EstelleAccueilTab({ offerStatus, onNavigate }) {
   );
 }
 
+// DA « salle de crossfit brute » des onglets Musculation (02/10/2026, demande explicite) : béton noir,
+// bandes de chantier jaune/noir, titres en capitales condensées (Anton / Oswald), rouge en accent et
+// une phrase de motivation qui tourne. Utilisée par MusculationTab (Clément) et EstelleMusculationTab.
+const GYM = {
+  bg: "#111111",
+  card: "#1B1B1B",
+  cardBorder: "#2E2E2E",
+  track: "#242424",
+  border: "#3A3A3A",
+  text: "#F2F2F2",
+  muted: "#9C9C9C",
+  red: "#E63B2E",
+  yellow: "#F5C400",
+};
+const GYM_FONT_DISPLAY = "'Anton', 'Oswald', Impact, sans-serif";
+const GYM_FONT_LABEL = "'Oswald', 'Work Sans', sans-serif";
+const GYM_HAZARD = `repeating-linear-gradient(-45deg, ${GYM.yellow} 0 14px, #111 14px 28px)`;
+const GYM_CONCRETE =
+  "radial-gradient(ellipse at 15% 0%, rgba(255,255,255,0.06), transparent 55%), " +
+  "radial-gradient(ellipse at 90% 100%, rgba(230,59,46,0.10), transparent 50%), " +
+  "repeating-linear-gradient(0deg, rgba(255,255,255,0.018) 0 1px, transparent 1px 3px), #111111";
+
+const GYM_QUOTES = [
+  { text: "If you are going through hell, keep pushing." },
+  { text: "Don't stop when you're tired. Stop when you're done." },
+  { text: "Pain is temporary. Quitting lasts forever." },
+  { text: "Embrace the suck." },
+  { text: "The only bad workout is the one that didn't happen." },
+  { text: "No excuses. Just results." },
+  { text: "Stronger than yesterday." },
+  { text: "Sweat is just fat crying." },
+  { text: "The bar won't lift itself." },
+  { text: "Earn it. Every. Single. Rep." },
+  { text: "You don't have to be great to start, but you have to start to be great." },
+  { text: "Light weight, baby!", author: "Ronnie Coleman" },
+  { text: "Whatever your hand finds to do, do it with all your might.", author: "Ecclésiaste 9:10" },
+  { text: "Discipline beats motivation." },
+  { text: "3… 2… 1… GO!" },
+];
+
+function GymQuote() {
+  const [i, setI] = useState(() => Math.floor(Math.random() * GYM_QUOTES.length));
+  useEffect(() => {
+    const t = setInterval(() => setI((n) => (n + 1) % GYM_QUOTES.length), 8000);
+    return () => clearInterval(t);
+  }, []);
+  const q = GYM_QUOTES[i];
+  return (
+    <button
+      onClick={() => setI((n) => (n + 1) % GYM_QUOTES.length)}
+      title="Phrase suivante"
+      style={{
+        display: "block", width: "100%", textAlign: "left", background: "transparent", border: "none", cursor: "pointer",
+        borderLeft: `5px solid ${GYM.red}`, padding: "4px 0 4px 14px", marginTop: 18,
+      }}
+    >
+      <div key={i} className="gym-quote" style={{ fontFamily: GYM_FONT_LABEL, fontWeight: 600, fontSize: 20, lineHeight: 1.25, color: GYM.text, textTransform: "uppercase", letterSpacing: 0.5 }}>
+        “{q.text}”
+      </div>
+      {q.author && <div style={{ fontFamily: GYM_FONT_LABEL, fontSize: 12, color: GYM.muted, marginTop: 4, letterSpacing: 1, textTransform: "uppercase" }}>— {q.author}</div>}
+    </button>
+  );
+}
+
+function GymZone({ title, subtitle, children }) {
+  return (
+    <div style={{ background: GYM_CONCRETE, border: `1px solid ${GYM.cardBorder}`, borderRadius: 4, overflow: "hidden", color: GYM.text }}>
+      <style>{`
+        @keyframes gymQuoteIn { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: none; } }
+        .gym-quote { animation: gymQuoteIn 0.45s ease-out backwards; }
+        .gym-zone-body input::placeholder { color: ${GYM.muted}; }
+      `}</style>
+      <div style={{ height: 10, background: GYM_HAZARD }} />
+      <div style={{ padding: "22px 20px 20px", borderBottom: `2px solid ${GYM.cardBorder}` }}>
+        <h1 style={{ fontFamily: GYM_FONT_DISPLAY, fontSize: 46, lineHeight: 1, color: GYM.text, margin: 0, fontWeight: 400, textTransform: "uppercase", letterSpacing: 1 }}>
+          {title}
+        </h1>
+        {subtitle && (
+          <div style={{ fontFamily: GYM_FONT_LABEL, fontSize: 13, color: GYM.muted, marginTop: 8, letterSpacing: 1.2, textTransform: "uppercase", lineHeight: 1.5 }}>
+            {subtitle}
+          </div>
+        )}
+        <GymQuote />
+      </div>
+      <div className="gym-zone-body" style={{ padding: "20px 20px 24px" }}>{children}</div>
+      <div style={{ height: 6, background: GYM_HAZARD }} />
+    </div>
+  );
+}
+
+function GymSectionTitle({ children, color = GYM.text }) {
+  return (
+    <div style={{ fontFamily: GYM_FONT_DISPLAY, fontSize: 20, color, textTransform: "uppercase", letterSpacing: 1, fontWeight: 400 }}>{children}</div>
+  );
+}
+
 // Musculation d'Estelle (01/10/2026) : séance fixe "Full Body Mix", affichée dans le même style que
 // le reste de l'appli — pas de suivi par semaines/maxes comme côté Clément, juste le programme.
 const ESTELLE_WOD = {
@@ -8009,56 +8105,56 @@ const ESTELLE_WOD = {
 
 function EstelleMusculationTab() {
   return (
-    <div>
-      <h1 style={{ fontFamily: FONT_DISPLAY, fontSize: 32, color: COLORS.text, margin: 0, marginBottom: 6, fontWeight: 600 }}>
-        {ESTELLE_WOD.title}
-      </h1>
-      <p style={{ color: COLORS.muted, fontSize: 14, marginBottom: 24 }}>Séance complète · {ESTELLE_WOD.duration}</p>
+    <GymZone title={ESTELLE_WOD.title} subtitle={`WOD du jour · séance complète · ${ESTELLE_WOD.duration}`}>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
         {ESTELLE_WOD.blocks.map((b) => (
           <div
             key={b.title}
             style={{
-              background: COLORS.card,
-              border: `1px solid ${COLORS.cardBorder}`,
-              borderLeft: `4px solid ${b.highlight ? COLORS.gold : ESTELLE_ACCENT}`,
-              borderRadius: 10,
+              background: GYM.card,
+              border: `1px solid ${GYM.cardBorder}`,
+              borderLeft: `5px solid ${b.highlight ? GYM.yellow : GYM.red}`,
+              borderRadius: 3,
               padding: "14px 16px",
             }}
           >
             <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 4, flexWrap: "wrap" }}>
-              <span style={{ fontFamily: FONT_DISPLAY, fontSize: 16, color: COLORS.text }}>
+              <span style={{ fontFamily: GYM_FONT_DISPLAY, fontSize: 19, color: b.highlight ? GYM.yellow : GYM.text, textTransform: "uppercase", letterSpacing: 0.8 }}>
                 {b.icon} {b.title}
               </span>
-              <span style={{ fontSize: 12, color: COLORS.muted }}>— {b.duration}</span>
+              <span style={{ fontFamily: GYM_FONT_LABEL, fontSize: 13, color: GYM.red, fontWeight: 600, letterSpacing: 1 }}>{b.duration}</span>
             </div>
-            {b.intro && <p style={{ fontSize: 13, color: COLORS.text, fontWeight: 600, margin: "6px 0 4px" }}>{b.intro}</p>}
+            {b.intro && <p style={{ fontFamily: GYM_FONT_LABEL, fontSize: 14, color: GYM.text, fontWeight: 600, margin: "6px 0 4px", textTransform: "uppercase", letterSpacing: 0.5 }}>{b.intro}</p>}
             <ul style={{ margin: "6px 0 0", paddingLeft: 18 }}>
               {b.items.map((it, j) => (
-                <li key={j} style={{ fontSize: 14, color: COLORS.text, marginBottom: 4, lineHeight: 1.4 }}>
+                <li key={j} style={{ fontSize: 14, color: GYM.text, marginBottom: 4, lineHeight: 1.4 }}>
                   {it}
                 </li>
               ))}
             </ul>
-            {b.note && <p style={{ marginTop: 10, fontSize: 13, color: COLORS.muted, fontStyle: "italic", lineHeight: 1.5 }}>💡 {b.note}</p>}
+            {b.note && <p style={{ marginTop: 10, fontSize: 13, color: GYM.muted, fontStyle: "italic", lineHeight: 1.5 }}>💡 {b.note}</p>}
           </div>
         ))}
       </div>
 
-      <div style={{ background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, borderRadius: 10, padding: "16px 18px", marginTop: 20 }}>
-        <div style={{ fontFamily: FONT_DISPLAY, fontSize: 16, color: ESTELLE_ACCENT, marginBottom: 10 }}>⚠️ Points de vigilance</div>
+      <div style={{ background: GYM.card, border: `1px solid ${GYM.cardBorder}`, borderRadius: 3, padding: "16px 18px", marginTop: 20 }}>
+        <div style={{ marginBottom: 10 }}>
+          <GymSectionTitle color={GYM.yellow}>⚠️ Points de vigilance</GymSectionTitle>
+        </div>
         <ul style={{ margin: 0, paddingLeft: 18 }}>
           {ESTELLE_WOD.tips.map((t, i) => (
-            <li key={i} style={{ fontSize: 13, color: COLORS.muted, marginBottom: 6, lineHeight: 1.5 }}>
+            <li key={i} style={{ fontSize: 13, color: GYM.muted, marginBottom: 6, lineHeight: 1.5 }}>
               {t}
             </li>
           ))}
         </ul>
       </div>
 
-      <p style={{ textAlign: "center", marginTop: 20, fontSize: 14, color: COLORS.muted }}>Bonne séance ! 🙌</p>
-    </div>
+      <div style={{ textAlign: "center", marginTop: 24, fontFamily: GYM_FONT_DISPLAY, fontSize: 26, color: GYM.yellow, textTransform: "uppercase", letterSpacing: 1.5 }}>
+        Go hard or go home 🔥
+      </div>
+    </GymZone>
   );
 }
 
@@ -8755,7 +8851,7 @@ function CalendrierTab({
   );
 }
 
-const MUSCU_ACCENT = "#B0785A";
+const MUSCU_ACCENT = GYM.red;
 
 // Cycle 9 semaines — Programme Musculation Argonautes Aix-en-Provence, Sr Elite 2027
 // (transcrit du PDF fourni par l'utilisateur ; "Warm-up"/"Med Ball"/"Step Ups"/"1 Leg Squat"/"OFF" sont les
@@ -9110,20 +9206,20 @@ function isMusculationCurrentWeek(week) {
   return now >= start && now <= end;
 }
 
-function ProgressRing({ done, total, size = 84, accent }) {
+function ProgressRing({ done, total, size = 84, accent, trackColor = COLORS.track, textColor = COLORS.text, font = FONT_DISPLAY }) {
   const pct = total > 0 ? done / total : 0;
   const stroke = 8;
   const r = (size - stroke) / 2;
   const c = 2 * Math.PI * r;
   return (
     <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} style={{ flexShrink: 0 }}>
-      <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke={COLORS.track} strokeWidth={stroke} />
+      <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke={trackColor} strokeWidth={stroke} />
       <circle
         cx={size / 2} cy={size / 2} r={r} fill="none" stroke={accent} strokeWidth={stroke}
         strokeDasharray={c} strokeDashoffset={c * (1 - pct)} strokeLinecap="round"
         transform={`rotate(-90 ${size / 2} ${size / 2})`}
       />
-      <text x="50%" y="50%" textAnchor="middle" dominantBaseline="central" fill={COLORS.text} fontFamily={FONT_DISPLAY} fontSize={size * 0.22} fontWeight="600">
+      <text x="50%" y="50%" textAnchor="middle" dominantBaseline="central" fill={textColor} fontFamily={font} fontSize={size * 0.22} fontWeight="600">
         {done}/{total}
       </text>
     </svg>
@@ -9145,14 +9241,14 @@ function MusculationWeekDots({ checked, selectedWeek, onSelect }) {
             style={{
               flexShrink: 0, width: 38, height: 38, borderRadius: "50%", cursor: "pointer",
               display: "flex", alignItems: "center", justifyContent: "center",
-              border: current ? `2px solid ${MUSCU_ACCENT}` : `1.5px solid ${complete ? COLORS.checked : done > 0 ? MUSCU_ACCENT : COLORS.border}`,
-              background: complete ? COLORS.checked : "transparent",
-              boxShadow: isSelected ? `0 0 0 3px ${COLORS.bgTo}, 0 0 0 5px ${MUSCU_ACCENT}` : "none",
-              color: complete ? "white" : current ? MUSCU_ACCENT : COLORS.muted,
-              fontFamily: FONT_BODY, fontSize: 12, fontWeight: 600,
+              border: current ? `2px solid ${MUSCU_ACCENT}` : `1.5px solid ${complete ? GYM.yellow : done > 0 ? MUSCU_ACCENT : GYM.border}`,
+              background: complete ? GYM.yellow : "transparent",
+              boxShadow: isSelected ? `0 0 0 3px ${GYM.bg}, 0 0 0 5px ${MUSCU_ACCENT}` : "none",
+              color: complete ? "#111" : current ? MUSCU_ACCENT : GYM.muted,
+              fontFamily: GYM_FONT_LABEL, fontSize: 13, fontWeight: 600,
             }}
           >
-            {complete ? <Check size={14} color="white" /> : week.n}
+            {complete ? <Check size={14} color="#111" /> : week.n}
           </button>
         );
       })}
@@ -9174,14 +9270,14 @@ function MusculationSeanceCards({ week, seance, maxes }) {
         return (
           <div
             key={i}
-            style={{ background: COLORS.track, border: `1px solid ${COLORS.border}`, borderRadius: 8, padding: "10px 12px" }}
+            style={{ background: GYM.track, border: `1px solid ${GYM.border}`, borderRadius: 3, padding: "10px 12px" }}
           >
-            <div style={{ fontSize: 13, fontWeight: 600, color: COLORS.text, marginBottom: 6 }}>{b.title}</div>
+            <div style={{ fontFamily: GYM_FONT_LABEL, fontSize: 14, fontWeight: 600, color: GYM.text, marginBottom: 6, textTransform: "uppercase", letterSpacing: 0.6 }}>{b.title}</div>
             {parts.map((part, j) => {
               const weight = b.liftKey ? computeWeightFromMax(extractPercent(part), parseFloat(maxes[b.liftKey])) : null;
               return (
                 <div key={j} style={{ marginTop: j === 0 ? 0 : 4 }}>
-                  <div style={{ fontSize: 13, color: COLORS.muted }}>
+                  <div style={{ fontSize: 13, color: GYM.muted }}>
                     {part}
                     {weight != null && <span style={{ color: MUSCU_ACCENT, fontWeight: 600, marginLeft: 6 }}>→ {weight} kg</span>}
                   </div>
@@ -9197,10 +9293,10 @@ function MusculationSeanceCards({ week, seance, maxes }) {
 
 function MusculationWeekDetail({ week, checked, onToggleSeance, maxes }) {
   return (
-    <div style={{ background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, borderRadius: 10, padding: "18px 18px 20px" }}>
+    <div style={{ background: GYM.card, border: `1px solid ${GYM.cardBorder}`, borderRadius: 3, padding: "18px 18px 20px" }}>
       <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 14, flexWrap: "wrap", gap: 8 }}>
-        <span style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: COLORS.text }}>Semaine {week.n}</span>
-        <span style={{ fontSize: 12, color: COLORS.muted }}>{week.dates}</span>
+        <GymSectionTitle>Semaine {week.n}</GymSectionTitle>
+        <span style={{ fontSize: 12, color: GYM.muted }}>{week.dates}</span>
       </div>
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 22 }}>
         {MUSCU_SEANCES.map((s) => {
@@ -9210,13 +9306,13 @@ function MusculationWeekDetail({ week, checked, onToggleSeance, maxes }) {
               key={s.key}
               onClick={() => onToggleSeance(week.n, s.key)}
               style={{
-                display: "flex", alignItems: "center", gap: 6, padding: "7px 12px", borderRadius: 999, cursor: "pointer",
-                border: `1px solid ${done ? COLORS.checked : COLORS.border}`,
-                background: done ? COLORS.checked : "transparent",
-                color: done ? "white" : COLORS.muted, fontFamily: FONT_BODY, fontSize: 12,
+                display: "flex", alignItems: "center", gap: 6, padding: "7px 12px", borderRadius: 3, cursor: "pointer",
+                border: `1px solid ${done ? GYM.yellow : GYM.border}`,
+                background: done ? GYM.yellow : "transparent",
+                color: done ? "#111" : GYM.muted, fontFamily: FONT_BODY, fontSize: 12,
               }}
             >
-              {done && <Check size={11} color="white" />}
+              {done && <Check size={11} color="#111" />}
               {s.title}
             </button>
           );
@@ -9227,17 +9323,17 @@ function MusculationWeekDetail({ week, checked, onToggleSeance, maxes }) {
         return (
           <div key={seance.key} style={{ marginBottom: 18 }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, marginBottom: 8 }}>
-              <div style={{ fontFamily: FONT_DISPLAY, fontSize: 15, color: done ? COLORS.checked : MUSCU_ACCENT }}>{seance.title}</div>
+              <div style={{ fontFamily: GYM_FONT_DISPLAY, fontSize: 18, color: done ? GYM.yellow : MUSCU_ACCENT, textTransform: "uppercase", letterSpacing: 0.8 }}>{seance.title}</div>
               <button
                 onClick={() => onToggleSeance(week.n, seance.key)}
                 style={{
-                  display: "flex", alignItems: "center", gap: 6, padding: "6px 12px", borderRadius: 999, cursor: "pointer", flexShrink: 0,
-                  border: `1px solid ${done ? COLORS.checked : COLORS.border}`,
-                  background: done ? COLORS.checked : "transparent",
-                  color: done ? "white" : COLORS.muted, fontFamily: FONT_BODY, fontSize: 12, fontWeight: done ? 600 : 400,
+                  display: "flex", alignItems: "center", gap: 6, padding: "6px 12px", borderRadius: 3, cursor: "pointer", flexShrink: 0,
+                  border: `1px solid ${done ? GYM.yellow : GYM.border}`,
+                  background: done ? GYM.yellow : "transparent",
+                  color: done ? "#111" : GYM.muted, fontFamily: FONT_BODY, fontSize: 12, fontWeight: done ? 600 : 400,
                 }}
               >
-                {done && <Check size={11} color="white" />}
+                {done && <Check size={11} color="#111" />}
                 {done ? "Faite" : "Pas faite"}
               </button>
             </div>
@@ -9256,9 +9352,9 @@ const MUSCU_SECTIONS = [
 
 function MusculationMaxesForm({ maxes, onChange }) {
   return (
-    <div style={{ background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, borderRadius: 10, padding: "18px 18px 20px" }}>
-      <div style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: COLORS.text, marginBottom: 6 }}>Mes maxes (1RM)</div>
-      <p style={{ fontSize: 13, color: COLORS.muted, lineHeight: 1.6, marginBottom: 20 }}>
+    <div style={{ background: GYM.card, border: `1px solid ${GYM.cardBorder}`, borderRadius: 3, padding: "18px 18px 20px" }}>
+      <div style={{ marginBottom: 6 }}><GymSectionTitle>Mes maxes (1RM)</GymSectionTitle></div>
+      <p style={{ fontSize: 13, color: GYM.muted, lineHeight: 1.6, marginBottom: 20 }}>
         Renseigne ton max sur chaque mouvement : le programme calcule automatiquement la charge à soulever à chaque pourcentage (arrondie au 2,5 kg le plus proche).
       </p>
       <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
@@ -9266,7 +9362,7 @@ function MusculationMaxesForm({ maxes, onChange }) {
           const Icon = MUSCU_LIFT_ICONS[key];
           return (
           <label key={key} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
-            <span style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 14, color: COLORS.text }}>
+            <span style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 14, color: GYM.text }}>
               <Icon size={26} color={MUSCU_ACCENT} />
               {MUSCU_LIFT_LABELS[key]}
             </span>
@@ -9279,13 +9375,13 @@ function MusculationMaxesForm({ maxes, onChange }) {
                 onChange={(e) => onChange(key, e.target.value)}
                 placeholder="—"
                 style={{
-                  width: 90, background: COLORS.track, border: `1px solid ${COLORS.border}`, borderRadius: 6,
-                  padding: "6px 8px", fontSize: 13, fontFamily: FONT_BODY, color: COLORS.text, textAlign: "right", boxSizing: "border-box",
+                  width: 90, background: GYM.track, border: `1px solid ${GYM.border}`, borderRadius: 2,
+                  padding: "6px 8px", fontSize: 13, fontFamily: FONT_BODY, color: GYM.text, textAlign: "right", boxSizing: "border-box",
                 }}
                 onFocus={(e) => (e.target.style.borderColor = MUSCU_ACCENT)}
-                onBlur={(e) => (e.target.style.borderColor = COLORS.border)}
+                onBlur={(e) => (e.target.style.borderColor = GYM.border)}
               />
-              <span style={{ fontSize: 12, color: COLORS.muted }}>kg</span>
+              <span style={{ fontSize: 12, color: GYM.muted }}>kg</span>
             </div>
           </label>
           );
@@ -9358,13 +9454,7 @@ function MusculationTab() {
 
   return (
     <div>
-      <h1 style={{ fontFamily: FONT_DISPLAY, fontSize: 32, color: COLORS.text, margin: 0, marginBottom: 6, fontWeight: 600 }}>Musculation</h1>
-      <p style={{ color: COLORS.muted, fontSize: 14, lineHeight: 1.6, marginBottom: 8 }}>
-        Programme Argonautes Aix-en-Provence — Sr Elite 2027, 14 septembre → 2 novembre 2026 (cycle sur 9 semaines).
-      </p>
-      <p style={{ color: COLORS.muted, fontSize: 13, fontStyle: "italic", lineHeight: 1.6, marginBottom: 24 }}>
-        "Whatever your hand finds to do, do it with all your might."
-      </p>
+      <GymZone title="Musculation" subtitle="Argonautes Aix-en-Provence — Sr Elite 2027 · 14 sept. → 2 nov. 2026 · cycle 9 semaines">
 
       <PillTabs options={MUSCU_SECTIONS} activeKey={section} onSelect={setSection} accentOf={(s) => s.accent} />
 
@@ -9373,16 +9463,16 @@ function MusculationTab() {
       {section === "programme" && (
         <div>
           <div style={{ display: "flex", alignItems: "center", gap: 20, marginBottom: 24, flexWrap: "wrap" }}>
-            <ProgressRing done={doneUnits} total={totalUnits} accent={MUSCU_ACCENT} />
+            <ProgressRing done={doneUnits} total={totalUnits} accent={MUSCU_ACCENT} trackColor={GYM.track} textColor={GYM.text} font={GYM_FONT_DISPLAY} />
             <div>
-              <div style={{ fontSize: 14, fontWeight: 500, color: COLORS.text, marginBottom: 4 }}>{weeksComplete} / {MUSCU_WEEKS.length} semaines complètes</div>
-              <div style={{ fontSize: 12, color: COLORS.muted }}>{doneUnits} / {totalUnits} séances au total</div>
+              <div style={{ fontFamily: GYM_FONT_DISPLAY, fontSize: 22, color: GYM.text, marginBottom: 4, textTransform: "uppercase", letterSpacing: 0.8 }}>{weeksComplete} / {MUSCU_WEEKS.length} semaines complètes</div>
+              <div style={{ fontSize: 12, color: GYM.muted }}>{doneUnits} / {totalUnits} séances au total</div>
             </div>
           </div>
 
-          <div style={{ background: COLORS.card, borderRadius: 10, padding: "14px 16px", borderLeft: `3px solid ${MUSCU_ACCENT}`, marginBottom: 24 }}>
-            <div style={{ fontSize: 14, fontWeight: 500, color: COLORS.text, marginBottom: 4 }}>Méthode : Rep Max</div>
-            <p style={{ fontSize: 13, color: COLORS.text, lineHeight: 1.6, margin: 0 }}>
+          <div style={{ background: GYM.card, borderRadius: 3, padding: "14px 16px", borderLeft: `3px solid ${MUSCU_ACCENT}`, marginBottom: 24 }}>
+            <div style={{ marginBottom: 6 }}><GymSectionTitle color={GYM.yellow}>Méthode : Rep Max</GymSectionTitle></div>
+            <p style={{ fontSize: 13, color: GYM.text, lineHeight: 1.6, margin: 0 }}>
               On travaille toujours en Rep Max : pour 3 séries de 8, les séries de travail se font à une charge qui permet de faire 8 répétitions et
               pas une de plus. Si tu peux en faire plus que prévu (max sous-évalué), fais le maximum de reps et réévalue ton max en conséquence pour
               la séance suivante. Échauffement avant chaque séance : 5 minutes de cardio (corde à sauter, dot drills, rameur, etc.).
@@ -9393,6 +9483,7 @@ function MusculationTab() {
           <MusculationWeekDetail week={week} checked={checked} onToggleSeance={toggleSeance} maxes={maxes} />
         </div>
       )}
+      </GymZone>
     </div>
   );
 }
