@@ -1,5 +1,5 @@
-const CACHE_NAME = "mon-espace-v106";
-const APP_SHELL = ["./mon-espace.html", "./manifest.json", "./icon.svg", "./fond-accueil.jpg?v=3", "./avatar-estelle.jpg?v=1", "./avatar-clement.jpg?v=3", "./avatar-chatchats.jpg?v=1"];
+const CACHE_NAME = "mon-espace-v107";
+const APP_SHELL = ["./mon-espace.html", "./manifest.json", "./icon.svg", "./fond-accueil.jpg?v=3", "./avatar-estelle.jpg?v=1", "./avatar-clement.jpg?v=3", "./avatar-chatchats.jpg?v=1", "./banniere-muscu-clement.jpg?v=1", "./banniere-muscu-estelle.jpg?v=1"];
 
 self.addEventListener("install", (event) => {
   // cache: "reload" = on va chercher les fichiers sur le serveur, pas dans le cache HTTP du navigateur

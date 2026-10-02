@@ -318,6 +318,24 @@ const SPACE_DESCRIPTIONS = {
 // dans le bleu nuit de l'app par un dégradé — les cartes flottent dessus en verre dépoli.
 // ?v=N à incrémenter si on remplace la photo (ici ET dans sw.js).
 const HOME_BACKGROUND = "./fond-accueil.jpg?v=3";
+
+// Bannière des onglets Musculation (02/10/2026, demande explicite) : un sportif pro à la place de la
+// photo de couple. Photos libres de Wikimedia Commons — la licence impose de créditer l'auteur
+// (mention affichée en bas à droite de la bannière).
+const TAB_BANNERS = {
+  musculation: {
+    src: "./banniere-muscu-clement.jpg?v=1",
+    position: "48% 6%",
+    credit: "Patrick Mahomes · photo All-Pro Reels, CC BY-SA 2.0",
+    url: "https://commons.wikimedia.org/wiki/File:Patrick_Mahomes_(51608431671).jpg",
+  },
+  "estelle-musculation": {
+    src: "./banniere-muscu-estelle.jpg?v=1",
+    position: "42% 4%",
+    credit: "Serena Williams · photo Edwin Martinez, CC BY 2.0",
+    url: "https://commons.wikimedia.org/wiki/File:Serena_Williams_(9630796711).jpg",
+  },
+};
 // Photo à la place de l'initiale dans la pastille (Estelle et Clément ajoutés 30/09/2026) ; les
 // espaces absents de cette liste gardent leur lettre.
 // Le ?v=N force le rechargement quand on remplace une photo en gardant le même nom de fichier (sinon le
@@ -1166,11 +1184,13 @@ function App() {
   const currentSpaceTabs = SPACE_TABS[activeSpace];
   const currentSpace = SPACES.find((sp) => sp.key === activeSpace);
   const activeTab = currentSpaceTabs.find((t) => t.key === active);
+  const tabBanner = TAB_BANNERS[active] || null;
 
   return (
     <div className="space-enter" style={{ minHeight: "100vh", fontFamily: FONT_BODY, background: `linear-gradient(180deg, ${COLORS.bgFrom}, ${COLORS.bgTo})`, display: "flex", flexDirection: "column" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=Anton&family=Oswald:wght@400;500;600;700&display=swap');
+        .hero-img { animation: fade-in-soft 0.5s ease-out backwards; }
         .tab-bubble:not(.is-active):hover { background: rgba(255,255,255,0.06) !important; color: ${COLORS.text} !important; border-color: rgba(255,255,255,0.22) !important; }
         .tab-bubble:active { transform: scale(0.97); }
         @media (max-width: 640px) {
@@ -1190,7 +1210,18 @@ function App() {
             le menu ☰ + CHATCHAT LAND (retour à l'accueil) en haut, la photo ronde et le nom de l'espace
             en grand en bas ; onglets en pastilles dessous (ordinateur ; téléphone = menu ☰). */}
         <div className="app-hero" style={{ position: "relative", height: 230, overflow: "hidden" }}>
-          <img src={HOME_BACKGROUND} alt="" aria-hidden="true" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 62%" }} />
+          <img
+            key={tabBanner ? tabBanner.src : "home"}
+            className="hero-img"
+            src={tabBanner ? tabBanner.src : HOME_BACKGROUND}
+            alt=""
+            aria-hidden="true"
+            style={{
+              position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover",
+              objectPosition: tabBanner ? tabBanner.position : "50% 62%",
+              filter: tabBanner ? "contrast(1.12) saturate(1.1)" : "none",
+            }}
+          />
           <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(9,12,21,0.55) 0%, rgba(9,12,21,0.08) 40%, rgba(9,12,21,0.88) 100%)" }} />
           <div className="app-hero-top" style={{ position: "absolute", top: 18, left: 40, right: 40, display: "flex", alignItems: "center", gap: 14 }}>
             <button
@@ -1216,6 +1247,16 @@ function App() {
               CHATCHAT LAND
             </button>
           </div>
+          {tabBanner && (
+            <a
+              href={tabBanner.url}
+              target="_blank"
+              rel="noreferrer"
+              style={{ position: "absolute", right: 10, bottom: 6, fontSize: 9, color: "rgba(255,255,255,0.55)", textDecoration: "none", zIndex: 1 }}
+            >
+              {tabBanner.credit}
+            </a>
+          )}
           <div className="app-hero-id" style={{ position: "absolute", left: 40, right: 40, bottom: 20, display: "flex", alignItems: "center", gap: 16 }}>
             {SPACE_AVATARS[currentSpace.key] && (
               <img
