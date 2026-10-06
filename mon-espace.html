@@ -1845,17 +1845,28 @@ const ENSEIGNEMENT_SECTIONS = [
 
 const CRPE_SESSIONS = [
   {
-    year: "2026",
-    badge: "Nouveau format · bac+3 · repère",
+    year: "2027",
+    badge: "Ancien format · bac+5 · ta session (M2)",
     text:
-      "Programme fixé par l'arrêté du 17 avril 2025, centré sur les disciplines de l'école primaire (cycles 1 à 4) plutôt que sur les seuls cycles 3-4. Écrit 1 : français et mathématiques regroupés, 4h, coeff. 5. Écrit 2 : trois disciplines au choix parmi histoire-géo, sciences, arts ou langue vivante, 4h, coeff. 3. Oral 1 : français ou mathématiques au choix, 1h, coeff. 5. Oral 2 : EPS et entretien de motivation (valeurs républicaines, laïcité), 55 min, coeff. 3. Le master reste obligatoire après l'admission (M1 en observation/stage, M2 à mi-temps). Les deux concours (ancien et nouveau format) coexistent sur 2026-2027.",
+      "Le concours bac+5 (arrêté du 19 avril 2013 modifié, même architecture que les sessions 2023-2025 ci-dessous) continue d'être organisé en 2026 et 2027 pour les étudiants déjà engagés dans un master MEEF construit autour d'un concours en M2 — 2027 est la dernière session où il coexiste avec le nouveau concours bac+3. Même plateforme et même calendrier d'inscription que le format réformé : Cyclades, du 1er octobre au 25 novembre 2026 (12h), écrits les 30 et 31 mars 2027 (arrêtés du 22 septembre 2026). 3 écrits d'admissibilité (français, mathématiques, épreuve d'application) + 2 oraux d'admission (épreuve de leçon français/maths, coeff. 4 ; entretien d'admission EPS + mises en situation professionnelles, coeff. variable) + 1 oral optionnel de langue vivante. Dates d'oraux fixées académie par académie, généralement entre mai et juillet.",
+    links: [
+      { label: "Calendrier CRPE session 2027", url: "https://www.devenirenseignant.gouv.fr/le-calendrier-des-concours-de-recrutement-de-professeurs-des-ecoles-de-la-session-2025-1091" },
+      { label: "Épreuves du concours externe bac+5", url: "https://www.devenirenseignant.gouv.fr/cid98655/les-epreuves-crpe-externe-special-second-crpe-interne-special.html" },
+      { label: "Épreuve orale « entretien avec le jury »", url: "https://www.devenirenseignant.gouv.fr/epreuve-orale-d-admission-entretien-avec-le-jury-des-concours-de-recrutement-1103" },
+    ],
+  },
+  {
+    year: "2026",
+    badge: "Nouveau format · bac+3 · ne s'applique pas à toi",
+    text:
+      "Pour mémoire : le concours réformé qui coexiste avec le tien (arrêté du 17 avril 2025), accessible dès la licence. Écrit 1 : français et mathématiques regroupés, 4h, coeff. 5. Écrit 2 : trois disciplines au choix parmi histoire-géo, sciences, arts ou langue vivante, 4h, coeff. 3. Oral 1 : français ou mathématiques au choix, 1h, coeff. 5. Oral 2 : EPS et entretien de motivation (valeurs républicaines, laïcité), 55 min, coeff. 3. Le master devient obligatoire après l'admission (M1 en observation/stage, M2 à mi-temps) — à l'inverse de ton parcours où le master est en cours pendant que tu prépares le concours.",
     links: [],
   },
   {
     year: "2025",
     badge: "Ancien format · bac+5",
     text:
-      "Dernière session sous l'arrêté du 19 avril 2013 modifié. Épreuves écrites disciplinaires en français (programme de cycle 4, plus « étude de la langue » de seconde/première) et en mathématiques (cycle 4, plus « nombres et calculs » de seconde). Épreuve d'application couvrant arts, histoire-géographie-EMC et sciences et technologie sur les programmes de cycles 3 et 4.",
+      "Session précédente sous le même arrêté du 19 avril 2013 modifié que ta session 2027 — la référence la plus directe pour t'entraîner. Épreuves écrites disciplinaires en français (programme de cycle 4, plus « étude de la langue » de seconde/première) et en mathématiques (cycle 4, plus « nombres et calculs » de seconde). Épreuve d'application couvrant arts, histoire-géographie-EMC et sciences et technologie sur les programmes de cycles 3 et 4.",
     links: [
       { label: "Sujets officiels 2025", url: "https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-et-rapports-des-jurys-des-crpe-1163" },
       { label: "Annales complètes 2025", url: "https://www.objectif-crpe.fr/annales-crpe" },
@@ -1930,50 +1941,39 @@ const CRPE_EPREUVES = [
     ],
   },
   {
-    title: "Écrit — matière au choix",
-    meta: "4h · coeff. 3",
+    title: "Écrit — Épreuve d'application",
+    meta: "4h · coeff. 3 (3e écrit)",
     bullets: [
       "Histoire-géographie-EMC — programmes de cycles 3-4, valeurs républicaines",
       "Sciences et technologie — vivant, matière, énergie, objets techniques",
       "Arts — arts visuels, éducation musicale, corpus d'œuvres renouvelé chaque session",
-      "Langue vivante — allemand, anglais, espagnol ou italien (nouveau format)",
+      "Une seule épreuve qui combine ces domaines (pas de discipline « au choix » comme dans le concours réformé bac+3)",
     ],
   },
   {
-    title: "Oral — Leçon disciplinaire",
-    meta: "1h prépa · 20+40 min",
+    title: "Oral — Épreuve de leçon (français / mathématiques)",
+    meta: "1h (30+30 min) · coeff. 4",
     bullets: [
+      "Exposé de 10-15 min suivi d'un entretien avec le jury, pour chacune des deux disciplines",
       "Construction d'une séance complète : étapes, modalités, différenciation",
-      "Explicitation des démarches d'apprentissage au cycle 3",
-      "Anticipation des difficultés des élèves et rôle du maître",
+      "Explicitation des démarches d'apprentissage, anticipation des difficultés des élèves",
     ],
   },
   {
-    title: "Oral — EPS / APSA",
-    meta: "15+15 min · /10",
+    title: "Oral — Entretien d'admission",
+    meta: "1h05 (30 min prépa)",
     bullets: [
-      "Les 8 activités officielles (natation, danse, jeux collectifs, athlétisme en priorité)",
-      "Construction de séances, règles de sécurité propres à chaque activité",
-      "Développement psychomoteur de l'enfant, choix didactiques justifiés au socle commun",
+      "1re partie (30 min) — EPS : connaissance scientifique du développement de l'enfant et psychologie, construction de séances, sécurité propre à chaque activité",
+      "2e partie — deux mises en situation professionnelle : une liée à l'enseignement (discipline ou contexte de classe), une liée à la vie scolaire (hors classe)",
+      "Évalue le jugement professionnel face à une situation délicate, la connaissance du système éducatif et les valeurs républicaines (laïcité, égalité, École inclusive)",
     ],
   },
   {
-    title: "Oral — Entretien de motivation",
-    meta: "30 min · /10",
+    title: "Oral — Langue vivante (facultatif)",
+    meta: "points supplémentaires uniquement",
     bullets: [
-      "Présentation de parcours et projet professionnel (5-7 min)",
-      "Connaissance réaliste du métier : polyvalence, gestion de classe, relations aux familles",
-      "Réflexion sincère sur ses valeurs et motivations",
-    ],
-  },
-  {
-    title: "Oral — Connaissance du système éducatif",
-    meta: "10-20 min prépa · +10 min",
-    bullets: [
-      "Service public — droits et obligations du fonctionnaire",
-      "Fonctionnement d'une école : directeur, conseil des maîtres, familles",
-      "Valeurs républicaines — laïcité, égalité, lutte contre les discriminations",
-      "École inclusive, sécurité et responsabilité légale des élèves",
+      "Allemand, anglais, espagnol ou italien — n'est pas éliminatoire et ne pénalise pas si non présenté",
+      "À envisager seulement une fois les épreuves obligatoires solides",
     ],
   },
 ];
@@ -1995,6 +1995,9 @@ const CRPE_PIEGES = [
 const CRPE_SOURCES = [
   "Programmes des concours de recrutement de professeurs des écoles — devenirenseignant.gouv.fr",
   "Sujets des épreuves écrites et rapports de jury du CRPE — devenirenseignant.gouv.fr",
+  "Les épreuves du concours externe bac+5 — devenirenseignant.gouv.fr",
+  "Épreuve orale d'admission « entretien avec le jury » (bac+5) — devenirenseignant.gouv.fr",
+  "Calendrier du concours CRPE, session 2027 — devenirenseignant.gouv.fr",
   "Le programme, arrêté du 17 avril 2025 — CapConcours",
   "Comprendre la réforme du CRPE 2026 — Objectif CRPE",
   "Annales du CRPE : sujets et corrigés de 2022 à 2026 — Objectif CRPE",
@@ -5167,7 +5170,8 @@ function RevisionConcoursContent() {
         Révision concours — CRPE
       </h1>
       <p style={{ color: COLORS.muted, fontSize: 14, lineHeight: 1.6, marginBottom: 24 }}>
-        Ce qui était demandé, session après session — programme officiel des sessions 2023 à 2026.
+        Ce qui était demandé, session après session — ta session 2027 (bac+5, concours en M2) en premier, puis les
+        sessions précédentes sous le même format, et pour mémoire le concours réformé bac+3 qui coexiste sans te concerner.
       </p>
 
       {CRPE_SESSIONS.map((s) => (
@@ -5225,7 +5229,7 @@ function RevisionConcoursContent() {
 // partagé des Chatchats. Même id et même stockage ("admin-checked") qu'avant : la coche est conservée.
 const CRPE_INSCRIPTION_TASK = {
   id: "crpe-inscription-2027",
-  label: "S'inscrire au CRPE 2027 (externe bac+3) sur Cyclades",
+  label: "S'inscrire au CRPE 2027 (externe bac+5, master MEEF) sur Cyclades",
   frequency: "Inscriptions ouvertes du 1er octobre 2026 (12h) au 25 novembre 2026 (12h)",
   nextDue: "2026-11-25",
 };
@@ -5271,15 +5275,17 @@ function InscriptionPratiquesContent() {
         CRPE · 1er degré
       </h1>
       <p style={{ color: COLORS.muted, fontSize: 14, lineHeight: 1.6, marginBottom: 16 }}>
-        Inscription, épreuves et méthode de révision pour le concours de recrutement de professeurs des écoles.
+        Inscription, épreuves et méthode de révision pour le concours externe bac+5 (master MEEF, concours passé en M2) —
+        la session 2027 est la dernière où il coexiste avec le concours réformé bac+3.
       </p>
 
       <div style={{ background: COLORS.card, borderRadius: 10, padding: "14px 16px", borderLeft: `3px solid ${accent}`, marginBottom: 24 }}>
         <div style={{ fontSize: 14, fontWeight: 500, color: COLORS.text, marginBottom: 4 }}>Inscriptions CRPE 2027 — date d'ouverture officielle publiée</div>
         <p style={{ fontSize: 13, color: COLORS.text, lineHeight: 1.6, margin: 0 }}>
-          Les inscriptions au CRPE externe (bac+3) pour la session 2027 ouvrent le <strong>jeudi 1er octobre 2026 à 12h00</strong> sur Cyclades, selon
-          le calendrier officiel publié par le ministère, et ferment le <strong>mercredi 25 novembre 2026 à 12h00</strong> (heure de Paris). Écrits attendus
-          les 30 et 31 mars 2027. La tâche d'inscription est à cocher juste en dessous — détails officiels sur{" "}
+          Les inscriptions au CRPE externe bac+5 pour la session 2027 ouvrent le <strong>jeudi 1er octobre 2026 à 12h00</strong> sur Cyclades — même
+          plateforme et même calendrier que le concours réformé bac+3 — selon le calendrier officiel publié par le ministère, et ferment le{" "}
+          <strong>mercredi 25 novembre 2026 à 12h00</strong> (heure de Paris). Écrits attendus les 30 et 31 mars 2027 (arrêtés du 22 septembre 2026).
+          La tâche d'inscription est à cocher juste en dessous — détails officiels sur{" "}
           <a href="https://www.devenirenseignant.gouv.fr/le-calendrier-des-concours-de-recrutement-de-professeurs-des-ecoles-de-la-session-2027-1091" target="_blank" rel="noreferrer" style={{ color: accent }}>
             devenirenseignant.gouv.fr
           </a>.
@@ -5466,20 +5472,20 @@ const CRPE_LESSON_STAGES = [
   },
   {
     id: 11,
-    title: "EPS / APSA (oral d'admission)",
+    title: "EPS (1re partie de l'entretien d'admission)",
     duration: "1h30",
-    tagline: "Une épreuve entièrement orale et théorique depuis la réforme 2026.",
+    tagline: "Dans ton format bac+5, c'est la 1re partie (30 min) de l'épreuve d'entretien d'admission — pas une épreuve séparée.",
     bullets: [
-      { text: "Depuis la réforme 2026, l'épreuve s'appelle APSA (Activités Physiques, Sportives et Artistiques) : entièrement orale et théorique, sans performance physique demandée.", source: "La Classe", url: "https://www.laclasse.fr/lepreuve-orale-en-eps-du-crpe" },
-      { text: "Format : 30 minutes au total, 15 minutes de présentation d'une réponse à un sujet suivies de 15 minutes d'entretien avec le jury.", source: "Vocation CRPE", url: "https://vocation-crpe.fr/epreuves-orales-du-crpe/" },
+      { text: "30 minutes consacrées à la connaissance scientifique du développement de l'enfant et à la psychologie, en lien avec l'EPS.", source: "devenirenseignant.gouv.fr", url: "https://www.devenirenseignant.gouv.fr/epreuve-orale-d-admission-entretien-avec-le-jury-des-concours-de-recrutement-1103" },
       { text: "Se familiariser avec les grandes APSA enseignées à l'école (règles, objectifs pédagogiques) et savoir concevoir une séquence assurant la sécurité des élèves.", source: "Réussir le CRPE", url: "https://www.reussirlecrpe.fr/epreuves-du-crpe/fiche-epreuve-eps-crpe-reussir-son-oral/" },
+      { text: "Pour information, le concours réformé bac+3 (qui ne te concerne pas) a transformé cette partie en épreuve autonome « APSA », entièrement orale et théorique.", source: "La Classe", url: "https://www.laclasse.fr/lepreuve-orale-en-eps-du-crpe" },
     ],
   },
   {
     id: 12,
-    title: "Entretien de motivation — valeurs de la République",
+    title: "Mises en situation professionnelle — valeurs de la République",
     duration: "2h",
-    tagline: "L'épreuve qui évalue qui on est, pas seulement ce qu'on sait.",
+    tagline: "Dans ton format bac+5, c'est la 2e partie de l'entretien d'admission (mises en situation d'enseignement et de vie scolaire) — l'esprit reste le même : qui tu es, pas seulement ce que tu sais.",
     bullets: [
       { text: "L'entretien évalue la capacité à transmettre et incarner les valeurs de la République, dont la laïcité, à travers des questionnements variés incluant une mise en situation.", source: "Objectif CRPE", url: "https://www.objectif-crpe.fr/epreuve-orale-entretien-crpe" },
       { text: "Le jury attend une vision d'ensemble du rôle de l'école primaire dans la société, ainsi qu'une éthique professionnelle conforme aux exigences du service public (neutralité, lutte contre les discriminations, égalité filles-garçons).", source: "Vocation CRPE", url: "https://vocation-crpe.fr/lepreuve-orale-entretien-du-crpe-vocation/" },
