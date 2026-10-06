@@ -1521,44 +1521,18 @@ function CarriereTab({ offerStatus, setOfferStatus }) {
   );
 }
 
-const APPRENTISSAGE_SECTIONS = [
-  { key: "musique", label: "Musique", accent: "#A088BB" },
-  { key: "dessin", label: "Dessin", accent: "#C98B6E" },
-  { key: "echecs", label: "Échecs", accent: "#6B8CAE" },
-];
+// Musique (FL Studio), Dessin et Échecs mis de côté (06/10/2026, demande explicite) au profit des
+// révisions CRPE — on y reviendra peut-être plus tard. Le code et les données (ActivityWithPlanTab,
+// FL_STUDIO_PLAN_STAGES, DRAWING_PLAN_STAGES, CHESS_PLAN_STAGES et leurs ressources) restent plus bas
+// dans le fichier, juste retirés de la navigation, pour pouvoir les réactiver facilement.
+const APPRENTISSAGE_SECTIONS = [{ key: "crpe", label: "Révisions CRPE", accent: "#7C99B8" }];
 
 function ApprentissageTab() {
-  const [section, setSection] = useState("musique");
+  const [section, setSection] = useState("crpe");
   return (
     <div>
       <PillTabs options={APPRENTISSAGE_SECTIONS} activeKey={section} onSelect={setSection} accentOf={(s) => s.accent} />
-      {section === "musique" && (
-        <ActivityWithPlanTab
-          accent={MUSIQUE_ACCENT}
-          planTitle="Maîtriser FL Studio"
-          planIntro="Je suis ton professeur pour ce parcours FL Studio. On avance par étapes, sans deadline : tu passes à la suivante quand tu es à l'aise, pas avant. Pour chaque point du programme, un lien vers un tutoriel concret pour le mettre en pratique, et une durée indicative pour t'organiser."
-          planStages={FL_STUDIO_PLAN_STAGES}
-          planResources={FL_STUDIO_RESOURCES}
-        />
-      )}
-      {section === "dessin" && (
-        <ActivityWithPlanTab
-          accent={DESSIN_ACCENT}
-          planTitle="Apprendre à dessiner au crayon gris"
-          planIntro="Je suis ton professeur de dessin pour ce parcours. On avance par étapes, sans deadline : tu passes à la suivante quand tu es à l'aise, pas avant. Pour chaque exercice que je te donne, un lien vers une explication concrète de comment t'y prendre, et une durée indicative pour t'organiser."
-          planStages={DRAWING_PLAN_STAGES}
-          planResources={DRAWING_RESOURCES}
-        />
-      )}
-      {section === "echecs" && (
-        <ActivityWithPlanTab
-          accent={ECHECS_ACCENT}
-          planTitle="Progresser aux échecs"
-          planIntro="Je suis ton professeur d'échecs, adapté à ton niveau : à 1300 Elo, on saute les bases pour se concentrer sur les répertoires d'ouvertures, la tactique avancée et les finales. On avance par étapes, sans deadline : tu passes à la suivante quand tu es à l'aise, pas avant. Pour chaque notion, un exercice cliquable à faire directement, et une durée indicative pour t'organiser."
-          planStages={CHESS_PLAN_STAGES}
-          planResources={CHESS_RESOURCES}
-        />
-      )}
+      {section === "crpe" && <EnseignementTab />}
     </div>
   );
 }
@@ -2376,10 +2350,8 @@ function RechercheEmploiTab({ offerStatus, setOfferStatus }) {
 
 const RECONVERSION_ACCENT = "#A67C52";
 
-const RECONVERSION_SECTIONS = [
-  { key: "menuiserie", label: "Menuiserie" },
-  { key: "enseignement", label: "Enseignement" },
-];
+// Enseignement (CRPE) déplacé dans l'onglet Apprentissage (06/10/2026) : la Reconversion ne garde que
+// la veille d'offres Menuiserie, les révisions concours vivent désormais à un seul endroit.
 
 const MENUISERIE_ALTERNANCES = {
   updatedAt: "30 septembre 2026",
@@ -2475,14 +2447,7 @@ function MenuiserieTab({ offerStatus, setOfferStatus }) {
 }
 
 function ReconversionTab({ offerStatus, setOfferStatus }) {
-  const [section, setSection] = useState("menuiserie");
-  return (
-    <div>
-      <PillTabs options={RECONVERSION_SECTIONS} activeKey={section} onSelect={setSection} accentOf={() => RECONVERSION_ACCENT} />
-      {section === "menuiserie" && <MenuiserieTab offerStatus={offerStatus} setOfferStatus={setOfferStatus} />}
-      {section === "enseignement" && <EnseignementTab />}
-    </div>
-  );
+  return <MenuiserieTab offerStatus={offerStatus} setOfferStatus={setOfferStatus} />;
 }
 
 const TERRAIN_ACCENT = "#9CA66B";
