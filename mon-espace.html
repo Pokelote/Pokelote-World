@@ -270,7 +270,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "56";
+const APP_VERSION = "57";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -1852,6 +1852,7 @@ function McuList({ checked, onToggle }) {
 const ENSEIGNEMENT_ACCENT = "#7C99B8";
 
 const ENSEIGNEMENT_SECTIONS = [
+  { key: "suivi", label: "Suivi & planning" },
   { key: "pratique", label: "Inscription & Révision concours" },
   { key: "lecons", label: "Fichiers de révision" },
 ];
@@ -5124,12 +5125,628 @@ function TerrainTab({ offerStatus, setOfferStatus, terrainArchive, setTerrainArc
 }
 
 function EnseignementTab() {
-  const [section, setSection] = useState("pratique");
+  const [section, setSection] = useState("suivi");
   return (
     <div>
       <PillTabs options={ENSEIGNEMENT_SECTIONS} activeKey={section} onSelect={setSection} accentOf={() => ENSEIGNEMENT_ACCENT} />
+      {section === "suivi" && <CrpeSuiviContent />}
       {section === "pratique" && <InscriptionPratiquesContent />}
       {section === "lecons" && <CrpeFichiersContent />}
+    </div>
+  );
+}
+
+// Suivi & planning CRPE (06/10/2026, demande explicite) : un seul écran pour savoir quoi faire
+// (tâches à cocher), quoi réviser (programme découpé en notions, avec un statut par notion) et
+// quand le faire (planning hebdo construit à partir des créneaux que Clément se donne). L'objectif
+// est un rythme tenable à côté du M2 : volume modeste par défaut, une séance tampon par semaine
+// au lieu de reporter les retards, et une semaine « tenue » dès 80 % des séances faites.
+const CRPE_ECRITS_DATE = "2027-03-30";
+const CRPE_PLANNING_START = "2026-10-05";
+
+const CRPE_MATIERES = [
+  { key: "maths", label: "Mathématiques", color: "#7C99B8" },
+  { key: "francais", label: "Français", color: "#B88AA6" },
+  { key: "application", label: "Épreuve d'application", color: "#8FB39A" },
+  { key: "oraux", label: "Oraux", color: "#D9A25C" },
+];
+
+function crpeMatiere(key) {
+  return CRPE_MATIERES.find((m) => m.key === key);
+}
+
+// Ordre = ordre de révision conseillé : les bases d'abord, la didactique une fois les savoirs en place.
+const CRPE_PROGRAMME = [
+  { id: "m-numeration", matiere: "maths", label: "Numération et nombres entiers" },
+  { id: "m-operations", matiere: "maths", label: "Opérations, calcul mental et posé" },
+  { id: "m-geo-plane", matiere: "maths", label: "Bases de géométrie plane" },
+  { id: "m-fractions", matiere: "maths", label: "Fractions, décimaux, rationnels" },
+  { id: "m-proportion", matiere: "maths", label: "Proportionnalité et pourcentages" },
+  { id: "m-grandeurs", matiere: "maths", label: "Grandeurs et mesures (longueurs, aires, volumes, durées)" },
+  { id: "m-arith", matiere: "maths", label: "Arithmétique (multiples, diviseurs, nombres premiers)" },
+  { id: "m-figures", matiere: "maths", label: "Triangles et quadrilatères, Pythagore, Thalès, trigonométrie" },
+  { id: "m-transfo", matiere: "maths", label: "Transformations (symétries, translations, rotations, homothéties)" },
+  { id: "m-espace", matiere: "maths", label: "Géométrie dans l'espace (solides, patrons, sections)" },
+  { id: "m-litteral", matiere: "maths", label: "Calcul littéral, équations, fonctions" },
+  { id: "m-donnees", matiere: "maths", label: "Statistiques et probabilités" },
+  { id: "m-algo", matiere: "maths", label: "Algorithmique et Scratch" },
+  { id: "m-didac", matiere: "maths", label: "Didactique : erreurs d'élèves, analyse de productions" },
+
+  { id: "f-classes", matiere: "francais", label: "Classes et fonctions des mots" },
+  { id: "f-phrase", matiere: "francais", label: "La phrase : types, formes, propositions" },
+  { id: "f-conjugaison", matiere: "francais", label: "Conjugaison et valeurs des temps" },
+  { id: "f-orthographe", matiere: "francais", label: "Orthographe grammaticale et lexicale (accords)" },
+  { id: "f-lexique", matiere: "francais", label: "Lexique : formation des mots, sens, figures de style" },
+  { id: "f-texte", matiere: "francais", label: "Analyse et compréhension de textes" },
+  { id: "f-argumentation", matiere: "francais", label: "Écrit argumenté à partir d'un corpus" },
+  { id: "f-didac", matiere: "francais", label: "Didactique : lecture, écriture, analyse de productions" },
+
+  { id: "a-histoire", matiere: "application", label: "Histoire (cycles 3-4)" },
+  { id: "a-geo", matiere: "application", label: "Géographie (cycles 3-4)" },
+  { id: "a-emc", matiere: "application", label: "EMC et valeurs de la République" },
+  { id: "a-vivant", matiere: "application", label: "Sciences : le vivant, le corps humain" },
+  { id: "a-matiere", matiere: "application", label: "Sciences : matière, énergie, Terre et Univers" },
+  { id: "a-techno", matiere: "application", label: "Technologie : objets techniques" },
+  { id: "a-arts", matiere: "application", label: "Arts plastiques et corpus d'œuvres de la session" },
+  { id: "a-musique", matiere: "application", label: "Éducation musicale" },
+
+  { id: "o-lecon", matiere: "oraux", label: "Construire une séance (leçon français / maths)" },
+  { id: "o-eps", matiere: "oraux", label: "EPS : activités, sécurité, développement de l'enfant" },
+  { id: "o-systeme", matiere: "oraux", label: "Système éducatif, laïcité, École inclusive" },
+  { id: "o-situations", matiere: "oraux", label: "Mises en situation professionnelle" },
+];
+
+const CRPE_REVISION_STATUSES = [
+  { key: "en-cours", label: "En cours", color: ENSEIGNEMENT_ACCENT },
+  { key: "a-revoir", label: "À revoir", color: "#D9A25C" },
+  { key: "maitrise", label: "Maîtrisé", color: COLORS.checked },
+];
+
+// Phases du planning : remise à niveau → construction + didactique → entraînement en conditions.
+// "pattern" = rotation des matières sur les créneaux de la semaine, dans l'ordre des jours.
+const CRPE_PHASES = [
+  {
+    key: "rn", label: "Remise à niveau", from: "2026-10-05", to: "2026-12-18",
+    pattern: ["maths", "francais", "maths", "francais", "application"],
+    text: "Reprendre les bases en maths et en français, l'épreuve d'application qui revient régulièrement pour garder le contact.",
+  },
+  {
+    key: "noel", label: "Vacances de Noël — semaines allégées", from: "2026-12-19", to: "2027-01-03", light: true,
+    pattern: ["maths", "francais"],
+    text: "2 séances suffisent pour tenir la semaine. Le reste est du bonus, pas une dette.",
+  },
+  {
+    key: "construction", label: "Construction & didactique", from: "2027-01-04", to: "2027-02-21",
+    pattern: ["maths", "francais", "application", "francais", "maths", "application"],
+    text: "Finir le programme, ajouter la didactique (erreurs d'élèves, analyse de productions) et monter l'application en puissance.",
+  },
+  {
+    key: "entrainement", label: "Entraînement en conditions", from: "2027-02-22", to: "2027-03-29",
+    pattern: ["annale", "francais", "maths", "application", "annale"],
+    text: "Annales chronométrées (découpées en parties si le créneau est court) et reprise des notions « À revoir ».",
+  },
+  {
+    key: "oraux", label: "Préparation des oraux", from: "2027-04-01", to: "2027-07-15",
+    pattern: ["oraux", "oraux", "maths", "francais"],
+    text: "Après les écrits : leçon français / maths, EPS et mises en situation.",
+  },
+];
+
+const CRPE_DEFAULT_SLOTS = [60, 0, 60, 60, 0, 120, 60]; // lun → dim, en minutes : 6h / semaine
+const CRPE_SLOT_STEPS = [0, 30, 45, 60, 90, 120, 180];
+
+const CRPE_DEFAULT_TODOS = [
+  { id: "todo-annales", label: "Télécharger les sujets officiels 2023-2025 et leurs rapports de jury", due: "2026-10-18" },
+  { id: "todo-diagnostic", label: "Faire un sujet de maths 2025 « à blanc » pour repérer ses points faibles", due: "2026-10-25" },
+  { id: "todo-diagnostic-fr", label: "Faire la partie langue d'un sujet de français 2025 « à blanc »", due: "2026-11-01" },
+  { id: "todo-manuels", label: "Choisir un manuel par épreuve (pas plus) — voir « Livres et ressources »", due: "2026-11-08" },
+  { id: "todo-corpus-arts", label: "Récupérer le corpus d'œuvres d'arts de la session 2027 dès sa publication", due: null },
+  { id: "todo-convocation", label: "Vérifier la convocation aux écrits sur Cyclades", due: "2027-03-15" },
+];
+
+function crpeFormatDate(str) {
+  const d = new Date(str + "T00:00:00");
+  return `${d.getDate()} ${FRENCH_MONTHS[d.getMonth()]}`;
+}
+
+function crpeFormatMinutes(m) {
+  if (!m) return "—";
+  const h = Math.floor(m / 60);
+  const r = m % 60;
+  if (!h) return `${r} min`;
+  return r ? `${h}h${pad2(r)}` : `${h}h`;
+}
+
+function crpePhaseFor(weekStart) {
+  // Une semaine appartient à la phase qui contient son lundi (ou son dimanche, pour les débuts de phase en milieu de semaine).
+  const mon = dateKey(weekStart);
+  const sun = dateKey(addDays(weekStart, 6));
+  return CRPE_PHASES.find((p) => mon >= p.from && mon <= p.to) || CRPE_PHASES.find((p) => sun >= p.from && sun <= p.to) || null;
+}
+
+// Construit les séances d'une semaine : un créneau = une séance. À partir de 4 créneaux, le dernier
+// devient une séance tampon (rattraper ce qui a sauté, ou souffler) — c'est ce qui rend le rythme tenable.
+function crpeWeekSessions(weekStart, slots) {
+  const phase = crpePhaseFor(weekStart);
+  const days = slots.map((mins, i) => ({ day: i, mins })).filter((s) => s.mins > 0);
+  if (!phase) return { phase, sessions: [] };
+  const withTampon = !phase.light && days.length >= 4;
+  const worked = withTampon ? days.length - 1 : days.length;
+  // La rotation continue d'une semaine sur l'autre (au lieu de repartir du début chaque lundi) :
+  // sinon, avec peu de créneaux, les dernières matières du cycle ne tomberaient jamais.
+  const weekIndex = Math.round((weekStart - startOfWeekMonday(new Date(phase.from + "T00:00:00"))) / (7 * 86400000));
+  const sessions = days.map((s, i) => {
+    const isTampon = withTampon && i === days.length - 1;
+    const kind = isTampon ? "tampon" : phase.pattern[(weekIndex * worked + i) % phase.pattern.length];
+    return { ...s, kind, optional: phase.light && i >= 2 };
+  });
+  return { phase, sessions };
+}
+
+function crpeWeekTarget(sessions, phase) {
+  if (!sessions.length) return 0;
+  if (phase && phase.light) return Math.min(2, sessions.length);
+  return Math.ceil(sessions.length * 0.8);
+}
+
+function CrpeSessionLabel({ kind, annaleIndex }) {
+  if (kind === "tampon") return <span style={{ color: COLORS.muted }}>Tampon · rattrapage ou repos</span>;
+  if (kind === "annale") {
+    const m = crpeMatiere(annaleIndex % 2 === 0 ? "maths" : "francais");
+    return <span style={{ color: m.color }}>Annale chronométrée · {m.label}</span>;
+  }
+  const m = crpeMatiere(kind);
+  return <span style={{ color: m.color }}>{m.label}</span>;
+}
+
+function crpeLoad(key, fallback) {
+  return window.storage
+    .get(key)
+    .then((res) => (res ? JSON.parse(res.value) : fallback))
+    .catch(() => fallback);
+}
+
+function crpeSave(key, value) {
+  window.storage.set(key, JSON.stringify(value)).catch(() => {});
+}
+
+function CrpeSuiviContent() {
+  const [revision, setRevision] = useState(null);
+  const [todos, setTodos] = useState(null);
+  const [slots, setSlots] = useState(null);
+  const [done, setDone] = useState(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    Promise.all([
+      crpeLoad("crpe-revision-statut", {}),
+      crpeLoad("crpe-todos", null),
+      crpeLoad("crpe-planning-creneaux", null),
+      crpeLoad("crpe-planning-fait", {}),
+    ]).then(([r, t, s, d]) => {
+      if (cancelled) return;
+      setRevision(r);
+      setTodos(t || CRPE_DEFAULT_TODOS.map((x) => ({ ...x, done: false })));
+      setSlots(Array.isArray(s) && s.length === 7 ? s : CRPE_DEFAULT_SLOTS);
+      setDone(d);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  if (!revision || !todos || !slots || !done) return null;
+
+  function update(setter, key) {
+    return (fn) =>
+      setter((prev) => {
+        const next = fn(prev);
+        crpeSave(key, next);
+        return next;
+      });
+  }
+  const updateRevision = update(setRevision, "crpe-revision-statut");
+  const updateTodos = update(setTodos, "crpe-todos");
+  const updateSlots = update(setSlots, "crpe-planning-creneaux");
+  const updateDone = update(setDone, "crpe-planning-fait");
+
+  const dEcrits = daysUntil(CRPE_ECRITS_DATE);
+  const dInscription = daysUntil(CRPE_INSCRIPTION_TASK.nextDue);
+  const ecritTopics = CRPE_PROGRAMME.filter((t) => t.matiere !== "oraux");
+  const mastered = ecritTopics.filter((t) => revision[t.id] === "maitrise").length;
+
+  return (
+    <div>
+      <h1 style={{ fontFamily: FONT_DISPLAY, fontSize: 26, color: COLORS.text, marginBottom: 6, fontWeight: 600 }}>
+        Suivi & planning
+      </h1>
+      <p style={{ color: COLORS.muted, fontSize: 14, lineHeight: 1.6, marginBottom: 18 }}>
+        Ce qu'il reste à faire, où tu en es dans le programme, et un planning qui tient à côté du M2 : peu d'heures mais régulières,
+        une séance tampon par semaine plutôt que des retards qui s'accumulent.
+      </p>
+
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 10, marginBottom: 24 }}>
+        <CrpeStatTile value={dEcrits > 0 ? `J-${dEcrits}` : "—"} label="avant les écrits (30-31 mars)" />
+        <CrpeStatTile value={dInscription >= 0 ? `J-${dInscription}` : "Close"} label="fin des inscriptions (25 nov.)" />
+        <CrpeStatTile value={`${mastered} / ${ecritTopics.length}`} label="notions d'écrit maîtrisées" />
+      </div>
+
+      <CollapsibleSection title="Planning de la semaine" accent={ENSEIGNEMENT_ACCENT}>
+        <CrpePlanning slots={slots} updateSlots={updateSlots} done={done} updateDone={updateDone} revision={revision} />
+      </CollapsibleSection>
+
+      <CollapsibleSection title="À faire" accent={ENSEIGNEMENT_ACCENT} badge={`${todos.filter((t) => !t.done).length} restante(s)`}>
+        <CrpeInscriptionTask />
+        <CrpeTodos todos={todos} updateTodos={updateTodos} />
+      </CollapsibleSection>
+
+      <CollapsibleSection title="À réviser" accent={ENSEIGNEMENT_ACCENT}>
+        <CrpeRevisionTracker revision={revision} updateRevision={updateRevision} />
+      </CollapsibleSection>
+    </div>
+  );
+}
+
+function CrpeStatTile({ value, label }) {
+  return (
+    <div style={{ background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, borderRadius: 10, padding: "12px 14px" }}>
+      <div style={{ fontFamily: FONT_DISPLAY, fontSize: 22, color: COLORS.text }}>{value}</div>
+      <div style={{ fontSize: 12, color: COLORS.muted, marginTop: 2 }}>{label}</div>
+    </div>
+  );
+}
+
+function crpeNextTopics(revision, matiere) {
+  return CRPE_PROGRAMME.filter((t) => t.matiere === matiere && revision[t.id] !== "maitrise");
+}
+
+function CrpePlanning({ slots, updateSlots, done, updateDone, revision }) {
+  const thisMonday = startOfWeekMonday(new Date());
+  const [offset, setOffset] = useState(0);
+  const [editing, setEditing] = useState(false);
+  const weekStart = addDays(thisMonday, offset * 7);
+  const weekKey = dateKey(weekStart);
+  const isCurrent = offset === 0;
+  const { phase, sessions } = crpeWeekSessions(weekStart, slots);
+  const target = crpeWeekTarget(sessions, phase);
+  const doneCount = sessions.filter((s) => done[`${weekKey}|${s.day}`]).length;
+  const totalMins = slots.reduce((a, b) => a + b, 0);
+  const todayIdx = (new Date().getDay() + 6) % 7;
+
+  // Semaines tenues depuis le début du planning (semaine en cours exclue : elle n'est pas finie).
+  let heldWeeks = 0;
+  let pastWeeks = 0;
+  for (let w = startOfWeekMonday(new Date(CRPE_PLANNING_START + "T00:00:00")); w < thisMonday; w = addDays(w, 7)) {
+    const wk = crpeWeekSessions(w, slots);
+    if (!wk.sessions.length) continue;
+    pastWeeks++;
+    const k = dateKey(w);
+    if (wk.sessions.filter((s) => done[`${k}|${s.day}`]).length >= crpeWeekTarget(wk.sessions, wk.phase)) heldWeeks++;
+  }
+
+  // Suggestion de notion pour la semaine en cours : la k-ième séance d'une matière prend la k-ième notion
+  // pas encore maîtrisée, pour varier au lieu de répéter la même notion toute la semaine.
+  const seen = {};
+  let annaleCount = 0;
+  const weekNumber = Math.round((weekStart - startOfWeekMonday(new Date(CRPE_PLANNING_START + "T00:00:00"))) / (7 * 86400000));
+
+  function toggle(day) {
+    const k = `${weekKey}|${day}`;
+    updateDone((prev) => {
+      const next = { ...prev };
+      if (next[k]) delete next[k];
+      else next[k] = true;
+      return next;
+    });
+  }
+
+  function setSlot(day, mins) {
+    updateSlots((prev) => prev.map((m, i) => (i === day ? mins : m)));
+  }
+
+  const weekLabel = `${crpeFormatDate(weekKey)} → ${crpeFormatDate(dateKey(addDays(weekStart, 6)))}`;
+  const navBtn = {
+    background: "none", border: `1px solid ${COLORS.border}`, borderRadius: 999, color: COLORS.muted,
+    padding: "3px 10px", cursor: "pointer", fontSize: 12, fontFamily: FONT_BODY,
+  };
+
+  return (
+    <div>
+      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10, flexWrap: "wrap" }}>
+        <button onClick={() => setOffset((o) => o - 1)} style={navBtn} aria-label="Semaine précédente">←</button>
+        <span style={{ fontSize: 14, color: COLORS.text, fontWeight: 500 }}>{isCurrent ? "Cette semaine" : weekLabel}</span>
+        {isCurrent && <span style={{ fontSize: 12, color: COLORS.muted }}>{weekLabel}</span>}
+        <button onClick={() => setOffset((o) => o + 1)} style={navBtn} aria-label="Semaine suivante">→</button>
+        {!isCurrent && <button onClick={() => setOffset(0)} style={navBtn}>Aujourd'hui</button>}
+      </div>
+
+      {phase ? (
+        <div style={{ borderLeft: `3px solid ${ENSEIGNEMENT_ACCENT}`, paddingLeft: 12, marginBottom: 14 }}>
+          <div style={{ fontSize: 13, color: COLORS.text, fontWeight: 500 }}>
+            Phase : {phase.label} <span style={{ color: COLORS.muted, fontWeight: 400 }}>· jusqu'au {crpeFormatDate(phase.to)}</span>
+          </div>
+          <div style={{ fontSize: 12, color: COLORS.muted, marginTop: 2, lineHeight: 1.5 }}>{phase.text}</div>
+        </div>
+      ) : (
+        <p style={{ fontSize: 13, color: COLORS.muted, fontStyle: "italic" }}>
+          {weekKey < CRPE_PLANNING_START ? "Le planning commence la semaine du 5 octobre 2026." : "Semaine des écrits ou hors planning : pas de séance prévue."}
+        </p>
+      )}
+
+      {sessions.length === 0 && phase && (
+        <p style={{ fontSize: 13, color: COLORS.muted, fontStyle: "italic" }}>Aucun créneau défini — règle tes créneaux ci-dessous.</p>
+      )}
+
+      <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+        {sessions.map((s) => {
+          const isDone = !!done[`${weekKey}|${s.day}`];
+          let topic = null;
+          let annaleIndex = 0;
+          if (s.kind === "annale") annaleIndex = weekNumber + annaleCount++;
+          else if (isCurrent && s.kind !== "tampon") {
+            const n = seen[s.kind] || 0;
+            seen[s.kind] = n + 1;
+            const list = crpeNextTopics(revision, s.kind);
+            topic = list.length ? list[n % list.length] : null;
+          }
+          const isToday = isCurrent && s.day === todayIdx;
+          return (
+            <div
+              key={s.day}
+              onClick={() => toggle(s.day)}
+              style={{
+                display: "flex", alignItems: "flex-start", gap: 10, cursor: "pointer",
+                background: COLORS.track, borderRadius: 8, padding: "10px 12px",
+                border: `1px solid ${isToday ? ENSEIGNEMENT_ACCENT : "transparent"}`,
+                opacity: s.optional && !isDone ? 0.65 : 1,
+              }}
+            >
+              <span
+                style={{
+                  width: 18, height: 18, borderRadius: 5, flexShrink: 0, marginTop: 1,
+                  border: `1.5px solid ${isDone ? COLORS.checked : COLORS.muted}`,
+                  background: isDone ? COLORS.checked : "transparent",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                }}
+              >
+                {isDone && <Check size={11} color="white" />}
+              </span>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: 13, display: "flex", gap: 8, flexWrap: "wrap", alignItems: "baseline" }}>
+                  <span style={{ color: COLORS.text, fontWeight: 500, width: 34 }}>{FRENCH_WEEKDAYS_SHORT[s.day]}</span>
+                  <CrpeSessionLabel kind={s.kind} annaleIndex={annaleIndex} />
+                  <span style={{ fontSize: 11, color: COLORS.muted }}>
+                    {crpeFormatMinutes(s.mins)}
+                    {s.optional ? " · facultatif" : ""}
+                    {isToday ? " · aujourd'hui" : ""}
+                  </span>
+                </div>
+                {topic && (
+                  <div style={{ fontSize: 12, color: COLORS.muted, marginTop: 3, marginLeft: 42 }}>
+                    → {topic.label}
+                    {revision[topic.id] === "a-revoir" ? " (à revoir)" : ""}
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {sessions.length > 0 && (
+        <div style={{ fontSize: 12, color: doneCount >= target ? COLORS.checked : COLORS.muted, marginBottom: 6 }}>
+          {doneCount} / {sessions.length} séance(s) faite(s) · semaine tenue à partir de {target}
+          {doneCount >= target ? " ✓" : ""}
+        </div>
+      )}
+      {pastWeeks > 0 && (
+        <div style={{ fontSize: 12, color: COLORS.muted, marginBottom: 14 }}>
+          Semaines tenues depuis le début : {heldWeeks} / {pastWeeks}
+        </div>
+      )}
+
+      <button
+        onClick={() => setEditing((e) => !e)}
+        style={{ ...navBtn, marginTop: 4 }}
+      >
+        {editing ? "Fermer" : "Régler mes créneaux"} · {crpeFormatMinutes(totalMins)} / semaine
+      </button>
+
+      {editing && (
+        <div style={{ marginTop: 12 }}>
+          <p style={{ fontSize: 12, color: COLORS.muted, lineHeight: 1.5, marginBottom: 10 }}>
+            Mets seulement le temps que tu es sûr de tenir même une semaine chargée (cours, stage). Mieux vaut 5-6h tenues que 12h
+            abandonnées en novembre ; tu pourras monter en février.
+          </p>
+          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+            {slots.map((mins, day) => (
+              <div key={day} style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+                <span style={{ fontSize: 13, color: COLORS.text, width: 80 }}>{FRENCH_WEEKDAYS_LONG[day]}</span>
+                {CRPE_SLOT_STEPS.map((step) => {
+                  const active = step === mins;
+                  return (
+                    <button
+                      key={step}
+                      onClick={() => setSlot(day, step)}
+                      style={{
+                        fontSize: 11, padding: "3px 8px", borderRadius: 999, cursor: "pointer", fontFamily: FONT_BODY,
+                        border: `1px solid ${active ? darken(ENSEIGNEMENT_ACCENT, 20) : COLORS.border}`,
+                        background: active ? ENSEIGNEMENT_ACCENT : "transparent",
+                        color: active ? "white" : COLORS.muted,
+                      }}
+                    >
+                      {step ? crpeFormatMinutes(step) : "—"}
+                    </button>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
+          {totalMins > 12 * 60 && (
+            <p style={{ fontSize: 12, color: "#D9A25C", marginTop: 10 }}>
+              Plus de 12h par semaine en plus du M2 : ambitieux sur la durée. Garde au moins un jour sans révision.
+            </p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function CrpeTodos({ todos, updateTodos }) {
+  const [label, setLabel] = useState("");
+  const [due, setDue] = useState("");
+
+  function add() {
+    const l = label.trim();
+    if (!l) return;
+    updateTodos((prev) => [...prev, { id: "todo-" + uid(), label: l, due: due || null, done: false }]);
+    setLabel("");
+    setDue("");
+  }
+
+  const sorted = [...todos].sort((a, b) => {
+    if (a.done !== b.done) return a.done ? 1 : -1;
+    if (!a.due) return 1;
+    if (!b.due) return -1;
+    return a.due.localeCompare(b.due);
+  });
+
+  const inputStyle = {
+    background: COLORS.track, border: `1px solid ${COLORS.border}`, borderRadius: 8, color: COLORS.text,
+    padding: "7px 10px", fontSize: 13, fontFamily: FONT_BODY,
+  };
+
+  return (
+    <div>
+      {sorted.map((t) => {
+        const d = daysUntil(t.due);
+        const overdue = !t.done && d !== null && d < 0;
+        const soon = !t.done && d !== null && d >= 0 && d <= 7;
+        return (
+          <div key={t.id} style={{ display: "flex", alignItems: "flex-start", gap: 10, padding: "9px 4px", borderBottom: `1px solid ${COLORS.border}` }}>
+            <span
+              onClick={() => updateTodos((prev) => prev.map((x) => (x.id === t.id ? { ...x, done: !x.done } : x)))}
+              style={{
+                width: 18, height: 18, borderRadius: 5, flexShrink: 0, marginTop: 1, cursor: "pointer",
+                border: `1.5px solid ${t.done ? COLORS.checked : COLORS.muted}`,
+                background: t.done ? COLORS.checked : "transparent",
+                display: "flex", alignItems: "center", justifyContent: "center",
+              }}
+            >
+              {t.done && <Check size={11} color="white" />}
+            </span>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 14, color: t.done ? COLORS.muted : COLORS.text, textDecoration: t.done ? "line-through" : "none" }}>{t.label}</div>
+              {t.due && (
+                <div style={{ fontSize: 12, marginTop: 2, color: overdue ? "#B85C5C" : soon ? "#D9A25C" : COLORS.muted }}>
+                  📅 {crpeFormatDate(t.due)} {new Date(t.due + "T00:00:00").getFullYear()}
+                  {!t.done && d !== null ? (d < 0 ? " · en retard" : ` · dans ${d} j.`) : ""}
+                </div>
+              )}
+            </div>
+            <button
+              onClick={() => updateTodos((prev) => prev.filter((x) => x.id !== t.id))}
+              aria-label="Supprimer la tâche"
+              style={{ background: "none", border: "none", cursor: "pointer", color: COLORS.muted, padding: 2 }}
+            >
+              <X size={14} />
+            </button>
+          </div>
+        );
+      })}
+      <div style={{ display: "flex", gap: 8, marginTop: 12, flexWrap: "wrap" }}>
+        <input
+          value={label}
+          onChange={(e) => setLabel(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && add()}
+          placeholder="Nouvelle tâche…"
+          style={{ ...inputStyle, flex: "1 1 180px", minWidth: 0 }}
+        />
+        <input type="date" value={due} onChange={(e) => setDue(e.target.value)} style={{ ...inputStyle, colorScheme: "dark" }} />
+        <button
+          onClick={add}
+          style={{
+            background: ENSEIGNEMENT_ACCENT, border: "none", borderRadius: 8, color: "white", padding: "7px 14px",
+            fontSize: 13, cursor: "pointer", fontFamily: FONT_BODY,
+          }}
+        >
+          Ajouter
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function CrpeRevisionTracker({ revision, updateRevision }) {
+  function setStatus(id, s) {
+    updateRevision((prev) => {
+      const next = { ...prev };
+      if (s) next[id] = s;
+      else delete next[id];
+      return next;
+    });
+  }
+
+  return (
+    <div>
+      <p style={{ fontSize: 12, color: COLORS.muted, lineHeight: 1.5, marginBottom: 14 }}>
+        Le planning propose chaque semaine les premières notions pas encore maîtrisées : marque-les au fur et à mesure.
+        « À revoir » les garde dans la rotation pour la phase d'entraînement.
+      </p>
+      {CRPE_MATIERES.map((m) => {
+        const topics = CRPE_PROGRAMME.filter((t) => t.matiere === m.key);
+        const ok = topics.filter((t) => revision[t.id] === "maitrise").length;
+        const pct = Math.round((ok / topics.length) * 100);
+        return (
+          <div key={m.key} style={{ marginBottom: 22 }}>
+            <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 8, marginBottom: 6 }}>
+              <span style={{ fontFamily: FONT_DISPLAY, fontSize: 17, color: m.color }}>{m.label}</span>
+              <span style={{ fontSize: 12, color: COLORS.muted }}>{ok} / {topics.length}</span>
+            </div>
+            <div style={{ height: 4, background: COLORS.track, borderRadius: 2, marginBottom: 8, overflow: "hidden" }}>
+              <div style={{ width: `${pct}%`, height: "100%", background: m.color }} />
+            </div>
+            {topics.map((t) => {
+              const s = revision[t.id] || null;
+              const files = CRPE_FICHIERS.filter((f) => f.topic === t.id);
+              return (
+                <div key={t.id} style={{ padding: "8px 0", borderBottom: `1px solid ${COLORS.border}` }}>
+                  <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 10, flexWrap: "wrap" }}>
+                    <div style={{ flex: "1 1 200px", fontSize: 13, color: s === "maitrise" ? COLORS.muted : COLORS.text, lineHeight: 1.4 }}>
+                      {t.label}
+                      {files.map((f) => (
+                        <a key={f.id} href={f.file} target="_blank" rel="noreferrer" style={{ fontSize: 11, color: m.color, marginLeft: 8, whiteSpace: "nowrap" }}>
+                          📄 PDF
+                        </a>
+                      ))}
+                    </div>
+                    <div style={{ display: "flex", gap: 4 }}>
+                      {CRPE_REVISION_STATUSES.map((st) => {
+                        const active = s === st.key;
+                        return (
+                          <button
+                            key={st.key}
+                            onClick={() => setStatus(t.id, active ? null : st.key)}
+                            style={{
+                              fontSize: 10, padding: "2px 8px", borderRadius: 999, cursor: "pointer", fontFamily: FONT_BODY,
+                              border: `1px solid ${active ? darken(st.color, 20) : COLORS.border}`,
+                              background: active ? st.color : "transparent",
+                              color: active ? "white" : COLORS.muted,
+                            }}
+                          >
+                            {st.label}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -5329,6 +5946,7 @@ const CRPE_FICHIERS = [
     title: "Remise à niveau #1 — Bases de géométrie plane",
     meta: "Objectif CRPE · cours + 10 exercices corrigés",
     file: "./crpe/maths-remise-a-niveau-1-bases-geometrie-plane.pdf",
+    topic: "m-geo-plane",
   },
 ];
 
