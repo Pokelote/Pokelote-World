@@ -1840,7 +1840,7 @@ const ENSEIGNEMENT_ACCENT = "#7C99B8";
 const ENSEIGNEMENT_SECTIONS = [
   { key: "pratique", label: "Inscription & Informations pratiques" },
   { key: "revision", label: "Révision concours" },
-  { key: "lecons", label: "Leçons par discipline" },
+  { key: "lecons", label: "Fichiers de révision" },
 ];
 
 const CRPE_SESSIONS = [
@@ -5157,7 +5157,7 @@ function EnseignementTab() {
       <PillTabs options={ENSEIGNEMENT_SECTIONS} activeKey={section} onSelect={setSection} accentOf={() => ENSEIGNEMENT_ACCENT} />
       {section === "pratique" && <InscriptionPratiquesContent />}
       {section === "revision" && <RevisionConcoursContent />}
-      {section === "lecons" && <CRPELessonsContent />}
+      {section === "lecons" && <CrpeFichiersContent />}
     </div>
   );
 }
@@ -5359,160 +5359,128 @@ function InscriptionPratiquesContent() {
   );
 }
 
-const CRPE_LESSON_STAGES = [
+// Fichiers de révision CRPE (06/10/2026, demande explicite) : remplace les fiches conseils génériques
+// (CRPE_LESSON_STAGES, supprimées) par les vrais documents de révision de Clément, stockés tels quels
+// dans ce dossier et ouverts en un clic — l'app sert de tableau de bord (statut, futur planning selon
+// son EDT), pas de copie du contenu.
+const CRPE_FICHIERS = [
   {
-    id: 1,
-    title: "Français — Orthographe et grammaire",
-    duration: "2h",
-    tagline: "L'étude de la langue conditionne toute l'épreuve écrite de français.",
-    bullets: [
-      { text: "L'épreuve écrite de français (3h, notée sur 20) prend appui sur un texte de 400 à 600 mots et comporte une partie étude de la langue qui vérifie les connaissances syntaxiques, grammaticales et orthographiques.", source: "Cap Sur", url: "https://cap-sur.fr/sujets-francais-crpe-corrige/" },
-      { text: "Réviser dans l'ordre : les natures et fonctions des mots en premier (elles conditionnent tout le reste), puis les subordonnées, puis les règles d'orthographe qui en découlent naturellement.", source: "Le Coin du Taille-Crayon", url: "https://lecoindutaillecrayon.wordpress.com/2017/07/12/comment-reviser-le-francais-crpe-ecrits/" },
-      { text: "S'appuyer sur un manuel de référence type Bescherelle ou Bled pour ancrer les règles avant de s'entraîner sur des annales.", source: "Vocation CRPE", url: "https://vocation-crpe.fr/orthographe-au-crpe/" },
-    ],
-  },
-  {
-    id: 2,
-    title: "Français — Conjugaison et lexique",
-    duration: "1h30",
-    tagline: "Les temps piégeux et la formation du lexique, deux classiques du concours.",
-    bullets: [
-      { text: "Revoir systématiquement les temps et modes les plus piégeux (subjonctif, conditionnel, passé simple) et les valeurs du participe passé.", source: "Éditions Hatier", url: "https://www.editions-hatier.fr/CRPE-ressources" },
-      { text: "La partie compréhension lexicale du texte support demande de savoir expliquer la formation du lexique (préfixes, suffixes, familles de mots).", source: "ForProf", url: "https://www.forprof.fr/crpe-les-meilleures-pratiques-de-revision-pour-reussir-le-concours" },
-      { text: "Alterner fiches de synthèse, flashcards pour la mémorisation et quiz pour s'auto-évaluer en conditions réelles.", source: "Réussir le CRPE", url: "https://www.reussirlecrpe.fr/preparation-au-concours/fiches-de-revision-gratuites-pour-le-crpe/" },
-    ],
-  },
-  {
-    id: 3,
-    title: "Français — Littérature de jeunesse et compréhension de texte",
-    duration: "2h",
-    tagline: "Savoir lire un texte comme un futur enseignant, pas seulement comme un lecteur.",
-    bullets: [
-      { text: "Savoir caractériser et comparer les personnages, repérer les types récurrents de la littérature de jeunesse, et dégager le sens global d'un texte de manière autonome.", source: "Nomad Education", url: "https://www.nomadeducation.fr/revisions/concours-professeur-des-ecoles-crpe-lb296074/lecture-et-comprehension-de-lecrit-cy112b54" },
-      { text: "Se constituer une base de références solides : une cinquantaine de fiches de lecture (résumés, analyses, repères) couvrant les incontournables du programme.", source: "La Voie des Écoles", url: "https://www.lavoiedesecoles.fr/50-fiches-de-lecture-incontournables-pour-le-crpe-volume-1-f1590562.html" },
-      { text: "Travailler des stratégies concrètes pour comprendre les mots et expressions inconnus d'un texte, à réutiliser à l'écrit comme à l'oral.", source: "Réseau Canopé", url: "https://www.reseau-canope.fr/notice/preparation-au-crpe-option-litterature-de-jeunesse.html" },
-    ],
-  },
-  {
-    id: 4,
-    title: "Français — Didactique (enseigner lecture et écriture)",
-    duration: "2h",
-    tagline: "Ce n'est pas le français qu'on révise ici, mais la manière de l'enseigner.",
-    bullets: [
-      { text: "La didactique du français couvre l'étude de la langue, la lecture et compréhension de l'écrit, la production d'écrits, l'oral et la littérature de jeunesse à chaque cycle.", source: "Vocation CRPE", url: "https://vocation-crpe.fr/la-didactique-au-crpe/" },
-      { text: "Savoir identifier les obstacles d'apprentissage propres à une notion et construire une séance qui part des représentations initiales des élèves.", source: "Préparer le CRPE", url: "https://preparerlecrpe.com/2015/09/28/fiches-didactique-du-francais/" },
-      { text: "Réviser cycle par cycle : apprendre à parler et développer la conscience phonologique en maternelle, puis l'apprentissage de la lecture et de l'écriture au cycle 2.", source: "Pass Education", url: "https://www.pass-education.fr/cycle-2-francais-didactique-pass-crpe/" },
-    ],
-  },
-  {
-    id: 5,
-    title: "Mathématiques — Numération et calcul",
-    duration: "2h",
-    tagline: "Le socle du programme de collège et de seconde, à consolider en premier.",
-    bullets: [
-      { text: "Le programme couvre les mathématiques du collège (6e à 3e) et la partie \"nombres et calculs\" de la classe de seconde — c'est le socle à consolider en premier.", source: "Novelpro", url: "https://novelpro.fr/epreuve-mathematiques-crpe/" },
-      { text: "Revoir la numération décimale, les fractions et les nombres décimaux avant de passer aux opérations plus complexes.", source: "Maîtresse Jéro", url: "https://maitresse-jero.com/ressources/fiches-de-revisions-crpe/fiches-mathematiques/didactique" },
-      { text: "S'entraîner sur des annales en présentant systématiquement le raisonnement étape par étape — la rédaction compte autant que le résultat.", source: "Lycée d'Adultes", url: "https://www.lyceedadultes.fr/sitepedagogique/pages/mathCRPE.html" },
-    ],
-  },
-  {
-    id: 6,
-    title: "Mathématiques — Géométrie, grandeurs et mesures",
-    duration: "2h",
-    tagline: "Deux chapitres très liés, souvent révisés ensemble.",
-    bullets: [
-      { text: "Maîtriser les notions de grandeur (longueur, aire, masse, volume) : une grandeur se compare entre objets, sa mesure est un nombre associé à une unité.", source: "Le Dictionnaire de Maths", url: "https://le-dictionnaire-de-maths.fr/mesures-conversion-unites-crpe" },
-      { text: "Travailler la géométrie plane et dans l'espace en parallèle des grandeurs et mesures, deux chapitres très liés au CRPE.", source: "PARI Maths", url: "http://parimaths.com/telechargements/cours-exercices/S18-Grandeur-et-mesure.php" },
-      { text: "Utiliser des fiches notionnelles dédiées à la géométrie et aux grandeurs pour structurer la révision avant les exercices d'application.", source: "Maîtresse Jéro", url: "https://maitresse-jero.com/ressources/fiches-de-revisions-crpe/fiches-mathematiques/notionnel" },
-    ],
-  },
-  {
-    id: 7,
-    title: "Mathématiques — Didactique et résolution de problèmes",
-    duration: "1h30",
-    tagline: "Enseigner à résoudre un problème, pas juste calculer juste.",
-    bullets: [
-      { text: "Distinguer les quatre types de problèmes travaillés à l'école : problèmes de réinvestissement, de recherche, d'apprentissage de la recherche, et de travail de la déduction.", source: "Mon Pass Concours CRPE", url: "https://www.pass-education.fr/mathematiques-didactique-pass-crpe/" },
-      { text: "Retenir que l'objectif du calcul mental est de libérer l'esprit pour se concentrer sur les stratégies de résolution, pas la numération en elle-même.", source: "PARI Maths", url: "http://www.parimaths.com/telechargements/fiches-didactiques/D1-Resolution-de-Probleme.php" },
-      { text: "S'entraîner sur des séquences didactiques concrètes (par exemple sur les problèmes en cycle 3) pour se projeter dans une vraie classe.", source: "Pass Education", url: "https://www.pass-education.fr/crpe-sequence-didactique-problemes-mathematiques-cycle-3-crpesd/" },
-    ],
-  },
-  {
-    id: 8,
-    title: "Histoire — Géographie — EMC",
-    duration: "2h",
-    tagline: "Les notions structurantes reviennent d'une session à l'autre.",
-    bullets: [
-      { text: "Le programme de l'épreuve repose sur les programmes des cycles 3 et 4 en vigueur — direction Éduscol pour les textes officiels à jour.", source: "ForProf", url: "https://www.forprof.fr/reussir-l-epreuve-ecrite-d-histoire-geographie-et-d-enseignement-moral-et-civique-du-crpe" },
-      { text: "Réviser en priorité les notions structurantes revenues le plus souvent aux examens récents : citoyenneté, enjeux territoriaux, laïcité, lecture de paysages, repères historiques.", source: "Réussir le CRPE", url: "https://www.reussirlecrpe.fr/epreuves-du-crpe/exemple-sujet-dossier-histoire-geo-crpe/" },
-      { text: "S'appuyer sur des flashcards reprenant les programmes scolaires, les compétences travaillées et les repères de progressivité par cycle.", source: "Maîtresse Jéro", url: "https://maitresse-jero.com/produits/flashcards-histoire-geographie-emc-crpe" },
-    ],
-  },
-  {
-    id: 9,
-    title: "Sciences et technologie",
-    duration: "1h30",
-    tagline: "Concevoir une séquence, pas seulement connaître les notions.",
-    bullets: [
-      { text: "L'épreuve consiste à concevoir et/ou analyser une séquence ou une leçon pour le cycle 1 (Explorer le monde), le cycle 2 (Questionner le monde) ou le cycle 3 (Sciences et technologie).", source: "Vocation CRPE", url: "https://vocation-crpe.fr/sciences-crpe/" },
-      { text: "Savoir mobiliser la démarche d'investigation : formuler des hypothèses, décrire un protocole expérimental, analyser des résultats.", source: "ForProf", url: "https://www.forprof.fr/reussir-l-epreuve-ecrite-de-sciences-et-technologie-du-crpe" },
-      { text: "Couvrir les quatre grands domaines du programme : physique-chimie, sciences de la vie et de la Terre, technologie, et leur didactique à l'école primaire.", source: "digiSchool", url: "https://www.digischool.fr/concours/crpe/sciences" },
-    ],
-  },
-  {
-    id: 10,
-    title: "Arts (arts plastiques, éducation musicale, histoire des arts)",
-    duration: "1h30",
-    tagline: "Trois domaines au choix, une méthode commune.",
-    bullets: [
-      { text: "L'épreuve écrite d'application en Arts dure 3h (coefficient 1) et porte au choix sur les arts plastiques, l'éducation musicale ou l'histoire des arts.", source: "Vocation CRPE", url: "https://vocation-crpe.fr/crpe-epreuve-arts/" },
-      { text: "Pour l'oral, se constituer une base sur les œuvres du programme et savoir les analyser et les relier entre elles.", source: "Objectif CRPE", url: "https://www.gibert.com/objectif-crpe-objectif-crpe-2026-arts-100-fiches-pour-bien-reviser-epreuve-ecrite-14220456.html" },
-      { text: "Réviser en parallèle la méthodologie de présentation à l'oral et les repères pédagogiques essentiels pour enseigner les arts en primaire.", source: "MaMaitresse", url: "https://www.mamaitresse.fr/fiches-arts" },
-    ],
-  },
-  {
-    id: 11,
-    title: "EPS (1re partie de l'entretien d'admission)",
-    duration: "1h30",
-    tagline: "Dans ton format bac+5, c'est la 1re partie (30 min) de l'épreuve d'entretien d'admission — pas une épreuve séparée.",
-    bullets: [
-      { text: "30 minutes consacrées à la connaissance scientifique du développement de l'enfant et à la psychologie, en lien avec l'EPS.", source: "devenirenseignant.gouv.fr", url: "https://www.devenirenseignant.gouv.fr/epreuve-orale-d-admission-entretien-avec-le-jury-des-concours-de-recrutement-1103" },
-      { text: "Se familiariser avec les grandes APSA enseignées à l'école (règles, objectifs pédagogiques) et savoir concevoir une séquence assurant la sécurité des élèves.", source: "Réussir le CRPE", url: "https://www.reussirlecrpe.fr/epreuves-du-crpe/fiche-epreuve-eps-crpe-reussir-son-oral/" },
-      { text: "Pour information, le concours réformé bac+3 (qui ne te concerne pas) a transformé cette partie en épreuve autonome « APSA », entièrement orale et théorique.", source: "La Classe", url: "https://www.laclasse.fr/lepreuve-orale-en-eps-du-crpe" },
-    ],
-  },
-  {
-    id: 12,
-    title: "Mises en situation professionnelle — valeurs de la République",
-    duration: "2h",
-    tagline: "Dans ton format bac+5, c'est la 2e partie de l'entretien d'admission (mises en situation d'enseignement et de vie scolaire) — l'esprit reste le même : qui tu es, pas seulement ce que tu sais.",
-    bullets: [
-      { text: "L'entretien évalue la capacité à transmettre et incarner les valeurs de la République, dont la laïcité, à travers des questionnements variés incluant une mise en situation.", source: "Objectif CRPE", url: "https://www.objectif-crpe.fr/epreuve-orale-entretien-crpe" },
-      { text: "Le jury attend une vision d'ensemble du rôle de l'école primaire dans la société, ainsi qu'une éthique professionnelle conforme aux exigences du service public (neutralité, lutte contre les discriminations, égalité filles-garçons).", source: "Vocation CRPE", url: "https://vocation-crpe.fr/lepreuve-orale-entretien-du-crpe-vocation/" },
-      { text: "Prendre connaissance des ressources officielles sur la laïcité et les valeurs de la République avant l'oral — c'est la base attendue de tout candidat.", source: "Iniprof", url: "https://iniprof.fr/blog/connaissance-systeme-educatif-crpe" },
-    ],
+    id: "maths-rn1-geometrie-plane",
+    matiere: "Mathématiques",
+    title: "Remise à niveau #1 — Bases de géométrie plane",
+    meta: "Objectif CRPE · cours + 10 exercices corrigés",
+    file: "./crpe/maths-remise-a-niveau-1-bases-geometrie-plane.pdf",
   },
 ];
 
-const CRPE_REVISION_RESOURCES = [
-  { title: "Fiches de révision CRPE gratuites à télécharger", source: "Réussir le CRPE", url: "https://www.reussirlecrpe.fr/preparation-au-concours/fiches-de-revision-gratuites-pour-le-crpe/" },
-  { title: "Préparation CRPE gratuite : annales, quiz, guides et ressources", source: "ForProf", url: "https://www.forprof.fr/ressources-gratuites-crpe-tous-les-outils-offerts-par-forprof-pour-reussir-le-concours" },
-  { title: "CRPE : les meilleures pratiques de révision pour réussir le concours", source: "ForProf", url: "https://www.forprof.fr/crpe-les-meilleures-pratiques-de-revision-pour-reussir-le-concours" },
-  { title: "Lecture et compréhension de l'écrit — CRPE", source: "Nomad Education", url: "https://www.nomadeducation.fr/revisions/concours-professeur-des-ecoles-crpe-lb296074/lecture-et-comprehension-de-lecrit-cy112b54" },
-  { title: "CRPE 2026 réformé : tout pour les oraux (Bac+3/L3)", source: "Objectif CRPE", url: "https://www.objectif-crpe.fr/preparations/crpe-reforme-2026-tout-pour-les-oraux" },
-  { title: "Sujets officiels et rapports de jury du CRPE", source: "devenirenseignant.gouv.fr", url: "https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-et-rapports-des-jurys-des-crpe-1163" },
+const CRPE_FICHIER_STATUSES = [
+  { key: "en-cours", label: "En cours" },
+  { key: "termine", label: "Terminé" },
 ];
 
-function CRPELessonsContent() {
+function CrpeFichierStatusPicker({ status, onSelect }) {
   return (
-    <PlanPageContent
-      accent={ENSEIGNEMENT_ACCENT}
-      title="Réviser le CRPE, discipline par discipline"
-      intro="Je suis ton formateur pour ces révisions. On avance discipline par discipline, sans deadline : à toi de choisir l'ordre selon les épreuves que tu prépares. Pour chaque leçon, une durée indicative et des liens vers des fiches et guides concrets pour approfondir."
-      stages={CRPE_LESSON_STAGES}
-      resources={CRPE_REVISION_RESOURCES}
-      unitLabel="Leçon"
-    />
+    <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 10 }}>
+      {CRPE_FICHIER_STATUSES.map((s) => {
+        const isActive = status === s.key;
+        const activeColor = s.key === "termine" ? COLORS.checked : ENSEIGNEMENT_ACCENT;
+        return (
+          <button
+            key={s.key}
+            onClick={() => onSelect(isActive ? null : s.key)}
+            style={{
+              fontSize: 11,
+              padding: "3px 10px",
+              borderRadius: 999,
+              border: `1px solid ${isActive ? darken(activeColor, 20) : COLORS.border}`,
+              background: isActive ? activeColor : "transparent",
+              color: isActive ? "white" : COLORS.muted,
+              cursor: "pointer",
+              fontFamily: FONT_BODY,
+            }}
+          >
+            {s.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function CrpeFichiersContent() {
+  const [statut, setStatut] = useState(null);
+  useEffect(() => {
+    let cancelled = false;
+    window.storage
+      .get("crpe-fichiers-statut")
+      .then((res) => (res ? JSON.parse(res.value) : {}))
+      .catch(() => ({}))
+      .then((v) => !cancelled && setStatut(v));
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  if (!statut) return null;
+
+  function setStatus(id, s) {
+    setStatut((prev) => {
+      const next = { ...prev };
+      if (s) next[id] = s;
+      else delete next[id];
+      window.storage.set("crpe-fichiers-statut", JSON.stringify(next)).catch(() => {});
+      return next;
+    });
+  }
+
+  const byMatiere = {};
+  CRPE_FICHIERS.forEach((f) => {
+    (byMatiere[f.matiere] = byMatiere[f.matiere] || []).push(f);
+  });
+
+  return (
+    <div>
+      <h1 style={{ fontFamily: FONT_DISPLAY, fontSize: 26, color: COLORS.text, marginBottom: 6, fontWeight: 600 }}>
+        Fichiers de révision
+      </h1>
+      <p style={{ color: COLORS.muted, fontSize: 14, lineHeight: 1.6, marginBottom: 24 }}>
+        Tes propres documents de révision, à cocher au fur et à mesure. Ils serviront de base pour bâtir un planning selon ton EDT.
+      </p>
+
+      {CRPE_FICHIERS.length === 0 && (
+        <p style={{ color: COLORS.muted, fontSize: 13, fontStyle: "italic" }}>Aucun fichier ajouté pour l'instant.</p>
+      )}
+
+      {Object.entries(byMatiere).map(([matiere, fichiers]) => (
+        <div key={matiere} style={{ marginBottom: 26 }}>
+          <div style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: ENSEIGNEMENT_ACCENT, marginBottom: 10 }}>{matiere}</div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            {fichiers.map((f) => {
+              const s = statut[f.id] || null;
+              return (
+                <div
+                  key={f.id}
+                  style={{
+                    background: COLORS.card,
+                    border: `1px solid ${COLORS.cardBorder}`,
+                    borderLeft: `3px solid ${s === "termine" ? COLORS.checked : ENSEIGNEMENT_ACCENT}`,
+                    borderRadius: 10,
+                    padding: "14px 16px",
+                  }}
+                >
+                  <div style={{ fontSize: 14, fontWeight: 500, color: COLORS.text, marginBottom: 4 }}>{f.title}</div>
+                  <div style={{ fontSize: 12, color: COLORS.muted, marginBottom: 10 }}>{f.meta}</div>
+                  <a href={f.file} target="_blank" rel="noreferrer" style={{ fontSize: 12, color: ENSEIGNEMENT_ACCENT }}>
+                    Ouvrir le PDF →
+                  </a>
+                  <CrpeFichierStatusPicker status={s} onSelect={(v) => setStatus(f.id, v)} />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ))}
+    </div>
   );
 }
 
