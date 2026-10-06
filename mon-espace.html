@@ -435,7 +435,6 @@ function HomeScreen({ onSelect }) {
 
 const CLEMENT_TABS = [
   { key: "accueil", label: "Accueil", accent: COLORS.gold },
-  { key: "news", label: "News", accent: "#C97B74" },
   { key: "calendrier", label: "Calendrier", accent: "#7FB3A3" },
   { key: "culture", label: "Culture", accent: "#D9B36B" },
   { key: "carriere", label: "Carrière", accent: "#8FA6B3" },
@@ -1393,7 +1392,6 @@ function App() {
             onNavigate={setActive}
           />
         )}
-        {active === "news" && <NewsTab taskEvents={Object.values(taskArchive || {})} taskChecks={taskChecks || {}} toggleTask={toggleTask} />}
         {active === "calendrier" && <CalendrierTab />}
         {active === "chatchats-agenda" && (
           <CalendrierTab title="Agenda des Chatchats" accent="#D98FB3" events={CHATCHATS_CALENDAR_DATA.events} updatedAt={CHATCHATS_CALENDAR_DATA.updatedAt} />
@@ -1431,7 +1429,6 @@ function App() {
         {active === "estelle-emploi" && <EstelleEmploiTab offerStatus={offerStatus || {}} setOfferStatus={setOfferStatus} />}
         {active === "estelle-musculation" && <EstelleMusculationTab />}
         {active !== "accueil" &&
-          active !== "news" &&
           active !== "calendrier" &&
           active !== "culture" &&
           active !== "carriere" &&
@@ -6766,24 +6763,25 @@ function NflStandings({ standings }) {
   );
 }
 
+// News fusionné dans Accueil (06/10/2026, demande explicite : "qu'elle ne fasse plus qu'une") — plus
+// d'onglet séparé. Le bloc "Aujourd'hui" (agenda, mails, tâches) est monté directement dans AccueilTab,
+// donc ce composant ne garde que les sections secondaires (vie quotidienne, esport, foot, NFL),
+// affichées sous les Alertes / Agenda / Tâches du jour.
 const NEWS_SECTIONS = [
-  { key: "today", label: "Aujourd'hui", accent: "#7C99B8" },
+  { key: "quotidien", label: "Vie quotidienne" },
   { key: "esport", label: "Esport" },
   { key: "foot", label: "Football" },
   { key: "nfl", label: "NFL" },
-  { key: "quotidien", label: "Vie quotidienne" },
 ];
 
-function NewsTab({ taskEvents, taskChecks, toggleTask }) {
+function NewsTab() {
   const d = NEWS_DATA;
-  const [section, setSection] = useState("today");
-  const todayKey = dateKey(new Date());
-  const todayTasks = taskEvents.filter((t) => t.date === todayKey);
+  const [section, setSection] = useState("quotidien");
 
   return (
     <div>
       <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 20, flexWrap: "wrap", gap: 8 }}>
-        <h1 style={{ fontFamily: FONT_DISPLAY, fontSize: 28, color: COLORS.text, margin: 0, fontWeight: 600 }}>News du jour</h1>
+        <h1 style={{ fontFamily: FONT_DISPLAY, fontSize: 22, color: COLORS.text, margin: 0, fontWeight: 600 }}>News</h1>
         <span style={{ fontSize: 12, color: COLORS.muted }}>Mis à jour le {d.updatedAt}</span>
       </div>
 
@@ -6900,72 +6898,6 @@ function NewsTab({ taskEvents, taskChecks, toggleTask }) {
         </div>
       )}
 
-      {section === "today" && (
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(360px, 100%), 1fr))", gap: 32, alignItems: "start" }}>
-          <div>
-            <div style={{ fontFamily: FONT_DISPLAY, fontSize: 20, color: d.agenda.accent, marginBottom: 16 }}>{d.agenda.title}</div>
-            {d.agenda.items.length === 0 ? (
-              <p style={{ color: COLORS.muted, fontSize: 13, fontStyle: "italic" }}>Rien de prévu aujourd'hui.</p>
-            ) : (
-              <AgendaTimeline items={d.agenda.items} accent={d.agenda.accent} />
-            )}
-          </div>
-
-          <div>
-            <div style={{ fontFamily: FONT_DISPLAY, fontSize: 20, color: d.mails.accent, marginBottom: 16 }}>{d.mails.title}</div>
-            {d.mails.curated.length === 0 ? (
-              <p style={{ color: COLORS.muted, fontSize: 13, fontStyle: "italic", marginBottom: 20 }}>
-                Sélection de mails à afficher ici — pas encore configurée.
-              </p>
-            ) : (
-              <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 20 }}>
-                {d.mails.curated.map((m, i) => (
-                  <div
-                    key={i}
-                    style={{ background: COLORS.card, borderRadius: 10, padding: "10px 14px", borderLeft: `3px solid ${d.mails.accent}`, display: "flex", flexDirection: "column", gap: 2 }}
-                  >
-                    <span style={{ fontSize: 13, fontWeight: 500, color: COLORS.text }}>{m.subject}</span>
-                    <span style={{ fontSize: 11, color: COLORS.muted }}>{m.from}</span>
-                  </div>
-                ))}
-              </div>
-            )}
-            <div style={{ fontSize: 12, fontWeight: 500, color: COLORS.muted, marginBottom: 8, textTransform: "uppercase", letterSpacing: 0.4 }}>Le Bon Pote</div>
-            {d.mails.leBonPote ? (
-              <div style={{ background: COLORS.card, borderRadius: 10, padding: "14px 16px", borderLeft: `3px solid ${d.mails.accent}` }}>
-                <div style={{ fontSize: 14, fontWeight: 500, color: COLORS.text, marginBottom: 4 }}>{d.mails.leBonPote.subject}</div>
-                <p style={{ fontSize: 13, color: COLORS.text, lineHeight: 1.5, margin: 0 }}>{d.mails.leBonPote.summary}</p>
-              </div>
-            ) : (
-              <p style={{ color: COLORS.muted, fontSize: 13, fontStyle: "italic" }}>Aucune newsletter Le Bon Pote reçue récemment.</p>
-            )}
-
-            {todayTasks.length > 0 && (
-              <React.Fragment>
-                <div style={{ fontFamily: FONT_DISPLAY, fontSize: 20, color: COLORS.text, marginTop: 24, marginBottom: 16 }}>Tâches du jour</div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-                  {todayTasks.map((ev) => (
-                    <div
-                      key={`${ev.date}-${ev.time}`}
-                      style={{ background: COLORS.card, borderRadius: 10, padding: "14px 16px", borderLeft: `3px solid ${TASK_CATEGORIES[ev.key].accent}` }}
-                    >
-                      <div style={{ fontSize: 12, color: COLORS.muted, marginBottom: 10 }}>{ev.time} · {ev.label}</div>
-                      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                        {ev.tasks.map((task, j) => {
-                          const id = `${ev.date}__${ev.time}__${j}`;
-                          return (
-                            <TaskChecklistItem key={id} id={id} label={task} checked={!!taskChecks[id]} onToggle={toggleTask} />
-                          );
-                        })}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </React.Fragment>
-            )}
-          </div>
-        </div>
-      )}
     </div>
   );
 }
@@ -7025,7 +6957,7 @@ function AccueilTab({ taskEvents, taskChecks, toggleTask, offerStatus, onNavigat
         </div>
       )}
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(360px, 100%), 1fr))", gap: 32, alignItems: "start", marginBottom: 8 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(360px, 100%), 1fr))", gap: 32, alignItems: "start", marginBottom: 32 }}>
         <div>
           <div style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: COLORS.gold, marginBottom: 12 }}>Agenda</div>
           {NEWS_DATA.agenda.items.length === 0 ? (
@@ -7036,6 +6968,34 @@ function AccueilTab({ taskEvents, taskChecks, toggleTask, offerStatus, onNavigat
         </div>
 
         <div>
+          <div style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: COLORS.gold, marginBottom: 12 }}>{NEWS_DATA.mails.title}</div>
+          {NEWS_DATA.mails.curated.length === 0 ? (
+            <p style={{ color: COLORS.muted, fontSize: 13, fontStyle: "italic", marginBottom: 20 }}>
+              Sélection de mails à afficher ici — pas encore configurée.
+            </p>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 20 }}>
+              {NEWS_DATA.mails.curated.map((m, i) => (
+                <div
+                  key={i}
+                  style={{ background: COLORS.card, borderRadius: 10, padding: "10px 14px", borderLeft: `3px solid ${NEWS_DATA.mails.accent}`, display: "flex", flexDirection: "column", gap: 2 }}
+                >
+                  <span style={{ fontSize: 13, fontWeight: 500, color: COLORS.text }}>{m.subject}</span>
+                  <span style={{ fontSize: 11, color: COLORS.muted }}>{m.from}</span>
+                </div>
+              ))}
+            </div>
+          )}
+          <div style={{ fontSize: 12, fontWeight: 500, color: COLORS.muted, marginBottom: 8, textTransform: "uppercase", letterSpacing: 0.4 }}>Le Bon Pote</div>
+          {NEWS_DATA.mails.leBonPote ? (
+            <div style={{ background: COLORS.card, borderRadius: 10, padding: "14px 16px", borderLeft: `3px solid ${NEWS_DATA.mails.accent}`, marginBottom: 20 }}>
+              <div style={{ fontSize: 14, fontWeight: 500, color: COLORS.text, marginBottom: 4 }}>{NEWS_DATA.mails.leBonPote.subject}</div>
+              <p style={{ fontSize: 13, color: COLORS.text, lineHeight: 1.5, margin: 0 }}>{NEWS_DATA.mails.leBonPote.summary}</p>
+            </div>
+          ) : (
+            <p style={{ color: COLORS.muted, fontSize: 13, fontStyle: "italic", marginBottom: 20 }}>Aucune newsletter Le Bon Pote reçue récemment.</p>
+          )}
+
           <div style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: COLORS.gold, marginBottom: 12 }}>Tâches du jour</div>
           {todayTasks.length === 0 ? (
             <p style={{ color: COLORS.muted, fontSize: 13, fontStyle: "italic" }}>Aucune tâche prévue aujourd'hui.</p>
@@ -7060,19 +7020,8 @@ function AccueilTab({ taskEvents, taskChecks, toggleTask, offerStatus, onNavigat
         </div>
       </div>
 
-      <div style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: COLORS.gold, marginTop: 28, marginBottom: 4 }}>News du jour</div>
-      <p style={{ color: COLORS.muted, fontSize: 13, marginBottom: 16 }}>
-        {weatherEmoji(NEWS_DATA.quotidien.meteo.resume)} {NEWS_DATA.quotidien.meteo.ville} — {NEWS_DATA.quotidien.meteo.resume}
-      </p>
-      {NEWS_DATA.quotidien.france.length === 0 && NEWS_DATA.quotidien.monde.length === 0 ? (
-        <p style={{ color: COLORS.muted, fontSize: 13, fontStyle: "italic" }}>Aucune actualité pour l'instant.</p>
-      ) : (
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(300px, 100%), 1fr))", gap: 12, alignItems: "start" }}>
-          {[...NEWS_DATA.quotidien.france, ...NEWS_DATA.quotidien.monde].map((it, i) => (
-            <NewsArticle key={i} item={it} accent={NEWS_DATA.quotidien.accent} />
-          ))}
-        </div>
-      )}
+      <NewsTab />
+
       <p style={{ color: COLORS.muted, fontSize: 10, textAlign: "center", marginTop: 32 }}>Version {APP_VERSION}</p>
     </div>
   );
