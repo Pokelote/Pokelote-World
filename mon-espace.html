@@ -1838,8 +1838,7 @@ function McuList({ checked, onToggle }) {
 const ENSEIGNEMENT_ACCENT = "#7C99B8";
 
 const ENSEIGNEMENT_SECTIONS = [
-  { key: "pratique", label: "Inscription & Informations pratiques" },
-  { key: "revision", label: "Révision concours" },
+  { key: "pratique", label: "Inscription & Révision concours" },
   { key: "lecons", label: "Fichiers de révision" },
 ];
 
@@ -5156,71 +5155,7 @@ function EnseignementTab() {
     <div>
       <PillTabs options={ENSEIGNEMENT_SECTIONS} activeKey={section} onSelect={setSection} accentOf={() => ENSEIGNEMENT_ACCENT} />
       {section === "pratique" && <InscriptionPratiquesContent />}
-      {section === "revision" && <RevisionConcoursContent />}
       {section === "lecons" && <CrpeFichiersContent />}
-    </div>
-  );
-}
-
-function RevisionConcoursContent() {
-  const accent = ENSEIGNEMENT_ACCENT;
-  return (
-    <div>
-      <h1 style={{ fontFamily: FONT_DISPLAY, fontSize: 26, color: COLORS.text, marginBottom: 6, fontWeight: 600 }}>
-        Révision concours — CRPE
-      </h1>
-      <p style={{ color: COLORS.muted, fontSize: 14, lineHeight: 1.6, marginBottom: 24 }}>
-        Ce qui était demandé, session après session — ta session 2027 (bac+5, concours en M2) en premier, puis les
-        sessions précédentes sous le même format, et pour mémoire le concours réformé bac+3 qui coexiste sans te concerner.
-      </p>
-
-      {CRPE_SESSIONS.map((s) => (
-        <div key={s.year} style={{ marginBottom: 18, paddingBottom: 18, borderBottom: `1px solid ${COLORS.border}` }}>
-          <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginBottom: 6 }}>
-            <span style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: accent }}>{s.year}</span>
-            <span style={{ fontSize: 11, color: COLORS.muted }}>{s.badge}</span>
-          </div>
-          <p style={{ fontSize: 13, color: COLORS.text, lineHeight: 1.6, marginBottom: s.links.length ? 8 : 0 }}>{s.text}</p>
-          {s.links.length > 0 && (
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-              {s.links.map((l) => (
-                <a
-                  key={l.label}
-                  href={l.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{
-                    fontSize: 11, color: COLORS.muted, border: `1px solid ${COLORS.border}`, borderRadius: 999, padding: "3px 10px",
-                    textDecoration: "none",
-                  }}
-                >
-                  {l.label}
-                </a>
-              ))}
-            </div>
-          )}
-        </div>
-      ))}
-
-      <CollapsibleSection title="Livres et ressources pour réviser" accent={accent}>
-        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          {CRPE_LIVRES.map((b) => (
-            <a
-              key={b.title}
-              href={b.url}
-              target="_blank"
-              rel="noreferrer"
-              style={{
-                display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 10, textDecoration: "none",
-                background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, borderRadius: 10, padding: "10px 14px",
-              }}
-            >
-              <span style={{ fontSize: 13, color: COLORS.text }}>{b.title}</span>
-              <span style={{ fontSize: 11, color: COLORS.muted, whiteSpace: "nowrap" }}>{b.source}</span>
-            </a>
-          ))}
-        </div>
-      </CollapsibleSection>
     </div>
   );
 }
@@ -5312,6 +5247,36 @@ function InscriptionPratiquesContent() {
         </div>
       </CollapsibleSection>
 
+      <CollapsibleSection title="Les sessions, année après année" accent={accent}>
+        {CRPE_SESSIONS.map((s) => (
+          <div key={s.year} style={{ marginBottom: 18, paddingBottom: 18, borderBottom: `1px solid ${COLORS.border}` }}>
+            <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginBottom: 6 }}>
+              <span style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: accent }}>{s.year}</span>
+              <span style={{ fontSize: 11, color: COLORS.muted }}>{s.badge}</span>
+            </div>
+            <p style={{ fontSize: 13, color: COLORS.text, lineHeight: 1.6, marginBottom: s.links.length ? 8 : 0 }}>{s.text}</p>
+            {s.links.length > 0 && (
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                {s.links.map((l) => (
+                  <a
+                    key={l.label}
+                    href={l.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{
+                      fontSize: 11, color: COLORS.muted, border: `1px solid ${COLORS.border}`, borderRadius: 999, padding: "3px 10px",
+                      textDecoration: "none",
+                    }}
+                  >
+                    {l.label}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </CollapsibleSection>
+
       <CollapsibleSection title="Méthode : comment le réviser" accent={accent}>
         <p style={{ fontSize: 13, color: COLORS.text, lineHeight: 1.6, marginBottom: 16 }}>
           Trois catégories à faire vivre en parallèle plutôt qu'en séquence : les matières principales (français,
@@ -5341,6 +5306,26 @@ function InscriptionPratiquesContent() {
             <li key={p} style={{ fontSize: 13, color: COLORS.text, lineHeight: 1.5 }}>{p}</li>
           ))}
         </ul>
+      </CollapsibleSection>
+
+      <CollapsibleSection title="Livres et ressources pour réviser" accent={accent}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          {CRPE_LIVRES.map((b) => (
+            <a
+              key={b.title}
+              href={b.url}
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 10, textDecoration: "none",
+                background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, borderRadius: 10, padding: "10px 14px",
+              }}
+            >
+              <span style={{ fontSize: 13, color: COLORS.text }}>{b.title}</span>
+              <span style={{ fontSize: 11, color: COLORS.muted, whiteSpace: "nowrap" }}>{b.source}</span>
+            </a>
+          ))}
+        </div>
       </CollapsibleSection>
 
       <CollapsibleSection title="Sources" accent={accent}>
