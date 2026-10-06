@@ -270,7 +270,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "57";
+const APP_VERSION = "58";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -5948,6 +5948,44 @@ const CRPE_FICHIERS = [
     file: "./crpe/maths-remise-a-niveau-1-bases-geometrie-plane.pdf",
     topic: "m-geo-plane",
   },
+  {
+    id: "francais-guide-terminologie",
+    matiere: "Français",
+    title: "La grammaire du français — Terminologie grammaticale",
+    meta: "Guide officiel Eduscol · la référence pour nommer classes et fonctions",
+    file: "./crpe/francais-guide-terminologie-grammaticale.pdf",
+    topic: "f-classes",
+  },
+  {
+    id: "oral-lecon-note",
+    matiere: "Oraux",
+    title: "Oral 1 — Leçon (français / maths) : note de commentaire",
+    meta: "Document officiel · attendus du jury pour l'épreuve de leçon",
+    file: "./crpe/oral-lecon-note-de-commentaire.pdf",
+    topic: "o-lecon",
+  },
+  {
+    id: "oral-entretien-note",
+    matiere: "Oraux",
+    title: "Oral 2 — Entretien, 1re partie (EPS) : note de commentaire",
+    meta: "Document officiel · attendus du jury pour la partie EPS",
+    file: "./crpe/oral-entretien-note-de-commentaire.pdf",
+    topic: "o-eps",
+  },
+  ...[1, 2, 3].flatMap((g) => [
+    { id: `annales-2026-francais-g${g}`, matiere: "Annales 2026", title: `Français — groupement ${g}`, meta: "Épreuve écrite disciplinaire · session 2026", file: `./crpe/annales-2026-francais-g${g}.pdf` },
+    { id: `annales-2026-maths-g${g}`, matiere: "Annales 2026", title: `Mathématiques — groupement ${g}`, meta: "Épreuve écrite disciplinaire · session 2026", file: `./crpe/annales-2026-maths-g${g}.pdf` },
+    { id: `annales-2026-application-g${g}`, matiere: "Annales 2026", title: `Application — groupement ${g}`, meta: "Épreuve écrite d'application · session 2026", file: `./crpe/annales-2026-application-g${g}.pdf` },
+  ]),
+  { id: "sujet-zero-francais-1", matiere: "Sujets zéro", title: "Français — sujet n°1", meta: "Exemple officiel · épreuve disciplinaire", file: "./crpe/sujet-zero-francais-1.pdf" },
+  { id: "sujet-zero-francais-2", matiere: "Sujets zéro", title: "Français — sujet n°2", meta: "Exemple officiel · épreuve disciplinaire", file: "./crpe/sujet-zero-francais-2.pdf" },
+  { id: "sujet-zero-maths", matiere: "Sujets zéro", title: "Mathématiques", meta: "Exemple officiel · épreuve disciplinaire", file: "./crpe/sujet-zero-maths.pdf" },
+  { id: "sujet-zero-arts-1", matiere: "Sujets zéro", title: "Application — Arts n°1", meta: "Exemple officiel · épreuve d'application", file: "./crpe/sujet-zero-application-arts-1.pdf", topic: "a-arts" },
+  { id: "sujet-zero-arts-2", matiere: "Sujets zéro", title: "Application — Arts n°2", meta: "Exemple officiel · épreuve d'application", file: "./crpe/sujet-zero-application-arts-2.pdf", topic: "a-arts" },
+  { id: "sujet-zero-hg-emc-1", matiere: "Sujets zéro", title: "Application — Histoire-géo-EMC n°1", meta: "Exemple officiel · épreuve d'application", file: "./crpe/sujet-zero-application-hg-emc-1.pdf", topic: "a-histoire" },
+  { id: "sujet-zero-hg-emc-2", matiere: "Sujets zéro", title: "Application — Histoire-géo-EMC n°2", meta: "Exemple officiel · épreuve d'application", file: "./crpe/sujet-zero-application-hg-emc-2.pdf", topic: "a-histoire" },
+  { id: "sujet-zero-sciences-1", matiere: "Sujets zéro", title: "Application — Sciences et technologie n°1", meta: "Exemple officiel · épreuve d'application", file: "./crpe/sujet-zero-application-sciences-1.pdf" },
+  { id: "sujet-zero-sciences-2", matiere: "Sujets zéro", title: "Application — Sciences et technologie n°2", meta: "Exemple officiel · épreuve d'application", file: "./crpe/sujet-zero-application-sciences-2.pdf" },
 ];
 
 const CRPE_FICHIER_STATUSES = [
