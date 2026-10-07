@@ -270,7 +270,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "58";
+const APP_VERSION = "59";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -5710,6 +5710,7 @@ function CrpeRevisionTracker({ revision, updateRevision }) {
             {topics.map((t) => {
               const s = revision[t.id] || null;
               const files = CRPE_FICHIERS.filter((f) => f.topic === t.id);
+              const cours = CRPE_COURS_OC.filter((c) => c.topic === t.id);
               return (
                 <div key={t.id} style={{ padding: "8px 0", borderBottom: `1px solid ${COLORS.border}` }}>
                   <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 10, flexWrap: "wrap" }}>
@@ -5741,6 +5742,20 @@ function CrpeRevisionTracker({ revision, updateRevision }) {
                       })}
                     </div>
                   </div>
+                  {cours.length > 0 && (
+                    <details style={{ marginTop: 4 }}>
+                      <summary style={{ fontSize: 11, color: m.color, cursor: "pointer" }}>
+                        🎓 {cours.length} cours Objectif CRPE
+                      </summary>
+                      <div style={{ display: "flex", flexDirection: "column", gap: 3, padding: "4px 0 2px 16px" }}>
+                        {cours.map((c) => (
+                          <a key={c.id} href={crpeCoursUrl(c)} target="_blank" rel="noreferrer" style={{ fontSize: 12, color: COLORS.text, lineHeight: 1.4 }}>
+                            {c.t}
+                          </a>
+                        ))}
+                      </div>
+                    </details>
+                  )}
                 </div>
               );
             })}
@@ -5988,6 +6003,291 @@ const CRPE_FICHIERS = [
   { id: "sujet-zero-sciences-2", matiere: "Sujets zéro", title: "Application — Sciences et technologie n°2", meta: "Exemple officiel · épreuve d'application", file: "./crpe/sujet-zero-application-sciences-2.pdf" },
 ];
 
+// Cours de la prépa Objectif CRPE (07/10/2026, demande explicite) : supports payants, donc ni PDF ni
+// lien YouTube ici (le site est public) — seulement le titre, le nombre de documents (rangés en local
+// dans le dossier CRPE) et le lien vers la page du cours, qui demande d'être connecté à la plateforme.
+// m = matière (clé de CRPE_MATIERES, ou "prepa" / "annales"), s = rubrique, d = nb de documents,
+// topic = notion de CRPE_PROGRAMME. Liste générée depuis l'API de la plateforme.
+const CRPE_COURS_OC = [
+  {"id":"oc-presentation-de-votre-preparation-annuelle-1","m":"prepa","s":"Bienvenue","t":"Présentation de votre préparation annuelle","d":2,"tok":"presentation-de-votre-preparation-annuelle-1"},
+  {"id":"oc-la-prepa-mode-demploi-3","m":"prepa","s":"Bienvenue","t":"La prépa, mode d\u0027emploi","d":1,"tok":"la-prepa-mode-demploi-3"},
+  {"id":"oc-guide-des-cours","m":"prepa","s":"Bienvenue","t":"Guide des cours","d":3,"tok":"guide-des-cours"},
+  {"id":"oc-les-priorites-pour-bien-debuter-1","m":"prepa","s":"Bienvenue","t":"Les priorités pour bien débuter","d":1,"tok":"les-priorites-pour-bien-debuter-1"},
+  {"id":"oc-l3-guide-des-fiches","m":"prepa","s":"Bienvenue","t":"Guide des fiches","d":1,"tok":"l3-guide-des-fiches"},
+  {"id":"oc-les-epreuves-du-crpe-copie","m":"prepa","s":"Bienvenue","t":"Qui peut passer le CRPE ?","d":1,"tok":"les-epreuves-du-crpe-copie"},
+  {"id":"oc-les-epreuves-du-crpe","m":"prepa","s":"Bienvenue","t":"Les épreuves du CRPE","d":1,"tok":"les-epreuves-du-crpe"},
+  {"id":"oc-quel-concours-choisir","m":"prepa","s":"Bienvenue","t":"Quel concours choisir ?","d":1,"tok":"quel-concours-choisir"},
+  {"id":"oc-rencontrez-tous-vos-professeurs-copie-1","m":"prepa","s":"Bienvenue","t":"Rencontrez tous vos professeurs","d":0,"tok":"rencontrez-tous-vos-professeurs-copie-1"},
+  {"id":"oc-votre-espace-video-copie-4","m":"prepa","s":"Bienvenue","t":"Votre espace vidéo","d":0,"tok":"votre-espace-video-copie-4"},
+  {"id":"oc-votre-espace-devoirs-copie-3","m":"prepa","s":"Bienvenue","t":"Votre espace devoirs","d":2,"tok":"votre-espace-devoirs-copie-3"},
+  {"id":"oc-votre-espace-entretien-copie-4","m":"prepa","s":"Bienvenue","t":"Votre espace entretien","d":2,"tok":"votre-espace-entretien-copie-4"},
+  {"id":"oc-modifier-vos-informations-personnelles-copie-3","m":"prepa","s":"Bienvenue","t":"Modifier vos informations personnelles","d":0,"tok":"modifier-vos-informations-personnelles-copie-3"},
+  {"id":"oc-m2-le-discord-copie","m":"prepa","s":"Bienvenue","t":"Le Discord","d":0,"tok":"m2-le-discord-copie"},
+  {"id":"oc-passer-en-vue-et-ignorer-des-videos","m":"prepa","s":"Bienvenue","t":"Passer en vu et ignorer des cours","d":0,"tok":"passer-en-vue-et-ignorer-des-videos"},
+  {"id":"oc-teddy-votre-assistant-pedagogique","m":"prepa","s":"Bienvenue","t":"Teddy, votre assistant pédagogique","d":0,"tok":"teddy-votre-assistant-pedagogique"},
+  {"id":"oc-decouvrez-lequipe-de-la-prepa","m":"prepa","s":"Bienvenue","t":"Découvrez l\u0027équipe de la prépa !","d":0,"tok":"decouvrez-lequipe-de-la-prepa"},
+  {"id":"oc-loption-langue-vivante-etrangere-lve-copie-1","m":"prepa","s":"Bienvenue","t":"M2 - L\u0027option langue vivante étrangère (LVE)","d":0,"tok":"loption-langue-vivante-etrangere-lve-copie-1"},
+  {"id":"oc-les-conventions-de-stage-copie-6","m":"prepa","s":"Bienvenue","t":"Les conventions de stage","d":3,"tok":"les-conventions-de-stage-copie-6"},
+  {"id":"oc-guide-de-lete","m":"prepa","s":"Bienvenue","t":"Guide de l\u0027été","d":1,"tok":"guide-de-lete"},
+  {"id":"oc-m2-comment-choisir-son-domaine-depreuve-dapplication","m":"prepa","s":"Bienvenue","t":"M2 - Comment choisir son domaine d\u0027épreuve d\u0027application ?","d":3,"tok":"m2-comment-choisir-son-domaine-depreuve-dapplication"},
+  {"id":"oc-comment-sinscrire-au-crpe-2027","m":"prepa","s":"Bienvenue","t":"Comment s\u0027inscrire au CRPE 2027 ?","d":1,"tok":"comment-sinscrire-au-crpe-2027"},
+  {"id":"oc-rdv-de-la-prepa-les-objectifs-du-mois-de-septembre","m":"prepa","s":"La prépa et moi","t":"Les objectifs du mois de septembre","d":1,"tok":"rdv-de-la-prepa-les-objectifs-du-mois-de-septembre"},
+  {"id":"oc-rdv-de-la-prepa-du-26-08-special-rentree-des-annuels","m":"prepa","s":"La prépa et moi","t":"RDV de la prépa du 26/08 : spécial rentrée des annuels !","d":4,"tok":"rdv-de-la-prepa-du-26-08-special-rentree-des-annuels"},
+  {"id":"oc-rdv-de-la-prepa-du-16-09-faq-prepa-concours","m":"prepa","s":"La prépa et moi","t":"FAQ prépa \u0026 concours","d":1,"tok":"rdv-de-la-prepa-du-16-09-faq-prepa-concours"},
+  {"id":"oc-rdv-de-la-prepa-du-30-09-differences-public-prive","m":"prepa","s":"La prépa et moi","t":"Différences public/privé","d":1,"tok":"rdv-de-la-prepa-du-30-09-differences-public-prive"},
+  {"id":"oc-rdv-de-la-prepa-du-09-09-demarrer-du-bon-pied","m":"prepa","s":"Coaching","t":"Bien débuter ma prépa : conseils et organisation","d":1,"tok":"rdv-de-la-prepa-du-09-09-demarrer-du-bon-pied"},
+  {"id":"oc-rdv-de-la-prepa-du-23-09-pourquoi-et-comment-travailler-en-groupe","m":"prepa","s":"Coaching","t":"Pourquoi et comment travailler en groupe ?","d":1,"tok":"rdv-de-la-prepa-du-23-09-pourquoi-et-comment-travailler-en-groupe"},
+  {"id":"oc-apprendre-a-apprendre-5","m":"prepa","s":"Coaching","t":"Apprendre à apprendre","d":1,"tok":"apprendre-a-apprendre-5"},
+  {"id":"oc-lecture-rapide-7","m":"prepa","s":"Coaching","t":"Lecture rapide","d":1,"tok":"lecture-rapide-7"},
+  {"id":"oc-m2-didactique-et-pedagogie","m":"oraux","s":"Didactique générale","t":"M2 - Didactique et pédagogie : concevoir, analyser une séance ou séquence","d":6,"tok":"m2-didactique-et-pedagogie","topic":"o-lecon"},
+  {"id":"oc-developpement-de-lenfant-1-1","m":"oraux","s":"Didactique générale","t":"Le développement de l\u0027enfant 1","d":3,"tok":"developpement-de-lenfant-1-1","topic":"o-lecon"},
+  {"id":"oc-la-maternelle-9","m":"oraux","s":"Didactique générale","t":"La maternelle","d":6,"tok":"la-maternelle-9","topic":"o-lecon"},
+  {"id":"oc-quest-ce-quenseigner-8","m":"oraux","s":"Didactique générale","t":"Qu\u0027est-ce qu\u0027enseigner ?","d":2,"tok":"quest-ce-quenseigner-8","topic":"o-lecon"},
+  {"id":"oc-comment-sapproprier-les-nouveaux-programmes-de-cycle-1-1","m":"oraux","s":"Didactique générale","t":"Etre efficace au CRPE en se repérant dans les programmes de cycle 1","d":3,"tok":"comment-sapproprier-les-nouveaux-programmes-de-cycle-1-1","topic":"o-lecon"},
+  {"id":"oc-le-developpement-de-lenfant-2-2","m":"oraux","s":"Didactique générale","t":"Le développement de l\u0027enfant 2","d":3,"tok":"le-developpement-de-lenfant-2-2","topic":"o-lecon"},
+  {"id":"oc-comment-sapproprier-les-nouveaux-programmes-de-cycles-2-et-3-1","m":"oraux","s":"Didactique générale","t":"Etre efficace au CRPE en se repérant dans les programmes de cycle 2 et 3","d":2,"tok":"comment-sapproprier-les-nouveaux-programmes-de-cycles-2-et-3-1","topic":"o-lecon"},
+  {"id":"oc-m2-didactique-et-pedagogie-pour-lepreuve-dapplication","m":"oraux","s":"Didactique générale","t":"M2 - Didactique et pédagogie pour l\u0027épreuve d\u0027application","d":3,"tok":"m2-didactique-et-pedagogie-pour-lepreuve-dapplication","topic":"o-lecon"},
+  {"id":"oc-l3-video-dintroduction-a-lepreuve-de-francais-oral-copie","m":"francais","s":"Cours","t":"L3 - Introduction à l\u0027épreuve orale de français","d":6,"tok":"l3-video-dintroduction-a-lepreuve-de-francais-oral-copie"},
+  {"id":"oc-l3-seminaire-de-correction-cb0-de-francais","m":"francais","s":"Cours","t":"L3 - Séminaire de correction CB0 de français","d":1,"tok":"l3-seminaire-de-correction-cb0-de-francais"},
+  {"id":"oc-m2-kit-de-demarrage-copie-1","m":"maths","s":"Cours","t":"M2 - Introduction à l\u0027épreuve de mathématiques","d":6,"tok":"m2-kit-de-demarrage-copie-1"},
+  {"id":"oc-l3-introduction-a-lepreuve-de-mathematiques-copie","m":"maths","s":"Cours","t":"L3 - Introduction à l\u0027épreuve de mathématiques","d":5,"tok":"l3-introduction-a-lepreuve-de-mathematiques-copie"},
+  {"id":"oc-ran-1-les-bases-de-la-geometrie-plane-copie-7","m":"maths","s":"Cours","t":"RAN 1 : les bases de la géométrie plane","d":3,"tok":"ran-1-les-bases-de-la-geometrie-plane-copie-7","topic":"m-geo-plane"},
+  {"id":"oc-ran-2-symetries-et-polygones-particuliers-copie-8","m":"maths","s":"Cours","t":"RAN 2 : symétries et polygones particuliers","d":3,"tok":"ran-2-symetries-et-polygones-particuliers-copie-8","topic":"m-transfo"},
+  {"id":"oc-ran-3-les-quatre-operations-proprietes-et-algorithmes-copie-8","m":"maths","s":"Cours","t":"RAN 3 : les quatre opérations : propriétés et algorithmes","d":3,"tok":"ran-3-les-quatre-operations-proprietes-et-algorithmes-copie-8","topic":"m-operations"},
+  {"id":"oc-ran-4-arithmetique-copie-9","m":"maths","s":"Cours","t":"RAN 4 : arithmétique","d":3,"tok":"ran-4-arithmetique-copie-9","topic":"m-arith"},
+  {"id":"oc-ran-5-calcul-avec-les-rationnels-copie-9","m":"maths","s":"Cours","t":"RAN 5 : calcul avec les rationnels","d":4,"tok":"ran-5-calcul-avec-les-rationnels-copie-9","topic":"m-fractions"},
+  {"id":"oc-ran-6-aires-et-perimetres-de-figures-planes-copie-9","m":"maths","s":"Cours","t":"RAN 6 : aires et périmètres de figures planes","d":3,"tok":"ran-6-aires-et-perimetres-de-figures-planes-copie-9","topic":"m-grandeurs"},
+  {"id":"oc-ran-7-la-proportionnalite-copie-9","m":"maths","s":"Cours","t":"RAN 7 : la proportionnalité","d":3,"tok":"ran-7-la-proportionnalite-copie-9","topic":"m-proportion"},
+  {"id":"oc-ran-8-le-calcul-litteral-copie-8","m":"maths","s":"Cours","t":"RAN 8 : le calcul littéral","d":3,"tok":"ran-8-le-calcul-litteral-copie-8","topic":"m-litteral"},
+  {"id":"oc-ran-9-la-geometrie-dans-lespace-copie-9","m":"maths","s":"Cours","t":"RAN 9 : la géométrie dans l\u0027espace","d":3,"tok":"ran-9-la-geometrie-dans-lespace-copie-9","topic":"m-espace"},
+  {"id":"oc-ran-10-equations-et-fonctions-copie-9","m":"maths","s":"Cours","t":"RAN 10 : équations et fonctions","d":3,"tok":"ran-10-equations-et-fonctions-copie-9","topic":"m-litteral"},
+  {"id":"oc-ran-11-les-pourcentages-copie-6","m":"maths","s":"Cours","t":"RAN 11 : Les pourcentages","d":3,"tok":"ran-11-les-pourcentages-copie-6","topic":"m-proportion"},
+  {"id":"oc-ran-12-tableur-et-algorithmique-copie-3","m":"maths","s":"Cours","t":"RAN 12 : Tableur et algorithmique","d":3,"tok":"ran-12-tableur-et-algorithmique-copie-3","topic":"m-algo"},
+  {"id":"oc-demontrer-en-mathematiques-copie","m":"maths","s":"Cours","t":"Module 1 : Démontrer en mathématiques","d":2,"tok":"demontrer-en-mathematiques-copie"},
+  {"id":"oc-module-2-geometrie-du-triangle-2","m":"maths","s":"Cours","t":"Module 2 : Géométrie du triangle","d":5,"tok":"module-2-geometrie-du-triangle-2","topic":"m-figures"},
+  {"id":"oc-module-3-calculer-avec-les-nombres-reels-2","m":"maths","s":"Cours","t":"Module 3 : Calculer avec les nombres réels","d":4,"tok":"module-3-calculer-avec-les-nombres-reels-2","topic":"m-fractions"},
+  {"id":"oc-l3-introduction-a-lepreuve-orale-de-mathematiques-copie","m":"maths","s":"Cours","t":"L3 - Introduction à l\u0027épreuve orale de mathématiques","d":5,"tok":"l3-introduction-a-lepreuve-orale-de-mathematiques-copie"},
+  {"id":"oc-m2-seminaire-de-correction-cb0","m":"maths","s":"Cours","t":"M2 - Séminaire de correction CB0","d":1,"tok":"m2-seminaire-de-correction-cb0"},
+  {"id":"oc-l3-seminaire-de-correction-cba","m":"maths","s":"Cours","t":"L3 - Séminaire de correction CBA","d":3,"tok":"l3-seminaire-de-correction-cba"},
+  {"id":"oc-crpe-les-10-pieges-de-lepreuve-de-mathematiques-copie","m":"maths","s":"Cours","t":"CRPE : Les 10 pièges de l\u0027épreuve de mathématiques","d":1,"tok":"crpe-les-10-pieges-de-lepreuve-de-mathematiques-copie"},
+  {"id":"oc-m2-kit-de-demarrage-de-lepreuve-dapplication-copie","m":"application","s":"Histoire-géographie-EMC","t":"M2 - Introduction à l\u0027épreuve d\u0027application","d":6,"tok":"m2-kit-de-demarrage-de-lepreuve-dapplication-copie","topic":"a-histoire"},
+  {"id":"oc-m2-introduction-a-lepreuve-dhistoire-geographie-emc-copie","m":"application","s":"Histoire-géographie-EMC","t":"M2 - Introduction à l\u0027épreuve d\u0027histoire géographie EMC","d":3,"tok":"m2-introduction-a-lepreuve-dhistoire-geographie-emc-copie","topic":"a-geo"},
+  {"id":"oc-l3-introduction-a-lepreuve-dhistoire-geographie-emc-copie","m":"application","s":"Histoire-géographie-EMC","t":"L3 - Introduction à l\u0027épreuve d\u0027histoire-géographie-EMC","d":1,"tok":"l3-introduction-a-lepreuve-dhistoire-geographie-emc-copie","topic":"a-geo"},
+  {"id":"oc-m2-decouvrir-lepreuve-dapplication-histoire-geographie-emc-serie-de-10-e","m":"application","s":"Histoire-géographie-EMC","t":"M2 - Découvrir l\u0027épreuve d\u0027histoire, géographie, EMC : une série en 10 épisodes","d":4,"tok":"m2-decouvrir-lepreuve-dapplication-histoire-geographie-emc-serie-de-10-e","topic":"a-geo"},
+  {"id":"oc-m2-1er-episode-se-reperer-dans-le-temps","m":"application","s":"Histoire-géographie-EMC","t":"M2 - 1er épisode : se repérer dans le temps","d":5,"tok":"m2-1er-episode-se-reperer-dans-le-temps","topic":"a-histoire"},
+  {"id":"oc-m2-2eme-episode-lemc-au-cycle-2","m":"application","s":"Histoire-géographie-EMC","t":"M2 - 2ème épisode : se repérer dans l\u0027espace","d":6,"tok":"m2-2eme-episode-lemc-au-cycle-2","topic":"a-geo"},
+  {"id":"oc-m2-3eme-episode-se-reperer-dans-lespace","m":"application","s":"Histoire-géographie-EMC","t":"M2 - 3ème épisode : l\u0027EMC au cycle 2","d":12,"tok":"m2-3eme-episode-se-reperer-dans-lespace","topic":"a-emc"},
+  {"id":"oc-m2-4eme-episode-emc-au-cycle-3","m":"application","s":"Histoire-géographie-EMC","t":"M2 - 4ème épisode : EMC au cycle 3","d":10,"tok":"m2-4eme-episode-emc-au-cycle-3","topic":"a-emc"},
+  {"id":"oc-m2-5eme-episode-questionner-le-monde-au-cycle-2-se-situer-dans-le-temps","m":"application","s":"Histoire-géographie-EMC","t":"M2 - 5ème épisode : histoire au cycle 2","d":5,"tok":"m2-5eme-episode-questionner-le-monde-au-cycle-2-se-situer-dans-le-temps","topic":"a-histoire"},
+  {"id":"oc-l3-methodologie-de-lepreuve-dhistoire-geo-emc","m":"application","s":"Histoire-géographie-EMC","t":"L3 -  Réussir l\u0027épreuve d\u0027histoire géo EMC","d":2,"tok":"l3-methodologie-de-lepreuve-dhistoire-geo-emc","topic":"a-histoire"},
+  {"id":"oc-l3-methodologie-de-lepreuve-dhistoire-ndeg1","m":"application","s":"Histoire-géographie-EMC","t":"L3 - Méthodologie de l\u0027épreuve d\u0027histoire n°1","d":2,"tok":"l3-methodologie-de-lepreuve-dhistoire-ndeg1","topic":"a-histoire"},
+  {"id":"oc-l3-methodologie-de-lepreuve-de-geographie-1-2","m":"application","s":"Histoire-géographie-EMC","t":"L3 - Méthodologie de l\u0027épreuve de géographie 1/2","d":2,"tok":"l3-methodologie-de-lepreuve-de-geographie-1-2","topic":"a-geo"},
+  {"id":"oc-l3-methodologie-de-lepreuve-demc-ndeg1","m":"application","s":"Histoire-géographie-EMC","t":"L3 - Méthodologie de l\u0027épreuve d\u0027EMC n°1","d":2,"tok":"l3-methodologie-de-lepreuve-demc-ndeg1","topic":"a-emc"},
+  {"id":"oc-l3-seminaire-de-correction-cba-1","m":"application","s":"Histoire-géographie-EMC","t":"L3 - Séminaire de correction du CBA","d":3,"tok":"l3-seminaire-de-correction-cba-1","topic":"a-histoire"},
+  {"id":"oc-sapproprier-les-themes-en-geographie-au-cycle-3-copie-2","m":"application","s":"Histoire-géographie-EMC","t":"S\u0027approprier les thèmes en géographie au cycle 3","d":2,"tok":"sapproprier-les-themes-en-geographie-au-cycle-3-copie-2","topic":"a-geo"},
+  {"id":"oc-sapproprier-les-themes-en-histoire-au-cycle-3-copie-2","m":"application","s":"Histoire-géographie-EMC","t":"S\u0027approprier les thèmes en histoire au cycle 3","d":2,"tok":"sapproprier-les-themes-en-histoire-au-cycle-3-copie-2","topic":"a-histoire"},
+  {"id":"oc-fondamentaux-notionnels-copie-7","m":"application","s":"Histoire-géographie-EMC","t":"Quiz - L\u0027essentiel du programme de cycle 4","d":4,"tok":"fondamentaux-notionnels-copie-7","topic":"a-histoire"},
+  {"id":"oc-l3-le-xxe-siecle-et-notre-epoque-1","m":"application","s":"Histoire-géographie-EMC","t":"L3 - Le XXe siècle et notre époque","d":1,"tok":"l3-le-xxe-siecle-et-notre-epoque-1","topic":"a-histoire"},
+  {"id":"oc-l3-leurope-et-le-monde-au-xixe-siecle-1","m":"application","s":"Histoire-géographie-EMC","t":"L3 - L\u0027Europe et le monde au XIXe siècle","d":1,"tok":"l3-leurope-et-le-monde-au-xixe-siecle-1","topic":"a-histoire"},
+  {"id":"oc-l3-le-monde-mediterraneen-empreintes-de-lantiquite-et-du-moyen-age-1","m":"application","s":"Histoire-géographie-EMC","t":"L3 - Le monde méditerranéen : empreintes de l\u0027Antiquité et du moyen-âge","d":1,"tok":"l3-le-monde-mediterraneen-empreintes-de-lantiquite-et-du-moyen-age-1","topic":"a-histoire"},
+  {"id":"oc-l3-le-xviiie-siecle-expansions-lumieres-et-revolutions","m":"application","s":"Histoire-géographie-EMC","t":"L3 - Le XVIIIe siècle. expansions, Lumières et révolutions","d":1,"tok":"l3-le-xviiie-siecle-expansions-lumieres-et-revolutions","topic":"a-histoire"},
+  {"id":"oc-l3-index-des-fiches-dhistoire-geographie-emc","m":"application","s":"Histoire-géographie-EMC","t":"L3 - Index des fiches d\u0027Histoire-Géographie-EMC","d":1,"tok":"l3-index-des-fiches-dhistoire-geographie-emc","topic":"a-geo"},
+  {"id":"oc-l3-preambule-1-et-2-histoire","m":"application","s":"Histoire-géographie-EMC","t":"L3 - Préambule 1 et 2 histoire","d":2,"tok":"l3-preambule-1-et-2-histoire","topic":"a-histoire"},
+  {"id":"oc-l3-xve-xvies-un-nouveau-rapport-au-monde","m":"application","s":"Histoire-géographie-EMC","t":"L3 -  XVe-XVIes : un nouveau rapport au monde...","d":1,"tok":"l3-xve-xvies-un-nouveau-rapport-au-monde","topic":"a-histoire"},
+  {"id":"oc-l3-rappels-methodologiques-1","m":"application","s":"Histoire-géographie-EMC","t":"L3 - Rappels méthodologiques","d":1,"tok":"l3-rappels-methodologiques-1","topic":"a-histoire"},
+  {"id":"oc-l3-les-inegalites-au-niveau-mondial-1","m":"application","s":"Histoire-géographie-EMC","t":"L3 - Les inégalités au niveau mondial","d":1,"tok":"l3-les-inegalites-au-niveau-mondial-1","topic":"a-geo"},
+  {"id":"oc-l3-les-hommes-dans-le-monde","m":"application","s":"Histoire-géographie-EMC","t":"L3 - Les hommes dans le monde","d":1,"tok":"l3-les-hommes-dans-le-monde","topic":"a-geo"},
+  {"id":"oc-l3-introduction-geographie","m":"application","s":"Histoire-géographie-EMC","t":"L3 - Introduction géographie","d":1,"tok":"l3-introduction-geographie","topic":"a-geo"},
+  {"id":"oc-l3-la-france-un-territoire-integre-1","m":"application","s":"Histoire-géographie-EMC","t":"L3 - La France un territoire intégré","d":1,"tok":"l3-la-france-un-territoire-integre-1","topic":"a-geo"},
+  {"id":"oc-l3-droit-et-devoir-du-citoyen","m":"application","s":"Histoire-géographie-EMC","t":"L3 - Fiches notionnelles EMC","d":1,"tok":"l3-droit-et-devoir-du-citoyen","topic":"a-emc"},
+  {"id":"oc-m2-introduction-aux-arts-plastiques-copie","m":"application","s":"Arts plastiques et musique","t":"M2 - Introduction aux arts plastiques","d":2,"tok":"m2-introduction-aux-arts-plastiques-copie","topic":"a-arts"},
+  {"id":"oc-l3-introduction-aux-arts-plastiques-et-a-lhistoire-des-arts-copie-1","m":"application","s":"Arts plastiques et musique","t":"L3 - Introduction aux arts plastiques et à l\u0027histoire des arts","d":1,"tok":"l3-introduction-aux-arts-plastiques-et-a-lhistoire-des-arts-copie-1","topic":"a-arts"},
+  {"id":"oc-l3-introduction-a-leducation-musicale-copie","m":"application","s":"Arts plastiques et musique","t":"L3 - Introduction à l\u0027éducation musicale","d":2,"tok":"l3-introduction-a-leducation-musicale-copie","topic":"a-musique"},
+  {"id":"oc-m2-introduction-a-leducation-musicale-copie","m":"application","s":"Arts plastiques et musique","t":"M2 - Introduction à l\u0027éducation musicale","d":1,"tok":"m2-introduction-a-leducation-musicale-copie","topic":"a-musique"},
+  {"id":"oc-m2-introduction-a-lepreuve-dapplication-copie","m":"application","s":"Arts plastiques et musique","t":"M2 - Introduction à l\u0027épreuve d\u0027application","d":5,"tok":"m2-introduction-a-lepreuve-dapplication-copie","topic":"a-arts"},
+  {"id":"oc-m2-presentation-du-corpus-deducation-musicale-copie","m":"application","s":"Arts plastiques et musique","t":"M2 - Présentation du corpus d\u0027éducation musicale","d":2,"tok":"m2-presentation-du-corpus-deducation-musicale-copie","topic":"a-musique"},
+  {"id":"oc-m2-presentation-du-corpus-darts-plastiques-copie","m":"application","s":"Arts plastiques et musique","t":"M2 - Présentation du corpus d\u0027arts plastiques","d":1,"tok":"m2-presentation-du-corpus-darts-plastiques-copie","topic":"a-arts"},
+  {"id":"oc-m2-tutoriel-musique-prim-copie","m":"application","s":"Arts plastiques et musique","t":"M2 - Tutoriel Musique Prim","d":0,"tok":"m2-tutoriel-musique-prim-copie","topic":"a-musique"},
+  {"id":"oc-fondamentaux-de-musique-2-2-lecoute-copie-4","m":"application","s":"Arts plastiques et musique","t":"L\u0027écoute","d":2,"tok":"fondamentaux-de-musique-2-2-lecoute-copie-4","topic":"a-musique"},
+  {"id":"oc-fondamentaux-de-musique-1-2-le-chant-et-la-voix-copie-4","m":"application","s":"Arts plastiques et musique","t":"Le chant et la voix","d":2,"tok":"fondamentaux-de-musique-1-2-le-chant-et-la-voix-copie-4","topic":"a-musique"},
+  {"id":"oc-fondamentaux-dhistoire-des-arts-copie-2","m":"application","s":"Arts plastiques et musique","t":"Fondamentaux d\u0027histoire des arts","d":2,"tok":"fondamentaux-dhistoire-des-arts-copie-2","topic":"a-arts"},
+  {"id":"oc-darts-plastiques-les-variables-smog-et-les-operations-rita-copie","m":"application","s":"Arts plastiques et musique","t":"Les variables SMOG et les opérations RITA","d":2,"tok":"darts-plastiques-les-variables-smog-et-les-operations-rita-copie","topic":"a-arts"},
+  {"id":"oc-m2-decouvrir-et-comprendre-les-arts-plastiques-a-lecole-primaire-1","m":"application","s":"Arts plastiques et musique","t":"M2 - Découvrir et comprendre les arts plastiques à l’école primaire","d":2,"tok":"m2-decouvrir-et-comprendre-les-arts-plastiques-a-lecole-primaire-1","topic":"a-arts"},
+  {"id":"oc-m2-leducation-musicale-a-lecole-maternelle","m":"application","s":"Arts plastiques et musique","t":"M2 - L\u0027éducation musicale à l\u0027école maternelle","d":2,"tok":"m2-leducation-musicale-a-lecole-maternelle","topic":"a-musique"},
+  {"id":"oc-m2-lecoute-au-cycle-3-1-2","m":"application","s":"Arts plastiques et musique","t":"M2 - L\u0027écoute au cycle 3 (1/2)","d":2,"tok":"m2-lecoute-au-cycle-3-1-2","topic":"a-musique"},
+  {"id":"oc-m2-comprendre-et-pratiquer-les-arts-plastiques-a-lecole-maternelle","m":"application","s":"Arts plastiques et musique","t":"M2 - Comprendre et pratiquer les arts plastiques à l’école maternelle","d":2,"tok":"m2-comprendre-et-pratiquer-les-arts-plastiques-a-lecole-maternelle","topic":"a-arts"},
+  {"id":"oc-m2-ecrire-des-seances-ou-des-sequences-analyse-en-arts-plastiques-en-maternelle","m":"application","s":"Arts plastiques et musique","t":"M2 - Ecrire des séances ou des séquences/analyse en maternelle","d":2,"tok":"m2-ecrire-des-seances-ou-des-sequences-analyse-en-arts-plastiques-en-maternelle","topic":"a-arts"},
+  {"id":"oc-m2-lecoute-au-cycle-3-2-2","m":"application","s":"Arts plastiques et musique","t":"M2 - L\u0027écoute au cycle 3 (2/2)","d":2,"tok":"m2-lecoute-au-cycle-3-2-2","topic":"a-musique"},
+  {"id":"oc-l3-methodologie-et-entrainement-darts-plastiques","m":"application","s":"Arts plastiques et musique","t":"L3 - Méthodologie et entrainement - Cartier-Bresson","d":6,"tok":"l3-methodologie-et-entrainement-darts-plastiques","topic":"a-arts"},
+  {"id":"oc-l3-methodologie-arts-plastiques","m":"application","s":"Arts plastiques et musique","t":"L3 - Méthodologie et entrainement - Catalina de Carole A. Feuerman","d":3,"tok":"l3-methodologie-arts-plastiques","topic":"a-arts"},
+  {"id":"oc-l3-methodologie-en-education-musicale","m":"application","s":"Arts plastiques et musique","t":"L3 -  Méthodologie en éducation musicale - musique et nature","d":2,"tok":"l3-methodologie-en-education-musicale","topic":"a-musique"},
+  {"id":"oc-l3-entrainement-ndeg1-deducation-musicale-1","m":"application","s":"Arts plastiques et musique","t":"L3 - Méthodologie en éducation musicale - cadres et chronologie","d":2,"tok":"l3-entrainement-ndeg1-deducation-musicale-1","topic":"a-musique"},
+  {"id":"oc-m2-seminaire-de-correction-du-cba","m":"application","s":"Arts plastiques et musique","t":"M2 - Séminaire de correction du CBA","d":3,"tok":"m2-seminaire-de-correction-du-cba","topic":"a-arts"},
+  {"id":"oc-le-langage-musical","m":"application","s":"Arts plastiques et musique","t":"L3 - Le langage musical","d":1,"tok":"le-langage-musical","topic":"a-musique"},
+  {"id":"oc-l3-bloc-introductif-arts-plastiques","m":"application","s":"Arts plastiques et musique","t":"L3 - Bloc introductif - arts plastiques","d":1,"tok":"l3-bloc-introductif-arts-plastiques","topic":"a-arts"},
+  {"id":"oc-m2-introduction-aux-sciences-et-technologie-copie","m":"application","s":"Sciences et technologie","t":"M2 - Introduction aux sciences et technologie","d":1,"tok":"m2-introduction-aux-sciences-et-technologie-copie","topic":"a-matiere"},
+  {"id":"oc-l3-introduction-a-la-svt-copie","m":"application","s":"Sciences et technologie","t":"L3 - Introduction à la SVT","d":1,"tok":"l3-introduction-a-la-svt-copie","topic":"a-vivant"},
+  {"id":"oc-l3-introduction-a-la-technologie-copie","m":"application","s":"Sciences et technologie","t":"L3 - Introduction à la technologie","d":1,"tok":"l3-introduction-a-la-technologie-copie","topic":"a-techno"},
+  {"id":"oc-l3-introduction-a-la-physique-chimie-copie","m":"application","s":"Sciences et technologie","t":"L3 - Introduction à la physique-chimie","d":1,"tok":"l3-introduction-a-la-physique-chimie-copie","topic":"a-matiere"},
+  {"id":"oc-m2-introduction-a-lepreuve-dapplication-copie-1","m":"application","s":"Sciences et technologie","t":"M2 - Introduction à l\u0027épreuve d\u0027application","d":4,"tok":"m2-introduction-a-lepreuve-dapplication-copie-1","topic":"a-matiere"},
+  {"id":"oc-m2-mouvements-et-premieres-notions-de-technologie","m":"application","s":"Sciences et technologie","t":"M2 - Mouvements et premières notions de technologie","d":2,"tok":"m2-mouvements-et-premieres-notions-de-technologie","topic":"a-techno"},
+  {"id":"oc-m2-la-terre-dans-le-systeme-solaire-et-la-vie-des-plantes-1","m":"application","s":"Sciences et technologie","t":"M2 - La Terre dans le système solaire et la vie des plantes","d":2,"tok":"m2-la-terre-dans-le-systeme-solaire-et-la-vie-des-plantes-1","topic":"a-vivant"},
+  {"id":"oc-m2-energie-et-electricite","m":"application","s":"Sciences et technologie","t":"M2 - Energie et électricité","d":2,"tok":"m2-energie-et-electricite","topic":"a-matiere"},
+  {"id":"oc-m2-la-matiere","m":"application","s":"Sciences et technologie","t":"M2 - La matière","d":2,"tok":"m2-la-matiere","topic":"a-matiere"},
+  {"id":"oc-m2-objets-et-demarche-technologique","m":"application","s":"Sciences et technologie","t":"M2 - Objets et démarche technologique","d":2,"tok":"m2-objets-et-demarche-technologique","topic":"a-matiere"},
+  {"id":"oc-l3-correction-du-cba-de-svt-et-entrainement","m":"application","s":"Sciences et technologie","t":"L3 - Correction du CBA de SVT et entrainement","d":1,"tok":"l3-correction-du-cba-de-svt-et-entrainement","topic":"a-vivant"},
+  {"id":"oc-le-corps-humain-et-la-sante-1","m":"application","s":"Sciences et technologie","t":"SVT - Le corps humain et la santé","d":1,"tok":"le-corps-humain-et-la-sante-1","topic":"a-vivant"},
+  {"id":"oc-fiches-notionnelles-de-physique-chimie","m":"application","s":"Sciences et technologie","t":"Physique-Chimie - Tous les thèmes","d":1,"tok":"fiches-notionnelles-de-physique-chimie","topic":"a-matiere"},
+  {"id":"oc-fiches-notionnelles-technologie","m":"application","s":"Sciences et technologie","t":"Technologie - Tous les thèmes","d":1,"tok":"fiches-notionnelles-technologie","topic":"a-techno"},
+  {"id":"oc-la-planete-terre-lenvironnement-et-laction-humaine-1","m":"application","s":"Sciences et technologie","t":"SVT - La planète Terre, l’environnement et l’action humaine","d":1,"tok":"la-planete-terre-lenvironnement-et-laction-humaine-1","topic":"a-vivant"},
+  {"id":"oc-le-vivant-et-son-evolution-1","m":"application","s":"Sciences et technologie","t":"SVT - Le vivant et son évolution","d":1,"tok":"le-vivant-et-son-evolution-1","topic":"a-vivant"},
+  {"id":"oc-index-des-fiches-de-sciences","m":"application","s":"Sciences et technologie","t":"Index des fiches de sciences","d":1,"tok":"index-des-fiches-de-sciences","topic":"a-matiere"},
+  {"id":"oc-l3-entrainement-ndeg1-de-svt","m":"application","s":"Sciences et technologie","t":"L3 - Entrainement : le corps humain","d":2,"tok":"l3-entrainement-ndeg1-de-svt","topic":"a-vivant"},
+  {"id":"oc-l3-entrainement-ndeg1-de-physique-chimie-1","m":"application","s":"Sciences et technologie","t":"L3 - Entrainement : chimie et mouvement","d":4,"tok":"l3-entrainement-ndeg1-de-physique-chimie-1","topic":"a-matiere"},
+  {"id":"oc-l3-entrainement-ndeg1-de-technologie-1","m":"application","s":"Sciences et technologie","t":"L3 - Entrainement n°1 de technologie — Partie 1","d":1,"tok":"l3-entrainement-ndeg1-de-technologie-1","topic":"a-techno"},
+  {"id":"oc-l3-entrainement-ndeg1-de-physique-chimie-2","m":"application","s":"Sciences et technologie","t":"L3 - Entrainement : chimie, lumière et propagation","d":2,"tok":"l3-entrainement-ndeg1-de-physique-chimie-2","topic":"a-matiere"},
+  {"id":"oc-l3-entrainement-ndeg1-de-svt-1","m":"application","s":"Sciences et technologie","t":"L3 - Entrainement : les végétaux","d":2,"tok":"l3-entrainement-ndeg1-de-svt-1","topic":"a-vivant"},
+  {"id":"oc-l3-entrainement-ndeg1-de-technologie-2","m":"application","s":"Sciences et technologie","t":"L3 - Entrainement n°1 de technologie — Partie 2","d":10,"tok":"l3-entrainement-ndeg1-de-technologie-2","topic":"a-techno"},
+  {"id":"oc-m2-introduction-a-la-didactique-du-francais-1","m":"francais","s":"Didactique","t":"M2 - Introduction à la didactique du français","d":7,"tok":"m2-introduction-a-la-didactique-du-francais-1","topic":"f-didac"},
+  {"id":"oc-m2-lesprit-des-programmes-3","m":"francais","s":"Didactique","t":"M2 - L\u0027esprit des programmes","d":3,"tok":"m2-lesprit-des-programmes-3","topic":"f-didac"},
+  {"id":"oc-m2-enseigner-la-phonologie-en-maternelle-copie","m":"francais","s":"Didactique","t":"M2 - Enseigner la phonologie en maternelle","d":4,"tok":"m2-enseigner-la-phonologie-en-maternelle-copie","topic":"f-didac"},
+  {"id":"oc-m2-enseigner-le-langage-oral-en-maternelle-copie","m":"francais","s":"Didactique","t":"M2 - Enseigner le langage oral en maternelle","d":4,"tok":"m2-enseigner-le-langage-oral-en-maternelle-copie","topic":"f-didac"},
+  {"id":"oc-m2-la-comprehension-en-maternelle-copie","m":"francais","s":"Didactique","t":"M2 - La compréhension en maternelle","d":4,"tok":"m2-la-comprehension-en-maternelle-copie","topic":"f-texte"},
+  {"id":"oc-m2-se-preparer-a-ecrire-en-maternelle-copie","m":"francais","s":"Didactique","t":"M2 - Se préparer à écrire en maternelle","d":3,"tok":"m2-se-preparer-a-ecrire-en-maternelle-copie","topic":"f-didac"},
+  {"id":"oc-m2-le-geste-decriture-a-lecole-copie","m":"francais","s":"Didactique","t":"M2 - Le geste d\u0027écriture à l\u0027école","d":3,"tok":"m2-le-geste-decriture-a-lecole-copie","topic":"f-didac"},
+  {"id":"oc-m2-apprendre-a-lire-au-cycle-2-copie","m":"francais","s":"Didactique","t":"M2 - Apprendre à lire au cycle 2","d":7,"tok":"m2-apprendre-a-lire-au-cycle-2-copie","topic":"f-didac"},
+  {"id":"oc-m2-enseigner-la-lecture-a-voix-haute-copie","m":"francais","s":"Didactique","t":"M2 - Enseigner la lecture à voix haute","d":3,"tok":"m2-enseigner-la-lecture-a-voix-haute-copie","topic":"f-didac"},
+  {"id":"oc-m2-enseigner-loral-a-lecole-elementaire-copie","m":"francais","s":"Didactique","t":"M2 - Enseigner l\u0027oral à l\u0027école élémentaire","d":3,"tok":"m2-enseigner-loral-a-lecole-elementaire-copie","topic":"f-didac"},
+  {"id":"oc-m2-enseigner-la-production-decrits-a-lecole-elementaire-copie","m":"francais","s":"Didactique","t":"M2 - Enseigner la production d\u0027écrits à l\u0027école élémentaire","d":3,"tok":"m2-enseigner-la-production-decrits-a-lecole-elementaire-copie","topic":"f-didac"},
+  {"id":"oc-m2-enseigner-la-comprehension-a-lecole-elementaire-copie","m":"francais","s":"Didactique","t":"M2 - Enseigner la compréhension à l\u0027école élémentaire","d":3,"tok":"m2-enseigner-la-comprehension-a-lecole-elementaire-copie","topic":"f-texte"},
+  {"id":"oc-m2-enseigner-le-vocabulaire-a-lecole-copie","m":"francais","s":"Didactique","t":"M2 - Enseigner le vocabulaire à l\u0027école","d":3,"tok":"m2-enseigner-le-vocabulaire-a-lecole-copie","topic":"f-lexique"},
+  {"id":"oc-m2-enseigner-lorthographe-a-lecole-copie","m":"francais","s":"Didactique","t":"M2 - Enseigner l\u0027orthographe à l\u0027école","d":4,"tok":"m2-enseigner-lorthographe-a-lecole-copie","topic":"f-orthographe"},
+  {"id":"oc-m2-enseigner-la-grammaire-a-lecole-copie","m":"francais","s":"Didactique","t":"M2 - Enseigner la grammaire à l\u0027école","d":3,"tok":"m2-enseigner-la-grammaire-a-lecole-copie","topic":"f-classes"},
+  {"id":"oc-m2-concevoir-et-animer-une-seance","m":"francais","s":"Didactique","t":"M2 - Concevoir et animer une séance","d":5,"tok":"m2-concevoir-et-animer-une-seance","topic":"f-didac"},
+  {"id":"oc-m2-introduction-a-la-didactique-des-mathematiques-1","m":"maths","s":"Didactique","t":"M2 - Introduction à la didactique des mathématiques","d":2,"tok":"m2-introduction-a-la-didactique-des-mathematiques-1","topic":"m-didac"},
+  {"id":"oc-m2-lesprit-des-programmes-2","m":"maths","s":"Didactique","t":"M2 - L’esprit des programmes","d":1,"tok":"m2-lesprit-des-programmes-2","topic":"m-didac"},
+  {"id":"oc-m2-decouvrir-le-nombre-au-cycle-1-copie","m":"maths","s":"Didactique","t":"M2 - Découvrir le nombre au cycle 1","d":2,"tok":"m2-decouvrir-le-nombre-au-cycle-1-copie","topic":"m-numeration"},
+  {"id":"oc-m2-le-nombre-au-cycle-2-copie","m":"maths","s":"Didactique","t":"M2 - Le nombre au cycle 2","d":2,"tok":"m2-le-nombre-au-cycle-2-copie","topic":"m-numeration"},
+  {"id":"oc-m2-le-nombre-au-cycle-3-copie","m":"maths","s":"Didactique","t":"M2 - Le nombre au cycle 3","d":3,"tok":"m2-le-nombre-au-cycle-3-copie","topic":"m-numeration"},
+  {"id":"oc-m2-le-calcul-au-cycle-3-copie","m":"maths","s":"Didactique","t":"M2 - Le calcul au cycle 3","d":2,"tok":"m2-le-calcul-au-cycle-3-copie","topic":"m-operations"},
+  {"id":"oc-m2-le-calcul-au-cycle-2-copie","m":"maths","s":"Didactique","t":"M2 - Le calcul au cycle 2","d":2,"tok":"m2-le-calcul-au-cycle-2-copie","topic":"m-operations"},
+  {"id":"oc-m2-explorer-les-grandeurs-au-cycle-1-longueur-et-masse-copie","m":"maths","s":"Didactique","t":"M2 - Explorer les grandeurs au cycle 1 : longueur et masse","d":2,"tok":"m2-explorer-les-grandeurs-au-cycle-1-longueur-et-masse-copie","topic":"m-grandeurs"},
+  {"id":"oc-m2-les-grandeurs-et-mesures-au-cycle-2-copie","m":"maths","s":"Didactique","t":"M2 - Les grandeurs et mesures au cycle 2","d":2,"tok":"m2-les-grandeurs-et-mesures-au-cycle-2-copie","topic":"m-grandeurs"},
+  {"id":"oc-m2-les-grandeurs-et-mesures-au-cycle-3-copie","m":"maths","s":"Didactique","t":"M2 - Les grandeurs et mesures au cycle 3","d":2,"tok":"m2-les-grandeurs-et-mesures-au-cycle-3-copie","topic":"m-grandeurs"},
+  {"id":"oc-m2-utiliser-les-nombres-pour-resoudre-des-problemes-au-cycle-1-copie","m":"maths","s":"Didactique","t":"M2 - Utiliser les nombres pour résoudre des problèmes au cycle 1","d":2,"tok":"m2-utiliser-les-nombres-pour-resoudre-des-problemes-au-cycle-1-copie","topic":"m-numeration"},
+  {"id":"oc-m2-utiliser-les-nombres-pour-resoudre-des-problemes-au-cycle-2-copie","m":"maths","s":"Didactique","t":"M2 - Utiliser les nombres pour résoudre des problèmes au cycle 2","d":2,"tok":"m2-utiliser-les-nombres-pour-resoudre-des-problemes-au-cycle-2-copie","topic":"m-numeration"},
+  {"id":"oc-m2-utiliser-les-nombres-pour-resoudre-les-problemes-au-cycle-3-copie","m":"maths","s":"Didactique","t":"M2 - Utiliser les nombres pour résoudre les problèmes au cycle 3","d":2,"tok":"m2-utiliser-les-nombres-pour-resoudre-les-problemes-au-cycle-3-copie","topic":"m-numeration"},
+  {"id":"oc-m2-se-familiariser-avec-les-motifs-organises-copie","m":"maths","s":"Didactique","t":"M2 - Se familiariser avec les motifs organisés au cycle 1","d":2,"tok":"m2-se-familiariser-avec-les-motifs-organises-copie","topic":"m-numeration"},
+  {"id":"oc-m2-les-fondamentaux-explorer-les-solides-et-formes-planes-copie","m":"maths","s":"Didactique","t":"M2 - Explorer les solides et formes planes au cycle 1","d":2,"tok":"m2-les-fondamentaux-explorer-les-solides-et-formes-planes-copie","topic":"m-espace"},
+  {"id":"oc-m2-organisation-et-gestion-de-donnees-au-cycle-2-copie","m":"maths","s":"Didactique","t":"M2 - Organisation et gestion de données au cycle 2","d":2,"tok":"m2-organisation-et-gestion-de-donnees-au-cycle-2-copie","topic":"m-donnees"},
+  {"id":"oc-m2-la-geometrie-au-cycle-2-copie","m":"maths","s":"Didactique","t":"M2 - La géométrie au cycle 2","d":2,"tok":"m2-la-geometrie-au-cycle-2-copie","topic":"m-figures"},
+  {"id":"oc-m2-fractions-et-decimaux-au-cycle-2-copie","m":"maths","s":"Didactique","t":"M2 - Fractions et décimaux au cycle 2","d":2,"tok":"m2-fractions-et-decimaux-au-cycle-2-copie","topic":"m-fractions"},
+  {"id":"oc-m2-la-geometrie-au-cycle-3-copie","m":"maths","s":"Didactique","t":"M2 - La géométrie au cycle 3","d":2,"tok":"m2-la-geometrie-au-cycle-3-copie","topic":"m-figures"},
+  {"id":"oc-m2-enseigner-la-proportionnalite-au-cycle-3-copie","m":"maths","s":"Didactique","t":"M2 - Enseigner la proportionnalité au cycle 3","d":2,"tok":"m2-enseigner-la-proportionnalite-au-cycle-3-copie","topic":"m-proportion"},
+  {"id":"oc-m2-concevoir-et-animer-une-seance-en-mathematiques","m":"maths","s":"Didactique","t":"M2 - Concevoir et animer une séance en mathématiques","d":2,"tok":"m2-concevoir-et-animer-une-seance-en-mathematiques","topic":"m-didac"},
+  {"id":"oc-l3-introduction-a-lepreuve-deps-copie","m":"oraux","s":"EPS","t":"L3 - Introduction à l\u0027épreuve d\u0027EPS","d":2,"tok":"l3-introduction-a-lepreuve-deps-copie","topic":"o-eps"},
+  {"id":"oc-m2-video-dintroduction","m":"oraux","s":"EPS","t":"M2 - Introduction à l\u0027épreuve d\u0027EPS","d":2,"tok":"m2-video-dintroduction","topic":"o-eps"},
+  {"id":"oc-clarification-conceptuelle-des-termes-copie","m":"oraux","s":"EPS","t":"Clarification conceptuelle des termes","d":2,"tok":"clarification-conceptuelle-des-termes-copie","topic":"o-eps"},
+  {"id":"oc-la-securite-en-eps-copie-1","m":"oraux","s":"EPS","t":"La sécurité en EPS","d":2,"tok":"la-securite-en-eps-copie-1","topic":"o-eps"},
+  {"id":"oc-le-developpement-psychomoteur-de-lenfant-copie-1","m":"oraux","s":"EPS","t":"Le développement psychomoteur de l\u0027enfant","d":2,"tok":"le-developpement-psychomoteur-de-lenfant-copie-1","topic":"o-eps"},
+  {"id":"oc-m2-introduction-a-lepreuve-deps","m":"oraux","s":"EPS","t":"M2 - Réussir l\u0027épreuve d\u0027EPS","d":2,"tok":"m2-introduction-a-lepreuve-deps","topic":"o-eps"},
+  {"id":"oc-m2-activites-athletiques-les-courses","m":"oraux","s":"EPS","t":"M2 - Activités athlétiques : les courses","d":3,"tok":"m2-activites-athletiques-les-courses","topic":"o-eps"},
+  {"id":"oc-l3-capsule-activites-athletiques-introduction-copie","m":"oraux","s":"EPS","t":"L3 - Capsule activités athlétiques (introduction)","d":2,"tok":"l3-capsule-activites-athletiques-introduction-copie","topic":"o-eps"},
+  {"id":"oc-l3-capsule-activites-athletiques-les-courses-copie","m":"oraux","s":"EPS","t":"L3 -  Capsule activités athlétiques - Les courses","d":2,"tok":"l3-capsule-activites-athletiques-les-courses-copie","topic":"o-eps"},
+  {"id":"oc-introduction-a-lepreuve-de-motivation-copie","m":"oraux","s":"Entretien et métier","t":"Introduction à l\u0027épreuve de motivation","d":1,"tok":"introduction-a-lepreuve-de-motivation-copie","topic":"o-situations"},
+  {"id":"oc-apprendre-a-se-presenter-1-comment-choisir-ses-experiences","m":"oraux","s":"Entretien et métier","t":"Apprendre à se présenter 1 : comment choisir ses expériences ?","d":3,"tok":"apprendre-a-se-presenter-1-comment-choisir-ses-experiences","topic":"o-situations"},
+  {"id":"oc-comment-fonctionne-lecole-6","m":"oraux","s":"Entretien et métier","t":"Comment fonctionne l\u0027école ?","d":5,"tok":"comment-fonctionne-lecole-6","topic":"o-situations"},
+  {"id":"oc-l3-methodologie-de-lepreuve","m":"oraux","s":"Entretien et métier","t":"L3 - Méthodologie de l\u0027épreuve","d":6,"tok":"l3-methodologie-de-lepreuve","topic":"o-situations"},
+  {"id":"oc-l3-introduction-a-lepreuve-de-lve","m":"oraux","s":"Langue vivante","t":"L3 - Introduction à l\u0027épreuve de LVE","d":5,"tok":"l3-introduction-a-lepreuve-de-lve"},
+  {"id":"oc-l3-methodologie-de-lepreuve-despagnol","m":"oraux","s":"Langue vivante","t":"L3 - Entrainement à l\u0027épreuve d\u0027espagnol","d":1,"tok":"l3-methodologie-de-lepreuve-despagnol"},
+  {"id":"oc-l3-methodologie-de-lepreuve-danglais","m":"oraux","s":"Langue vivante","t":"L3 - Entraînement à l\u0027épreuve d\u0027anglais","d":2,"tok":"l3-methodologie-de-lepreuve-danglais"},
+  {"id":"oc-les-revues-de-presse-copie-5","m":"oraux","s":"Culture PE","t":"Les revues de presse","d":1,"tok":"les-revues-de-presse-copie-5","topic":"o-systeme"},
+  {"id":"oc-revues-de-presse-2025-copie","m":"oraux","s":"Culture PE","t":"Revues de presse 2026","d":12,"tok":"revues-de-presse-2025-copie","topic":"o-systeme"},
+  {"id":"oc-revues-de-presse-2025","m":"oraux","s":"Culture PE","t":"Revues de presse 2025","d":9,"tok":"revues-de-presse-2025","topic":"o-systeme"},
+  {"id":"oc-crpe-2018-que-sont-elles-devenues-copie","m":"oraux","s":"Culture PE","t":"CRPE 2018 : que sont-elles devenues ?","d":0,"tok":"crpe-2018-que-sont-elles-devenues-copie","topic":"o-systeme"},
+  {"id":"oc-crpe-2019-que-sont-ils-devenus-copie","m":"oraux","s":"Culture PE","t":"CRPE 2019 : que sont-ils devenus ?","d":0,"tok":"crpe-2019-que-sont-ils-devenus-copie","topic":"o-systeme"},
+  {"id":"oc-le-crpe-et-apres-2-pes-nous-racontent-leur-annee-de-stage-copie","m":"oraux","s":"Culture PE","t":"Le CRPE et après : 2 PES nous racontent leur année de stage en 2023","d":1,"tok":"le-crpe-et-apres-2-pes-nous-racontent-leur-annee-de-stage-copie","topic":"o-systeme"},
+  {"id":"oc-le-crpe-et-apres-trois-titulaires-temoignent-de-leur-annee-de-stage-en-202","m":"oraux","s":"Culture PE","t":"Le CRPE et après ? Trois titulaires témoignent de leur année de stage en 2022","d":0,"tok":"le-crpe-et-apres-trois-titulaires-temoignent-de-leur-annee-de-stage-en-202","topic":"o-systeme"},
+  {"id":"oc-le-crpe-et-apres-3-pes-nous-racontent-leur-annee-de-stage-en-2021","m":"oraux","s":"Culture PE","t":"Le CRPE et après ? 3 PES nous racontent leur année de stage en 2021","d":0,"tok":"le-crpe-et-apres-3-pes-nous-racontent-leur-annee-de-stage-en-2021","topic":"o-systeme"},
+  {"id":"oc-le-crpe-et-apres-1","m":"oraux","s":"Culture PE","t":"Le CRPE et après : 2 PES nous racontent leur année de stage en 2024","d":0,"tok":"le-crpe-et-apres-1","topic":"o-systeme"},
+  {"id":"oc-le-crpe-et-apres-2","m":"oraux","s":"Culture PE","t":"Le CRPE...et après ? 3 PES nous racontent leur année de stage en 2025","d":0,"tok":"le-crpe-et-apres-2","topic":"o-systeme"},
+  {"id":"oc-crpe-rencontre-avec-une-eleve-major-de-son-academie","m":"oraux","s":"Culture PE","t":"CRPE : rencontre avec une élève major de son académie !","d":0,"tok":"crpe-rencontre-avec-une-eleve-major-de-son-academie","topic":"o-systeme"},
+  {"id":"oc-les-arts-plastiques-a-lecole-philippe-virmoux","m":"oraux","s":"Culture PE","t":"Les arts plastiques à l\u0027école - Philippe Virmoux","d":0,"tok":"les-arts-plastiques-a-lecole-philippe-virmoux","topic":"o-systeme"},
+  {"id":"oc-les-difficultes-dapprentissage-alexandra-brunbrouck-copie","m":"oraux","s":"Culture PE","t":"Les difficultés d\u0027apprentissage - Alexandra Brunbrouck","d":0,"tok":"les-difficultes-dapprentissage-alexandra-brunbrouck-copie","topic":"o-systeme"},
+  {"id":"oc-vivre-ensemble-en-milieu-scolaire-eve-leleu-galland-patrick-ghrenassia-copie","m":"oraux","s":"Culture PE","t":"Vivre ensemble en milieu scolaire - Eve Leleu-Galland \u0026 Patrick Ghrenassia","d":0,"tok":"vivre-ensemble-en-milieu-scolaire-eve-leleu-galland-patrick-ghrenassia-copie","topic":"o-systeme"},
+  {"id":"oc-enseigner-en-classe-flexible-copie","m":"oraux","s":"Culture PE","t":"Enseigner en classe flexible","d":0,"tok":"enseigner-en-classe-flexible-copie","topic":"o-systeme"},
+  {"id":"oc-developper-les-competences-psychosociales-en-cycle-3-laure-reynaud-copie","m":"oraux","s":"Culture PE","t":"Développer les compétences psychosociales en cycle 3 - Laure Reynaud","d":0,"tok":"developper-les-competences-psychosociales-en-cycle-3-laure-reynaud-copie","topic":"o-systeme"},
+  {"id":"oc-tisser-des-liens-alexandra-brunbrouck-copie","m":"oraux","s":"Culture PE","t":"Tisser des liens - Alexandra Brunbrouck","d":0,"tok":"tisser-des-liens-alexandra-brunbrouck-copie","topic":"o-systeme"},
+  {"id":"oc-pe-et-heureux-copie","m":"oraux","s":"Culture PE","t":"PE et heureux !","d":0,"tok":"pe-et-heureux-copie","topic":"o-systeme"},
+  {"id":"oc-les-enfants-dys-les-comprendre-et-les-accompagner-copie","m":"oraux","s":"Culture PE","t":"Les enfants DYS : les comprendre et les accompagner","d":1,"tok":"les-enfants-dys-les-comprendre-et-les-accompagner-copie","topic":"o-systeme"},
+  {"id":"oc-la-pedagogie-positive-a-lecole-primaire-copie","m":"oraux","s":"Culture PE","t":"La pédagogie positive à l\u0027école primaire","d":0,"tok":"la-pedagogie-positive-a-lecole-primaire-copie","topic":"o-systeme"},
+  {"id":"oc-premieres-annees-denseignement-copie","m":"oraux","s":"Culture PE","t":"Premières années d\u0027enseignement","d":0,"tok":"premieres-annees-denseignement-copie","topic":"o-systeme"},
+  {"id":"oc-oser-chanter-et-faire-chanter-a-lecole-copie","m":"oraux","s":"Culture PE","t":"Oser chanter et faire chanter à l\u0027école","d":0,"tok":"oser-chanter-et-faire-chanter-a-lecole-copie","topic":"o-systeme"},
+  {"id":"oc-motiver-les-eleves-20-pratiques-pour-enseigner-autrement","m":"oraux","s":"Culture PE","t":"Motiver les élèves : 20 pratiques pour enseigner autrement","d":0,"tok":"motiver-les-eleves-20-pratiques-pour-enseigner-autrement","topic":"o-systeme"},
+  {"id":"oc-developper-lempathie-des-eleves-a-travers-la-lecture","m":"oraux","s":"Culture PE","t":"Développer l\u0027empathie des élèves à travers la lecture","d":1,"tok":"developper-lempathie-des-eleves-a-travers-la-lecture","topic":"o-systeme"},
+  {"id":"oc-professeur-des-ecoles-et-timide-oui-cest-possible","m":"oraux","s":"Culture PE","t":"Professeur des écoles et timide ... Oui, c\u0027est possible !","d":1,"tok":"professeur-des-ecoles-et-timide-oui-cest-possible","topic":"o-systeme"},
+  {"id":"oc-professeur-des-ecoles-et-apres","m":"oraux","s":"Culture PE","t":"Professeur des écoles... Et après ?","d":1,"tok":"professeur-des-ecoles-et-apres","topic":"o-systeme"},
+  {"id":"oc-m2-crpe-2026","m":"annales","s":"Annales et concours blancs M2","t":"M2 - CRPE 2026 — Français","d":8,"tok":"m2-crpe-2026"},
+  {"id":"oc-cba-francais","m":"annales","s":"Annales et concours blancs M2","t":"M2 - CB Français Tournesols","d":4,"tok":"cba-francais"},
+  {"id":"oc-m2-cb-francais-violettes","m":"annales","s":"Annales et concours blancs M2","t":"M2 - CB Français Violettes","d":4,"tok":"m2-cb-francais-violettes"},
+  {"id":"oc-m2-annales-crpe-2024-mathematiques-copie","m":"annales","s":"Annales et concours blancs M2","t":"M2 - CRPE 2022 — Mathématiques","d":6,"tok":"m2-annales-crpe-2024-mathematiques-copie"},
+  {"id":"oc-annales-crpe-2024-mathematiques-copie","m":"annales","s":"Annales et concours blancs M2","t":"M2 - CRPE 2023 — Mathématiques","d":8,"tok":"annales-crpe-2024-mathematiques-copie"},
+  {"id":"oc-annales-crpe-2025-mathematiques-copie","m":"annales","s":"Annales et concours blancs M2","t":"M2 - CRPE 2024 — Mathématiques","d":8,"tok":"annales-crpe-2025-mathematiques-copie"},
+  {"id":"oc-annales-crpe-2025-francais-copie","m":"annales","s":"Annales et concours blancs M2","t":"M2 - CRPE 2025 — Mathématiques","d":8,"tok":"annales-crpe-2025-francais-copie"},
+  {"id":"oc-m2-crpe-2025-copie","m":"annales","s":"Annales et concours blancs M2","t":"M2 - CRPE 2026 — Mathématiques","d":8,"tok":"m2-crpe-2025-copie"},
+  {"id":"oc-cb-francais-tournesols-copie","m":"annales","s":"Annales et concours blancs M2","t":"M2 - CB Mathématiques Tournesols","d":4,"tok":"cb-francais-tournesols-copie"},
+  {"id":"oc-m2-cb-mathematiques-violettes","m":"annales","s":"Annales et concours blancs M2","t":"M2 - CB Mathématiques Violettes","d":4,"tok":"m2-cb-mathematiques-violettes"},
+  {"id":"oc-m2-annales-crpe-2023-histoire-geographie-copie-2","m":"annales","s":"Annales et concours blancs M2","t":"M2 - CRPE 2022 — Histoire-géographie EMC","d":6,"tok":"m2-annales-crpe-2023-histoire-geographie-copie-2"},
+  {"id":"oc-m2-annales-crpe-2024-histoire-geographie-copie","m":"annales","s":"Annales et concours blancs M2","t":"M2 - CRPE 2023 — Histoire-géographie EMC","d":8,"tok":"m2-annales-crpe-2024-histoire-geographie-copie"},
+  {"id":"oc-annales-crpe-2025-histoire-geographie-copie","m":"annales","s":"Annales et concours blancs M2","t":"M2 - CRPE 2024 — Histoire-géographie EMC","d":8,"tok":"annales-crpe-2025-histoire-geographie-copie"},
+  {"id":"oc-annales-crpe-2025-francais-copie-1","m":"annales","s":"Annales et concours blancs M2","t":"M2 - CRPE 2025 — Histoire-géographie EMC","d":8,"tok":"annales-crpe-2025-francais-copie-1"},
+  {"id":"oc-m2-crpe-2025-copie-1","m":"annales","s":"Annales et concours blancs M2","t":"M2 - CRPE 2026 — Histoire-géographie EMC","d":8,"tok":"m2-crpe-2025-copie-1"},
+  {"id":"oc-cb-francais-tournesols-copie-1","m":"annales","s":"Annales et concours blancs M2","t":"M2 - CB Histoire Géographie Tournesols","d":2,"tok":"cb-francais-tournesols-copie-1"},
+  {"id":"oc-m2-cb-histoire-geographie-violettes","m":"annales","s":"Annales et concours blancs M2","t":"M2 - CB Histoire- Géographie Violettes","d":2,"tok":"m2-cb-histoire-geographie-violettes"},
+  {"id":"oc-m2-annales-crpe-2023-arts-copie","m":"annales","s":"Annales et concours blancs M2","t":"M2 - CRPE 2022 — Arts","d":6,"tok":"m2-annales-crpe-2023-arts-copie"},
+  {"id":"oc-m2-annales-crpe-2023-histoire-geographie-copie-1","m":"annales","s":"Annales et concours blancs M2","t":"M2 - CRPE 2023 — Arts","d":8,"tok":"m2-annales-crpe-2023-histoire-geographie-copie-1"},
+  {"id":"oc-annales-crpe-2025-arts-copie-1","m":"annales","s":"Annales et concours blancs M2","t":"M2 - CRPE 2024 — Arts","d":8,"tok":"annales-crpe-2025-arts-copie-1"},
+  {"id":"oc-annales-crpe-2025-francais-copie-2","m":"annales","s":"Annales et concours blancs M2","t":"M2 - CRPE 2025 — Arts","d":8,"tok":"annales-crpe-2025-francais-copie-2"},
+  {"id":"oc-m2-crpe-2026-copie-4","m":"annales","s":"Annales et concours blancs M2","t":"M2 - CRPE 2026 — Arts","d":8,"tok":"m2-crpe-2026-copie-4"},
+  {"id":"oc-m2-cb-francais-2026-tournesols-copie-1","m":"annales","s":"Annales et concours blancs M2","t":"M2 - CB Arts Tournesols","d":2,"tok":"m2-cb-francais-2026-tournesols-copie-1"},
+  {"id":"oc-m2-cb-arts-violettes","m":"annales","s":"Annales et concours blancs M2","t":"M2 - CB Arts Violettes","d":2,"tok":"m2-cb-arts-violettes"},
+  {"id":"oc-m2-annales-crpe-2023-sciences-et-technologie-copie","m":"annales","s":"Annales et concours blancs M2","t":"M2 - CRPE 2022 — Sciences et technologie","d":6,"tok":"m2-annales-crpe-2023-sciences-et-technologie-copie"},
+  {"id":"oc-m2-annales-crpe-2023-histoire-geographie-copie","m":"annales","s":"Annales et concours blancs M2","t":"M2 - CRPE 2023 — Sciences et technologie","d":8,"tok":"m2-annales-crpe-2023-histoire-geographie-copie"},
+  {"id":"oc-annales-crpe-2025-sciences-et-technologie-copie","m":"annales","s":"Annales et concours blancs M2","t":"M2 - CRPE 2024 — Sciences et technologie","d":7,"tok":"annales-crpe-2025-sciences-et-technologie-copie"},
+  {"id":"oc-annales-crpe-2025-arts-copie","m":"annales","s":"Annales et concours blancs M2","t":"M2 - CRPE 2025 — Sciences et technologie","d":8,"tok":"annales-crpe-2025-arts-copie"},
+  {"id":"oc-m2-crpe-2026-copie-3","m":"annales","s":"Annales et concours blancs M2","t":"M2 - CRPE 2026 — Sciences et technologie","d":8,"tok":"m2-crpe-2026-copie-3"},
+  {"id":"oc-m2-cb-arts-2026-tournesols-copie","m":"annales","s":"Annales et concours blancs M2","t":"M2 - CB Sciences et Technologies Tournesols","d":2,"tok":"m2-cb-arts-2026-tournesols-copie"},
+  {"id":"oc-cb-science-technologie-violettes","m":"annales","s":"Annales et concours blancs M2","t":"M2 - CB Science-Technologie Violettes","d":2,"tok":"cb-science-technologie-violettes"},
+  {"id":"oc-m2-crpe-2026-copie","m":"annales","s":"Annales et concours blancs L3","t":"L3 - CRPE 2026 — Français - écrit","d":6,"tok":"m2-crpe-2026-copie"},
+  {"id":"oc-cba-francais-copie","m":"annales","s":"Annales et concours blancs L3","t":"L3 - CB Français Tournesols","d":4,"tok":"cba-francais-copie"},
+  {"id":"oc-l3-cb-francais-violettes","m":"annales","s":"Annales et concours blancs L3","t":"L3 - CB Français Violettes","d":4,"tok":"l3-cb-francais-violettes"},
+  {"id":"oc-l3-sujet-0-francais-copie","m":"annales","s":"Annales et concours blancs L3","t":"L3 - Sujet 0","d":2,"tok":"l3-sujet-0-francais-copie"},
+  {"id":"oc-m2-crpe-2026-copie-1","m":"annales","s":"Annales et concours blancs L3","t":"L3 - CRPE 2026 — Mathématiques - écrit","d":6,"tok":"m2-crpe-2026-copie-1"},
+  {"id":"oc-cb-mathematiques-tournesols-copie","m":"annales","s":"Annales et concours blancs L3","t":"L3 - CB Mathématiques Tournesols","d":4,"tok":"cb-mathematiques-tournesols-copie"},
+  {"id":"oc-l3-cb-mathematiques-violettes","m":"annales","s":"Annales et concours blancs L3","t":"L3  - CB Mathématiques Violettes","d":4,"tok":"l3-cb-mathematiques-violettes"},
+  {"id":"oc-m2-crpe-2026-copie-6","m":"annales","s":"Annales et concours blancs L3","t":"L3- CRPE 2026","d":6,"tok":"m2-crpe-2026-copie-6"},
+  {"id":"oc-l3-cb-hgemc-violettes","m":"annales","s":"Annales et concours blancs L3","t":"L3  - CB HGEMC Violettes","d":2,"tok":"l3-cb-hgemc-violettes"},
+  {"id":"oc-m2-crpe-2026-copie-2","m":"annales","s":"Annales et concours blancs L3","t":"L3 - CRPE 2026 — Arts","d":6,"tok":"m2-crpe-2026-copie-2"},
+  {"id":"oc-l3-cb-arts-violettes","m":"annales","s":"Annales et concours blancs L3","t":"L3  - CB Arts Violettes","d":2,"tok":"l3-cb-arts-violettes"},
+  {"id":"oc-m2-crpe-2026-copie-5","m":"annales","s":"Annales et concours blancs L3","t":"L3 - CRPE 2026 — Sciences et technologie","d":6,"tok":"m2-crpe-2026-copie-5"},
+  {"id":"oc-l3-cb-sciences-violettes","m":"annales","s":"Annales et concours blancs L3","t":"L3  - CB Sciences Violettes","d":2,"tok":"l3-cb-sciences-violettes"},
+  {"id":"oc-l3-crpe-2026-copie","m":"annales","s":"Annales et concours blancs L3","t":"L3 - CRPE 2026 — LVE","d":15,"tok":"l3-crpe-2026-copie"},
+  {"id":"oc-l3-cb-lve-violettes","m":"annales","s":"Annales et concours blancs L3","t":"L3  - CB LVE Violettes","d":8,"tok":"l3-cb-lve-violettes"},
+];
+
+const CRPE_OC_GROUPES = [
+  { key: "maths", label: "Mathématiques" },
+  { key: "francais", label: "Français" },
+  { key: "application", label: "Épreuve d'application" },
+  { key: "oraux", label: "Oraux" },
+  { key: "annales", label: "Annales corrigées et concours blancs" },
+  { key: "prepa", label: "La prépa (méthode, coaching)" },
+];
+
+function crpeCoursUrl(c) {
+  return `https://live.objectif-crpe.fr/eleve/cours/${c.tok}`;
+}
+
 const CRPE_FICHIER_STATUSES = [
   { key: "en-cours", label: "En cours" },
   { key: "termine", label: "Terminé" },
@@ -6095,6 +6395,50 @@ function CrpeFichiersContent() {
           </div>
         </div>
       ))}
+
+      <h2 style={{ fontFamily: FONT_DISPLAY, fontSize: 22, color: COLORS.text, margin: "34px 0 6px", fontWeight: 600 }}>
+        Cours Objectif CRPE
+      </h2>
+      <p style={{ color: COLORS.muted, fontSize: 13, lineHeight: 1.6, marginBottom: 18 }}>
+        {CRPE_COURS_OC.length} cours de la prépa. Les documents sont rangés dans le dossier CRPE du PC ; le lien ouvre le cours
+        (vidéo ou replay) sur la plateforme, une fois connecté.
+      </p>
+      {CRPE_OC_GROUPES.map((g) => {
+        const cours = CRPE_COURS_OC.filter((c) => c.m === g.key);
+        if (cours.length === 0) return null;
+        const faits = cours.filter((c) => statut[c.id] === "termine").length;
+        const rubriques = {};
+        cours.forEach((c) => {
+          (rubriques[c.s] = rubriques[c.s] || []).push(c);
+        });
+        return (
+          <CollapsibleSection key={g.key} title={g.label} accent={ENSEIGNEMENT_ACCENT} badge={`${faits} / ${cours.length}`} defaultOpen={false}>
+            {Object.entries(rubriques).map(([rubrique, liste]) => (
+              <div key={rubrique} style={{ marginBottom: 16 }}>
+                {Object.keys(rubriques).length > 1 && (
+                  <div style={{ fontSize: 12, fontWeight: 600, color: COLORS.muted, textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 6 }}>
+                    {rubrique}
+                  </div>
+                )}
+                {liste.map((c) => {
+                  const s = statut[c.id] || null;
+                  return (
+                    <div key={c.id} style={{ padding: "8px 0", borderBottom: `1px solid ${COLORS.border}` }}>
+                      <a href={crpeCoursUrl(c)} target="_blank" rel="noreferrer" style={{ fontSize: 13, color: s === "termine" ? COLORS.muted : COLORS.text, lineHeight: 1.4 }}>
+                        {c.t}
+                      </a>
+                      <span style={{ fontSize: 11, color: COLORS.muted, marginLeft: 8, whiteSpace: "nowrap" }}>
+                        {c.d > 0 ? `${c.d} document${c.d > 1 ? "s" : ""}` : "vidéo"}
+                      </span>
+                      <CrpeFichierStatusPicker status={s} onSelect={(v) => setStatus(c.id, v)} />
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
+          </CollapsibleSection>
+        );
+      })}
     </div>
   );
 }
