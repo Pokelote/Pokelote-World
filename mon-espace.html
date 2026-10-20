@@ -2037,123 +2037,323 @@ const OFFER_STATUSES = [
 ];
 
 const INTERIM_OFFERS = {
-  updatedAt: "6 octobre 2026",
+  updatedAt: "12 octobre 2026",
   domain: "Intérim — Marseille (RH en priorité, sinon tous domaines) — offres postées ces derniers jours",
   items: [
     {
-      id: "int-proman-assistant-agence-1006",
-      title: "Assistant d'Agence H/F",
-      company: "PROMAN",
-      contract: "Intérim",
-      location: "Marseille 10e",
-      summary: "Mission d'assistant d'agence côté RH/intérim (accueil des candidats, administratif, suivi des intérimaires), publiée hier.",
-      source: "Hellowork",
-      url: "https://www.hellowork.com/fr-fr/emplois/84112408.html",
-    },
-    {
-      id: "int-sovitrat-gestionnaire-paie-1006",
-      title: "Gestionnaire de Paie H/F",
-      company: "Sovitrat",
+      id: "int-interimsolidaire-educateur-specialise-1012",
+      title: "Éducateur Spécialisé H/F",
+      company: "L'Intérim Solidaire",
       contract: "Intérim",
       location: "Marseille",
-      summary: "Mission de gestionnaire de paie (fonctions RH), publiée hier.",
+      summary: "Mission d'éducateur spécialisé, publiée il y a quelques heures (aucune mission RH hors paie publiée ces derniers jours à Marseille).",
       source: "Hellowork",
-      url: "https://www.hellowork.com/fr-fr/emplois/84098028.html",
+      url: "https://www.hellowork.com/fr-fr/emplois/83293150.html",
     },
     {
-      id: "int-intersud-assistante-comptable-1006",
-      title: "Assistante Comptable H/F",
-      company: "Intersud Intérim",
+      id: "int-actual-agent-fabrication-presse-1012",
+      title: "Agent de Fabrication Presse Soudage H/F",
+      company: "Actual group",
       contract: "Intérim",
-      location: "Marseille 11e",
-      summary: "Mission d'assistant(e) comptable, publiée aujourd'hui.",
+      location: "Marseille 13e",
+      summary: "Mission d'agent de fabrication sur presse et soudage en industrie, publiée il y a quelques heures.",
       source: "Hellowork",
-      url: "https://www.hellowork.com/fr-fr/emplois/84130185.html",
+      url: "https://www.hellowork.com/fr-fr/emplois/83278248.html",
     },
     {
-      id: "int-vitalis-infirmier-soins-palliatifs-1006",
-      title: "Infirmier D.E - Unité de Soins Palliatifs H/F",
-      company: "Vitalis Médical",
+      id: "int-temphoraire-chauffeur-spl-1012",
+      title: "Chauffeur SPL Ampliroll avec Remorque H/F",
+      company: "TEMP HORAIRE",
       contract: "Intérim",
-      location: "Marseille 4e",
-      summary: "Mission d'infirmier diplômé d'État en unité de soins palliatifs, publiée hier.",
+      location: "Marseille",
+      summary: "Mission de chauffeur poids lourd SPL (benne ampliroll avec remorque), publiée il y a quelques heures.",
       source: "Hellowork",
-      url: "https://www.hellowork.com/fr-fr/emplois/84071836.html",
+      url: "https://www.hellowork.com/fr-fr/emplois/83298105.html",
     },
     {
-      id: "int-temporis-magasinier-caces3-1006",
-      title: "Magasinier CACES 3 H/F",
+      id: "int-accesud-cuisinier-1012",
+      title: "Cuisinier H/F",
+      company: "ACCESUD",
+      contract: "Intérim",
+      location: "Marseille",
+      summary: "Mission de cuisinier en restauration, publiée il y a quelques heures.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/80004865.html",
+    },
+    {
+      id: "int-jobcity-tableautier-1012",
+      title: "Tableautier H/F",
+      company: "JOBCITY",
+      contract: "Intérim",
+      location: "Marseille",
+      summary: "Mission de tableautier (câblage d'armoires électriques), publiée il y a quelques heures.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/74436349.html",
+    },
+    {
+      id: "int-jobandtalent-employe-restauration-1012",
+      title: "Employé de Restauration H/F",
+      company: "Job&talent",
+      contract: "Intérim",
+      location: "Marseille 8e",
+      summary: "Mission d'employé de restauration, publiée il y a quelques heures.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/82212235.html",
+    },
+    {
+      id: "int-mistertemp-infirmier-de-1012",
+      title: "Infirmier D.E - Missions Intérim - Marseille H/F",
+      company: "Mistertemp'",
+      contract: "Intérim",
+      location: "Marseille 1er",
+      summary: "Missions d'infirmier diplômé d'État en établissements de santé, publiées hier.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/84321256.html",
+    },
+    {
+      id: "int-advance-agent-conditionnement-1012",
+      title: "Agent de Conditionnement H/F",
+      company: "Advance Emploi",
+      contract: "Intérim",
+      location: "Marseille 14e",
+      summary: "Mission d'agent de conditionnement en production, publiée hier.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/82178585.html",
+    },
+    {
+      id: "int-temporis-soudeur-tig-1012",
+      title: "Soudeur à l'Électrode - TIG H/F",
       company: "Temporis Intérim",
       contract: "Intérim",
-      location: "Marseille 2e",
-      summary: "Mission de magasinier avec CACES 3, publiée aujourd'hui.",
+      location: "Marseille 14e",
+      summary: "Mission de soudeur (électrode et TIG), publiée hier.",
       source: "Hellowork",
-      url: "https://www.hellowork.com/fr-fr/emplois/84130156.html",
+      url: "https://www.hellowork.com/fr-fr/emplois/82182533.html",
     },
     {
-      id: "int-sofitex-magasinier-caces3-1006",
-      title: "Magasinier CACES 3 - Poste basé à Marseille H/F",
-      company: "Sofitex",
+      id: "int-acass-technicien-maintenance-chariot-1012",
+      title: "Technicien de Maintenance Chariot Élévateur H/F",
+      company: "Acass",
       contract: "Intérim",
-      location: "Marseille 11e",
-      summary: "Mission de magasinier cariste CACES 3, publiée aujourd'hui.",
+      location: "Marseille 1er",
+      summary: "Mission de technicien de maintenance de chariots élévateurs, publiée hier.",
       source: "Hellowork",
-      url: "https://www.hellowork.com/fr-fr/emplois/84129818.html",
-    },
-    {
-      id: "int-eliterim-magasinier-1006",
-      title: "Magasinier H/F",
-      company: "ELITERIM",
-      contract: "Intérim",
-      location: "Marseille",
-      summary: "Mission de magasinier, publiée aujourd'hui.",
-      source: "Hellowork",
-      url: "https://www.hellowork.com/fr-fr/emplois/84129995.html",
-    },
-    {
-      id: "int-onework-patissier-1006",
-      title: "Pâtissier H/F",
-      company: "Onework",
-      contract: "Intérim",
-      location: "Marseille",
-      summary: "Mission de pâtissier, publiée aujourd'hui.",
-      source: "Hellowork",
-      url: "https://www.hellowork.com/fr-fr/emplois/84128989.html",
-    },
-    {
-      id: "int-onework-poissonnier-1006",
-      title: "Poissonnier H/F",
-      company: "Onework",
-      contract: "Intérim",
-      location: "Marseille",
-      summary: "Mission de poissonnier, publiée aujourd'hui.",
-      source: "Hellowork",
-      url: "https://www.hellowork.com/fr-fr/emplois/84128853.html",
-    },
-    {
-      id: "int-teaminterim-aide-plaquiste-1006",
-      title: "Aide-Plaquiste H/F",
-      company: "Team Interim",
-      contract: "Intérim",
-      location: "Marseille 2e",
-      summary: "Mission d'aide-plaquiste sur chantier, publiée hier.",
-      source: "Hellowork",
-      url: "https://www.hellowork.com/fr-fr/emplois/84115493.html",
+      url: "https://www.hellowork.com/fr-fr/emplois/84310671.html",
     },
   ],
 };
 
 const JOB_OFFERS = {
-  updatedAt: "6 octobre 2026",
+  updatedAt: "12 octobre 2026",
   domain: "CDD / CDI — Chargé RH & Recrutement — Marseille — offres postées ces derniers jours",
   items: [
+    {
+      id: "cdi-joblink-charge-recrutement-1012",
+      title: "Chargé de Recrutement H/F",
+      company: "Job Link",
+      contract: "CDI",
+      location: "Marseille 2e",
+      summary: "Nouvelle annonce de chargé de recrutement chez Job Link (la précédente a expiré), publiée hier.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/84311106.html",
+    },
+    {
+      id: "cdi-joblink-consultant-recrutement-tech-1012",
+      title: "Consultant en Recrutement Tech H/F",
+      company: "Job Link (siège)",
+      contract: "CDI",
+      location: "Marseille 2e",
+      summary: "Recrutement de profils tech/IT ; remplace l'ancienne annonce Job Link expirée, publiée hier.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/84318747.html",
+    },
+    {
+      id: "cdi-actualtalent-responsable-rh-proximite-1012",
+      title: "Responsable RH de Proximité Multi-Sites H/F",
+      company: "Actual Talent",
+      contract: "CDI",
+      location: "Marseille 9e",
+      summary: "Poste de RH généraliste de proximité sur plusieurs sites, publié il y a quelques heures.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/83277385.html",
+    },
+    {
+      id: "cdi-meteoria-talent-acquisition-1012",
+      title: "Talent Acquisition Specialist H/F",
+      company: "Meteoria",
+      contract: "CDI",
+      location: "Marseille 6e",
+      summary: "Poste de talent acquisition (recrutement interne), publié il y a quelques heures.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/83282738.html",
+    },
+    {
+      id: "cdi-linkingtalents-consultant-recrutement-teletravail-1012",
+      title: "Consultant en Recrutement 100% Télétravail H/F",
+      company: "Linking Talents",
+      contract: "CDI",
+      location: "Marseille (100% télétravail)",
+      summary: "Consultant en recrutement en CDI, entièrement à distance, publié il y a quelques heures.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/74410330.html",
+    },
+    {
+      id: "cdi-michaelpage-hrbp-1012",
+      title: "Human Resources Business Partner H/F",
+      company: "Michael Page",
+      contract: "CDI",
+      location: "Marseille 8e",
+      summary: "Poste de HRBP (RH généraliste rattaché aux managers), publié il y a 2 jours.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/84308237.html",
+    },
+    {
+      id: "cdi-erilia-responsable-affaires-sociales-1012",
+      title: "Responsable Affaires Sociales et QVCT H/F",
+      company: "Erilia",
+      contract: "CDI",
+      location: "Marseille",
+      summary: "Poste RH côté relations sociales et qualité de vie au travail chez un bailleur social, publié il y a 2 jours.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/83191256.html",
+    },
+    {
+      id: "cdi-michaelpage-consultant-recrutement-1012",
+      title: "Consultant en Recrutement H/F",
+      company: "Michael Page",
+      contract: "CDI",
+      location: "Marseille 2e",
+      summary: "Consultant en recrutement en cabinet, publié il y a 3 jours.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/84245757.html",
+    },
+    {
+      id: "cdi-alphea-consultant-recrutement-1012",
+      title: "Consultant en Recrutement - Marseille H/F",
+      company: "Alphea Conseil",
+      contract: "CDI",
+      location: "Marseille",
+      summary: "Consultant en recrutement en cabinet, publié il y a 3 jours.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/84229892.html",
+    },
+    {
+      id: "cdi-matches-consultant-recrutement-senior-1012",
+      title: "Consultant en Recrutement Sénior - CDI H/F",
+      company: "Matches - Search & Transition",
+      contract: "CDI",
+      location: "Marseille 1er",
+      summary: "Consultant sénior en cabinet de recrutement et de transition, publié il y a 3 jours.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/84219179.html",
+    },
+    {
+      id: "cdi-walterlearning-talent-acquisition-1012",
+      title: "Talent Acquisition Specialist H/F",
+      company: "Walter Learning",
+      contract: "CDI",
+      location: "Marseille 8e",
+      summary: "Poste de talent acquisition dans une entreprise de formation, publié il y a 3 jours.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/84235847.html",
+    },
+    {
+      id: "cdi-walterlearning-charge-recrutement-1012",
+      title: "Chargé de Recrutement H/F",
+      company: "Walter Learning",
+      contract: "CDI",
+      location: "Marseille 8e",
+      summary: "Poste de chargé de recrutement, publié il y a 4 jours.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/84177364.html",
+    },
+    {
+      id: "cdi-mediastart-charge-recrutement-1012",
+      title: "Chargé de Recrutement H/F",
+      company: "Media-Start",
+      contract: "CDI",
+      location: "Marseille 13e",
+      summary: "Poste de chargé de recrutement en CDI (en plus de l'offre CDD déjà listée), publié il y a 4 jours.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/84194315.html",
+    },
+    {
+      id: "cdi-partnaire-consultant-recrutement-1012",
+      title: "Consultant en Recrutement CDI - Développement Commercial H/F",
+      company: "Partnaire",
+      contract: "CDI",
+      location: "Marseille 14e",
+      summary: "Poste mixte recrutement et développement commercial en agence d'emploi, publié il y a 4 jours.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/84204001.html",
+    },
+    {
+      id: "cdi-cmacgm-talent-acquisition-senior-1012",
+      title: "Talent Acquisition Senior Specialist H/F",
+      company: "CMA CGM",
+      contract: "CDI",
+      location: "Marseille 2e",
+      summary: "Recrutement au siège de l'armateur, profil confirmé, publié il y a 4 jours.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/84175469.html",
+    },
+    {
+      id: "cdi-cmacgm-group-talent-acquisition-1012",
+      title: "Group Talent Acquisition Senior Specialist H/F",
+      company: "CMA CGM",
+      contract: "CDI",
+      location: "Marseille 2e",
+      summary: "Poste de talent acquisition à l'échelle du groupe, publié il y a 4 jours.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/84175399.html",
+    },
+    {
+      id: "cdi-onet-charge-mission-rh-1012",
+      title: "Chargé de Mission RH H/F",
+      company: "Groupe ONET",
+      contract: "CDI",
+      location: "Marseille",
+      summary: "Poste de chargé de mission RH, publié il y a 4 jours.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/84190860.html",
+    },
+    {
+      id: "cdd-anonyme-assistant-rh-13e-1012",
+      title: "Assistant - Assistante Ressources Humaines H/F",
+      company: "Entreprise non précisée",
+      contract: "CDD",
+      location: "Marseille 13e",
+      summary: "Poste d'assistant RH en CDD, publié hier.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/83255067.html",
+    },
+    {
+      id: "cdi-legalhrtalents-consultant-recrutement-teletravail-1012",
+      title: "Consultant en Recrutement 100% Télétravail H/F",
+      company: "Legal & HR Talents",
+      contract: "CDI",
+      location: "Marseille (100% télétravail)",
+      summary: "Consultant en recrutement juridique/RH, entièrement à distance, publié il y a 6 jours.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/76478997.html",
+    },
+    {
+      id: "cdi-startpeople-charge-recrutement-btp-1012",
+      title: "Chargé de Recrutement Profils BTP H/F",
+      company: "Start People",
+      contract: "CDI",
+      location: "Marseille",
+      summary: "Recrutement de profils du BTP en agence d'emploi, publié il y a 9 jours.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/82941181.html",
+    },
     {
       id: "cdd-mediastart-charge-recrutement-1006",
       title: "Chargé(e) de Recrutement H/F",
       company: "Media-Start",
       contract: "CDD",
       location: "Marseille 8e",
-      summary: "Poste de chargé de recrutement en CDD, publié aujourd'hui.",
+      summary: "Poste de chargé de recrutement en CDD, publié le 6 octobre.",
       source: "France Travail",
       url: "https://candidat.francetravail.fr/offres/recherche/detail/7700096",
     },
@@ -2163,7 +2363,7 @@ const JOB_OFFERS = {
       company: "Samsic Emploi",
       contract: "CDD (6 mois)",
       location: "Marseille 3e",
-      summary: "Poste mixte recrutement et prospection commerciale en agence d'emploi, publié hier.",
+      summary: "Poste mixte recrutement et prospection commerciale en agence d'emploi, toujours en ligne (publié le 5 octobre).",
       source: "Hellowork",
       url: "https://www.hellowork.com/fr-fr/emplois/84091702.html",
     },
@@ -2173,19 +2373,9 @@ const JOB_OFFERS = {
       company: "Groupe ONET",
       contract: "CDD",
       location: "Marseille",
-      summary: "Poste RH côté formation (organisation et suivi des actions de formation), publié hier.",
+      summary: "Poste RH côté formation (organisation et suivi des actions de formation), toujours en ligne (publié le 5 octobre).",
       source: "Hellowork",
       url: "https://www.hellowork.com/fr-fr/emplois/84076365.html",
-    },
-    {
-      id: "cdi-joblink-charge-recrutement-1006",
-      title: "Chargé de Recrutement H/F",
-      company: "Job Link",
-      contract: "CDI",
-      location: "Marseille 2e",
-      summary: "Nouvelle annonce de chargé de recrutement CDD/CDI et intérim au sein du groupe, publiée il y a 2-4 jours.",
-      source: "Hellowork",
-      url: "https://www.hellowork.com/fr-fr/emplois/84004495.html",
     },
     {
       id: "cdi-joblinkextend-charge-recrutement-1006",
@@ -2193,7 +2383,7 @@ const JOB_OFFERS = {
       company: "JOB LINK EXTEND",
       contract: "CDI",
       location: "Marseille 7e",
-      summary: "Poste de chargé du recrutement dans la branche Extend du groupe Job Link, publié il y a 3 jours.",
+      summary: "Poste de chargé du recrutement dans la branche Extend du groupe Job Link, publié début octobre.",
       source: "France Travail",
       url: "https://candidat.francetravail.fr/offres/recherche/detail/7602832",
     },
@@ -2203,7 +2393,7 @@ const JOB_OFFERS = {
       company: "JOB LINK EXTEND",
       contract: "CDI",
       location: "Marseille 7e",
-      summary: "Poste de consultant en recrutement (agence d'emploi), publié il y a 4 jours.",
+      summary: "Poste de consultant en recrutement (agence d'emploi), publié début octobre.",
       source: "France Travail",
       url: "https://candidat.francetravail.fr/offres/recherche/detail/7568237",
     },
@@ -2213,19 +2403,9 @@ const JOB_OFFERS = {
       company: "TheGoodFit",
       contract: "CDI",
       location: "Marseille 1er",
-      summary: "Poste de talent acquisition en CDI, publié il y a 3 jours.",
+      summary: "Poste de talent acquisition en CDI pour un acteur du maritime, toujours en ligne (publié le 1er octobre).",
       source: "Hellowork",
       url: "https://www.hellowork.com/fr-fr/emplois/83967298.html",
-    },
-    {
-      id: "cdi-joblink-consultant-recrutement-tech-1006",
-      title: "Consultant en Recrutement Tech H/F",
-      company: "Job Link",
-      contract: "CDI",
-      location: "Marseille 2e",
-      summary: "Recrutement de profils tech/IT pour le cabinet, publié le 1er octobre.",
-      source: "Hellowork",
-      url: "https://www.hellowork.com/fr-fr/emplois/83972965.html",
     },
     {
       id: "cdd-jobcity-charge-recrutement-interim-1006",
@@ -2233,7 +2413,7 @@ const JOB_OFFERS = {
       company: "JOBCITY Marseille La Valentine",
       contract: "CDD",
       location: "Marseille",
-      summary: "Recrutement et gestion des intérimaires en agence de travail temporaire, publié il y a 4 jours.",
+      summary: "Recrutement et gestion des intérimaires en agence de travail temporaire, publié début octobre.",
       source: "France Travail",
       url: "https://candidat.francetravail.fr/offres/recherche/detail/7572585",
     },
@@ -2243,7 +2423,7 @@ const JOB_OFFERS = {
       company: "Champagne Santé RH",
       contract: "CDI",
       location: "Marseille 7e",
-      summary: "Recrutement de profils médicaux et paramédicaux, publié il y a 4 jours.",
+      summary: "Recrutement de profils médicaux et paramédicaux, publié début octobre.",
       source: "France Travail",
       url: "https://candidat.francetravail.fr/offres/recherche/detail/7568907",
     },
@@ -2368,48 +2548,38 @@ const RECONVERSION_ACCENT = "#A67C52";
 // la veille d'offres Menuiserie, les révisions concours vivent désormais à un seul endroit.
 
 const MENUISERIE_ALTERNANCES = {
-  updatedAt: "6 octobre 2026",
+  updatedAt: "12 octobre 2026",
   domain: "Menuiserie bois (création/fabrication) — Marseille et environs — alternance et CDD/CDI (pour voir qui recrute)",
   items: [
     {
-      id: "alt-cfa-apprenti-menuisier-marseille-1006",
-      title: "Apprenti Menuisier H/F",
-      company: "Entreprise via CFA du Bâtiment PACA",
-      contract: "Alternance",
-      location: "Marseille",
-      summary: "CAP Menuisier Fabricant/Installateur ou BP Menuisier : fabrication en atelier et chantiers, débutants acceptés, démarrage le 12 octobre ; publié le 6 octobre.",
-      source: "CFA du Bâtiment PACA",
-      url: "https://www.cfadubatiment.fr/offres-emploi/34552-apprenti-menuisier-h-f-en-apprentissage-18/",
-    },
-    {
-      id: "alt-cfa-menuisier-installateur-aix-1006",
-      title: "Menuisier H/F (apprentissage)",
-      company: "Entreprise via CFA du Bâtiment PACA",
-      contract: "Alternance",
-      location: "Aix-en-Provence",
-      summary: "CAP Menuisier Installateur (formation au CFA de Marseille), débutants acceptés, 35h ; publié le 2 octobre.",
-      source: "CFA du Bâtiment PACA",
-      url: "https://www.cfadubatiment.fr/offres-emploi/34504-menuisier-h-f-en-apprentissage/",
-    },
-    {
-      id: "cdi-emo-menuisier-fabricant-confirme-1006",
-      title: "Menuisier Fabricant Confirmé H/F",
-      company: "EMO France",
-      contract: "CDI",
-      location: "Marseille",
-      summary: "Fabrication de mobilier et agencements sur mesure en bois et dérivés pour une clientèle haut de gamme (lecture de plans, débit, assemblage) ; publié le 5 octobre.",
-      source: "Hellowork",
-      url: "https://www.hellowork.com/fr-fr/emplois/84078759.html",
-    },
-    {
-      id: "int-teaminterim-menuisier-bois-1006",
+      id: "int-aquilarh-menuisier-bois-lancon-1012",
       title: "Menuisier Bois H/F",
-      company: "Team Interim",
+      company: "Aquila RH (pour un fabricant)",
       contract: "Intérim",
-      location: "Marseille 6e",
-      summary: "Fabrication et assemblage d'éléments en bois selon plans, pose de menuiseries intérieures et extérieures ; publié le 3 octobre (intérim, pour voir qui recrute).",
+      location: "Lançon-Provence (≈ 45 min de Marseille)",
+      summary: "Agencement intérieur (mobilier sur mesure, habillages, cloisons) et pose de bardages bois, mission de 151 jours, CAP menuisier + 1 an d'expérience ; publié le 8 octobre (aucun CDD/CDI bois nouveau cette semaine).",
       source: "Hellowork",
-      url: "https://www.hellowork.com/fr-fr/emplois/84049729.html",
+      url: "https://www.hellowork.com/fr-fr/emplois/84223998.html",
+    },
+    {
+      id: "int-eureka-menuisier-agenceur-haut-gamme-1012",
+      title: "Menuisiers Agenceurs Haute Gamme H/F",
+      company: "Eureka Marseille (pour un agenceur haut de gamme)",
+      contract: "Intérim",
+      location: "Marseille",
+      summary: "Fabrication d'agencements sur mesure en atelier (débit, usinage, assemblage, finitions), 1 mois renouvelable avec perspective de CDI ; 5 ans d'expérience exigés et poste réservé aux publics IAE ; publié le 4 octobre.",
+      source: "Hellowork",
+      url: "https://www.hellowork.com/fr-fr/emplois/83004086.html",
+    },
+    {
+      id: "alt-cfa-rheylis-apprenti-menuisier-brignoles-1012",
+      title: "Apprenti Menuisier H/F",
+      company: "RHEYLIS (menuiserie-agencement) via CFA du Bâtiment PACA",
+      contract: "Alternance",
+      location: "Brignoles (Var, ≈ 1h de Marseille — un peu plus loin)",
+      summary: "CAP Menuisier Fabricant/Installateur ou BP Menuisier (CFA d'Aix) : pose de cuisines, placards, mobilier, portes et parquets, menuiserie bois intérieure/extérieure ; publié le 6 octobre.",
+      source: "CFA du Bâtiment PACA",
+      url: "https://www.cfadubatiment.fr/offres-emploi/34550-apprenti-menuisier-h-f-en-apprentissage-11/",
     },
   ],
 };
@@ -2607,72 +2777,156 @@ const MARSEILLE_SECTIONS = [
 ];
 
 const MARSEILLE_LOGEMENT = {
-  updatedAt: "22 septembre 2026",
+  updatedAt: "12 octobre 2026",
   criteria: "Appartement T3 minimum, avec jardin ou terrasse, dans le 4e, 5e, 7e, 8e ou 12e arrondissement de Marseille — idéalement proche de la mer, avec le moins de vis-à-vis possible.",
   noteAchat:
-    "Recherche élargie à plusieurs sites (Lesiteimmo, Les Clefs de Chez Moi) — toujours rien sous 300 000 € dans le 7e ou le 8e avec jardin/terrasse confirmé (plusieurs annonces prometteuses proche des Catalans/Pharo n'avaient en réalité ni balcon ni terrasse une fois vérifiées). Les options ci-dessous sont dans le 5e et le 12e.",
+    "Toujours rien sous 300 000 € dans le 7e ou le 8e avec une vraie terrasse (le seul T3 du 7e sous budget, aux Catalans, n'a qu'un balcon d'après sa description ; dans le 8e les T3 avec terrasse démarrent vers 375 000 €). Cette semaine, beaucoup de nouveautés dans le 4e et le 12e, toutes avec terrasse confirmée dans la description de l'annonce.",
   noteLocation:
-    "Sous 1 200 €/mois, un T3 ou plus avec jardin/terrasse dans ces arrondissements reste quasiment introuvable — la seule option trouvée à proximité du budget le dépasse très légèrement (1 201 €/mois). Pas de nouvelle option trouvée en élargissant aux autres sites cette fois.",
+    "Sous 1 200 €/mois, toujours aucun T3+ avec une vraie terrasse dans ces arrondissements (les annonces étiquetées « terrasse » dans le 9e ou le 6e n'ont qu'un balcon ou dépassent le budget). La seule option reste celle de Camas, à 1 €/mois au-dessus du budget, déjà proposée le 22 septembre.",
   items: [
     {
-      id: "marseille-achat-laconception-63",
+      id: "marseille-achat-4e-iad-65-1012",
+      dealType: "achat",
+      title: "Appartement 3 pièces de 65 m²",
+      price: "208 234 €",
+      rooms: "T3",
+      surface: "65 m²",
+      location: "Marseille 4e (13004)",
+      features: "Terrasse d'environ 25 m² aménagée en petit jardin",
+      source: "Lesiteimmo.com",
+      url: "https://www.lesiteimmo.com/acheter/appartement-3pieces/marseille-4-13004/34001649",
+    },
+    {
+      id: "marseille-achat-4e-laforet-duplex-59-1012",
+      dealType: "achat",
+      title: "T3 en duplex de 59 m², grande terrasse + parking",
+      price: "209 000 €",
+      rooms: "T3",
+      surface: "59 m²",
+      location: "Marseille 4e (13004)",
+      features: "Terrasse d'environ 26 m², parking",
+      source: "Lesiteimmo.com",
+      url: "https://www.lesiteimmo.com/acheter/appartement-3pieces/marseille-4-13004/33708541",
+    },
+    {
+      id: "marseille-achat-4e-laforet-dpea-54-1012",
+      dealType: "achat",
+      title: "T3 de 54 m² avec terrasse, DPE A",
+      price: "220 000 €",
+      rooms: "T3",
+      surface: "54 m²",
+      location: "Marseille 4e (13004)",
+      features: "Terrasse d'environ 20 m² exposée sud-est, DPE A",
+      source: "Lesiteimmo.com",
+      url: "https://www.lesiteimmo.com/acheter/appartement-3pieces/marseille-4-13004/33572123",
+    },
+    {
+      id: "marseille-achat-4e-longchamp-safti-94-1012",
+      dealType: "achat",
+      title: "T4 de 94 m², Longchamp",
+      price: "250 000 €",
+      rooms: "T4",
+      surface: "94 m²",
+      location: "Longchamp, Marseille 4e (13004)",
+      features: "Terrasse et loggia",
+      source: "Lesiteimmo.com",
+      url: "https://www.lesiteimmo.com/acheter/appartement-4pieces/marseille-4-13004/33857661",
+    },
+    {
+      id: "marseille-achat-4e-laforet-dernier-etage-68-1012",
+      dealType: "achat",
+      title: "T3 de 68 m² au dernier étage avec terrasse",
+      price: "280 000 €",
+      rooms: "T3",
+      surface: "68 m²",
+      location: "Marseille 4e (13004)",
+      features: "Dernier étage, terrasse d'environ 23 m² plein sud",
+      source: "Lesiteimmo.com",
+      url: "https://www.lesiteimmo.com/acheter/appartement-3pieces/marseille-4-13004/34008740",
+    },
+    {
+      id: "marseille-achat-4e-pleinciel-74-1012",
+      dealType: "achat",
+      title: "« Plein ciel » — T3 de 74 m²",
+      price: "280 000 €",
+      rooms: "T3",
+      surface: "74 m²",
+      location: "Marseille 4e (13004)",
+      features: "Terrasse d'environ 23 m² plein sud",
+      source: "Lesiteimmo.com",
+      url: "https://www.lesiteimmo.com/acheter/appartement-3pieces/marseille-4-13004/33509926",
+    },
+    {
+      id: "marseille-achat-12e-caillols-75-1012",
+      dealType: "achat",
+      title: "T4 de 75 m² avec terrasse et parking",
+      price: "219 000 €",
+      rooms: "T4",
+      surface: "75 m²",
+      location: "Les Caillols, Marseille 12e (13012)",
+      features: "Terrasse de 24 m², parking",
+      source: "Lesiteimmo.com",
+      url: "https://www.lesiteimmo.com/acheter/appartement-4pieces/marseille-12-13012/34044647",
+    },
+    {
+      id: "marseille-achat-12e-williambooth-63-1012",
       dealType: "achat",
       title: "Appartement 3 pièces de 63 m²",
-      price: "295 000 €",
+      price: "260 000 €",
       rooms: "T3",
       surface: "63 m²",
-      location: "La Conception, Marseille 5e (13005)",
-      features: "Terrasse exposée est, sans vis-à-vis, dernier étage avec ascenseur",
+      location: "William Booth, Marseille 12e (13012)",
+      features: "Terrasse de 24 m²",
       source: "Lesiteimmo.com",
-      url: "https://www.lesiteimmo.com/acheter/appartement-3pieces/marseille-5-13005/33605083",
+      url: "https://www.lesiteimmo.com/acheter/appartement-3pieces/marseille-12-13012/33995398",
     },
     {
-      id: "marseille-achat-camas-67",
+      id: "marseille-achat-12e-montolivet-85-1012",
       dealType: "achat",
-      title: "Appartement 3 pièces de 67 m²",
-      price: "279 500 €",
-      rooms: "T3",
-      surface: "67 m²",
-      location: "Camas, Marseille 5e (13005)",
-      features: "Terrasse de 14 m²",
+      title: "T4 de 85 m² au dernier étage",
+      price: "296 800 €",
+      rooms: "T4",
+      surface: "85 m²",
+      location: "Montolivet, Marseille 12e (13012)",
+      features: "Dernier étage avec terrasse",
       source: "Lesiteimmo.com",
-      url: "https://www.lesiteimmo.com/acheter/appartement-3pieces/marseille-5-13005/33466094",
+      url: "https://www.lesiteimmo.com/acheter/appartement-4pieces/marseille-12-13012/33996095",
     },
     {
-      id: "marseille-achat-centreville-62",
+      id: "marseille-achat-12e-safti-terrasse60-1012",
       dealType: "achat",
-      title: "Appartement 3 pièces de 62 m²",
-      price: "245 000 €",
+      title: "T3 de 60 m² avec 60 m² de terrasse",
+      price: "299 000 €",
       rooms: "T3",
-      surface: "62 m²",
-      location: "Centre-ville, Marseille 5e (13005)",
-      features: "Terrasse de 60 m² plein est, peu de vis-à-vis",
+      surface: "60 m²",
+      location: "Marseille 12e (13012)",
+      features: "Terrasse de 60 m²",
       source: "Lesiteimmo.com",
-      url: "https://www.lesiteimmo.com/acheter/appartement-3pieces/marseille-5-13005/33317603",
+      url: "https://www.lesiteimmo.com/acheter/appartement-3pieces/marseille-12-13012/34035307",
     },
     {
-      id: "marseille-achat-saintbarnabe-55",
+      id: "marseille-achat-12e-beaumont-duplex-65-1012",
       dealType: "achat",
-      title: "Appartement 3 pièces de 55 m²",
-      price: "239 000 €",
-      rooms: "T3",
-      surface: "55 m²",
-      location: "Saint-Barnabé, Marseille 12e (13012)",
-      features: "Terrasse",
-      source: "Les Clefs de Chez Moi",
-      url: "https://www.lesclefsdechezmoi.fr/achat-immobilier/bouches-du-rhone/marseille-12e-arrondissement/appartements/appartement-3pieces-55m2-5328382.html",
+      title: "Duplex T3/T4 de 65 m², aperçu mer et montagne",
+      price: "299 990 €",
+      rooms: "T4",
+      surface: "65 m²",
+      location: "Beaumont / Saint-Julien, Marseille 12e (13012)",
+      features: "Grande terrasse et jardin, aperçu mer",
+      source: "Lesiteimmo.com",
+      url: "https://www.lesiteimmo.com/acheter/appartement-4pieces/marseille-12-13012/33999253",
     },
     {
-      id: "marseille-achat-saintbarnabe-77",
+      id: "marseille-achat-12e-deux-terrasses-73-1012",
       dealType: "achat",
-      title: "Appartement 3 pièces de 77 m²",
-      price: "275 000 €",
-      rooms: "T3",
-      surface: "77 m²",
-      location: "Saint-Barnabé, Marseille 12e (13012)",
-      features: "Terrasse",
-      source: "Les Clefs de Chez Moi",
-      url: "https://www.lesclefsdechezmoi.fr/achat-immobilier/bouches-du-rhone/marseille-12e-arrondissement/appartements/appartement-3pieces-77m2-5023269.html",
+      title: "T4 de 73 m² au dernier étage, deux terrasses et garage",
+      price: "299 990 €",
+      rooms: "T4",
+      surface: "73 m²",
+      location: "Marseille 12e (13012)",
+      features: "Dernier étage, deux terrasses, garage",
+      source: "Lesiteimmo.com",
+      url: "https://www.lesiteimmo.com/acheter/appartement-4pieces/marseille-12-13012/34014264",
     },
     {
       id: "marseille-location-camas-86",
@@ -2752,7 +3006,7 @@ function MarseilleLogementCard({ item, status, onSetStatus, favori, onToggleFavo
 // courses cochables (synchronisées), repères SOPK (ebooks SOVA), recettes, cibles. Les données sont
 // figées ici : pour les modifier, repasser par le classeur puis redemander la mise à jour à Claude.
 const ALIM_ACCENT = "#E0A458";
-const ALIM_DATA = {"days": [{"date": "2026-09-28", "jour": "Lundi", "semaine": 1, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs en omelette · thé vert plutôt 1 h après", "kc": 558, "ke": 386}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 93, "ke": 93}, {"name": "Déjeuner", "items": [["Quinoa (cru)", "75 g", "45 g"], ["Saumon", "180 g", "150 g"], ["Brocoli", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Saumon, brocoli vapeur, sésame (gros poisson gras : 1×/sem.)", "kc": 870, "ke": 650}, {"name": "Collation après-midi", "items": [["Skyr nature", "200 g", "150 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 200, "ke": 170}, {"name": "Dîner", "items": [["Lentilles (cuites)", "250 g", "150 g"], ["Carottes", "200 g", "200 g"], ["Épinards", "100 g", "100 g"], ["Huile de colza", "1 CAS", "1 CAS"]], "note": "Dahl de lentilles & carottes au curcuma (SOVA) · + infusion", "kc": 495, "ke": 379}], "tot": [2216, 1678, 141, 107]}, {"date": "2026-09-29", "jour": "Mardi", "semaine": 1, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs brouillés au curry · thé vert plutôt 1 h après", "kc": 514, "ke": 396}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 161, "ke": 161}, {"name": "Déjeuner", "items": [["Riz basmati (cru)", "75 g", "45 g"], ["Escalope de dinde", "180 g", "130 g"], ["Haricots verts", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Escalope de dinde aux herbes & haricots verts à l'ail", "kc": 729, "ke": 477}, {"name": "Collation après-midi", "items": [["Blanc de poulet", "160 g", "100 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 264, "ke": 198}, {"name": "Dîner", "items": [["Pois chiches (cuits)", "250 g", "150 g"], ["Aubergine", "150 g", "150 g"], ["Poivron", "150 g", "150 g"], ["Huile d'olive", "1 CAS", "1 CAS"]], "note": "Curry végé pois chiches, aubergine, poivron (SOVA) · + infusion", "kc": 533, "ke": 393}], "tot": [2201, 1625, 150, 106]}, {"date": "2026-09-30", "jour": "Mercredi", "semaine": 1, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs en omelette · thé vert plutôt 1 h après", "kc": 491, "ke": 328}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 108, "ke": 108}, {"name": "Déjeuner", "items": [["Quinoa (cru)", "75 g", "45 g"], ["Crevettes décortiquées", "180 g", "150 g"], ["Courgette", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Poêlée de crevettes à l'ail, courgettes & quinoa", "kc": 696, "ke": 460}, {"name": "Collation après-midi", "items": [["Skyr nature", "200 g", "150 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 228, "ke": 198}, {"name": "Dîner", "items": [["Concombre", "100 g", "100 g"], ["Vinaigre de cidre", "2 CAS", "2 CAS"], ["Haricots rouges (cuits)", "200 g", "120 g"], ["Bœuf haché 5 %", "100 g", "80 g"], ["Tomate", "150 g", "150 g"], ["Poivron", "150 g", "150 g"], ["Huile de colza", "1 CAS", "1 CAS"]], "note": "Chili con carne (SOVA) — viande rouge 1×/sem. pour le fer · + infusion", "kc": 542, "ke": 430}], "tot": [2065, 1524, 151, 115]}, {"date": "2026-10-01", "jour": "Jeudi", "semaine": 1, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs brouillés aux herbes · thé vert plutôt 1 h après", "kc": 566, "ke": 394}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 153, "ke": 153}, {"name": "Déjeuner", "items": [["Riz basmati (cru)", "75 g", "45 g"], ["Blanc de poulet", "180 g", "130 g"], ["Aubergine", "150 g", "150 g"], ["Poivron", "150 g", "150 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Curry au poulet et riz (SOVA)", "kc": 731, "ke": 484}, {"name": "Collation après-midi", "items": [["Cottage cheese", "200 g", "150 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 288, "ke": 238}, {"name": "Dîner", "items": [["Colin (lieu)", "150 g", "130 g"], ["Blettes", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"]], "note": "Colin & blettes sautées à l'ail · + infusion", "kc": 288, "ke": 262}], "tot": [2026, 1531, 144, 111]}, {"date": "2026-10-02", "jour": "Vendredi", "semaine": 1, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs en omelette · thé vert plutôt 1 h après", "kc": 506, "ke": 388}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 161, "ke": 161}, {"name": "Déjeuner", "items": [["Patate douce", "225 g", "130 g"], ["Maquereau", "180 g", "150 g"], ["Chou-fleur", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Chocolat noir 85 %", "1 carré", "1 carré"]], "note": "Maquereau grillé, chou-fleur rôti (petit poisson gras)", "kc": 778, "ke": 626}, {"name": "Collation après-midi", "items": [["Skyr nature", "200 g", "150 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 154, "ke": 124}, {"name": "Dîner", "items": [["Lentilles (cuites)", "250 g", "150 g"], ["Poireaux", "150 g", "150 g"], ["Champignons de Paris", "150 g", "150 g"], ["Huile de noix", "1 CAS", "1 CAS"]], "note": "Lentilles, fondue de poireaux & champignons · + infusion", "kc": 476, "ke": 360}], "tot": [2075, 1659, 133, 103]}, {"date": "2026-10-03", "jour": "Samedi", "semaine": 1, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs au plat · thé vert plutôt 1 h après", "kc": 520, "ke": 416}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 161, "ke": 161}, {"name": "Déjeuner", "items": [["Quinoa (cru)", "75 g", "45 g"], ["Sardines", "180 g", "150 g"], ["Tomate", "150 g", "150 g"], ["Poivron", "150 g", "150 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Sardines grillées & tian de légumes (petit poisson gras)", "kc": 773, "ke": 592}, {"name": "Collation après-midi", "items": [["Jambon blanc", "160 g", "100 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 264, "ke": 194}, {"name": "Dîner", "items": [], "note": "Repas libre (règle 80/20) — sans culpabilité", "kc": 0, "ke": 0}], "tot": [1718, 1363, 121, 90]}, {"date": "2026-10-04", "jour": "Dimanche", "semaine": 1, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs à la coque · thé vert plutôt 1 h après", "kc": 566, "ke": 394}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 153, "ke": 153}, {"name": "Déjeuner", "items": [["Riz basmati (cru)", "75 g", "45 g"], ["Lapin", "180 g", "130 g"], ["Carottes", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Lapin à la moutarde & carottes fondantes (sans miel)", "kc": 801, "ke": 531}, {"name": "Collation après-midi", "items": [["Skyr nature", "200 g", "150 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 208, "ke": 178}, {"name": "Dîner", "items": [["Betterave cuite", "100 g", "100 g"], ["Vinaigre de cidre", "2 CAS", "2 CAS"], ["Pois chiches (cuits)", "250 g", "150 g"], ["Butternut", "300 g", "250 g"], ["Huile de noix", "1 CAS", "1 CAS"]], "note": "Butternut rôtie & pois chiches au cumin · + infusion", "kc": 629, "ke": 469}], "tot": [2357, 1725, 128, 93]}, {"date": "2026-10-05", "jour": "Lundi", "semaine": 2, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs brouillés · thé vert plutôt 1 h après", "kc": 557, "ke": 386}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 161, "ke": 161}, {"name": "Déjeuner", "items": [["Riz basmati (cru)", "75 g", "45 g"], ["Blanc de poulet", "180 g", "130 g"], ["Brocoli", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Poulet citron-thym & brocoli", "kc": 738, "ke": 484}, {"name": "Collation après-midi", "items": [["Skyr nature", "200 g", "150 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 208, "ke": 178}, {"name": "Dîner", "items": [["Pois chiches (cuits)", "250 g", "150 g"], ["Chou-fleur", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"]], "note": "Chou-fleur rôti au curcuma & pois chiches · + infusion", "kc": 533, "ke": 380}], "tot": [2197, 1589, 141, 103]}, {"date": "2026-10-06", "jour": "Mardi", "semaine": 2, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs en omelette · thé vert plutôt 1 h après", "kc": 515, "ke": 396}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 153, "ke": 153}, {"name": "Déjeuner", "items": [["Patate douce", "225 g", "130 g"], ["Saumon", "180 g", "150 g"], ["Épinards", "300 g", "250 g"], ["Huile de noix", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Saumon, épinards à l'ail & patate douce rôtie (gros poisson gras : 1×/sem.)", "kc": 824, "ke": 582}, {"name": "Collation après-midi", "items": [["Blanc de poulet", "160 g", "100 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 256, "ke": 190}, {"name": "Dîner", "items": [["Carottes", "100 g", "100 g"], ["Vinaigre de cidre", "2 CAS", "2 CAS"], ["Lentilles (cuites)", "250 g", "150 g"], ["Poireaux", "300 g", "250 g"], ["Huile de colza", "1 CAS", "1 CAS"]], "note": "Carottes râpées + lentilles aux poireaux (prébiotiques) · + infusion", "kc": 530, "ke": 399}], "tot": [2278, 1720, 151, 110]}, {"date": "2026-10-07", "jour": "Mercredi", "semaine": 2, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs en omelette aux herbes · thé vert plutôt 1 h après", "kc": 577, "ke": 385}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 108, "ke": 108}, {"name": "Déjeuner", "items": [["Quinoa (cru)", "75 g", "45 g"], ["Maquereau", "180 g", "150 g"], ["Endives", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Maquereau & endives braisées (petit poisson gras)", "kc": 866, "ke": 602}, {"name": "Collation après-midi", "items": [["Skyr nature", "200 g", "150 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 208, "ke": 178}, {"name": "Dîner", "items": [["Escalope de dinde", "150 g", "120 g"], ["Butternut", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"]], "note": "Butternut farcie à la dinde & épices (SOVA) · + infusion", "kc": 386, "ke": 334}], "tot": [2145, 1607, 145, 112]}, {"date": "2026-10-08", "jour": "Jeudi", "semaine": 2, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs brouillés au curry · thé vert plutôt 1 h après", "kc": 566, "ke": 394}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 153, "ke": 153}, {"name": "Déjeuner", "items": [["Riz basmati (cru)", "75 g", "45 g"], ["Crevettes décortiquées", "180 g", "150 g"], ["Champignons de Paris", "150 g", "150 g"], ["Chou rouge", "150 g", "150 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Wok crevettes, champignons & chou au gingembre (sans sauce soja)", "kc": 654, "ke": 486}, {"name": "Collation après-midi", "items": [["Cottage cheese", "200 g", "150 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 234, "ke": 184}, {"name": "Dîner", "items": [["Haricots rouges (cuits)", "200 g", "120 g"], ["Bœuf haché 5 %", "100 g", "80 g"], ["Carottes", "150 g", "150 g"], ["Poivron", "150 g", "150 g"], ["Huile de colza", "1 CAS", "1 CAS"]], "note": "Chili con carne (SOVA) — viande rouge 1×/sem. · + infusion", "kc": 549, "ke": 436}], "tot": [2156, 1653, 151, 117]}, {"date": "2026-10-09", "jour": "Vendredi", "semaine": 2, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs en omelette · thé vert plutôt 1 h après", "kc": 506, "ke": 388}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 161, "ke": 161}, {"name": "Déjeuner", "items": [["Quinoa (cru)", "75 g", "45 g"], ["Lapin", "180 g", "130 g"], ["Haricots verts", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Chocolat noir 85 %", "1 carré", "1 carré"]], "note": "Lapin à la moutarde & haricots verts", "kc": 778, "ke": 584}, {"name": "Collation après-midi", "items": [["Skyr nature", "200 g", "150 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 228, "ke": 198}, {"name": "Dîner", "items": [["Mâche / salade", "50 g", "50 g"], ["Betterave cuite", "100 g", "100 g"], ["Vinaigre de cidre", "2 CAS", "2 CAS"], ["Lentilles (cuites)", "250 g", "150 g"], ["Céleri-rave", "250 g", "250 g"], ["Huile de lin", "1 CAS", "1 CAS"]], "note": "Mâche-betterave + lentilles & purée de céleri · + infusion", "kc": 519, "ke": 403}], "tot": [2192, 1734, 143, 106]}, {"date": "2026-10-10", "jour": "Samedi", "semaine": 2, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs au plat · thé vert plutôt 1 h après", "kc": 558, "ke": 394}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 161, "ke": 161}, {"name": "Déjeuner", "items": [["Riz basmati (cru)", "75 g", "45 g"], ["Sardines", "180 g", "150 g"], ["Fenouil", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Sardines & fenouil braisé (petit poisson gras)", "kc": 807, "ke": 563}, {"name": "Collation après-midi", "items": [["Jambon blanc", "160 g", "100 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 272, "ke": 203}, {"name": "Dîner", "items": [], "note": "Repas libre (règle 80/20) — sans culpabilité", "kc": 0, "ke": 0}], "tot": [1798, 1321, 118, 89]}, {"date": "2026-10-11", "jour": "Dimanche", "semaine": 2, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs à la coque · thé vert plutôt 1 h après", "kc": 559, "ke": 396}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 161, "ke": 161}, {"name": "Déjeuner", "items": [["Patate douce", "225 g", "130 g"], ["Escalope de dinde", "180 g", "130 g"], ["Carottes", "150 g", "150 g"], ["Potiron / courge", "150 g", "150 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Dinde & légumes d'automne rôtis au four", "kc": 669, "ke": 455}, {"name": "Collation après-midi", "items": [["Skyr nature", "200 g", "150 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 200, "ke": 170}, {"name": "Dîner", "items": [["Cabillaud", "150 g", "130 g"], ["Potiron / courge", "300 g", "250 g"], ["Huile de colza", "1 CAS", "1 CAS"]], "note": "Cabillaud & velouté de potiron au gingembre (sans crème) · + infusion", "kc": 318, "ke": 287}], "tot": [1907, 1469, 137, 107]}], "courses": [{"id": "betterave-cuite", "rayon": "Fruits & légumes", "al": "Betterave cuite", "w1": "200 g", "w2": "200 g"}, {"id": "concombre", "rayon": "Fruits & légumes", "al": "Concombre", "w1": "200 g", "w2": null}, {"id": "m-che-salade", "rayon": "Fruits & légumes", "al": "Mâche / salade", "w1": null, "w2": "100 g"}, {"id": "fruit", "rayon": "Fruits & légumes", "al": "Fruit", "w1": "55 (au choix)", "w2": "55 (au choix)"}, {"id": "patate-douce", "rayon": "Fruits & légumes", "al": "Patate douce", "w1": "355 g", "w2": "710 g"}, {"id": "aubergine", "rayon": "Fruits & légumes", "al": "Aubergine", "w1": "600 g", "w2": null}, {"id": "blettes", "rayon": "Fruits & légumes", "al": "Blettes", "w1": "550 g", "w2": null}, {"id": "brocoli", "rayon": "Fruits & légumes", "al": "Brocoli", "w1": "550 g", "w2": "550 g"}, {"id": "butternut", "rayon": "Fruits & légumes", "al": "Butternut", "w1": "550 g", "w2": "550 g"}, {"id": "carottes", "rayon": "Fruits & légumes", "al": "Carottes", "w1": "950 g", "w2": "800 g"}, {"id": "champignons-de-paris", "rayon": "Fruits & légumes", "al": "Champignons de Paris", "w1": "300 g", "w2": "300 g"}, {"id": "chou-rouge", "rayon": "Fruits & légumes", "al": "Chou rouge", "w1": null, "w2": "300 g"}, {"id": "chou-fleur", "rayon": "Fruits & légumes", "al": "Chou-fleur", "w1": "550 g", "w2": "550 g"}, {"id": "courgette", "rayon": "Fruits & légumes", "al": "Courgette", "w1": "550 g", "w2": null}, {"id": "c-leri-rave", "rayon": "Fruits & légumes", "al": "Céleri-rave", "w1": null, "w2": "500 g"}, {"id": "endives", "rayon": "Fruits & légumes", "al": "Endives", "w1": null, "w2": "550 g"}, {"id": "fenouil", "rayon": "Fruits & légumes", "al": "Fenouil", "w1": null, "w2": "550 g"}, {"id": "haricots-verts", "rayon": "Fruits & légumes", "al": "Haricots verts", "w1": "550 g", "w2": "550 g"}, {"id": "poireaux", "rayon": "Fruits & légumes", "al": "Poireaux", "w1": "300 g", "w2": "550 g"}, {"id": "poivron", "rayon": "Fruits & légumes", "al": "Poivron", "w1": "1,2 kg", "w2": "300 g"}, {"id": "potiron-courge", "rayon": "Fruits & légumes", "al": "Potiron / courge", "w1": null, "w2": "850 g"}, {"id": "tomate", "rayon": "Fruits & légumes", "al": "Tomate", "w1": "600 g", "w2": null}, {"id": "-pinards", "rayon": "Fruits & légumes", "al": "Épinards", "w1": "200 g", "w2": "550 g"}, {"id": "cabillaud", "rayon": "Poissonnerie", "al": "Cabillaud", "w1": null, "w2": "280 g"}, {"id": "colin-lieu-", "rayon": "Poissonnerie", "al": "Colin (lieu)", "w1": "280 g", "w2": null}, {"id": "crevettes-d-cortiqu-es", "rayon": "Poissonnerie", "al": "Crevettes décortiquées", "w1": "330 g", "w2": "330 g"}, {"id": "maquereau", "rayon": "Poissonnerie", "al": "Maquereau", "w1": "330 g", "w2": "330 g"}, {"id": "sardines", "rayon": "Poissonnerie", "al": "Sardines", "w1": "330 g", "w2": "330 g"}, {"id": "saumon", "rayon": "Poissonnerie", "al": "Saumon", "w1": "330 g", "w2": "330 g"}, {"id": "blanc-de-poulet", "rayon": "Boucherie / volaille", "al": "Blanc de poulet", "w1": "570 g", "w2": "570 g"}, {"id": "b-uf-hach-5-", "rayon": "Boucherie / volaille", "al": "Bœuf haché 5 %", "w1": "180 g", "w2": "180 g"}, {"id": "escalope-de-dinde", "rayon": "Boucherie / volaille", "al": "Escalope de dinde", "w1": "310 g", "w2": "580 g"}, {"id": "lapin", "rayon": "Boucherie / volaille", "al": "Lapin", "w1": "310 g", "w2": "310 g"}, {"id": "cottage-cheese", "rayon": "Frais / crèmerie", "al": "Cottage cheese", "w1": "350 g", "w2": "350 g"}, {"id": "jambon-blanc", "rayon": "Frais / crèmerie", "al": "Jambon blanc", "w1": "260 g", "w2": "260 g"}, {"id": "skyr-nature", "rayon": "Frais / crèmerie", "al": "Skyr nature", "w1": "1,4 kg", "w2": "1,4 kg"}, {"id": "-ufs", "rayon": "Frais / crèmerie", "al": "Œufs", "w1": "49", "w2": "49"}, {"id": "vinaigre-de-cidre", "rayon": "Épicerie", "al": "Vinaigre de cidre", "w1": "8 CAS", "w2": "8 CAS"}, {"id": "chocolat-noir-85-", "rayon": "Épicerie", "al": "Chocolat noir 85 %", "w1": "2 carré", "w2": "2 carré"}, {"id": "quinoa-cru-", "rayon": "Épicerie", "al": "Quinoa (cru)", "w1": "360 g", "w2": "240 g"}, {"id": "riz-basmati-cru-", "rayon": "Épicerie", "al": "Riz basmati (cru)", "w1": "360 g", "w2": "360 g"}, {"id": "haricots-rouges-cuits-", "rayon": "Épicerie", "al": "Haricots rouges (cuits)", "w1": "320 g", "w2": "320 g"}, {"id": "lentilles-cuites-", "rayon": "Épicerie", "al": "Lentilles (cuites)", "w1": "800 g", "w2": "800 g"}, {"id": "pois-chiches-cuits-", "rayon": "Épicerie", "al": "Pois chiches (cuits)", "w1": "800 g", "w2": "400 g"}, {"id": "huile-d-olive", "rayon": "Épicerie", "al": "Huile d'olive", "w1": "18 CAS", "w2": "16 CAS"}, {"id": "huile-de-colza", "rayon": "Épicerie", "al": "Huile de colza", "w1": "4 CAS", "w2": "6 CAS"}, {"id": "huile-de-lin", "rayon": "Épicerie", "al": "Huile de lin", "w1": null, "w2": "2 CAS"}, {"id": "huile-de-noix", "rayon": "Épicerie", "al": "Huile de noix", "w1": "4 CAS", "w2": "2 CAS"}, {"id": "amandes", "rayon": "Épicerie", "al": "Amandes", "w1": "140", "w2": "140"}, {"id": "noix-du-br-sil", "rayon": "Épicerie", "al": "Noix du Brésil", "w1": "28", "w2": "28"}], "cibles": {"rows": [["Poids (kg)", 110, 95], ["Taille (cm)", 175, 168], ["Âge (ans)", 29, 29], ["Facteur d'activité", 1.45, 1.4], ["Déficit visé (kcal/jour)", 900, 400], ["Protéines (g par kg)", 2, 1.6], ["Lipides (g par kg)", 0.6, 0.9]], "res": [["Métabolisme de base (kcal)", 2054.0, 1694.0], ["Maintenance estimée (kcal)", 2978.0, 2372.0], ["CIBLE CALORIES (kcal/jour)", 2078.0, 1972.0], ["CIBLE PROTÉINES (g/jour)", 220, 152], ["CIBLE LIPIDES (g/jour)", 66, 86.0], ["CIBLE GLUCIDES (g/jour)", 151.0, 149.0], ["Glucides en % des calories", 0.29, 0.3], ["Perte estimée (kg/semaine)", 0.82, 0.36]]}, "reperes": [{"t": "Pourquoi adapter l'alimentation", "items": [["Résistance à l'insuline", "Présente chez environ 70 % des femmes SOPK : trop d'insuline pousse les ovaires à produire plus d'androgènes (acné, pilosité, cycles irréguliers). Objectif : une glycémie stable."], ["Inflammation", "Inflammation chronique de bas grade, qui entretient la résistance à l'insuline : on privilégie les aliments anti-inflammatoires."], ["Poids", "Si surpoids, perdre 5 à 10 % du poids améliore déjà les symptômes. Mais le surpoids n'est pas la cause du SOPK, et l'objectif n'est pas de maigrir à tout prix."]]}, {"t": "L'assiette", "items": [["Composition", "½ assiette de légumes · ¼ de protéines · ¼ de féculents ou légumineuses · 1 source de bon gras."], ["Ordre de repas", "Légumes d'abord, puis protéines et bon gras, féculents en dernier : le pic de glycémie est plus faible."], ["Petit-déjeuner", "Salé, protéiné et gras (œufs) : le corps est très sensible à l'insuline le matin. Idéalement 1-2 protéines, 1-2 bons gras, 2-3 sources de fibres (d'où les légumes dans les œufs)."]]}, {"t": "Glucides & IG", "items": [["À privilégier", "Quinoa, lentilles, pois chiches, haricots rouges, patate douce, riz basmati, sarrasin, pâtes complètes al dente."], ["À limiter", "Pommes de terre (IG élevé, sauf refroidies en salade), pain blanc, riz blanc rond, céréales soufflées, semoule, pâtisseries, sucres, jus de fruits, sodas."], ["Cuisson", "Al dente : plus un féculent est cuit, plus il fait monter la glycémie."], ["Fruits", "2-3 par jour, pas trop mûrs, jamais seuls : avec des amandes, un laitage, ou après un repas riche en fibres."]]}, {"t": "Protéines & graisses", "items": [["Protéines", "À chaque repas et collation. SOVA : au moins 1 g/kg/jour pour Estelle."], ["Oméga 3", "Petits poissons gras (sardines, maquereau, hareng, anchois) au moins 2×/semaine. Saumon et thon 1×/semaine maximum (métaux lourds). Huiles de colza, noix, lin crues pour l'assaisonnement ; olive pour cuire."], ["Viandes", "Viande blanche à privilégier ; viande rouge 1×/semaine pour le fer ; charcuterie à limiter."], ["Laitiers", "Pas plus de 2 par jour (SOVA), moins si inconfort digestif."]]}, {"t": "Au quotidien", "items": [["Thé vert / café", "Plutôt 1 h après le repas : ils gênent l'absorption du fer. Les infusions, elles, ne posent pas de problème."], ["Épices", "Curcuma, cannelle, gingembre, thym, romarin, origan : riches en antioxydants."], ["Microbiote", "Prébiotiques : poireau, topinambour, artichaut, oignon, betterave. Probiotiques : légumes lacto-fermentés (choucroute, kimchi), kéfir."], ["Bouger", "10 min de marche après le repas réduit le pic de glycémie ; la musculation améliore la sensibilité à l'insuline."]]}, {"t": "Meal prep", "items": [["Contenants", "Boîtes en verre plutôt qu'en plastique, surtout pour réchauffer au micro-ondes (perturbateurs endocriniens)."], ["Portions", "Une taille de boîte par personne évite de tout repeser ; doubler les légumes dans la préparation."]]}, {"t": "État d'esprit", "items": [["Règle 80/20", "80 % d'aliments favorables, 20 % de plaisir, sans culpabilité. On parle d'habitudes, pas de régime. Intégrer les changements un par un."], ["Vigilance", "Les troubles du comportement alimentaire sont plus fréquents avec un SOPK : si l'alimentation devient source d'angoisse ou de culpabilité, en parler à un professionnel."]]}, {"t": "Ce qu'on a changé dans le menu commun", "items": [["Pour vous deux", "Pommes de terre remplacées par quinoa, riz basmati ou patate douce · légumes ajoutés aux œufs chaque matin · protéines variées sur la semaine : 3 poissons (saumon 1×, petits poissons gras 2×) + 1 poisson blanc, volailles (poulet, dinde), lapin, crevettes, bœuf 1×, légumineuses 3-4 soirs · huile de colza · thé à distance des repas."], ["Pour Estelle", "3 œufs, ~45 g de féculents crus, légumineuses et poisson en portions réduites, 3 fruits par jour toujours accompagnés, pas de fruit en dessert."]]}, {"t": "À propos des sources", "items": [["Note", "SOVA est une marque de compléments associée à une naturopathe. Les principes glycémie, protéines, oméga 3, légumes et activité rejoignent les recommandations médicales. Les conseils sur le gluten, les laitiers ou les cures (glutamine, compléments) sont moins bien étayés : à discuter avec son médecin avant de les suivre."]]}], "recettes": [["Dos de cabillaud au fenouil (et à l'orange)", "Déjeuner / dîner", "Automne", "Oui", "1 CAS d'huile au lieu de 20 cl ; 180 g de cabillaud", "Menu d'automne", "Idéal"], ["Papillote de saumon, compotée de chou rouge aux pommes", "Déjeuner", "Automne", "À adapter", "Supprimer le miel ; la pomme compte comme fruit", "Menu d'automne", "OK"], ["Rouget et topinambours au fenouil sauvage", "Déjeuner", "Automne", "Oui", "Topinambours = légume ; cuisson huile plutôt que beurre", "Menu d'automne", "Idéal"], ["Poêlée de carottes et topinambours au thym", "Accompagnement", "Automne", "Oui", "1 CAS d'huile pour la portion", "Menu d'automne", "Idéal"], ["Vapeur de carottes aux épices et jus de persil", "Accompagnement", "Automne", "Oui", null, "Menu d'automne", "OK"], ["Potiron rôti au four, ail et huile d'olive", "Accompagnement", "Automne", "Oui", null, "Menu d'automne", "OK"], ["Poêlée de butternut", "Accompagnement", "Automne", "À adapter", "Les pommes de terre remplacent le féculent (225 g)", "Menu d'automne", "OK"], ["Légumes d'automne rôtis au four", "Déjeuner", "Automne", "À adapter", "Sans vin blanc ; pommes de terre = féculent du repas", "Menu d'automne", "OK"], ["Poêlée d'endives aux cèpes et aux noisettes", "Accompagnement", "Automne", "À adapter", "Noisettes : les compter dans les oléagineux", "Menu d'automne", "OK"], ["Topinambours poêlés aux champignons", "Accompagnement", "Automne", "Oui", null, "Menu d'automne", "OK"], ["Purée de courge butternut au curry", "Accompagnement / dîner", "Automne", "À adapter", "Sans crème ; bouillon uniquement", "Menu d'automne", "OK"], ["Velouté potimarron au lait d'amande", "Dîner", "Automne", "À adapter", "Retirer la pomme de terre si féculent déjà pris", "Menu d'automne", "OK"], ["Soupe de patate douce, poireaux et coco", "Dîner", "Automne", "Occasionnel", "Lait de coco riche en graisses : ½ brique max", "Menu d'automne", "OK"], ["Velouté de carottes au curry", "Dîner", "Automne", "Oui", null, "Menu d'automne", "OK"], ["Soupe pomme, betteraves, noisettes", "Dîner", "Automne", "À adapter", "Huile de noisette = ta CAS d'huile", "Menu d'automne", "Idéal"], ["Wok fondant de légumes et poulet mariné", "Dîner (version 1)", "Automne", "À adapter", "Sauce soja à éviter (soja) ; 160 g poulet", "Menu d'automne", "OK"], ["Poulet au gingembre grillé", "Dîner (version 1)", "Automne", "À adapter", "Blanc plutôt que haut de cuisse ; sans sauce soja", "Menu d'automne", "OK"], ["Colombo de poulet au butternut", "Dîner (version 1)", "Automne", "Oui", null, "Menu d'automne", "Idéal"], ["Aubergine roulée farcie (pois chiches, tahini)", "Dîner", "Automne", "Oui", "Les pois chiches comptent dans les 250 g", "Menu d'automne", "Idéal"], ["Hachis marocain patates douces et panais", "Déjeuner", "Automne", "À adapter", "Bœuf haché 5 % ; sans sucre ni raisins secs", "Menu d'automne", "OK (sans sucre ajouté)"], ["Ceviche de poisson, citron, tomates séchées, amandes", "Déjeuner", "Automne", "Oui", "Amandes = ta collation", "Menu d'automne", "Idéal"], ["Filet de daurade aux petits légumes", "Déjeuner / dîner", "Automne", "Oui", null, "Menu d'automne", "Idéal"], ["Œuf mollet, poêlée et crème de girolles", "Déjeuner (4 œufs)", "Automne", "À adapter", "Crème liquide à remplacer par un peu de bouillon", "Menu d'automne", "OK"], ["Salade d'endives et d'avocat", "Crudités", "Automne", "Occasionnel", "Noix de cajou et avocat : petite portion", "Menu d'automne", "OK"], ["Salade de potiron rôti, féta et quinoa", "Déjeuner", "Automne", "Écart", "Féta = fromage (interdit 4 premières semaines)", "Menu d'automne", "OK (féta avec modération)"], ["Poulet à la crème et aux champignons", "—", "Automne", "Écart", "Crème + vin blanc : repas libre", "Menu d'automne", "À limiter (crème)"], ["Mac and cheese de potimarron · Gratin de butternut", "—", "Automne", "Écart", "Fromage / crème : repas libre", "Menu d'automne", "À limiter"], ["Papillote de poisson à la provençale", "Déjeuner / dîner", "Été", "Oui", null, "Menu d'été", "Idéal"], ["Filet de daurade au fenouil et aux tomates", "Déjeuner / dîner", "Été", "Oui", null, "Menu d'été", "Idéal"], ["Tian de légumes à la provençale", "Accompagnement", "Été → début automne", "Oui", null, "Menu d'été", "OK"], ["Fenouil braisé", "Accompagnement", "Été → automne", "Oui", null, "Menu d'été", "OK"], ["Aubergines grillées ail et thym", "Accompagnement", "Été → sept.", "Oui", "1 CAS d'huile", "Menu d'été", "OK"], ["Salade de haricots verts et thon", "Déjeuner", "Été → sept.", "Oui", "+ 225 g pommes de terre", "Menu d'été", "Idéal"], ["Salade de quinoa aux pois chiches et tomate", "Déjeuner", "Été", "À adapter", "Choisir quinoa OU pois chiches selon le repas", "Menu d'été", "OK"], ["Brochettes de crevettes marinées", "Déjeuner", "Été", "Oui", null, "Menu d'été", "OK"], ["Moules marinières légères", "Dîner", "Sept · Oct", "Oui", "Moules de saison en sept./oct.", "Menu d'été", "Idéal"], ["Escalope de dinde aux échalotes, poivrons, courgettes", "Dîner (version 1)", "Été → sept.", "Oui", null, "Menu d'été", "OK"], ["Blanc de poulet aux épices", "Dîner (version 1)", "Toute l'année", "Oui", null, "Menu d'été", "OK"], ["Mijoté de dinde aux poivrons", "Dîner (version 1)", "Été → sept.", "Oui", null, "Menu d'été", "OK"], ["Tagliatelles de konjac au saumon et citron", "Déjeuner / dîner", "Toute l'année", "À adapter", "Philadelphia = fromage : remplacer par du skyr", "Recettes konjac", "OK"], ["Riz de konjac sauté au poulet, poivrons, piment doux", "Dîner", "Toute l'année", "Oui", "Remplace un féculent si tu veux alléger", "Recettes konjac", "Idéal"], ["Risotto de carottes et fenouil au riz de konjac", "Dîner", "Automne", "Oui", null, "Recettes konjac", "OK"], ["Wok de shirataki aux légumes et dinde", "Dîner", "Toute l'année", "À adapter", "Sauce à base de soja : l'éviter", "Recettes konjac", "OK"], ["Soupe épicée asiatique au konjac", "Dîner", "Automne", "Oui", null, "Recettes konjac", "Idéal"], ["Tagliatelles de konjac au potiron", "Dîner", "Automne", "Oui", null, "Recettes konjac", "OK"], ["Omelette salée (légumes au choix)", "Petit-déjeuner", "Toute l'année", "Oui", "Déjà la base de vos petits-déjeuners", "Ebook SOVA", "Idéal"], ["Pancakes protéinés (œufs, banane)", "Petit-déjeuner", "Toute l'année", "À adapter", "Sans farine ni sirop pour Clément", "Ebook SOVA", "OK"], ["Tartine saumon & œufs pochés", "Petit-déjeuner", "Toute l'année", "À adapter", "Pain interdit à Clément les 4 premières semaines : servir sans pain", "Ebook SOVA", "Idéal"], ["Chia pudding", "Petit-déjeuner", "Toute l'année", "Occasionnel", "Ajouter une protéine (skyr)", "Ebook SOVA", "OK avec protéine"], ["Dahl de lentilles corail", "Dîner", "Automne", "Oui", "Lentilles = les 250 g du dîner ; lait de coco en petite quantité", "Ebook SOVA", "Idéal"], ["Curry végé (légumineuses & légumes)", "Dîner", "Toute l'année", "Oui", "Crème végétale en option, petite quantité", "Ebook SOVA", "Idéal"], ["Chili con carne", "Dîner", "Automne", "Oui", "Bœuf 5 % + haricots rouges ; viande rouge 1×/semaine", "Ebook SOVA", "Idéal"], ["Curry au poulet et riz", "Déjeuner", "Toute l'année", "Oui", "Riz basmati 75 g / 45 g", "Ebook SOVA", "Idéal"], ["Butternut farcie", "Dîner", "Automne", "Oui", "Farce poulet ou légumineuses", "Ebook SOVA", "Idéal"], ["Quinotto aux légumes", "Déjeuner", "Automne", "Oui", "Quinoa façon risotto, sans parmesan pour Clément", "Ebook SOVA", "Idéal"], ["Courgettes farcies", "Déjeuner / dîner", "Été → sept.", "Oui", null, "Ebook SOVA", "Idéal"], ["Quiche sans pâte", "Dîner", "Toute l'année", "À adapter", "Sans fromage pour Clément les 4 premières semaines", "Ebook SOVA", "OK"], ["Parmentier de poissons et légumes", "Dîner", "Automne", "À adapter", "Purée de patate douce ou de céleri plutôt que pommes de terre", "Ebook SOVA", "OK"], ["Lasagnes saumon épinards", "Déjeuner", "Toute l'année", "Occasionnel", "Pâtes + béchamel : version plaisir", "Ebook SOVA", "Plaisir"], ["Chakchouka et riz basmati", "Déjeuner", "Été → sept.", "Oui", "Œufs + poivrons + tomates", "Ebook SOVA", "Idéal"], ["Boulettes de lentilles corail aux épices", "Dîner", "Toute l'année", "Oui", null, "Ebook SOVA", "Idéal"], ["Poke bowl", "Déjeuner", "Toute l'année", "À adapter", "Sauce soja à éviter pour Clément", "Ebook SOVA", "OK"], ["Galette de sarrasin automnale", "Déjeuner", "Automne", "Occasionnel", "Sarrasin naturellement sans gluten", "Ebook SOVA", "OK"], ["Salade de quinoa", "Déjeuner", "Été → sept.", "Oui", null, "Ebook SOVA", "Idéal"], ["Brochettes de poisson à la plancha", "Déjeuner / dîner", "Été → sept.", "Oui", null, "Ebook SOVA", "Idéal"], ["Soupe de courgette et basilic", "Dîner", "Été → sept.", "Oui", null, "Ebook SOVA", "OK"], ["Pois chiches rôtis aux épices", "Collation", "Toute l'année", "Oui", "Idéal en collation salée", "Ebook SOVA", "Idéal"], ["Houmous tomates séchées & poivrons", "Collation", "Toute l'année", "Oui", "Avec des bâtonnets de légumes", "Ebook SOVA", "Idéal"], ["Tzatziki", "Collation / crudités", "Été → sept.", "Oui", "Skyr à la place du yaourt grec", "Ebook SOVA", "OK"], ["Mousse au chocolat IG bas", "Dessert", "Toute l'année", "Occasionnel", "Plaisir, dans les 20 %", "Ebook SOVA", "Plaisir"], ["Energy ball coco", "Collation", "Toute l'année", "Écart", "Contient sucres (miel/agave) : plaisir occasionnel", "Ebook SOVA", "Plaisir (sucres)"]]};
+const ALIM_DATA = {"days": [{"date": "2026-09-28", "jour": "Lundi", "semaine": 1, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs en omelette · thé vert plutôt 1 h après", "kc": 558, "ke": 386}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 93, "ke": 93}, {"name": "Déjeuner", "items": [["Quinoa (cru)", "75 g", "45 g"], ["Saumon", "180 g", "150 g"], ["Brocoli", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Saumon, brocoli vapeur, sésame (gros poisson gras : 1×/sem.)", "kc": 870, "ke": 650}, {"name": "Collation après-midi", "items": [["Skyr nature", "200 g", "150 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 200, "ke": 170}, {"name": "Dîner", "items": [["Lentilles (cuites)", "250 g", "150 g"], ["Carottes", "200 g", "200 g"], ["Épinards", "100 g", "100 g"], ["Huile de colza", "1 CAS", "1 CAS"]], "note": "Dahl de lentilles & carottes au curcuma (SOVA) · + infusion", "kc": 495, "ke": 379}], "tot": [2216, 1678, 141, 107]}, {"date": "2026-09-29", "jour": "Mardi", "semaine": 1, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs brouillés au curry · thé vert plutôt 1 h après", "kc": 514, "ke": 396}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 161, "ke": 161}, {"name": "Déjeuner", "items": [["Riz basmati (cru)", "75 g", "45 g"], ["Escalope de dinde", "180 g", "130 g"], ["Haricots verts", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Escalope de dinde aux herbes & haricots verts à l'ail", "kc": 729, "ke": 477}, {"name": "Collation après-midi", "items": [["Blanc de poulet", "160 g", "100 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 264, "ke": 198}, {"name": "Dîner", "items": [["Pois chiches (cuits)", "250 g", "150 g"], ["Aubergine", "150 g", "150 g"], ["Poivron", "150 g", "150 g"], ["Huile d'olive", "1 CAS", "1 CAS"]], "note": "Curry végé pois chiches, aubergine, poivron (SOVA) · + infusion", "kc": 533, "ke": 393}], "tot": [2201, 1625, 150, 106]}, {"date": "2026-09-30", "jour": "Mercredi", "semaine": 1, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs en omelette · thé vert plutôt 1 h après", "kc": 491, "ke": 328}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 108, "ke": 108}, {"name": "Déjeuner", "items": [["Quinoa (cru)", "75 g", "45 g"], ["Crevettes décortiquées", "180 g", "150 g"], ["Courgette", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Poêlée de crevettes à l'ail, courgettes & quinoa", "kc": 696, "ke": 460}, {"name": "Collation après-midi", "items": [["Skyr nature", "200 g", "150 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 228, "ke": 198}, {"name": "Dîner", "items": [["Concombre", "100 g", "100 g"], ["Vinaigre de cidre", "2 CAS", "2 CAS"], ["Haricots rouges (cuits)", "200 g", "120 g"], ["Bœuf haché 5 %", "100 g", "80 g"], ["Tomate", "150 g", "150 g"], ["Poivron", "150 g", "150 g"], ["Huile de colza", "1 CAS", "1 CAS"]], "note": "Chili con carne (SOVA) — viande rouge 1×/sem. pour le fer · + infusion", "kc": 542, "ke": 430}], "tot": [2065, 1524, 151, 115]}, {"date": "2026-10-01", "jour": "Jeudi", "semaine": 1, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs brouillés aux herbes · thé vert plutôt 1 h après", "kc": 566, "ke": 394}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 153, "ke": 153}, {"name": "Déjeuner", "items": [["Riz basmati (cru)", "75 g", "45 g"], ["Blanc de poulet", "180 g", "130 g"], ["Aubergine", "150 g", "150 g"], ["Poivron", "150 g", "150 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Curry au poulet et riz (SOVA)", "kc": 731, "ke": 484}, {"name": "Collation après-midi", "items": [["Cottage cheese", "200 g", "150 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 288, "ke": 238}, {"name": "Dîner", "items": [["Colin (lieu)", "150 g", "130 g"], ["Blettes", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"]], "note": "Colin & blettes sautées à l'ail · + infusion", "kc": 288, "ke": 262}], "tot": [2026, 1531, 144, 111]}, {"date": "2026-10-02", "jour": "Vendredi", "semaine": 1, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs en omelette · thé vert plutôt 1 h après", "kc": 506, "ke": 388}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 161, "ke": 161}, {"name": "Déjeuner", "items": [["Patate douce", "225 g", "130 g"], ["Maquereau", "180 g", "150 g"], ["Chou-fleur", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Chocolat noir 85 %", "1 carré", "1 carré"]], "note": "Maquereau grillé, chou-fleur rôti (petit poisson gras)", "kc": 778, "ke": 626}, {"name": "Collation après-midi", "items": [["Skyr nature", "200 g", "150 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 154, "ke": 124}, {"name": "Dîner", "items": [["Lentilles (cuites)", "250 g", "150 g"], ["Poireaux", "150 g", "150 g"], ["Champignons de Paris", "150 g", "150 g"], ["Huile de noix", "1 CAS", "1 CAS"]], "note": "Lentilles, fondue de poireaux & champignons · + infusion", "kc": 476, "ke": 360}], "tot": [2075, 1659, 133, 103]}, {"date": "2026-10-03", "jour": "Samedi", "semaine": 1, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs au plat · thé vert plutôt 1 h après", "kc": 520, "ke": 416}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 161, "ke": 161}, {"name": "Déjeuner", "items": [["Quinoa (cru)", "75 g", "45 g"], ["Sardines", "180 g", "150 g"], ["Tomate", "150 g", "150 g"], ["Poivron", "150 g", "150 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Sardines grillées & tian de légumes (petit poisson gras)", "kc": 773, "ke": 592}, {"name": "Collation après-midi", "items": [["Jambon blanc", "160 g", "100 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 264, "ke": 194}, {"name": "Dîner", "items": [], "note": "Repas libre (règle 80/20) — sans culpabilité", "kc": 0, "ke": 0}], "tot": [1718, 1363, 121, 90]}, {"date": "2026-10-04", "jour": "Dimanche", "semaine": 1, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs à la coque · thé vert plutôt 1 h après", "kc": 566, "ke": 394}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 153, "ke": 153}, {"name": "Déjeuner", "items": [["Riz basmati (cru)", "75 g", "45 g"], ["Lapin", "180 g", "130 g"], ["Carottes", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Lapin à la moutarde & carottes fondantes (sans miel)", "kc": 801, "ke": 531}, {"name": "Collation après-midi", "items": [["Skyr nature", "200 g", "150 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 208, "ke": 178}, {"name": "Dîner", "items": [["Betterave cuite", "100 g", "100 g"], ["Vinaigre de cidre", "2 CAS", "2 CAS"], ["Pois chiches (cuits)", "250 g", "150 g"], ["Butternut", "300 g", "250 g"], ["Huile de noix", "1 CAS", "1 CAS"]], "note": "Butternut rôtie & pois chiches au cumin · + infusion", "kc": 629, "ke": 469}], "tot": [2357, 1725, 128, 93]}, {"date": "2026-10-05", "jour": "Lundi", "semaine": 2, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs brouillés · thé vert plutôt 1 h après", "kc": 557, "ke": 386}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 161, "ke": 161}, {"name": "Déjeuner", "items": [["Riz basmati (cru)", "75 g", "45 g"], ["Blanc de poulet", "180 g", "130 g"], ["Brocoli", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Poulet citron-thym & brocoli", "kc": 738, "ke": 484}, {"name": "Collation après-midi", "items": [["Skyr nature", "200 g", "150 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 208, "ke": 178}, {"name": "Dîner", "items": [["Pois chiches (cuits)", "250 g", "150 g"], ["Chou-fleur", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"]], "note": "Chou-fleur rôti au curcuma & pois chiches · + infusion", "kc": 533, "ke": 380}], "tot": [2197, 1589, 141, 103]}, {"date": "2026-10-06", "jour": "Mardi", "semaine": 2, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs en omelette · thé vert plutôt 1 h après", "kc": 515, "ke": 396}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 153, "ke": 153}, {"name": "Déjeuner", "items": [["Patate douce", "225 g", "130 g"], ["Saumon", "180 g", "150 g"], ["Épinards", "300 g", "250 g"], ["Huile de noix", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Saumon, épinards à l'ail & patate douce rôtie (gros poisson gras : 1×/sem.)", "kc": 824, "ke": 582}, {"name": "Collation après-midi", "items": [["Blanc de poulet", "160 g", "100 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 256, "ke": 190}, {"name": "Dîner", "items": [["Carottes", "100 g", "100 g"], ["Vinaigre de cidre", "2 CAS", "2 CAS"], ["Lentilles (cuites)", "250 g", "150 g"], ["Poireaux", "300 g", "250 g"], ["Huile de colza", "1 CAS", "1 CAS"]], "note": "Carottes râpées + lentilles aux poireaux (prébiotiques) · + infusion", "kc": 530, "ke": 399}], "tot": [2278, 1720, 151, 110]}, {"date": "2026-10-07", "jour": "Mercredi", "semaine": 2, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs en omelette aux herbes · thé vert plutôt 1 h après", "kc": 577, "ke": 385}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 108, "ke": 108}, {"name": "Déjeuner", "items": [["Quinoa (cru)", "75 g", "45 g"], ["Maquereau", "180 g", "150 g"], ["Endives", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Maquereau & endives braisées (petit poisson gras)", "kc": 866, "ke": 602}, {"name": "Collation après-midi", "items": [["Skyr nature", "200 g", "150 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 208, "ke": 178}, {"name": "Dîner", "items": [["Escalope de dinde", "150 g", "120 g"], ["Butternut", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"]], "note": "Butternut farcie à la dinde & épices (SOVA) · + infusion", "kc": 386, "ke": 334}], "tot": [2145, 1607, 145, 112]}, {"date": "2026-10-08", "jour": "Jeudi", "semaine": 2, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs brouillés au curry · thé vert plutôt 1 h après", "kc": 566, "ke": 394}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 153, "ke": 153}, {"name": "Déjeuner", "items": [["Riz basmati (cru)", "75 g", "45 g"], ["Crevettes décortiquées", "180 g", "150 g"], ["Champignons de Paris", "150 g", "150 g"], ["Chou rouge", "150 g", "150 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Wok crevettes, champignons & chou au gingembre (sans sauce soja)", "kc": 654, "ke": 486}, {"name": "Collation après-midi", "items": [["Cottage cheese", "200 g", "150 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 234, "ke": 184}, {"name": "Dîner", "items": [["Haricots rouges (cuits)", "200 g", "120 g"], ["Bœuf haché 5 %", "100 g", "80 g"], ["Carottes", "150 g", "150 g"], ["Poivron", "150 g", "150 g"], ["Huile de colza", "1 CAS", "1 CAS"]], "note": "Chili con carne (SOVA) — viande rouge 1×/sem. · + infusion", "kc": 549, "ke": 436}], "tot": [2156, 1653, 151, 117]}, {"date": "2026-10-09", "jour": "Vendredi", "semaine": 2, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs en omelette · thé vert plutôt 1 h après", "kc": 506, "ke": 388}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 161, "ke": 161}, {"name": "Déjeuner", "items": [["Quinoa (cru)", "75 g", "45 g"], ["Lapin", "180 g", "130 g"], ["Haricots verts", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Chocolat noir 85 %", "1 carré", "1 carré"]], "note": "Lapin à la moutarde & haricots verts", "kc": 778, "ke": 584}, {"name": "Collation après-midi", "items": [["Skyr nature", "200 g", "150 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 228, "ke": 198}, {"name": "Dîner", "items": [["Mâche / salade", "50 g", "50 g"], ["Betterave cuite", "100 g", "100 g"], ["Vinaigre de cidre", "2 CAS", "2 CAS"], ["Lentilles (cuites)", "250 g", "150 g"], ["Céleri-rave", "250 g", "250 g"], ["Huile de lin", "1 CAS", "1 CAS"]], "note": "Mâche-betterave + lentilles & purée de céleri · + infusion", "kc": 519, "ke": 403}], "tot": [2192, 1734, 143, 106]}, {"date": "2026-10-10", "jour": "Samedi", "semaine": 2, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs au plat · thé vert plutôt 1 h après", "kc": 558, "ke": 394}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 161, "ke": 161}, {"name": "Déjeuner", "items": [["Riz basmati (cru)", "75 g", "45 g"], ["Sardines", "180 g", "150 g"], ["Fenouil", "300 g", "250 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Sardines & fenouil braisé (petit poisson gras)", "kc": 807, "ke": 563}, {"name": "Collation après-midi", "items": [["Jambon blanc", "160 g", "100 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 272, "ke": 203}, {"name": "Dîner", "items": [], "note": "Repas libre (règle 80/20) — sans culpabilité", "kc": 0, "ke": 0}], "tot": [1798, 1321, 118, 89]}, {"date": "2026-10-11", "jour": "Dimanche", "semaine": 2, "meals": [{"name": "Petit-déjeuner", "items": [["Œufs", "4", "3"], ["Noix du Brésil", "2", "2"], ["Fruit", "2", "1"]], "note": "Œufs à la coque · thé vert plutôt 1 h après", "kc": 559, "ke": 396}, {"name": "Collation matin", "items": [["Amandes", "10", "10"], ["Fruit", "1", "1"]], "note": "Fruit toujours avec les amandes, jamais seul", "kc": 161, "ke": 161}, {"name": "Déjeuner", "items": [["Patate douce", "225 g", "130 g"], ["Escalope de dinde", "180 g", "130 g"], ["Carottes", "150 g", "150 g"], ["Potiron / courge", "150 g", "150 g"], ["Huile d'olive", "1 CAS", "1 CAS"], ["Fruit", "1", "–"]], "note": "Dinde & légumes d'automne rôtis au four", "kc": 669, "ke": 455}, {"name": "Collation après-midi", "items": [["Skyr nature", "200 g", "150 g"], ["Fruit", "1", "1"]], "note": "Protéine + fruit", "kc": 200, "ke": 170}, {"name": "Dîner", "items": [["Cabillaud", "150 g", "130 g"], ["Potiron / courge", "300 g", "250 g"], ["Huile de colza", "1 CAS", "1 CAS"]], "note": "Cabillaud & velouté de potiron au gingembre (sans crème) · + infusion", "kc": 318, "ke": 287}], "tot": [1907, 1469, 137, 107]}], "courses": [{"id": "betterave-cuite", "rayon": "Fruits & légumes", "al": "Betterave cuite", "w1": "200 g", "w2": "200 g"}, {"id": "concombre", "rayon": "Fruits & légumes", "al": "Concombre", "w1": "200 g", "w2": null}, {"id": "m-che-salade", "rayon": "Fruits & légumes", "al": "Mâche / salade", "w1": null, "w2": "100 g"}, {"id": "fruit", "rayon": "Fruits & légumes", "al": "Fruit", "w1": "55 (au choix)", "w2": "55 (au choix)"}, {"id": "patate-douce", "rayon": "Fruits & légumes", "al": "Patate douce", "w1": "355 g", "w2": "710 g"}, {"id": "aubergine", "rayon": "Fruits & légumes", "al": "Aubergine", "w1": "600 g", "w2": null}, {"id": "blettes", "rayon": "Fruits & légumes", "al": "Blettes", "w1": "550 g", "w2": null}, {"id": "brocoli", "rayon": "Fruits & légumes", "al": "Brocoli", "w1": "550 g", "w2": "550 g"}, {"id": "butternut", "rayon": "Fruits & légumes", "al": "Butternut", "w1": "550 g", "w2": "550 g"}, {"id": "carottes", "rayon": "Fruits & légumes", "al": "Carottes", "w1": "950 g", "w2": "800 g"}, {"id": "champignons-de-paris", "rayon": "Fruits & légumes", "al": "Champignons de Paris", "w1": "300 g", "w2": "300 g"}, {"id": "chou-rouge", "rayon": "Fruits & légumes", "al": "Chou rouge", "w1": null, "w2": "300 g"}, {"id": "chou-fleur", "rayon": "Fruits & légumes", "al": "Chou-fleur", "w1": "550 g", "w2": "550 g"}, {"id": "courgette", "rayon": "Fruits & légumes", "al": "Courgette", "w1": "550 g", "w2": null}, {"id": "c-leri-rave", "rayon": "Fruits & légumes", "al": "Céleri-rave", "w1": null, "w2": "500 g"}, {"id": "endives", "rayon": "Fruits & légumes", "al": "Endives", "w1": null, "w2": "550 g"}, {"id": "fenouil", "rayon": "Fruits & légumes", "al": "Fenouil", "w1": null, "w2": "550 g"}, {"id": "haricots-verts", "rayon": "Fruits & légumes", "al": "Haricots verts", "w1": "550 g", "w2": "550 g"}, {"id": "poireaux", "rayon": "Fruits & légumes", "al": "Poireaux", "w1": "300 g", "w2": "550 g"}, {"id": "poivron", "rayon": "Fruits & légumes", "al": "Poivron", "w1": "1,2 kg", "w2": "300 g"}, {"id": "potiron-courge", "rayon": "Fruits & légumes", "al": "Potiron / courge", "w1": null, "w2": "850 g"}, {"id": "tomate", "rayon": "Fruits & légumes", "al": "Tomate", "w1": "600 g", "w2": null}, {"id": "-pinards", "rayon": "Fruits & légumes", "al": "Épinards", "w1": "200 g", "w2": "550 g"}, {"id": "cabillaud", "rayon": "Poissonnerie", "al": "Cabillaud", "w1": null, "w2": "280 g"}, {"id": "colin-lieu-", "rayon": "Poissonnerie", "al": "Colin (lieu)", "w1": "280 g", "w2": null}, {"id": "crevettes-d-cortiqu-es", "rayon": "Poissonnerie", "al": "Crevettes décortiquées", "w1": "330 g", "w2": "330 g"}, {"id": "maquereau", "rayon": "Poissonnerie", "al": "Maquereau", "w1": "330 g", "w2": "330 g"}, {"id": "sardines", "rayon": "Poissonnerie", "al": "Sardines", "w1": "330 g", "w2": "330 g"}, {"id": "saumon", "rayon": "Poissonnerie", "al": "Saumon", "w1": "330 g", "w2": "330 g"}, {"id": "blanc-de-poulet", "rayon": "Boucherie / volaille", "al": "Blanc de poulet", "w1": "570 g", "w2": "570 g"}, {"id": "b-uf-hach-5-", "rayon": "Boucherie / volaille", "al": "Bœuf haché 5 %", "w1": "180 g", "w2": "180 g"}, {"id": "escalope-de-dinde", "rayon": "Boucherie / volaille", "al": "Escalope de dinde", "w1": "310 g", "w2": "580 g"}, {"id": "lapin", "rayon": "Boucherie / volaille", "al": "Lapin", "w1": "310 g", "w2": "310 g"}, {"id": "cottage-cheese", "rayon": "Frais / crèmerie", "al": "Cottage cheese", "w1": "350 g", "w2": "350 g"}, {"id": "jambon-blanc", "rayon": "Frais / crèmerie", "al": "Jambon blanc", "w1": "260 g", "w2": "260 g"}, {"id": "skyr-nature", "rayon": "Frais / crèmerie", "al": "Skyr nature", "w1": "1,4 kg", "w2": "1,4 kg"}, {"id": "-ufs", "rayon": "Frais / crèmerie", "al": "Œufs", "w1": "49", "w2": "49"}, {"id": "vinaigre-de-cidre", "rayon": "Épicerie", "al": "Vinaigre de cidre", "w1": "8 CAS", "w2": "8 CAS"}, {"id": "chocolat-noir-85-", "rayon": "Épicerie", "al": "Chocolat noir 85 %", "w1": "2 carré", "w2": "2 carré"}, {"id": "quinoa-cru-", "rayon": "Épicerie", "al": "Quinoa (cru)", "w1": "360 g", "w2": "240 g"}, {"id": "riz-basmati-cru-", "rayon": "Épicerie", "al": "Riz basmati (cru)", "w1": "360 g", "w2": "360 g"}, {"id": "haricots-rouges-cuits-", "rayon": "Épicerie", "al": "Haricots rouges (cuits)", "w1": "320 g", "w2": "320 g"}, {"id": "lentilles-cuites-", "rayon": "Épicerie", "al": "Lentilles (cuites)", "w1": "800 g", "w2": "800 g"}, {"id": "pois-chiches-cuits-", "rayon": "Épicerie", "al": "Pois chiches (cuits)", "w1": "800 g", "w2": "400 g"}, {"id": "huile-d-olive", "rayon": "Épicerie", "al": "Huile d'olive", "w1": "18 CAS", "w2": "16 CAS"}, {"id": "huile-de-colza", "rayon": "Épicerie", "al": "Huile de colza", "w1": "4 CAS", "w2": "6 CAS"}, {"id": "huile-de-lin", "rayon": "Épicerie", "al": "Huile de lin", "w1": null, "w2": "2 CAS"}, {"id": "huile-de-noix", "rayon": "Épicerie", "al": "Huile de noix", "w1": "4 CAS", "w2": "2 CAS"}, {"id": "amandes", "rayon": "Épicerie", "al": "Amandes", "w1": "140", "w2": "140"}, {"id": "noix-du-br-sil", "rayon": "Épicerie", "al": "Noix du Brésil", "w1": "28", "w2": "28"}], "cibles": {"rows": [["Poids (kg)", 109, 94.9], ["Taille (cm)", 175, 168], ["Âge (ans)", 29, 29], ["Facteur d'activité", 1.45, 1.4], ["Déficit visé (kcal/jour)", 900, 400], ["Protéines (g par kg)", 2, 1.6], ["Lipides (g par kg)", 0.6, 0.9]], "res": [["Métabolisme de base (kcal)", 2044, 1693], ["Maintenance estimée (kcal)", 2963, 2370], ["CIBLE CALORIES (kcal/jour)", 2063, 1970], ["CIBLE PROTÉINES (g/jour)", 218, 152], ["CIBLE LIPIDES (g/jour)", 65, 85], ["CIBLE GLUCIDES (g/jour)", 151.6, 149.3], ["Glucides en % des calories", 0.29, 0.3], ["Perte estimée (kg/semaine)", 0.82, 0.36]]}, "reperes": [{"t": "Pourquoi adapter l'alimentation", "items": [["Résistance à l'insuline", "Présente chez environ 70 % des femmes SOPK : trop d'insuline pousse les ovaires à produire plus d'androgènes (acné, pilosité, cycles irréguliers). Objectif : une glycémie stable."], ["Inflammation", "Inflammation chronique de bas grade, qui entretient la résistance à l'insuline : on privilégie les aliments anti-inflammatoires."], ["Poids", "Si surpoids, perdre 5 à 10 % du poids améliore déjà les symptômes. Mais le surpoids n'est pas la cause du SOPK, et l'objectif n'est pas de maigrir à tout prix."]]}, {"t": "L'assiette", "items": [["Composition", "½ assiette de légumes · ¼ de protéines · ¼ de féculents ou légumineuses · 1 source de bon gras."], ["Ordre de repas", "Légumes d'abord, puis protéines et bon gras, féculents en dernier : le pic de glycémie est plus faible."], ["Petit-déjeuner", "Salé, protéiné et gras (œufs) : le corps est très sensible à l'insuline le matin. Idéalement 1-2 protéines, 1-2 bons gras, 2-3 sources de fibres (d'où les légumes dans les œufs)."]]}, {"t": "Glucides & IG", "items": [["À privilégier", "Quinoa, lentilles, pois chiches, haricots rouges, patate douce, riz basmati, sarrasin, pâtes complètes al dente."], ["À limiter", "Pommes de terre (IG élevé, sauf refroidies en salade), pain blanc, riz blanc rond, céréales soufflées, semoule, pâtisseries, sucres, jus de fruits, sodas."], ["Cuisson", "Al dente : plus un féculent est cuit, plus il fait monter la glycémie."], ["Fruits", "2-3 par jour, pas trop mûrs, jamais seuls : avec des amandes, un laitage, ou après un repas riche en fibres."]]}, {"t": "Protéines & graisses", "items": [["Protéines", "À chaque repas et collation. SOVA : au moins 1 g/kg/jour pour Estelle."], ["Oméga 3", "Petits poissons gras (sardines, maquereau, hareng, anchois) au moins 2×/semaine. Saumon et thon 1×/semaine maximum (métaux lourds). Huiles de colza, noix, lin crues pour l'assaisonnement ; olive pour cuire."], ["Viandes", "Viande blanche à privilégier ; viande rouge 1×/semaine pour le fer ; charcuterie à limiter."], ["Laitiers", "Pas plus de 2 par jour (SOVA), moins si inconfort digestif."]]}, {"t": "Au quotidien", "items": [["Thé vert / café", "Plutôt 1 h après le repas : ils gênent l'absorption du fer. Les infusions, elles, ne posent pas de problème."], ["Épices", "Curcuma, cannelle, gingembre, thym, romarin, origan : riches en antioxydants."], ["Microbiote", "Prébiotiques : poireau, topinambour, artichaut, oignon, betterave. Probiotiques : légumes lacto-fermentés (choucroute, kimchi), kéfir."], ["Bouger", "10 min de marche après le repas réduit le pic de glycémie ; la musculation améliore la sensibilité à l'insuline."]]}, {"t": "Meal prep", "items": [["Contenants", "Boîtes en verre plutôt qu'en plastique, surtout pour réchauffer au micro-ondes (perturbateurs endocriniens)."], ["Portions", "Une taille de boîte par personne évite de tout repeser ; doubler les légumes dans la préparation."]]}, {"t": "État d'esprit", "items": [["Règle 80/20", "80 % d'aliments favorables, 20 % de plaisir, sans culpabilité. On parle d'habitudes, pas de régime. Intégrer les changements un par un."], ["Vigilance", "Les troubles du comportement alimentaire sont plus fréquents avec un SOPK : si l'alimentation devient source d'angoisse ou de culpabilité, en parler à un professionnel."]]}, {"t": "Ce qu'on a changé dans le menu commun", "items": [["Pour vous deux", "Pommes de terre remplacées par quinoa, riz basmati ou patate douce · légumes ajoutés aux œufs chaque matin · protéines variées sur la semaine : 3 poissons (saumon 1×, petits poissons gras 2×) + 1 poisson blanc, volailles (poulet, dinde), lapin, crevettes, bœuf 1×, légumineuses 3-4 soirs · huile de colza · thé à distance des repas."], ["Pour Estelle", "3 œufs, ~45 g de féculents crus, légumineuses et poisson en portions réduites, 3 fruits par jour toujours accompagnés, pas de fruit en dessert."]]}, {"t": "À propos des sources", "items": [["Note", "SOVA est une marque de compléments associée à une naturopathe. Les principes glycémie, protéines, oméga 3, légumes et activité rejoignent les recommandations médicales. Les conseils sur le gluten, les laitiers ou les cures (glutamine, compléments) sont moins bien étayés : à discuter avec son médecin avant de les suivre."]]}], "recettes": [["Dos de cabillaud au fenouil (et à l'orange)", "Déjeuner / dîner", "Automne", "Oui", "1 CAS d'huile au lieu de 20 cl ; 180 g de cabillaud", "Menu d'automne", "Idéal"], ["Papillote de saumon, compotée de chou rouge aux pommes", "Déjeuner", "Automne", "À adapter", "Supprimer le miel ; la pomme compte comme fruit", "Menu d'automne", "OK"], ["Rouget et topinambours au fenouil sauvage", "Déjeuner", "Automne", "Oui", "Topinambours = légume ; cuisson huile plutôt que beurre", "Menu d'automne", "Idéal"], ["Poêlée de carottes et topinambours au thym", "Accompagnement", "Automne", "Oui", "1 CAS d'huile pour la portion", "Menu d'automne", "Idéal"], ["Vapeur de carottes aux épices et jus de persil", "Accompagnement", "Automne", "Oui", null, "Menu d'automne", "OK"], ["Potiron rôti au four, ail et huile d'olive", "Accompagnement", "Automne", "Oui", null, "Menu d'automne", "OK"], ["Poêlée de butternut", "Accompagnement", "Automne", "À adapter", "Les pommes de terre remplacent le féculent (225 g)", "Menu d'automne", "OK"], ["Légumes d'automne rôtis au four", "Déjeuner", "Automne", "À adapter", "Sans vin blanc ; pommes de terre = féculent du repas", "Menu d'automne", "OK"], ["Poêlée d'endives aux cèpes et aux noisettes", "Accompagnement", "Automne", "À adapter", "Noisettes : les compter dans les oléagineux", "Menu d'automne", "OK"], ["Topinambours poêlés aux champignons", "Accompagnement", "Automne", "Oui", null, "Menu d'automne", "OK"], ["Purée de courge butternut au curry", "Accompagnement / dîner", "Automne", "À adapter", "Sans crème ; bouillon uniquement", "Menu d'automne", "OK"], ["Velouté potimarron au lait d'amande", "Dîner", "Automne", "À adapter", "Retirer la pomme de terre si féculent déjà pris", "Menu d'automne", "OK"], ["Soupe de patate douce, poireaux et coco", "Dîner", "Automne", "Occasionnel", "Lait de coco riche en graisses : ½ brique max", "Menu d'automne", "OK"], ["Velouté de carottes au curry", "Dîner", "Automne", "Oui", null, "Menu d'automne", "OK"], ["Soupe pomme, betteraves, noisettes", "Dîner", "Automne", "À adapter", "Huile de noisette = ta CAS d'huile", "Menu d'automne", "Idéal"], ["Wok fondant de légumes et poulet mariné", "Dîner (version 1)", "Automne", "À adapter", "Sauce soja à éviter (soja) ; 160 g poulet", "Menu d'automne", "OK"], ["Poulet au gingembre grillé", "Dîner (version 1)", "Automne", "À adapter", "Blanc plutôt que haut de cuisse ; sans sauce soja", "Menu d'automne", "OK"], ["Colombo de poulet au butternut", "Dîner (version 1)", "Automne", "Oui", null, "Menu d'automne", "Idéal"], ["Aubergine roulée farcie (pois chiches, tahini)", "Dîner", "Automne", "Oui", "Les pois chiches comptent dans les 250 g", "Menu d'automne", "Idéal"], ["Hachis marocain patates douces et panais", "Déjeuner", "Automne", "À adapter", "Bœuf haché 5 % ; sans sucre ni raisins secs", "Menu d'automne", "OK (sans sucre ajouté)"], ["Ceviche de poisson, citron, tomates séchées, amandes", "Déjeuner", "Automne", "Oui", "Amandes = ta collation", "Menu d'automne", "Idéal"], ["Filet de daurade aux petits légumes", "Déjeuner / dîner", "Automne", "Oui", null, "Menu d'automne", "Idéal"], ["Œuf mollet, poêlée et crème de girolles", "Déjeuner (4 œufs)", "Automne", "À adapter", "Crème liquide à remplacer par un peu de bouillon", "Menu d'automne", "OK"], ["Salade d'endives et d'avocat", "Crudités", "Automne", "Occasionnel", "Noix de cajou et avocat : petite portion", "Menu d'automne", "OK"], ["Salade de potiron rôti, féta et quinoa", "Déjeuner", "Automne", "Écart", "Féta = fromage (interdit 4 premières semaines)", "Menu d'automne", "OK (féta avec modération)"], ["Poulet à la crème et aux champignons", "—", "Automne", "Écart", "Crème + vin blanc : repas libre", "Menu d'automne", "À limiter (crème)"], ["Mac and cheese de potimarron · Gratin de butternut", "—", "Automne", "Écart", "Fromage / crème : repas libre", "Menu d'automne", "À limiter"], ["Papillote de poisson à la provençale", "Déjeuner / dîner", "Été", "Oui", null, "Menu d'été", "Idéal"], ["Filet de daurade au fenouil et aux tomates", "Déjeuner / dîner", "Été", "Oui", null, "Menu d'été", "Idéal"], ["Tian de légumes à la provençale", "Accompagnement", "Été → début automne", "Oui", null, "Menu d'été", "OK"], ["Fenouil braisé", "Accompagnement", "Été → automne", "Oui", null, "Menu d'été", "OK"], ["Aubergines grillées ail et thym", "Accompagnement", "Été → sept.", "Oui", "1 CAS d'huile", "Menu d'été", "OK"], ["Salade de haricots verts et thon", "Déjeuner", "Été → sept.", "Oui", "+ 225 g pommes de terre", "Menu d'été", "Idéal"], ["Salade de quinoa aux pois chiches et tomate", "Déjeuner", "Été", "À adapter", "Choisir quinoa OU pois chiches selon le repas", "Menu d'été", "OK"], ["Brochettes de crevettes marinées", "Déjeuner", "Été", "Oui", null, "Menu d'été", "OK"], ["Moules marinières légères", "Dîner", "Sept · Oct", "Oui", "Moules de saison en sept./oct.", "Menu d'été", "Idéal"], ["Escalope de dinde aux échalotes, poivrons, courgettes", "Dîner (version 1)", "Été → sept.", "Oui", null, "Menu d'été", "OK"], ["Blanc de poulet aux épices", "Dîner (version 1)", "Toute l'année", "Oui", null, "Menu d'été", "OK"], ["Mijoté de dinde aux poivrons", "Dîner (version 1)", "Été → sept.", "Oui", null, "Menu d'été", "OK"], ["Tagliatelles de konjac au saumon et citron", "Déjeuner / dîner", "Toute l'année", "À adapter", "Philadelphia = fromage : remplacer par du skyr", "Recettes konjac", "OK"], ["Riz de konjac sauté au poulet, poivrons, piment doux", "Dîner", "Toute l'année", "Oui", "Remplace un féculent si tu veux alléger", "Recettes konjac", "Idéal"], ["Risotto de carottes et fenouil au riz de konjac", "Dîner", "Automne", "Oui", null, "Recettes konjac", "OK"], ["Wok de shirataki aux légumes et dinde", "Dîner", "Toute l'année", "À adapter", "Sauce à base de soja : l'éviter", "Recettes konjac", "OK"], ["Soupe épicée asiatique au konjac", "Dîner", "Automne", "Oui", null, "Recettes konjac", "Idéal"], ["Tagliatelles de konjac au potiron", "Dîner", "Automne", "Oui", null, "Recettes konjac", "OK"], ["Omelette salée (légumes au choix)", "Petit-déjeuner", "Toute l'année", "Oui", "Déjà la base de vos petits-déjeuners", "Ebook SOVA", "Idéal"], ["Pancakes protéinés (œufs, banane)", "Petit-déjeuner", "Toute l'année", "À adapter", "Sans farine ni sirop pour Clément", "Ebook SOVA", "OK"], ["Tartine saumon & œufs pochés", "Petit-déjeuner", "Toute l'année", "À adapter", "Pain interdit à Clément les 4 premières semaines : servir sans pain", "Ebook SOVA", "Idéal"], ["Chia pudding", "Petit-déjeuner", "Toute l'année", "Occasionnel", "Ajouter une protéine (skyr)", "Ebook SOVA", "OK avec protéine"], ["Dahl de lentilles corail", "Dîner", "Automne", "Oui", "Lentilles = les 250 g du dîner ; lait de coco en petite quantité", "Ebook SOVA", "Idéal"], ["Curry végé (légumineuses & légumes)", "Dîner", "Toute l'année", "Oui", "Crème végétale en option, petite quantité", "Ebook SOVA", "Idéal"], ["Chili con carne", "Dîner", "Automne", "Oui", "Bœuf 5 % + haricots rouges ; viande rouge 1×/semaine", "Ebook SOVA", "Idéal"], ["Curry au poulet et riz", "Déjeuner", "Toute l'année", "Oui", "Riz basmati 75 g / 45 g", "Ebook SOVA", "Idéal"], ["Butternut farcie", "Dîner", "Automne", "Oui", "Farce poulet ou légumineuses", "Ebook SOVA", "Idéal"], ["Quinotto aux légumes", "Déjeuner", "Automne", "Oui", "Quinoa façon risotto, sans parmesan pour Clément", "Ebook SOVA", "Idéal"], ["Courgettes farcies", "Déjeuner / dîner", "Été → sept.", "Oui", null, "Ebook SOVA", "Idéal"], ["Quiche sans pâte", "Dîner", "Toute l'année", "À adapter", "Sans fromage pour Clément les 4 premières semaines", "Ebook SOVA", "OK"], ["Parmentier de poissons et légumes", "Dîner", "Automne", "À adapter", "Purée de patate douce ou de céleri plutôt que pommes de terre", "Ebook SOVA", "OK"], ["Lasagnes saumon épinards", "Déjeuner", "Toute l'année", "Occasionnel", "Pâtes + béchamel : version plaisir", "Ebook SOVA", "Plaisir"], ["Chakchouka et riz basmati", "Déjeuner", "Été → sept.", "Oui", "Œufs + poivrons + tomates", "Ebook SOVA", "Idéal"], ["Boulettes de lentilles corail aux épices", "Dîner", "Toute l'année", "Oui", null, "Ebook SOVA", "Idéal"], ["Poke bowl", "Déjeuner", "Toute l'année", "À adapter", "Sauce soja à éviter pour Clément", "Ebook SOVA", "OK"], ["Galette de sarrasin automnale", "Déjeuner", "Automne", "Occasionnel", "Sarrasin naturellement sans gluten", "Ebook SOVA", "OK"], ["Salade de quinoa", "Déjeuner", "Été → sept.", "Oui", null, "Ebook SOVA", "Idéal"], ["Brochettes de poisson à la plancha", "Déjeuner / dîner", "Été → sept.", "Oui", null, "Ebook SOVA", "Idéal"], ["Soupe de courgette et basilic", "Dîner", "Été → sept.", "Oui", null, "Ebook SOVA", "OK"], ["Pois chiches rôtis aux épices", "Collation", "Toute l'année", "Oui", "Idéal en collation salée", "Ebook SOVA", "Idéal"], ["Houmous tomates séchées & poivrons", "Collation", "Toute l'année", "Oui", "Avec des bâtonnets de légumes", "Ebook SOVA", "Idéal"], ["Tzatziki", "Collation / crudités", "Été → sept.", "Oui", "Skyr à la place du yaourt grec", "Ebook SOVA", "OK"], ["Mousse au chocolat IG bas", "Dessert", "Toute l'année", "Occasionnel", "Plaisir, dans les 20 %", "Ebook SOVA", "Plaisir"], ["Energy ball coco", "Collation", "Toute l'année", "Écart", "Contient sucres (miel/agave) : plaisir occasionnel", "Ebook SOVA", "Plaisir (sucres)"]]};
 const ALIM_SECTIONS = [
   { key: "ma-semaine", label: "Ma semaine" },
   { key: "courses", label: "Courses" },
@@ -4779,6 +5033,283 @@ const ALIM_OBJECTIFS = {
   2: "65–70 kg à terme",
 };
 
+// Suivi du poids dans le temps (11/10/2026, demande explicite) : historique de pesées par personne,
+// affiché en courbe + tableau, pour visualiser la progression vers l'objectif au fil des mois. Stocké
+// dans "poids-historique" (synchronisé) : { clement: [{date, poids}], estelle: [{date, poids}] }.
+// Objectifs court terme utilisés pour la ligne pointillée du graphique (cf. ALIM_OBJECTIFS ci-dessus).
+const POIDS_GOALS = { clement: 100, estelle: 70 };
+const POIDS_SEED = {
+  clement: [
+    { date: "2026-09-10", poids: 110 },
+    { date: "2026-10-11", poids: 109 },
+  ],
+  estelle: [
+    { date: "2026-09-10", poids: 95 },
+    { date: "2026-10-11", poids: 94.9 },
+  ],
+};
+
+function fmtDateShort(dateStr) {
+  const d = new Date(dateStr + "T00:00:00");
+  return `${d.getDate()} ${FRENCH_MONTHS[d.getMonth()].slice(0, 3)}`;
+}
+
+function usePoidsHistorique() {
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    let cancelled = false;
+    window.storage
+      .get("poids-historique")
+      .then((res) => (res ? JSON.parse(res.value) : null))
+      .catch(() => null)
+      .then((v) => {
+        if (cancelled) return;
+        if (v && ((v.clement && v.clement.length) || (v.estelle && v.estelle.length))) {
+          setData({ clement: [], estelle: [], ...v });
+        } else {
+          setData(POIDS_SEED);
+          window.storage.set("poids-historique", JSON.stringify(POIDS_SEED)).catch(() => {});
+        }
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  function addEntry(person, date, poids) {
+    setData((prev) => {
+      const current = prev || { clement: [], estelle: [] };
+      const list = (current[person] || []).filter((e) => e.date !== date);
+      list.push({ date, poids });
+      list.sort((a, b) => a.date.localeCompare(b.date));
+      const next = { ...current, [person]: list };
+      window.storage.set("poids-historique", JSON.stringify(next)).catch(() => {});
+      return next;
+    });
+  }
+
+  function removeEntry(person, date) {
+    setData((prev) => {
+      const current = prev || { clement: [], estelle: [] };
+      const next = { ...current, [person]: (current[person] || []).filter((e) => e.date !== date) };
+      window.storage.set("poids-historique", JSON.stringify(next)).catch(() => {});
+      return next;
+    });
+  }
+
+  return { data, addEntry, removeEntry };
+}
+
+function PoidsChart({ entries, accent, goal }) {
+  const [activeIdx, setActiveIdx] = useState(null);
+  if (entries.length < 2) {
+    return (
+      <p style={{ fontSize: 12, color: COLORS.muted, fontStyle: "italic", margin: "8px 0" }}>
+        Ajoute une deuxième pesée pour voir apparaître la courbe.
+      </p>
+    );
+  }
+
+  const W = 320;
+  const H = 140;
+  const padL = 8;
+  const padR = 8;
+  const padT = 14;
+  const padB = 22;
+  const times = entries.map((e) => new Date(e.date + "T00:00:00").getTime());
+  const vals = entries.map((e) => e.poids);
+  const minT = times[0];
+  const maxT = times[times.length - 1];
+  const rawMin = Math.min(...vals, goal != null ? goal : Infinity);
+  const rawMax = Math.max(...vals, goal != null ? goal : -Infinity);
+  const span = Math.max(rawMax - rawMin, 2);
+  const minV = rawMin - span * 0.18;
+  const maxV = rawMax + span * 0.18;
+
+  const x = (t) => (maxT === minT ? padL : padL + ((t - minT) / (maxT - minT)) * (W - padL - padR));
+  const y = (v) => padT + (1 - (v - minV) / (maxV - minV)) * (H - padT - padB);
+
+  const points = entries.map((e, i) => ({ ...e, x: x(times[i]), y: y(e.poids) }));
+  const path = points.map((p, i) => `${i === 0 ? "M" : "L"} ${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(" ");
+  const active = activeIdx != null ? points[activeIdx] : null;
+  const hitWidth = (W - padL - padR) / Math.max(points.length - 1, 1);
+
+  return (
+    <div style={{ position: "relative", marginTop: 8, marginBottom: 4 }}>
+      <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", height: "auto", display: "block" }}>
+        {goal != null && (
+          <>
+            <line x1={padL} x2={W - padR} y1={y(goal)} y2={y(goal)} stroke={COLORS.border} strokeWidth="1" strokeDasharray="3 3" />
+            <text x={W - padR} y={y(goal) - 4} textAnchor="end" fontSize="8" fill={COLORS.muted}>
+              Objectif {goal} kg
+            </text>
+          </>
+        )}
+        <path d={path} fill="none" stroke={accent} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        {points.map((p, i) => (
+          <circle
+            key={p.date}
+            cx={p.x}
+            cy={p.y}
+            r={i === activeIdx ? 4 : 2.5}
+            fill={i === activeIdx ? accent : COLORS.card}
+            stroke={accent}
+            strokeWidth="1.5"
+          />
+        ))}
+        {points.map((p, i) => (
+          <rect
+            key={`hit-${p.date}`}
+            x={p.x - hitWidth / 2}
+            y={0}
+            width={hitWidth}
+            height={H}
+            fill="transparent"
+            onMouseEnter={() => setActiveIdx(i)}
+            onMouseLeave={() => setActiveIdx(null)}
+            onClick={() => setActiveIdx(activeIdx === i ? null : i)}
+            style={{ cursor: "pointer" }}
+          />
+        ))}
+        <text x={points[0].x} y={H - 6} fontSize="8" fill={COLORS.muted} textAnchor="start">
+          {fmtDateShort(points[0].date)}
+        </text>
+        <text x={points[points.length - 1].x} y={H - 6} fontSize="8" fill={COLORS.muted} textAnchor="end">
+          {fmtDateShort(points[points.length - 1].date)}
+        </text>
+      </svg>
+      {active && (
+        <div
+          style={{
+            position: "absolute",
+            left: `${(active.x / W) * 100}%`,
+            top: `${(active.y / H) * 100}%`,
+            transform: "translate(-50%, -130%)",
+            background: COLORS.ink,
+            border: `1px solid ${accent}`,
+            borderRadius: 6,
+            padding: "4px 8px",
+            fontSize: 11,
+            color: COLORS.text,
+            whiteSpace: "nowrap",
+            pointerEvents: "none",
+            zIndex: 2,
+          }}
+        >
+          <div style={{ fontWeight: 600 }}>{active.poids} kg</div>
+          <div style={{ color: COLORS.muted, fontSize: 10 }}>{fmtDateShort(active.date)}</div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function PoidsCard({ person, label, accent, entries, onAdd, onRemove, goal }) {
+  const [date, setDate] = useState(dateKey(new Date()));
+  const [poids, setPoids] = useState("");
+
+  function submit(e) {
+    e.preventDefault();
+    const v = parseFloat(String(poids).replace(",", "."));
+    if (!date || isNaN(v) || v <= 0) return;
+    onAdd(person, date, v);
+    setPoids("");
+  }
+
+  const chronological = [...entries].sort((a, b) => a.date.localeCompare(b.date));
+  const recentFirst = [...chronological].reverse();
+  const last = chronological[chronological.length - 1];
+  const first = chronological[0];
+  const totalDelta = last && first && last !== first ? Math.round((last.poids - first.poids) * 10) / 10 : null;
+
+  const inputStyle = {
+    flex: "1 1 110px",
+    background: COLORS.track,
+    border: `1px solid ${COLORS.border}`,
+    borderRadius: 6,
+    padding: "6px 8px",
+    color: COLORS.text,
+    fontSize: 12,
+    fontFamily: FONT_BODY,
+  };
+
+  return (
+    <div style={{ ...alimCard, borderTop: `3px solid ${accent}` }}>
+      <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 4 }}>
+        <h3 style={{ margin: 0, fontFamily: FONT_DISPLAY, fontSize: 18, color: accent, fontWeight: 600 }}>{label}</h3>
+        {last && <span style={{ fontSize: 15, color: COLORS.text, fontWeight: 600 }}>{last.poids} kg</span>}
+      </div>
+
+      {totalDelta != null && (
+        <p style={{ fontSize: 12, color: totalDelta <= 0 ? COLORS.checked : "#E08A6E", margin: "0 0 4px" }}>
+          {totalDelta <= 0 ? "↓" : "↑"} {Math.abs(totalDelta)} kg depuis le {fmtDateShort(first.date)}
+        </p>
+      )}
+
+      <PoidsChart entries={chronological} accent={accent} goal={goal} />
+
+      <form onSubmit={submit} style={{ display: "flex", gap: 6, marginTop: 10, marginBottom: 12, flexWrap: "wrap" }}>
+        <input type="date" value={date} onChange={(e) => setDate(e.target.value)} style={inputStyle} />
+        <input
+          type="number"
+          step="0.1"
+          inputMode="decimal"
+          placeholder="Poids (kg)"
+          value={poids}
+          onChange={(e) => setPoids(e.target.value)}
+          style={{ ...inputStyle, flex: "1 1 90px" }}
+        />
+        <button
+          type="submit"
+          style={{
+            flexShrink: 0, background: accent, border: "none", borderRadius: 6, padding: "6px 14px",
+            color: COLORS.ink, fontSize: 12, fontWeight: 600, cursor: "pointer", fontFamily: FONT_BODY,
+          }}
+        >
+          Ajouter
+        </button>
+      </form>
+
+      {recentFirst.length > 0 && (
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, maxHeight: 160, overflowY: "auto" }}>
+          {recentFirst.map((e) => (
+            <div
+              key={e.date}
+              style={{ display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: 12, padding: "4px 0", borderTop: `1px solid ${COLORS.track}` }}
+            >
+              <span style={{ color: COLORS.muted }}>{fmtDateShort(e.date)}</span>
+              <span style={{ color: COLORS.text, fontWeight: 500 }}>{e.poids} kg</span>
+              <button
+                onClick={() => onRemove(person, e.date)}
+                aria-label="Supprimer cette pesée"
+                style={{ background: "none", border: "none", color: COLORS.muted, cursor: "pointer", padding: "0 0 0 8px", fontSize: 13, lineHeight: 1 }}
+              >
+                ✕
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function PoidsHistoriqueSection() {
+  const { data, addEntry, removeEntry } = usePoidsHistorique();
+  if (!data) return null;
+  return (
+    <div>
+      <div style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: COLORS.text, marginBottom: 12 }}>
+        Évolution du poids
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 12, marginBottom: 16 }}>
+        <PoidsCard person="clement" label="Clément" accent={COLORS.gold} entries={data.clement} onAdd={addEntry} onRemove={removeEntry} goal={POIDS_GOALS.clement} />
+        <PoidsCard person="estelle" label="Estelle" accent="#7FBBAE" entries={data.estelle} onAdd={addEntry} onRemove={removeEntry} goal={POIDS_GOALS.estelle} />
+      </div>
+    </div>
+  );
+}
+
 function AlimCibles() {
   const c = ALIM_DATA.cibles;
   const fmt = (label, v) => {
@@ -4808,6 +5339,7 @@ function AlimCibles() {
           </div>
         ))}
       </div>
+      <PoidsHistoriqueSection />
       <div style={{ ...alimCard, borderLeft: "3px solid #7FBBAE", marginBottom: 16 }}>
         <div style={{ fontSize: 14, fontWeight: 600, color: COLORS.text, marginBottom: 4 }}>Cure Myo-inositol — Estelle</div>
         <p style={{ fontSize: 13, color: COLORS.text, lineHeight: 1.6, margin: 0 }}>
@@ -4832,7 +5364,7 @@ function AlimCibles() {
           </tbody>
         </table>
         <p style={{ fontSize: 12, color: "#E0A458", fontStyle: "italic", marginBottom: 0, lineHeight: 1.5 }}>
-          Taille, poids et âge d'Estelle sont des valeurs d'exemple : à mettre à jour dans le classeur Excel. Estimations indicatives, à valider avec un professionnel de santé.
+          Poids mis à jour via le suivi ci-dessus (dernière pesée de chacun). Estimations indicatives, à valider avec un professionnel de santé.
         </p>
       </div>
     </div>
@@ -7224,7 +7756,7 @@ const CHESS_RESOURCES = [
 ];
 
 const NEWS_DATA = {
-  updatedAt: "6 octobre 2026 · 06h00",
+  updatedAt: "12 octobre 2026 · 06h00",
   esport: {
     title: "Karmine Corp — LEC",
     accent: "#D98FB3",
@@ -7242,7 +7774,7 @@ const NEWS_DATA = {
         ],
       },
       international: [
-        { name: "Worlds 2026", status: "à venir", detail: "Play-in : 15-18 octobre (Riot Games Arena, Los Angeles) · Phase Swiss : 23-31 octobre (Allen, Texas) · Finale : 14 novembre (Barclays Center, Brooklyn). Après sa 3e place en LEC Summer, Karmine Corp (LEC #3) passe par le Play-In (double élimination en BO5, une seule équipe qualifiée pour la phase principale) ; G2 et Movistar KOI sont qualifiés directement." },
+        { name: "Worlds 2026", status: "à venir", detail: "Play-in : 15-18 octobre (Riot Games Arena, Los Angeles) · Phase Swiss : 23-31 octobre (Allen, Texas) · Finale : 14 novembre (Barclays Center, Brooklyn). Après sa 3e place en LEC Summer, Karmine Corp (LEC #3) passe par le Play-In (double élimination en BO5, une seule équipe qualifiée pour la phase principale) ; G2 et Movistar KOI sont qualifiés directement. Tirage du 10 octobre : KC affronte Cloud9 au 1er tour, le 15 octobre (vers 20h00, heure de Paris, selon Leaguepedia)." },
         { name: "Valorant Champions 2026 (Shanghai)", status: "en cours", detail: "Jusqu'au 18 octobre (playoffs en cours). Karmine Corp est éliminée en phase de groupes (9e-12e) : victoire 2-0 contre Xi Lai Gaming, puis défaites face à NRG et Nongshim RedForce (1-2, le 3 octobre)." },
         { name: "RLCS World Championship 2026", status: "terminé", detail: "Vainqueur : Team Falcons, 4-0 en finale face à Spacestation (Fort Worth). Karmine Corp, 1re de son groupe, a été éliminée en demi-finale par Falcons (4-2)." },
         { name: "MSI 2026", status: "terminé", detail: "Vainqueur : Hanwha Life Esports (LCK), 3-2 en finale face à Bilibili Gaming (LPL)" },
@@ -7294,16 +7826,16 @@ const NEWS_DATA = {
         url: "https://www.team-aaa.com/fr/actualite/valorant-champions-2026-la-desillusion-karmine-corp-eliminee-des-la-phase-de-groupes_137223",
       },
       {
-        headline: "Contre Nongshim, la KC avait pourtant bien commencé",
-        summary: "Lors du match décisif du groupe D, la Karmine Corp a remporté Sunset (13-9) avant de s'effondrer sur Summit (5-13) et Haven (6-13).",
-        source: "Optistream",
-        url: "https://optistream.fr/karmine-corp-eliminee-valorant-champions-2026/",
+        headline: "Worlds LoL : la Karmine Corp affrontera Cloud9 au 1er tour du Play-In",
+        summary: "Le tirage officiel, annoncé le 10 octobre, oppose l'Europe à l'Amérique du Nord dès l'ouverture du Play-In à Los Angeles, le 15 octobre, en BO5.",
+        source: "Happy Gamer",
+        url: "https://happygamer.com/karmine-corp-vs-cloud9-worlds-2026-play-ins-round-1-167726/",
       },
       {
-        headline: "Worlds LoL : le Play-In de la KC débute le 15 octobre",
-        summary: "3e de la LEC, la Karmine Corp passera par le Play-In à Los Angeles (15-18 octobre), un format court et impitoyable ; les adversaires et horaires précis ne sont pas encore publiés.",
-        source: "Power Up Gaming",
-        url: "https://powerupgaming.co.uk/2026/09/15/worlds-2026-has-made-its-opening-stage-brutally-unforgiving/",
+        headline: "Play-In : une seule place pour la phase Swiss",
+        summary: "Le Play-In se joue en double élimination, tous les matchs en BO5 ; seul le vainqueur rejoint la phase Swiss qui commence le 23 octobre au Texas.",
+        source: "Esports.net",
+        url: "https://www.esports.net/news/gaming/worlds-2026-play-in-bracket/",
       },
     ],
   },
@@ -7315,50 +7847,50 @@ const NEWS_DATA = {
         label: "Ligue 1 2026-2027",
         highlightTeam: "Marseille",
         rows: [
-          { pos: 1, team: "Monaco", pts: 13, played: 5, wins: 4, draws: 1, losses: 0, diff: "+5" },
-          { pos: 2, team: "Lyon", pts: 11, played: 5, wins: 3, draws: 2, losses: 0, diff: "+8" },
-          { pos: 3, team: "Paris FC", pts: 11, played: 5, wins: 3, draws: 2, losses: 0, diff: "+5" },
-          { pos: 4, team: "Lille", pts: 10, played: 5, wins: 3, draws: 1, losses: 1, diff: "+4" },
-          { pos: 5, team: "Rennes", pts: 10, played: 5, wins: 3, draws: 1, losses: 1, diff: "-1" },
-          { pos: 6, team: "PSG", pts: 8, played: 5, wins: 2, draws: 2, losses: 1, diff: "+1" },
-          { pos: 7, team: "Angers", pts: 7, played: 5, wins: 2, draws: 1, losses: 2, diff: "+1" },
-          { pos: 8, team: "Strasbourg", pts: 7, played: 5, wins: 2, draws: 1, losses: 2, diff: "0" },
-          { pos: 9, team: "Le Mans", pts: 6, played: 5, wins: 1, draws: 3, losses: 1, diff: "0" },
-          { pos: 10, team: "Auxerre", pts: 6, played: 5, wins: 2, draws: 0, losses: 3, diff: "-5" },
-          { pos: 11, team: "Brest", pts: 5, played: 5, wins: 1, draws: 2, losses: 2, diff: "-1" },
-          { pos: 12, team: "Lorient", pts: 5, played: 5, wins: 1, draws: 2, losses: 2, diff: "-1" },
-          { pos: 13, team: "Toulouse", pts: 5, played: 5, wins: 1, draws: 2, losses: 2, diff: "-2" },
-          { pos: 14, team: "Nice", pts: 5, played: 5, wins: 1, draws: 2, losses: 2, diff: "-3" },
-          { pos: 15, team: "Lens", pts: 4, played: 5, wins: 1, draws: 1, losses: 3, diff: "0" },
-          { pos: 16, team: "Troyes", pts: 4, played: 5, wins: 1, draws: 1, losses: 3, diff: "-7" },
-          { pos: 17, team: "Marseille", pts: 3, played: 5, wins: 1, draws: 0, losses: 4, diff: "-1" },
-          { pos: 18, team: "Le Havre", pts: 2, played: 5, wins: 0, draws: 2, losses: 3, diff: "-3" },
+          { pos: 1, team: "Monaco", pts: 14, played: 6, wins: 4, draws: 2, losses: 0, diff: "+5" },
+          { pos: 2, team: "Lille", pts: 13, played: 6, wins: 4, draws: 1, losses: 1, diff: "+5" },
+          { pos: 3, team: "Rennes", pts: 13, played: 6, wins: 4, draws: 1, losses: 1, diff: "+2" },
+          { pos: 4, team: "Lyon", pts: 11, played: 6, wins: 3, draws: 2, losses: 1, diff: "+7" },
+          { pos: 5, team: "Paris FC", pts: 11, played: 6, wins: 3, draws: 2, losses: 1, diff: "+4" },
+          { pos: 6, team: "PSG", pts: 11, played: 6, wins: 3, draws: 2, losses: 1, diff: "+3" },
+          { pos: 7, team: "Brest", pts: 8, played: 6, wins: 2, draws: 2, losses: 2, diff: "+3" },
+          { pos: 8, team: "Lorient", pts: 8, played: 6, wins: 2, draws: 2, losses: 2, diff: "0" },
+          { pos: 9, team: "Nice", pts: 8, played: 6, wins: 2, draws: 2, losses: 2, diff: "-2" },
+          { pos: 10, team: "Lens", pts: 7, played: 6, wins: 2, draws: 1, losses: 3, diff: "+1" },
+          { pos: 11, team: "Strasbourg", pts: 7, played: 6, wins: 2, draws: 1, losses: 3, diff: "-1" },
+          { pos: 12, team: "Angers", pts: 7, played: 6, wins: 2, draws: 1, losses: 3, diff: "-3" },
+          { pos: 13, team: "Marseille", pts: 6, played: 6, wins: 2, draws: 0, losses: 4, diff: "+1" },
+          { pos: 14, team: "Le Mans", pts: 6, played: 6, wins: 1, draws: 3, losses: 2, diff: "-2" },
+          { pos: 15, team: "Toulouse", pts: 6, played: 6, wins: 1, draws: 3, losses: 2, diff: "-2" },
+          { pos: 16, team: "Auxerre", pts: 6, played: 6, wins: 2, draws: 0, losses: 4, diff: "-8" },
+          { pos: 17, team: "Troyes", pts: 4, played: 6, wins: 1, draws: 1, losses: 4, diff: "-9" },
+          { pos: 18, team: "Le Havre", pts: 2, played: 6, wins: 0, draws: 2, losses: 4, diff: "-4" },
         ],
       },
       laliga: {
         label: "LaLiga 2026-2027",
         highlightTeam: "Barcelone",
         rows: [
-          { pos: 1, team: "Barcelone", pts: 21, played: 7, wins: 7, draws: 0, losses: 0, diff: "+24" },
-          { pos: 2, team: "Atlético Madrid", pts: 16, played: 7, wins: 5, draws: 1, losses: 1, diff: "+9" },
-          { pos: 3, team: "Betis", pts: 16, played: 7, wins: 5, draws: 1, losses: 1, diff: "+2" },
-          { pos: 4, team: "Real Madrid", pts: 15, played: 7, wins: 5, draws: 0, losses: 2, diff: "+10" },
+          { pos: 1, team: "Barcelone", pts: 24, played: 8, wins: 8, draws: 0, losses: 0, diff: "+27" },
+          { pos: 2, team: "Atlético Madrid", pts: 19, played: 8, wins: 6, draws: 1, losses: 1, diff: "+10" },
+          { pos: 3, team: "Betis", pts: 19, played: 8, wins: 6, draws: 1, losses: 1, diff: "+5" },
+          { pos: 4, team: "Real Madrid", pts: 18, played: 8, wins: 6, draws: 0, losses: 2, diff: "+11" },
           { pos: 5, team: "Séville", pts: 13, played: 7, wins: 4, draws: 1, losses: 2, diff: "+1" },
-          { pos: 6, team: "Alavés", pts: 11, played: 7, wins: 3, draws: 2, losses: 2, diff: "+5" },
-          { pos: 7, team: "Deportivo", pts: 10, played: 7, wins: 2, draws: 4, losses: 1, diff: "+2" },
-          { pos: 8, team: "Real Sociedad", pts: 10, played: 7, wins: 3, draws: 1, losses: 3, diff: "-4" },
-          { pos: 9, team: "Villarreal", pts: 8, played: 7, wins: 2, draws: 2, losses: 3, diff: "+1" },
+          { pos: 6, team: "Real Sociedad", pts: 13, played: 8, wins: 4, draws: 1, losses: 3, diff: "-3" },
+          { pos: 7, team: "Alavés", pts: 11, played: 8, wins: 3, draws: 2, losses: 3, diff: "+4" },
+          { pos: 8, team: "Deportivo", pts: 10, played: 8, wins: 2, draws: 4, losses: 2, diff: "+1" },
+          { pos: 9, team: "Celta Vigo", pts: 8, played: 8, wins: 1, draws: 5, losses: 2, diff: "+2" },
           { pos: 10, team: "Bilbao", pts: 8, played: 6, wins: 2, draws: 2, losses: 2, diff: "+1" },
-          { pos: 11, team: "Getafe", pts: 8, played: 7, wins: 2, draws: 2, losses: 3, diff: "-3" },
-          { pos: 12, team: "Vallecano", pts: 8, played: 7, wins: 2, draws: 2, losses: 3, diff: "-5" },
-          { pos: 13, team: "Osasuna", pts: 8, played: 7, wins: 2, draws: 2, losses: 3, diff: "-7" },
-          { pos: 14, team: "Celta Vigo", pts: 7, played: 7, wins: 1, draws: 4, losses: 2, diff: "+2" },
-          { pos: 15, team: "Espanyol", pts: 7, played: 7, wins: 2, draws: 1, losses: 4, diff: "0" },
-          { pos: 16, team: "Santander", pts: 7, played: 7, wins: 2, draws: 1, losses: 4, diff: "-10" },
-          { pos: 17, team: "Levante", pts: 5, played: 6, wins: 1, draws: 2, losses: 3, diff: "-4" },
-          { pos: 18, team: "Elche", pts: 5, played: 7, wins: 1, draws: 2, losses: 4, diff: "-6" },
-          { pos: 19, team: "Valence", pts: 4, played: 7, wins: 1, draws: 1, losses: 5, diff: "-9" },
-          { pos: 20, team: "Malaga", pts: 3, played: 7, wins: 0, draws: 3, losses: 4, diff: "-9" },
+          { pos: 11, team: "Villarreal", pts: 8, played: 8, wins: 2, draws: 2, losses: 4, diff: "0" },
+          { pos: 12, team: "Espanyol", pts: 8, played: 8, wins: 2, draws: 2, losses: 4, diff: "0" },
+          { pos: 13, team: "Vallecano", pts: 8, played: 7, wins: 2, draws: 2, losses: 3, diff: "-5" },
+          { pos: 14, team: "Getafe", pts: 8, played: 8, wins: 2, draws: 2, losses: 4, diff: "-6" },
+          { pos: 15, team: "Santander", pts: 8, played: 8, wins: 2, draws: 2, losses: 4, diff: "-10" },
+          { pos: 16, team: "Osasuna", pts: 8, played: 8, wins: 2, draws: 2, losses: 4, diff: "-10" },
+          { pos: 17, team: "Elche", pts: 6, played: 8, wins: 1, draws: 3, losses: 4, diff: "-6" },
+          { pos: 18, team: "Levante", pts: 5, played: 6, wins: 1, draws: 2, losses: 3, diff: "-4" },
+          { pos: 19, team: "Valence", pts: 5, played: 8, wins: 1, draws: 2, losses: 5, diff: "-9" },
+          { pos: 20, team: "Malaga", pts: 4, played: 8, wins: 0, draws: 4, losses: 4, diff: "-9" },
         ],
       },
     },
@@ -7366,12 +7898,12 @@ const NEWS_DATA = {
       {
         name: "Ligue des champions — Barcelone",
         status: "en cours",
-        detail: "Phase de ligue depuis le 9 septembre. J1 : Barcelone 5-1 Feyenoord. Prochains matchs : Galatasaray - Barcelone le 13 octobre, puis PSG - Barcelone le 20 octobre.",
+        detail: "Phase de ligue depuis le 9 septembre. J1 : Barcelone 5-1 Feyenoord. Prochains matchs : Galatasaray - Barcelone ce mardi 13 octobre (21h00, RAMS Park, Istanbul), puis PSG - Barcelone le 20 octobre et Barcelone - Aston Villa le 3 novembre.",
       },
       {
         name: "Ligue Europa — OM",
         status: "en cours",
-        detail: "Phase de ligue (8 journées, jusqu'au 28 janvier 2027). J1 : Besiktas 4-1 OM (défaite le 17 septembre à Istanbul). Prochain match : OM - Olympiakos le 15 octobre (21h), puis Bayer Leverkusen - OM le 5 novembre (21h).",
+        detail: "Phase de ligue (8 journées, jusqu'au 28 janvier 2027). J1 : Besiktas 4-1 OM (défaite le 17 septembre à Istanbul). Prochain match : OM - Olympiakos ce jeudi 15 octobre (21h, Vélodrome, Canal+), puis Bayer Leverkusen - OM le 5 novembre (21h). Autres adversaires de la phase de ligue : Anderlecht, Celta Vigo et Levski Sofia à domicile ; Celtic, Sturm Graz à l'extérieur.",
       },
     ],
     clubs: [
@@ -7380,22 +7912,22 @@ const NEWS_DATA = {
         logo: "https://commons.wikimedia.org/wiki/Special:FilePath/Olympique_Marseille_logo.svg",
         items: [
           {
-            headline: "Højbjerg blessé avec le Danemark, incertain pour Troyes",
-            summary: "Le milieu danois, titulaire lors de tous les matchs de Ligue 1, est sorti dès la 8e minute contre le pays de Galles avec une douleur à l'arrière de la cuisse ; sa présence à Troyes dimanche (20h45) reste incertaine.",
-            source: "Football Club de Marseille",
-            url: "https://www.footballclubdemarseille.fr/om-actualites/om-hojbjerg-inquiete-leccese-brille-encore-et-le-velodrome-dans-le-top-mondial-les-3-infos-de-ce-lundi.html",
+            headline: "L'OM s'impose 2-0 à Troyes et met fin à sa série noire",
+            summary: "Harit (50e) puis Abdelli sur penalty (90e+8) offrent à Marseille sa première victoire en Ligue 1 depuis le 21 août, après quatre défaites de rang.",
+            source: "Eurosport",
+            url: "https://www.eurosport.fr/football/ligue-1/2026-2027/ligue-1-dans-la-douleur-lom-gagne-a-troyes-et-respire-enfin-pour-clore-la-6e-journee_sto23344893/story.shtml",
           },
           {
-            headline: "Milan Leccese, 17 ans, continue de briller avec la réserve",
-            summary: "L'international U19 a marqué et délivré une passe décisive lors de la victoire 3-0 de la réserve contre le Gallia Club Lucciana.",
-            source: "Football Club de Marseille",
-            url: "https://www.footballclubdemarseille.fr/om-actualites/om-hojbjerg-inquiete-leccese-brille-encore-et-le-velodrome-dans-le-top-mondial-les-3-infos-de-ce-lundi.html",
+            headline: "Un succès dans la douleur : 5 tirs pour l'OM, 15 pour Troyes",
+            summary: "Après une première période très pauvre, l'OM a souffert mais remonte à la 13e place avec 6 points, sorti de la zone rouge.",
+            source: "ICI Provence",
+            url: "https://www.ici.fr/provence-alpes-cote-d-azur/bouches-du-rhone-13/marseille/direct-ligue-1-suivez-le-deplacement-de-l-om-a-troyes-sur-ici-provence-6391262",
           },
           {
-            headline: "L'OM 17e de Ligue 1 avant le déplacement à Troyes",
-            summary: "Avec 3 points en 5 journées (1 victoire, 4 défaites), Marseille reprend le championnat dimanche 11 octobre à Troyes, puis reçoit l'Olympiakos en Ligue Europa le 15 octobre.",
-            source: "Footmercato",
-            url: "https://www.footmercato.net/club/om/calendrier",
+            headline: "OM - Olympiakos jeudi : le club mise sur un Vélodrome plein",
+            summary: "Pour lancer sa campagne européenne à domicile jeudi (21h), l'OM propose des places dès 18 € et un pack de quatre places à 60 € ; la DNLH surveille de près la venue des supporters grecs.",
+            source: "Made in Marseille",
+            url: "https://madeinmarseille.net/actualite/212171-om-olympiakos-europa-ligue-cepac-velodrome/",
           },
         ],
       },
@@ -7404,22 +7936,22 @@ const NEWS_DATA = {
         logo: "https://commons.wikimedia.org/wiki/Special:FilePath/Fc_barca.png",
         items: [
           {
-            headline: "Le Barça reprend l'entraînement avant Getafe, Eric Garcia rassure",
-            summary: "Les Catalans préparent la réception de Getafe samedi ; Eric Garcia s'est entraîné avec le groupe après une gêne au genou ressentie avec l'Espagne.",
-            source: "Barça Blaugranes",
-            url: "https://www.barcablaugranes.com/barcelona-news/134302/fc-barcelona-news-6-october-2026-preparations-getafe-eric-garcia-returns-training",
+            headline: "Le Barça bat Getafe 3-0 et reste parfait en Liga",
+            summary: "Anthony Gordon (2e), Gabriel Jesus (30e) et Jules Koundé (73e) ont marqué au Camp Nou : 8 victoires en 8 journées, une première depuis 2013-2014.",
+            source: "FC Barcelona",
+            url: "https://www.fcbarcelona.com/en/football/first-team/news/4590143/fc-barcelona-3-0-getafe-unstoppable",
           },
           {
-            headline: "Raphinha élu joueur du mois de Liga pour la deuxième fois de suite",
-            summary: "Avec 7 buts et 2 passes décisives en septembre, le capitaine du Barça devance notamment Kylian Mbappé et Jonathan David.",
-            source: "Barça Blaugranes",
-            url: "https://www.barcablaugranes.com/barcelona-news/134029/fc-barcelona-news-3-october-2026-raphinha-named-la-liga-player-of-the-month-again",
+            headline: "Cinq points d'avance en tête de la Liga",
+            summary: "Avec 24 points et 34 buts marqués, les Catalans devancent l'Atlético et le Betis (19 pts) et le Real Madrid (18 pts).",
+            source: "ESPN",
+            url: "https://www.espn.com/soccer/report/_/gameId/401882853",
           },
           {
-            headline: "Clásico féminin : le Barça écrase le Real Madrid 7-0",
-            summary: "Quadruplé de Clàudia Pina avant la pause devant 40 533 spectateurs au Spotify Camp Nou, un record d'affluence pour la Liga F.",
-            source: "Barça Blaugranes",
-            url: "https://www.barcablaugranes.com/barcelona-news/134194/fc-barcelona-news-5-october-2026-claudia-pina-shines-bright-femeni-destroy-real-madrid-el-clasico",
+            headline: "Programme chargé : Galatasaray, Betis, PSG puis le Clásico",
+            summary: "Après Istanbul mardi, le Barça se rend au Betis samedi (La Cartuja), au PSG le 20 octobre, puis reçoit le Real Madrid le 25 octobre pour le premier Clásico de la saison.",
+            source: "Sports Illustrated",
+            url: "https://www.si.com/soccer/barcelona-2026-27-la-liga-fixtures-dates-full-schedule",
           },
         ],
       },
@@ -7435,41 +7967,41 @@ const NEWS_DATA = {
         {
           name: "AFC",
           divisions: [
-            { name: "Est", teams: [{ team: "Bills", wins: 3, losses: 1, ties: 0 }, { team: "Patriots", wins: 2, losses: 2, ties: 0 }, { team: "Jets", wins: 1, losses: 3, ties: 0 }, { team: "Dolphins", wins: 0, losses: 4, ties: 0 }] },
-            { name: "Nord", teams: [{ team: "Browns", wins: 3, losses: 1, ties: 0 }, { team: "Ravens", wins: 3, losses: 1, ties: 0 }, { team: "Steelers", wins: 2, losses: 2, ties: 0 }, { team: "Bengals", wins: 2, losses: 2, ties: 0 }] },
-            { name: "Sud", teams: [{ team: "Jaguars", wins: 3, losses: 1, ties: 0 }, { team: "Colts", wins: 2, losses: 2, ties: 0 }, { team: "Texans", wins: 0, losses: 4, ties: 0 }, { team: "Titans", wins: 0, losses: 4, ties: 0 }] },
-            { name: "Ouest", teams: [{ team: "Chiefs", wins: 4, losses: 0, ties: 0 }, { team: "Raiders", wins: 3, losses: 1, ties: 0 }, { team: "Broncos", wins: 2, losses: 2, ties: 0 }, { team: "Chargers", wins: 0, losses: 4, ties: 0 }] },
+            { name: "Est", teams: [{ team: "Bills", wins: 3, losses: 1, ties: 0 }, { team: "Patriots", wins: 3, losses: 2, ties: 0 }, { team: "Jets", wins: 2, losses: 3, ties: 0 }, { team: "Dolphins", wins: 0, losses: 5, ties: 0 }] },
+            { name: "Nord", teams: [{ team: "Ravens", wins: 4, losses: 1, ties: 0 }, { team: "Browns", wins: 3, losses: 2, ties: 0 }, { team: "Steelers", wins: 3, losses: 2, ties: 0 }, { team: "Bengals", wins: 3, losses: 2, ties: 0 }] },
+            { name: "Sud", teams: [{ team: "Jaguars", wins: 4, losses: 1, ties: 0 }, { team: "Colts", wins: 2, losses: 3, ties: 0 }, { team: "Texans", wins: 1, losses: 4, ties: 0 }, { team: "Titans", wins: 0, losses: 5, ties: 0 }] },
+            { name: "Ouest", teams: [{ team: "Chiefs", wins: 4, losses: 0, ties: 0 }, { team: "Broncos", wins: 3, losses: 2, ties: 0 }, { team: "Raiders", wins: 3, losses: 2, ties: 0 }, { team: "Chargers", wins: 0, losses: 5, ties: 0 }] },
           ],
         },
         {
           name: "NFC",
           divisions: [
-            { name: "Est", teams: [{ team: "Giants", wins: 3, losses: 1, ties: 0 }, { team: "Eagles", wins: 2, losses: 2, ties: 0 }, { team: "Cowboys", wins: 2, losses: 2, ties: 0 }, { team: "Commanders", wins: 1, losses: 3, ties: 0 }] },
-            { name: "Nord", teams: [{ team: "Vikings", wins: 4, losses: 0, ties: 0 }, { team: "Bears", wins: 3, losses: 1, ties: 0 }, { team: "Lions", wins: 2, losses: 2, ties: 0 }, { team: "Packers", wins: 2, losses: 2, ties: 0 }] },
-            { name: "Sud", teams: [{ team: "Panthers", wins: 2, losses: 2, ties: 0 }, { team: "Falcons", wins: 2, losses: 2, ties: 0 }, { team: "Saints", wins: 1, losses: 3, ties: 0 }, { team: "Buccaneers", wins: 0, losses: 4, ties: 0 }] },
-            { name: "Ouest", teams: [{ team: "49ers", wins: 4, losses: 0, ties: 0 }, { team: "Seahawks", wins: 3, losses: 1, ties: 0 }, { team: "Rams", wins: 2, losses: 2, ties: 0 }, { team: "Cardinals", wins: 1, losses: 3, ties: 0 }] },
+            { name: "Est", teams: [{ team: "Giants", wins: 3, losses: 1, ties: 1 }, { team: "Eagles", wins: 2, losses: 3, ties: 0 }, { team: "Cowboys", wins: 2, losses: 3, ties: 0 }, { team: "Commanders", wins: 1, losses: 3, ties: 1 }] },
+            { name: "Nord", teams: [{ team: "Vikings", wins: 5, losses: 0, ties: 0 }, { team: "Packers", wins: 3, losses: 2, ties: 0 }, { team: "Bears", wins: 3, losses: 2, ties: 0 }, { team: "Lions", wins: 3, losses: 2, ties: 0 }] },
+            { name: "Sud", teams: [{ team: "Panthers", wins: 2, losses: 2, ties: 0 }, { team: "Falcons", wins: 2, losses: 3, ties: 0 }, { team: "Buccaneers", wins: 1, losses: 4, ties: 0 }, { team: "Saints", wins: 1, losses: 4, ties: 0 }] },
+            { name: "Ouest", teams: [{ team: "49ers", wins: 5, losses: 0, ties: 0 }, { team: "Seahawks", wins: 3, losses: 2, ties: 0 }, { team: "Rams", wins: 2, losses: 2, ties: 0 }, { team: "Cardinals", wins: 1, losses: 4, ties: 0 }] },
           ],
         },
       ],
     },
     items: [
       {
-        headline: "Chiefs, 49ers et Vikings, les trois derniers invaincus",
-        summary: "Kansas City a battu les Raiders 30-27 (177 yards au sol de Kenneth Walker III), San Francisco a dominé Denver 24-14 et Minnesota a battu Miami 15-10 : tous sont 4-0 après la semaine 4.",
-        source: "NFL.com",
-        url: "https://www.nfl.com/news/2026-nfl-season-week-4-what-we-learned-from-sunday-s-games",
-      },
-      {
-        headline: "Les Patriots font tomber les Bills, les Rams battent les Eagles",
-        summary: "New England s'est imposé 29-26 face à Buffalo et les Rams ont battu Philadelphie 24-20 ; CeeDee Lamb (17 réceptions, 189 yards) a offert la victoire aux Cowboys face aux Texans (34-30).",
+        headline: "Semaine 5 : les 49ers et les Vikings restent invaincus",
+        summary: "San Francisco a battu Seattle 32-29 au terme d'un match fou et Minnesota a dominé New Orleans 23-13 : les deux équipes sont 5-0, les Chiefs (4-0) n'ont pas encore joué leur 5e match.",
         source: "ESPN",
-        url: "https://www.espn.com/nfl/story/_/id/50077236/week-4-sunday-games-takeaways-questions-2026",
+        url: "https://www.espn.com/nfl/story/_/id/50127290/week-5-sunday-games-takeaways-questions-2026",
       },
       {
-        headline: "Les Chargers s'enfoncent à 0-4, Herbert en difficulté",
-        summary: "Battus 30-23 par Seattle, les Chargers restent sans victoire : Justin Herbert compte déjà six interceptions et l'équipe a perdu Derwin James sur blessure.",
-        source: "NFL.com",
-        url: "https://www.nfl.com/news/2026-nfl-season-week-4-what-we-learned-from-sunday-s-games",
+        headline: "Giants et Commanders se quittent sur un nul 27-27",
+        summary: "Premier match nul de la saison : Washington a gâché deux touchdowns d'avance dans le 4e quart-temps puis une occasion de gagner en prolongation ; les Ravens, eux, ont battu Atlanta 30-23 en prolongation derrière Tyler Huntley.",
+        source: "ESPN",
+        url: "https://www.espn.com/nfl/story/_/id/50127290/week-5-sunday-games-takeaways-questions-2026",
+      },
+      {
+        headline: "Drake Maye flambe, les Bucs signent leur première victoire",
+        summary: "Le QB des Patriots a lancé pour 374 yards et 4 touchdowns contre les Raiders (45-17) ; jeudi, Tampa Bay avait battu Dallas 24-16 grâce aux 165 yards au sol de Bucky Irving.",
+        source: "Buccaneers.com",
+        url: "https://www.buccaneers.com/news/takeaways-from-buccaneers-cowboys-week-5-2026",
       },
     ],
   },
@@ -7478,34 +8010,34 @@ const NEWS_DATA = {
     accent: "#7FBBAE",
     meteo: {
       ville: "Marseille",
-      resume: "Temps nuageux et sec, de 20°C le matin à 26°C l'après-midi. Vent faible (jusqu'à 17 km/h). Lever du soleil 07h41, coucher 19h10.",
+      resume: "Ensoleillé, ciel dégagé : de 11°C au petit matin à 21°C l'après-midi. Vent faible de nord-ouest (environ 10 km/h), temps sec toute la journée.",
     },
     france: [
       {
-        headline: "Mobilisation lycéenne : près de 2 000 établissements bloqués ou fermés",
-        summary: "Lycéens, étudiants, parents et syndicats enseignants manifestent ce mardi pour plus de moyens (bâtiments vétustes, remplacements, Parcoursup) ; une nouvelle journée d'action est annoncée jeudi.",
+        headline: "Primaire de la gauche : Glucksmann l'emporte dès le premier tour",
+        summary: "Raphaël Glucksmann a obtenu 66,17 % des voix, loin devant Olivier Faure (14,46 %) et Ségolène Royal (7,6 %) ; les deux se sont engagés à le soutenir pour la présidentielle 2027.",
         source: "Franceinfo",
-        url: "https://www.franceinfo.fr/societe/education/blocage-des-lycees/l-union-etudiante-et-l-usl-appellent-a-une-nouvelle-journee-d-action-jeudi-dans-le-cadre-de-la-mobilisation-des-etudiants-et-lyceens_8225116.html",
+        url: "https://www.franceinfo.fr/politique/ps/primaire-a-gauche/comment-expliquer-la-large-victoire-de-raphael-glucksmann-a-la-primaire-de-la-gauche_8233033.html",
       },
       {
-        headline: "Le château de Versailles fermé en urgence après une panne électrique",
-        summary: "Une défaillance électrique a contraint le château à fermer temporairement ses portes au public ce mardi 6 octobre.",
-        source: "France 3 Régions",
-        url: "https://france3-regions.franceinfo.fr/paris-ile-de-france/yvelines/yvelines-pourquoi-le-chateau-de-versailles-a-ferme-subitement-ses-portes-ce-mardi-3428835.html",
+        headline: "Mouvement lycéen : un « acte V » appelé mardi 13 octobre",
+        summary: "Organisations lycéennes et intersyndicale étudiante maintiennent leur appel malgré l'annonce de 3 000 professeurs remplaçants par le ministre Édouard Geffray ; les discussions reprennent ce lundi.",
+        source: "24matins",
+        url: "https://www.24matins.fr/mobilisation-lyceenne-ce-qui-peut-encore-se-jouer-mardi-13-octobre-1422073",
       },
     ],
     monde: [
       {
-        headline: "Mer Noire : un cargo civil coulé par un drone russe, deux morts",
-        summary: "Selon les autorités roumaines, la frappe a visé un navire turc transportant du maïs ; Berlin annonce dans le même temps un paquet de plus de 1,3 milliard d'euros pour l'Ukraine, dont 350 millions pour l'énergie.",
-        source: "Westfair Communications (AP)",
-        url: "https://westfaironline.com/world-news/u-s-and-world-news-for-oct-6-4/",
+        headline: "Ouragan Isaias : au moins 4 morts en Floride et en Alabama",
+        summary: "Arrivé près de Destin (Floride) vendredi soir en catégorie 2, l'ouragan a fortement endommagé Pensacola ; près de 900 000 foyers ont été privés d'électricité.",
+        source: "NPR",
+        url: "https://www.npr.org/2026/10/10/g-s1-147632/at-least-2-deaths-attributed-to-isaias-after-hurricane-bashes-florida-and-alabama",
       },
       {
-        headline: "Yémen : l'armée repousse les Houthis près de la mer Rouge",
-        summary: "Appuyées par l'aviation de la coalition saoudienne, les forces gouvernementales ont repris plusieurs villes proches du détroit de Bab el-Mandeb, une route clé pour le commerce maritime.",
-        source: "Westfair Communications (AP)",
-        url: "https://westfaironline.com/world-news/u-s-and-world-news-for-oct-6-4/",
+        headline: "Arabie saoudite : l'aéroport de Riyad de nouveau visé",
+        summary: "L'aéroport international de Riyad a été attaqué pour la deuxième journée consécutive, au lendemain d'un tir de missile houthi meurtrier ; les États-Unis évoquent une possible intervention militaire.",
+        source: "SBS News",
+        url: "https://news.sbs.co.kr/english/article.do?news_id=N1008793124",
       },
     ],
   },
@@ -7513,10 +8045,14 @@ const NEWS_DATA = {
     title: "Agenda du jour",
     accent: "#C98B6E",
     items: [
-      { time: "06h00 – 09h00", title: "🌅 Routine matin" },
-      { time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
-      { time: "17h45 – 19h30", title: "🏋️ Muscu — Fitness Park de la Valentine" },
-      { time: "19h30 – 21h30", title: "🏈 Football Américain" },
+      { time: "06h00 – 06h15", title: "🚿 Toilette & habillage" },
+      { time: "06h15 – 06h30", title: "🧘 Étirements" },
+      { time: "06h30 – 07h00", title: "🍳 Préparation repas + manger" },
+      { time: "07h00 – 07h30", title: "📖 Lecture libre" },
+      { time: "08h00 – 15h00", title: "💼 Apesanteur" },
+      { time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
+      { time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
+      { time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
       { time: "22h00 – 22h05", title: "🛏️ Au lit" },
     ],
   },
@@ -7526,7 +8062,10 @@ const NEWS_DATA = {
     // Le tri des mails non lus n'est pas fiable : cette liste sera remplacée par une sélection configurée plus tard
     // (expéditeurs/labels précis à définir avec l'utilisateur). En attendant, elle reste vide.
     curated: [],
-    leBonPote: null,
+    leBonPote: {
+      subject: "Mouvement lycéen : comment les médias invitent des intervenants tout sauf “neutres”",
+      summary: "Bon Pote dénonce les plateaux TV qui présentent comme « neutres » des intervenants politiquement engagés pour commenter le mouvement lycéen. Exemple principal : Nathanaël Combary, invité comme représentant des lycéens pour critiquer les « dérapages » du mouvement, est adhérent Renaissance, soutien de Gabriel Attal et ex-employé d'une agence de communication macroniste, tandis que le vice-président de son association milite chez LR.",
+    },
   },
 };
 
@@ -8602,13 +9141,25 @@ function ChatchatsAccueilTab({ offerStatus, onNavigate }) {
 const ESTELLE_ACCENT = "#7FBBAE";
 
 const ESTELLE_JOB_OFFERS = {
-  updatedAt: "1er octobre 2026",
+  updatedAt: "12 octobre 2026",
   domain: "Cœur de métier : architecture d'intérieur — élargi aux métiers voisins de son parcours (agencement, conception cuisine/bain, retail & visual merchandising, tertiaire, graphisme)",
   note: "Profil : Master 2 Architecture intérieure (École Bleue, titre RNCP niv. 7), ~4 ans d'expérience — hôtellerie de luxe (Plaza Athénée, Raphael, Caviar Kaspia), retail (MAC EMEA, Le Tanneur), rénovations complètes APS → EXE, DCE et suivi de chantier. AutoCAD, SketchUp, Enscape, Illustrator, Photoshop, InDesign, Lightroom, Office ; anglais professionnel. Peu d'offres « architecte d'intérieur » pures autour de Marseille : les métiers voisins y sont donc mis en avant.",
   // Offres classées par zone (marseille | hors) puis par type de poste (champ « categorie »).
   // Hors Marseille (demande du 01/10/2026) : « remote » (true/false) + « teletravail » (ce que dit l'annonce) —
   // classées en Avec / Sans télétravail ; une annonce qui ne parle pas de télétravail va dans « Sans ».
   items: [
+    {
+      "id": "estelle-cdd-1012-om-graphiste-junior",
+      "zone": "marseille",
+      "categorie": "Graphisme",
+      "title": "Graphiste Junior (H/F)",
+      "company": "Olympique de Marseille",
+      "contract": "CDD",
+      "location": "Marseille",
+      "summary": "Contenus web/réseaux sociaux et print (brochures, signalétique) dans la charte du club — Photoshop, Illustrator, InDesign, After Effects ; publié le 10 octobre.",
+      "source": "Hellowork",
+      "url": "https://www.hellowork.com/fr-fr/emplois/84309161.html"
+    },
     {
       "id": "estelle-1001-darty-concepteur",
       "zone": "marseille",
@@ -9287,7 +9838,7 @@ function EstelleMusculationTab() {
 }
 
 const CALENDAR_DATA = {
-  updatedAt: "6 octobre 2026 · 06h00",
+  updatedAt: "12 octobre 2026 · 06h00",
   events: [
     { date: "2026-10-01", time: "06h00 – 06h15", title: "🚿 Toilette & habillage" },
     { date: "2026-10-01", time: "06h15 – 06h30", title: "🧘 Étirements" },
@@ -9305,53 +9856,101 @@ const CALENDAR_DATA = {
     { date: "2026-10-02", time: "07h00 – 07h30", title: "📖 Lecture libre" },
     { date: "2026-10-02", time: "08h00 – 15h00", title: "💼 Apesanteur" },
     { date: "2026-10-02", time: "16h00 – 17h00", title: "RDV Téléphonique CCF" },
+    { date: "2026-10-02", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
+    { date: "2026-10-02", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
+    { date: "2026-10-02", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
     { date: "2026-10-04", time: "22h00 – 22h05", title: "🛏️ Au lit" },
-    { date: "2026-10-05", time: "06h00 – 09h00", title: "🌅 Routine matin" },
-    { date: "2026-10-05", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-10-05", time: "06h00 – 06h15", title: "🚿 Toilette & habillage" },
+    { date: "2026-10-05", time: "06h15 – 06h30", title: "🧘 Étirements" },
+    { date: "2026-10-05", time: "06h30 – 07h00", title: "🍳 Préparation repas + manger" },
+    { date: "2026-10-05", time: "07h00 – 07h30", title: "📖 Lecture libre" },
+    { date: "2026-10-05", time: "08h00 – 15h00", title: "💼 Apesanteur" },
+    { date: "2026-10-05", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
+    { date: "2026-10-05", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
+    { date: "2026-10-05", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
     { date: "2026-10-05", time: "22h00 – 22h05", title: "🛏️ Au lit" },
-    { date: "2026-10-06", time: "06h00 – 09h00", title: "🌅 Routine matin" },
-    { date: "2026-10-06", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-10-06", time: "06h00 – 06h15", title: "🚿 Toilette & habillage" },
+    { date: "2026-10-06", time: "06h15 – 06h30", title: "🧘 Étirements" },
+    { date: "2026-10-06", time: "06h30 – 07h00", title: "🍳 Préparation repas + manger" },
+    { date: "2026-10-06", time: "07h00 – 07h30", title: "📖 Lecture libre" },
+    { date: "2026-10-06", time: "08h00 – 15h00", title: "💼 Apesanteur" },
     { date: "2026-10-06", time: "17h45 – 19h30", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-10-06", time: "19h30 – 21h30", title: "🏈 Football Américain" },
     { date: "2026-10-06", time: "22h00 – 22h05", title: "🛏️ Au lit" },
-    { date: "2026-10-07", time: "06h00 – 09h00", title: "🌅 Routine matin" },
-    { date: "2026-10-07", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-10-07", time: "06h00 – 06h15", title: "🚿 Toilette & habillage" },
+    { date: "2026-10-07", time: "06h15 – 06h30", title: "🧘 Étirements" },
+    { date: "2026-10-07", time: "06h30 – 07h00", title: "🍳 Préparation repas + manger" },
+    { date: "2026-10-07", time: "07h00 – 07h30", title: "📖 Lecture libre" },
+    { date: "2026-10-07", time: "08h00 – 15h00", title: "💼 Apesanteur" },
     { date: "2026-10-07", time: "17h15 – 19h00", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-10-07", time: "19h00 – 21h00", title: "🏈 Football Américain" },
     { date: "2026-10-07", time: "22h00 – 22h05", title: "🛏️ Au lit" },
-    { date: "2026-10-08", time: "06h00 – 09h00", title: "🌅 Routine matin" },
-    { date: "2026-10-08", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-10-08", time: "06h00 – 06h15", title: "🚿 Toilette & habillage" },
+    { date: "2026-10-08", time: "06h15 – 06h30", title: "🧘 Étirements" },
+    { date: "2026-10-08", time: "06h30 – 07h00", title: "🍳 Préparation repas + manger" },
+    { date: "2026-10-08", time: "07h00 – 07h30", title: "📖 Lecture libre" },
+    { date: "2026-10-08", time: "08h00 – 15h00", title: "💼 Apesanteur" },
     { date: "2026-10-08", time: "16h00 – 17h00", title: "KIA CONTROLE TECHNIQUE" },
     { date: "2026-10-08", time: "17h45 – 19h30", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-10-08", time: "19h30 – 21h30", title: "🏈 Football Américain" },
     { date: "2026-10-08", time: "22h00 – 22h05", title: "🛏️ Au lit" },
-    { date: "2026-10-09", time: "06h00 – 09h00", title: "🌅 Routine matin" },
-    { date: "2026-10-09", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-10-09", time: "06h00 – 06h15", title: "🚿 Toilette & habillage" },
+    { date: "2026-10-09", time: "06h15 – 06h30", title: "🧘 Étirements" },
+    { date: "2026-10-09", time: "06h30 – 07h00", title: "🍳 Préparation repas + manger" },
+    { date: "2026-10-09", time: "07h00 – 07h30", title: "📖 Lecture libre" },
+    { date: "2026-10-09", time: "08h00 – 15h00", title: "💼 Apesanteur" },
+    { date: "2026-10-09", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
+    { date: "2026-10-09", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
+    { date: "2026-10-09", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
     { date: "2026-10-11", time: "22h00 – 22h05", title: "🛏️ Au lit" },
-    { date: "2026-10-12", time: "06h00 – 09h00", title: "🌅 Routine matin" },
-    { date: "2026-10-12", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-10-12", time: "06h00 – 06h15", title: "🚿 Toilette & habillage" },
+    { date: "2026-10-12", time: "06h15 – 06h30", title: "🧘 Étirements" },
+    { date: "2026-10-12", time: "06h30 – 07h00", title: "🍳 Préparation repas + manger" },
+    { date: "2026-10-12", time: "07h00 – 07h30", title: "📖 Lecture libre" },
+    { date: "2026-10-12", time: "08h00 – 15h00", title: "💼 Apesanteur" },
+    { date: "2026-10-12", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
+    { date: "2026-10-12", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
+    { date: "2026-10-12", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
     { date: "2026-10-12", time: "22h00 – 22h05", title: "🛏️ Au lit" },
-    { date: "2026-10-13", time: "06h00 – 09h00", title: "🌅 Routine matin" },
-    { date: "2026-10-13", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-10-13", time: "06h00 – 06h15", title: "🚿 Toilette & habillage" },
+    { date: "2026-10-13", time: "06h15 – 06h30", title: "🧘 Étirements" },
+    { date: "2026-10-13", time: "06h30 – 07h00", title: "🍳 Préparation repas + manger" },
+    { date: "2026-10-13", time: "07h00 – 07h30", title: "📖 Lecture libre" },
+    { date: "2026-10-13", time: "08h00 – 15h00", title: "💼 Apesanteur" },
     { date: "2026-10-13", time: "17h45 – 19h30", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-10-13", time: "19h30 – 21h30", title: "🏈 Football Américain" },
     { date: "2026-10-13", time: "22h00 – 22h05", title: "🛏️ Au lit" },
-    { date: "2026-10-14", time: "06h00 – 09h00", title: "🌅 Routine matin" },
-    { date: "2026-10-14", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-10-14", time: "06h00 – 06h15", title: "🚿 Toilette & habillage" },
+    { date: "2026-10-14", time: "06h15 – 06h30", title: "🧘 Étirements" },
+    { date: "2026-10-14", time: "06h30 – 07h00", title: "🍳 Préparation repas + manger" },
+    { date: "2026-10-14", time: "07h00 – 07h30", title: "📖 Lecture libre" },
+    { date: "2026-10-14", time: "08h00 – 15h00", title: "💼 Apesanteur" },
     { date: "2026-10-14", time: "17h15 – 19h00", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-10-14", time: "19h00 – 21h00", title: "🏈 Football Américain" },
     { date: "2026-10-14", time: "22h00 – 22h05", title: "🛏️ Au lit" },
-    { date: "2026-10-15", time: "06h00 – 09h00", title: "🌅 Routine matin" },
-    { date: "2026-10-15", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-10-15", time: "06h00 – 06h15", title: "🚿 Toilette & habillage" },
+    { date: "2026-10-15", time: "06h15 – 06h30", title: "🧘 Étirements" },
+    { date: "2026-10-15", time: "06h30 – 07h00", title: "🍳 Préparation repas + manger" },
+    { date: "2026-10-15", time: "07h00 – 07h30", title: "📖 Lecture libre" },
+    { date: "2026-10-15", time: "08h00 – 15h00", title: "💼 Apesanteur" },
     { date: "2026-10-15", time: "17h45 – 19h30", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-10-15", time: "19h30 – 21h30", title: "🏈 Football Américain" },
     { date: "2026-10-15", time: "22h00 – 22h05", title: "🛏️ Au lit" },
-    { date: "2026-10-16", time: "06h00 – 09h00", title: "🌅 Routine matin" },
-    { date: "2026-10-16", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-10-16", time: "06h00 – 06h15", title: "🚿 Toilette & habillage" },
+    { date: "2026-10-16", time: "06h15 – 06h30", title: "🧘 Étirements" },
+    { date: "2026-10-16", time: "06h30 – 07h00", title: "🍳 Préparation repas + manger" },
+    { date: "2026-10-16", time: "07h00 – 07h30", title: "📖 Lecture libre" },
+    { date: "2026-10-16", time: "08h00 – 15h00", title: "💼 Apesanteur" },
+    { date: "2026-10-16", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
+    { date: "2026-10-16", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
+    { date: "2026-10-16", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
     { date: "2026-10-16", time: "19h00 – 23h00", title: "🎂 Anniversaire de Carla" },
     { date: "2026-10-18", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-10-19", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-10-19", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-10-19", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
+    { date: "2026-10-19", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
+    { date: "2026-10-19", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
     { date: "2026-10-19", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-10-20", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-10-20", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
@@ -9370,9 +9969,15 @@ const CALENDAR_DATA = {
     { date: "2026-10-22", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-10-23", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-10-23", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-10-23", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
+    { date: "2026-10-23", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
+    { date: "2026-10-23", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
     { date: "2026-10-25", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-10-26", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-10-26", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-10-26", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
+    { date: "2026-10-26", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
+    { date: "2026-10-26", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
     { date: "2026-10-26", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-10-27", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-10-27", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
@@ -9391,9 +9996,15 @@ const CALENDAR_DATA = {
     { date: "2026-10-29", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-10-30", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-10-30", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-10-30", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
+    { date: "2026-10-30", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
+    { date: "2026-10-30", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
     { date: "2026-11-01", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-02", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-02", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-11-02", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
+    { date: "2026-11-02", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
+    { date: "2026-11-02", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
     { date: "2026-11-02", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-03", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-03", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
@@ -9412,9 +10023,15 @@ const CALENDAR_DATA = {
     { date: "2026-11-05", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-06", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-06", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-11-06", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
+    { date: "2026-11-06", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
+    { date: "2026-11-06", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
     { date: "2026-11-08", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-09", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-09", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-11-09", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
+    { date: "2026-11-09", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
+    { date: "2026-11-09", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
     { date: "2026-11-09", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-10", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-10", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
@@ -9433,9 +10050,15 @@ const CALENDAR_DATA = {
     { date: "2026-11-12", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-13", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-13", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-11-13", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
+    { date: "2026-11-13", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
+    { date: "2026-11-13", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
     { date: "2026-11-15", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-16", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-16", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-11-16", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
+    { date: "2026-11-16", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
+    { date: "2026-11-16", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
     { date: "2026-11-16", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-17", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-17", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
@@ -9454,9 +10077,15 @@ const CALENDAR_DATA = {
     { date: "2026-11-19", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-20", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-20", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-11-20", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
+    { date: "2026-11-20", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
+    { date: "2026-11-20", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
     { date: "2026-11-22", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-23", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-23", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-11-23", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
+    { date: "2026-11-23", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
+    { date: "2026-11-23", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
     { date: "2026-11-23", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-24", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-24", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
@@ -9475,9 +10104,15 @@ const CALENDAR_DATA = {
     { date: "2026-11-26", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-27", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-27", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-11-27", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
+    { date: "2026-11-27", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
+    { date: "2026-11-27", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
     { date: "2026-11-29", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-30", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-30", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-11-30", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
+    { date: "2026-11-30", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
+    { date: "2026-11-30", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
     { date: "2026-11-30", time: "22h00 – 22h05", title: "🛏️ Au lit" },
   ],
 };
@@ -9749,12 +10384,11 @@ const CALENDAR_VIEWS = [
 // pour ne pas être écrasés par le rafraîchissement quotidien depuis Google Calendar.
 const SPORTS_EVENTS = [
   // Esport : uniquement les matchs/événements où joue effectivement Karmine Corp.
-  // Worlds 2026 — KC 3e de la LEC Summer, passe par le Play-In (15-18 oct., Los Angeles) ;
-  // horaires/adversaires précis pas encore publiés, repère de dates.
-  { date: "2026-10-15", time: "Toute la journée", title: "🎮 Karmine Corp — Worlds 2026, début du Play-In (Los Angeles, 15-18 oct.)" },
+  // Worlds 2026 — KC 3e de la LEC Summer, passe par le Play-In (15-18 oct., Los Angeles, double élim. BO5).
+  // 1er tour tiré le 10/10 : Cloud9. Horaire 18h00 UTC d'après Leaguepedia (à confirmer). Rounds suivants selon résultat.
+  { date: "2026-10-15", time: "20h00", title: "🎮 Worlds 2026 Play-In — Cloud9 vs Karmine Corp (BO5, horaire à confirmer)" },
 
   // Foot — Ligue 1 (OM)
-  { date: "2026-10-11", time: "20h45", title: "⚽ Ligue 1 — Troyes vs OM" },
   { date: "2026-10-18", time: "Soirée", title: "⚽ Ligue 1 — Angers vs OM" },
   { date: "2026-10-25", time: "Soirée", title: "⚽ Ligue 1 — OM vs Le Havre" },
   { date: "2026-11-01", time: "Soirée", title: "⚽ Ligue 1 — OM vs Toulouse" },
@@ -9768,10 +10402,16 @@ const SPORTS_EVENTS = [
   { date: "2026-11-26", time: "Soirée", title: "⚽ Ligue Europa — OM vs Levski Sofia" },
 
   // Foot — LaLiga & Ligue des champions (Barça)
-  { date: "2026-10-10", time: "18h30", title: "⚽ Liga — FC Barcelone vs Getafe" },
-  { date: "2026-10-13", time: "Soirée", title: "⚽ Ligue des champions — Galatasaray vs FC Barcelone" },
-  { date: "2026-10-17", time: "18h30", title: "⚽ Liga — FC Barcelone vs Betis (lieu à confirmer)" },
+  { date: "2026-10-13", time: "21h00", title: "⚽ Ligue des champions — Galatasaray vs FC Barcelone" },
+  { date: "2026-10-17", time: "18h30", title: "⚽ Liga — Betis vs FC Barcelone (La Cartuja, Séville)" },
   { date: "2026-10-20", time: "Soirée", title: "⚽ Ligue des champions — PSG vs FC Barcelone" },
+  { date: "2026-10-25", time: "Soirée", title: "⚽ Liga — FC Barcelone vs Real Madrid (Clásico)" },
+  { date: "2026-10-31", time: "Soirée", title: "⚽ Liga — FC Barcelone vs Alavés" },
+  { date: "2026-11-03", time: "Soirée", title: "⚽ Ligue des champions — FC Barcelone vs Aston Villa" },
+  { date: "2026-11-08", time: "Soirée", title: "⚽ Liga — Atlético Madrid vs FC Barcelone" },
+  { date: "2026-11-22", time: "Soirée", title: "⚽ Liga — FC Barcelone vs Villarreal" },
+  { date: "2026-11-25", time: "18h45", title: "⚽ Ligue des champions — Sabah FK vs FC Barcelone" },
+  { date: "2026-11-29", time: "Soirée", title: "⚽ Liga — Deportivo La Corogne vs FC Barcelone" },
 ];
 
 // Rappel hebdomadaire pour le programme de musculation Argonautes (voir onglet "Musculation") —
