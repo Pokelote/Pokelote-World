@@ -270,7 +270,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "60";
+const APP_VERSION = "61";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -5863,8 +5863,18 @@ function crpeEtapes(domaine) {
   return CRPE_PARCOURS.filter((e) => !e.domaine || e.domaine === d);
 }
 
-const CRPE_DEFAULT_SLOTS = [60, 0, 90, 60, 0, 120, 60]; // lun → dim, en minutes : 6h30 / semaine
-const CRPE_SLOT_STEPS = [0, 30, 45, 60, 90, 120, 180];
+// Créneaux de révision = les événements « 📖 … CRPE » de l'agenda Google de Clément (20/10/2026,
+// demande explicite), recopiés chaque jour dans CALENDAR_DATA. Au-delà de l'horizon recopié, on
+// suppose le même rythme que les séries récurrentes de l'agenda, décrites ici (lun → dim = 0 → 6).
+const CRPE_AGENDA_PATTERN = [
+  { day: 0, start: "18h15", end: "19h15" },
+  { day: 1, start: "10h00", end: "11h30" },
+  { day: 2, start: "10h00", end: "11h30" },
+  { day: 3, start: "10h00", end: "11h30" },
+  { day: 4, start: "18h15", end: "19h15" },
+  { day: 5, start: "10h00", end: "12h00", tampon: true },
+];
+const CRPE_AGENDA_URL = "https://calendar.google.com/calendar/r/week";
 
 const CRPE_DEFAULT_TODOS = [
   { id: "todo-annales", label: "Télécharger les sujets officiels 2023-2025 et leurs rapports de jury", due: "2026-10-18" },
@@ -5892,21 +5902,57 @@ function crpeFormatHeures(h) {
   return crpeFormatMinutes(Math.round(h * 60));
 }
 
-// Les créneaux d'une semaine donnée. Vacances de Noël : seules les 2 premières séances comptent, le
-// reste est facultatif. Semaine des écrits : rien. À partir de 4 créneaux, le dernier est une séance
-// tampon (rattraper ce qui a sauté, ou souffler) — c'est ce qui rend le rythme tenable.
-function crpeWeekSlots(weekStart, slots) {
+function crpeMinutes(hhmm) {
+  const [h, m] = hhmm.split("h").map((x) => parseInt(x, 10) || 0);
+  return h * 60 + m;
+}
+
+// Dernier jour recopié de l'agenda Google dans CALENDAR_DATA (la routine du matin y est tous les jours).
+function crpeAgendaHorizon() {
+  let last = "";
+  CALENDAR_DATA.events.forEach((ev) => {
+    if (/Routine matin/.test(ev.title) && ev.date > last) last = ev.date;
+  });
+  return last;
+}
+
+// Les séances d'une semaine : celles de l'agenda Google si la semaine est recopiée, sinon le rythme
+// habituel. Vacances de Noël : seules les 2 premières séances comptent, le reste est facultatif.
+// Semaine des écrits : rien. La séance « tampon » (samedi) sert à rattraper ou à souffler — c'est ce
+// qui rend le rythme tenable. key = clé de la coche, stable d'une semaine sur l'autre.
+function crpeWeekSlots(weekStart) {
   const mon = dateKey(weekStart);
-  if (mon === "2027-03-29") return { sessions: [], off: true, light: false };
+  if (mon === "2027-03-29") return { sessions: [], off: true, light: false, fromAgenda: false };
   const light = mon >= "2026-12-21" && mon <= "2027-01-03";
-  const days = slots.map((mins, i) => ({ day: i, mins })).filter((s) => s.mins > 0);
-  const withTampon = !light && days.length >= 4;
-  const sessions = days.map((s, i) => ({
-    ...s,
-    tampon: withTampon && i === days.length - 1,
-    optional: light && i >= 2,
-  }));
-  return { sessions, off: false, light };
+  const sun = dateKey(addDays(weekStart, 6));
+  // Jours déjà recopiés de l'agenda : on lit l'agenda ; jours suivants : rythme habituel.
+  const horizon = crpeAgendaHorizon();
+  const fromAgenda = sun <= horizon;
+  const agendaDays = mon > horizon ? 0 : Math.min(7, Math.round((new Date(horizon + "T00:00:00") - weekStart) / 86400000) + 1);
+  const raw = CALENDAR_DATA.events
+    .filter((ev) => ev.date >= mon && ev.date <= sun && ev.date <= horizon && /CRPE/i.test(ev.title))
+    .map((ev) => {
+      const [start, end] = ev.time.split("–").map((x) => x.trim());
+      const day = Math.round((new Date(ev.date + "T00:00:00") - weekStart) / 86400000);
+      return { day, start, end: end || start, tampon: /tampon/i.test(ev.title) };
+    })
+    .concat(CRPE_AGENDA_PATTERN.filter((p) => p.day >= agendaDays).map((p) => ({ ...p })));
+  raw.sort((a, b) => a.day - b.day || crpeMinutes(a.start) - crpeMinutes(b.start));
+  const perDay = {};
+  let worked = 0;
+  const sessions = raw.map((s) => {
+    const n = perDay[s.day] || 0;
+    perDay[s.day] = n + 1;
+    const optional = light && !s.tampon && worked >= 2;
+    if (!s.tampon) worked++;
+    return {
+      ...s,
+      mins: Math.max(0, crpeMinutes(s.end) - crpeMinutes(s.start)),
+      key: `${mon}|${s.day}${n ? `|${s.start}` : ""}`,
+      optional,
+    };
+  });
+  return { sessions, off: false, light, fromAgenda };
 }
 
 function crpeWeekTarget(sessions, light) {
@@ -5918,7 +5964,7 @@ function crpeWeekTarget(sessions, light) {
 // Répartit les étapes non terminées, dans l'ordre, sur les séances à venir (à partir d'aujourd'hui).
 // Une étape « en cours » compte pour la moitié de son temps. Renvoie le programme par semaine et la
 // date de fin projetée de chaque bloc.
-function crpeSchedule(slots, statut, domaine, weeksAhead = 45) {
+function crpeSchedule(statut, domaine, weeksAhead = 45) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const thisMonday = startOfWeekMonday(today);
@@ -5931,7 +5977,7 @@ function crpeSchedule(slots, statut, domaine, weeksAhead = 45) {
   let qi = 0;
   for (let w = 0; w < weeksAhead; w++) {
     const ws = addDays(thisMonday, w * 7);
-    const { sessions, off, light } = crpeWeekSlots(ws, slots);
+    const { sessions, off, light } = crpeWeekSlots(ws);
     const out = sessions.map((s) => {
       const parts = [];
       if (s.tampon || s.optional || (w === 0 && s.day < todayIdx)) return { ...s, parts, past: w === 0 && s.day < todayIdx };
@@ -5970,7 +6016,6 @@ function CrpeSuiviContent() {
   const [statut, setStatut] = useState(null);
   const [domaine, setDomaine] = useState(undefined);
   const [todos, setTodos] = useState(null);
-  const [slots, setSlots] = useState(null);
   const [done, setDone] = useState(null);
 
   useEffect(() => {
@@ -5979,14 +6024,12 @@ function CrpeSuiviContent() {
       crpeLoad("crpe-parcours-statut", {}),
       crpeLoad("crpe-domaine-application", null),
       crpeLoad("crpe-todos", null),
-      crpeLoad("crpe-planning-creneaux", null),
       crpeLoad("crpe-planning-fait", {}),
-    ]).then(([st, dom, t, s, d]) => {
+    ]).then(([st, dom, t, d]) => {
       if (cancelled) return;
       setStatut(st);
       setDomaine(dom);
       setTodos(t || CRPE_DEFAULT_TODOS.map((x) => ({ ...x, done: false })));
-      setSlots(Array.isArray(s) && s.length === 7 ? s : CRPE_DEFAULT_SLOTS);
       setDone(d);
     });
     return () => {
@@ -5994,7 +6037,7 @@ function CrpeSuiviContent() {
     };
   }, []);
 
-  if (!statut || domaine === undefined || !todos || !slots || !done) return null;
+  if (!statut || domaine === undefined || !todos || !done) return null;
 
   function update(setter, key) {
     return (fn) =>
@@ -6005,7 +6048,6 @@ function CrpeSuiviContent() {
       });
   }
   const updateTodos = update(setTodos, "crpe-todos");
-  const updateSlots = update(setSlots, "crpe-planning-creneaux");
   const updateDone = update(setDone, "crpe-planning-fait");
   const setEtape = (id, s) =>
     update(setStatut, "crpe-parcours-statut")((prev) => {
@@ -6021,7 +6063,7 @@ function CrpeSuiviContent() {
 
   const etapes = crpeEtapes(domaine);
   const faites = etapes.filter((e) => crpeEtapeFaite(statut[e.id])).length;
-  const schedule = crpeSchedule(slots, statut, domaine);
+  const schedule = crpeSchedule(statut, domaine);
   const dEcrits = daysUntil(CRPE_ECRITS_DATE);
   const dInscription = daysUntil(CRPE_INSCRIPTION_TASK.nextDue);
 
@@ -6044,7 +6086,7 @@ function CrpeSuiviContent() {
       <CrpeProchaineEtape etapes={etapes} statut={statut} setEtape={setEtape} />
 
       <CollapsibleSection title="Ma semaine" accent={ENSEIGNEMENT_ACCENT}>
-        <CrpePlanning slots={slots} updateSlots={updateSlots} done={done} updateDone={updateDone} schedule={schedule} etapes={etapes} />
+        <CrpePlanning done={done} updateDone={updateDone} schedule={schedule} etapes={etapes} />
       </CollapsibleSection>
 
       <CollapsibleSection title="Le parcours complet" accent={ENSEIGNEMENT_ACCENT} badge={`${faites} / ${etapes.length}`}>
@@ -6177,44 +6219,37 @@ function CrpeProchaineEtape({ etapes, statut, setEtape }) {
   );
 }
 
-function CrpePlanning({ slots, updateSlots, done, updateDone, schedule, etapes }) {
+function CrpePlanning({ done, updateDone, schedule, etapes }) {
   const thisMonday = startOfWeekMonday(new Date());
   const [offset, setOffset] = useState(0);
-  const [editing, setEditing] = useState(false);
   const weekStart = addDays(thisMonday, offset * 7);
   const weekKey = dateKey(weekStart);
   const isCurrent = offset === 0;
   const todayIdx = (new Date().getDay() + 6) % 7;
   const planned = schedule.weeks[weekKey];
-  const base = crpeWeekSlots(weekStart, slots);
+  const base = crpeWeekSlots(weekStart);
   const sessions = planned ? planned.sessions : base.sessions;
   const target = crpeWeekTarget(sessions, base.light);
-  const doneCount = sessions.filter((s) => done[`${weekKey}|${s.day}`]).length;
-  const totalMins = slots.reduce((a, b) => a + b, 0);
+  const doneCount = sessions.filter((s) => done[s.key]).length;
+  const weekMins = sessions.filter((s) => !s.tampon).reduce((a, s) => a + s.mins, 0);
 
   // Semaines tenues depuis le début du planning (semaine en cours exclue : elle n'est pas finie).
   let heldWeeks = 0;
   let pastWeeks = 0;
   for (let w = startOfWeekMonday(new Date(CRPE_PLANNING_START + "T00:00:00")); w < thisMonday; w = addDays(w, 7)) {
-    const wk = crpeWeekSlots(w, slots);
+    const wk = crpeWeekSlots(w);
     if (!wk.sessions.length) continue;
     pastWeeks++;
-    const k = dateKey(w);
-    if (wk.sessions.filter((s) => done[`${k}|${s.day}`]).length >= crpeWeekTarget(wk.sessions, wk.light)) heldWeeks++;
+    if (wk.sessions.filter((s) => done[s.key]).length >= crpeWeekTarget(wk.sessions, wk.light)) heldWeeks++;
   }
 
-  function toggle(day) {
-    const k = `${weekKey}|${day}`;
+  function toggle(k) {
     updateDone((prev) => {
       const next = { ...prev };
       if (next[k]) delete next[k];
       else next[k] = true;
       return next;
     });
-  }
-
-  function setSlot(day, mins) {
-    updateSlots((prev) => prev.map((m, i) => (i === day ? mins : m)));
   }
 
   const weekLabel = `${crpeFormatDate(weekKey)} → ${crpeFormatDate(dateKey(addDays(weekStart, 6)))}`;
@@ -6247,12 +6282,12 @@ function CrpePlanning({ slots, updateSlots, done, updateDone, schedule, etapes }
 
       <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
         {sessions.map((s) => {
-          const isDone = !!done[`${weekKey}|${s.day}`];
+          const isDone = !!done[s.key];
           const isToday = isCurrent && s.day === todayIdx;
           const parts = s.parts || [];
           return (
             <div
-              key={s.day}
+              key={s.key}
               style={{
                 display: "flex", alignItems: "flex-start", gap: 10,
                 background: COLORS.track, borderRadius: 8, padding: "10px 12px",
@@ -6261,7 +6296,7 @@ function CrpePlanning({ slots, updateSlots, done, updateDone, schedule, etapes }
               }}
             >
               <span
-                onClick={() => toggle(s.day)}
+                onClick={() => toggle(s.key)}
                 role="checkbox"
                 aria-checked={isDone}
                 style={{
@@ -6277,7 +6312,7 @@ function CrpePlanning({ slots, updateSlots, done, updateDone, schedule, etapes }
                 <div style={{ fontSize: 13, display: "flex", gap: 8, alignItems: "baseline" }}>
                   <span style={{ color: COLORS.text, fontWeight: 500 }}>{FRENCH_WEEKDAYS_SHORT[s.day]}</span>
                   <span style={{ fontSize: 11, color: COLORS.muted }}>
-                    {crpeFormatMinutes(s.mins)}
+                    {s.start}–{s.end}
                     {isToday ? " · aujourd'hui" : ""}
                   </span>
                 </div>
@@ -6316,47 +6351,12 @@ function CrpePlanning({ slots, updateSlots, done, updateDone, schedule, etapes }
         sur la suivante. Prends de l'avance si tu veux, mais ne rattrape jamais plus d'une séance par semaine (c'est le rôle du tampon).
       </p>
 
-      <button onClick={() => setEditing((e) => !e)} style={navBtn}>
-        {editing ? "Fermer" : "Régler mes créneaux"} · {crpeFormatMinutes(totalMins)} / semaine
-      </button>
-
-      {editing && (
-        <div style={{ marginTop: 12 }}>
-          <p style={{ fontSize: 12, color: COLORS.muted, lineHeight: 1.5, marginBottom: 10 }}>
-            Mets seulement le temps que tu es sûr de tenir même une semaine chargée (cours, stage). La projection du parcours
-            se met à jour tout de suite.
-          </p>
-          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-            {slots.map((mins, day) => (
-              <div key={day} style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
-                <span style={{ fontSize: 13, color: COLORS.text, width: 80 }}>{FRENCH_WEEKDAYS_LONG[day]}</span>
-                {CRPE_SLOT_STEPS.map((step) => {
-                  const active = step === mins;
-                  return (
-                    <button
-                      key={step}
-                      onClick={() => setSlot(day, step)}
-                      style={{
-                        fontSize: 11, padding: "3px 8px", borderRadius: 999, cursor: "pointer", fontFamily: FONT_BODY,
-                        border: `1px solid ${active ? darken(ENSEIGNEMENT_ACCENT, 20) : COLORS.border}`,
-                        background: active ? ENSEIGNEMENT_ACCENT : "transparent",
-                        color: active ? "white" : COLORS.muted,
-                      }}
-                    >
-                      {step ? crpeFormatMinutes(step) : "—"}
-                    </button>
-                  );
-                })}
-              </div>
-            ))}
-          </div>
-          {totalMins > 12 * 60 && (
-            <p style={{ fontSize: 12, color: "#D9A25C", marginTop: 10 }}>
-              Plus de 12h par semaine en plus du M2 : ambitieux sur la durée. Garde au moins un jour sans révision.
-            </p>
-          )}
-        </div>
-      )}
+      <div style={{ fontSize: 12, color: COLORS.muted, lineHeight: 1.5, background: COLORS.track, borderRadius: 8, padding: "10px 12px" }}>
+        📅 Ces séances sont celles de ton <a href={CRPE_AGENDA_URL} target="_blank" rel="noreferrer" style={{ color: ENSEIGNEMENT_ACCENT }}>agenda Google</a>{" "}
+        (événements « 📖 … CRPE », {crpeFormatMinutes(weekMins)} de travail cette semaine). Déplace ou supprime une séance
+        dans l'agenda : le site suit à la mise à jour du matin.
+        {!base.fromAgenda && !base.off && " Semaine pas encore recopiée de l'agenda : rythme habituel affiché."}
+      </div>
     </div>
   );
 }
@@ -9855,8 +9855,8 @@ const CALENDAR_DATA = {
     { date: "2026-10-02", time: "06h30 – 07h00", title: "🍳 Préparation repas + manger" },
     { date: "2026-10-02", time: "07h00 – 07h30", title: "📖 Lecture libre" },
     { date: "2026-10-02", time: "08h00 – 15h00", title: "💼 Apesanteur" },
-    { date: "2026-10-02", time: "16h00 – 17h00", title: "RDV Téléphonique CCF" },
     { date: "2026-10-02", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
+    { date: "2026-10-02", time: "16h00 – 17h00", title: "RDV Téléphonique CCF" },
     { date: "2026-10-02", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
     { date: "2026-10-02", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
     { date: "2026-10-04", time: "22h00 – 22h05", title: "🛏️ Au lit" },
@@ -9959,11 +9959,13 @@ const CALENDAR_DATA = {
     { date: "2026-10-20", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-10-21", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-10-21", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-10-21", time: "10h00 – 11h30", title: "📖 Révisions CRPE" },
     { date: "2026-10-21", time: "17h15 – 19h00", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-10-21", time: "19h00 – 21h00", title: "🏈 Football Américain" },
     { date: "2026-10-21", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-10-22", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-10-22", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-10-22", time: "10h00 – 11h30", title: "📖 Révisions CRPE" },
     { date: "2026-10-22", time: "17h45 – 19h30", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-10-22", time: "19h30 – 21h30", title: "🏈 Football Américain" },
     { date: "2026-10-22", time: "22h00 – 22h05", title: "🛏️ Au lit" },
@@ -9972,6 +9974,7 @@ const CALENDAR_DATA = {
     { date: "2026-10-23", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-10-23", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
     { date: "2026-10-23", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
+    { date: "2026-10-24", time: "10h00 – 12h00", title: "📖 Révisions CRPE — tampon (rattrapage ou repos)" },
     { date: "2026-10-25", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-10-26", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-10-26", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
@@ -9981,16 +9984,19 @@ const CALENDAR_DATA = {
     { date: "2026-10-26", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-10-27", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-10-27", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-10-27", time: "10h00 – 11h30", title: "📖 Révisions CRPE" },
     { date: "2026-10-27", time: "17h45 – 19h30", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-10-27", time: "19h30 – 21h30", title: "🏈 Football Américain" },
     { date: "2026-10-27", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-10-28", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-10-28", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-10-28", time: "10h00 – 11h30", title: "📖 Révisions CRPE" },
     { date: "2026-10-28", time: "17h15 – 19h00", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-10-28", time: "19h00 – 21h00", title: "🏈 Football Américain" },
     { date: "2026-10-28", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-10-29", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-10-29", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-10-29", time: "10h00 – 11h30", title: "📖 Révisions CRPE" },
     { date: "2026-10-29", time: "17h45 – 19h30", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-10-29", time: "19h30 – 21h30", title: "🏈 Football Américain" },
     { date: "2026-10-29", time: "22h00 – 22h05", title: "🛏️ Au lit" },
@@ -9999,6 +10005,7 @@ const CALENDAR_DATA = {
     { date: "2026-10-30", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-10-30", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
     { date: "2026-10-30", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
+    { date: "2026-10-31", time: "10h00 – 12h00", title: "📖 Révisions CRPE — tampon (rattrapage ou repos)" },
     { date: "2026-11-01", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-02", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-02", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
@@ -10008,16 +10015,19 @@ const CALENDAR_DATA = {
     { date: "2026-11-02", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-03", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-03", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-11-03", time: "10h00 – 11h30", title: "📖 Révisions CRPE" },
     { date: "2026-11-03", time: "17h45 – 19h30", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-03", time: "19h30 – 21h30", title: "🏈 Football Américain" },
     { date: "2026-11-03", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-04", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-04", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-11-04", time: "10h00 – 11h30", title: "📖 Révisions CRPE" },
     { date: "2026-11-04", time: "17h15 – 19h00", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-04", time: "19h00 – 21h00", title: "🏈 Football Américain" },
     { date: "2026-11-04", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-05", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-05", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-11-05", time: "10h00 – 11h30", title: "📖 Révisions CRPE" },
     { date: "2026-11-05", time: "17h45 – 19h30", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-05", time: "19h30 – 21h30", title: "🏈 Football Américain" },
     { date: "2026-11-05", time: "22h00 – 22h05", title: "🛏️ Au lit" },
@@ -10026,6 +10036,7 @@ const CALENDAR_DATA = {
     { date: "2026-11-06", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-06", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
     { date: "2026-11-06", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
+    { date: "2026-11-07", time: "10h00 – 12h00", title: "📖 Révisions CRPE — tampon (rattrapage ou repos)" },
     { date: "2026-11-08", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-09", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-09", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
@@ -10035,16 +10046,19 @@ const CALENDAR_DATA = {
     { date: "2026-11-09", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-10", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-10", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-11-10", time: "10h00 – 11h30", title: "📖 Révisions CRPE" },
     { date: "2026-11-10", time: "17h45 – 19h30", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-10", time: "19h30 – 21h30", title: "🏈 Football Américain" },
     { date: "2026-11-10", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-11", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-11", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-11-11", time: "10h00 – 11h30", title: "📖 Révisions CRPE" },
     { date: "2026-11-11", time: "17h15 – 19h00", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-11", time: "19h00 – 21h00", title: "🏈 Football Américain" },
     { date: "2026-11-11", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-12", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-12", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-11-12", time: "10h00 – 11h30", title: "📖 Révisions CRPE" },
     { date: "2026-11-12", time: "17h45 – 19h30", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-12", time: "19h30 – 21h30", title: "🏈 Football Américain" },
     { date: "2026-11-12", time: "22h00 – 22h05", title: "🛏️ Au lit" },
@@ -10053,6 +10067,7 @@ const CALENDAR_DATA = {
     { date: "2026-11-13", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-13", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
     { date: "2026-11-13", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
+    { date: "2026-11-14", time: "10h00 – 12h00", title: "📖 Révisions CRPE — tampon (rattrapage ou repos)" },
     { date: "2026-11-15", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-16", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-16", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
@@ -10062,16 +10077,19 @@ const CALENDAR_DATA = {
     { date: "2026-11-16", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-17", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-17", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-11-17", time: "10h00 – 11h30", title: "📖 Révisions CRPE" },
     { date: "2026-11-17", time: "17h45 – 19h30", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-17", time: "19h30 – 21h30", title: "🏈 Football Américain" },
     { date: "2026-11-17", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-18", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-18", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-11-18", time: "10h00 – 11h30", title: "📖 Révisions CRPE" },
     { date: "2026-11-18", time: "17h15 – 19h00", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-18", time: "19h00 – 21h00", title: "🏈 Football Américain" },
     { date: "2026-11-18", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-19", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-19", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-11-19", time: "10h00 – 11h30", title: "📖 Révisions CRPE" },
     { date: "2026-11-19", time: "17h45 – 19h30", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-19", time: "19h30 – 21h30", title: "🏈 Football Américain" },
     { date: "2026-11-19", time: "22h00 – 22h05", title: "🛏️ Au lit" },
@@ -10080,6 +10098,7 @@ const CALENDAR_DATA = {
     { date: "2026-11-20", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-20", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
     { date: "2026-11-20", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
+    { date: "2026-11-21", time: "10h00 – 12h00", title: "📖 Révisions CRPE — tampon (rattrapage ou repos)" },
     { date: "2026-11-22", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-23", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-23", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
@@ -10089,16 +10108,19 @@ const CALENDAR_DATA = {
     { date: "2026-11-23", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-24", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-24", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-11-24", time: "10h00 – 11h30", title: "📖 Révisions CRPE" },
     { date: "2026-11-24", time: "17h45 – 19h30", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-24", time: "19h30 – 21h30", title: "🏈 Football Américain" },
     { date: "2026-11-24", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-25", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-25", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-11-25", time: "10h00 – 11h30", title: "📖 Révisions CRPE" },
     { date: "2026-11-25", time: "17h15 – 19h00", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-25", time: "19h00 – 21h00", title: "🏈 Football Américain" },
     { date: "2026-11-25", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-26", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-26", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
+    { date: "2026-11-26", time: "10h00 – 11h30", title: "📖 Révisions CRPE" },
     { date: "2026-11-26", time: "17h45 – 19h30", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-26", time: "19h30 – 21h30", title: "🏈 Football Américain" },
     { date: "2026-11-26", time: "22h00 – 22h05", title: "🛏️ Au lit" },
@@ -10107,6 +10129,7 @@ const CALENDAR_DATA = {
     { date: "2026-11-27", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-27", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
     { date: "2026-11-27", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
+    { date: "2026-11-28", time: "10h00 – 12h00", title: "📖 Révisions CRPE — tampon (rattrapage ou repos)" },
     { date: "2026-11-29", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-30", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-30", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
