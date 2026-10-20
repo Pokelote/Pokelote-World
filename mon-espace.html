@@ -270,7 +270,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "63";
+const APP_VERSION = "64";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -5764,95 +5764,96 @@ const CRPE_CONSOLIDATION = [
   { id: "p-c-final", bloc: "consolidation", m: "general", title: "Dernière semaine : relire ses fiches, dormir, rien de nouveau", h: 8 },
 ];
 
-// h = heures estimées (1 séance ≈ 1h). oc = cours Objectif CRPE, pdf = fichiers de CRPE_FICHIERS.
+// h = heures estimées, calées le 20/10/2026 sur le rythme réel de Clément : une RAN de maths ≈ 2h
+// (un après-midi en fait 1 à 2), une notion de français ≈ une matinée de 2h30. oc = cours Objectif CRPE, pdf = fichiers de CRPE_FICHIERS.
 const CRPE_PARCOURS = [
   { id: "p-demarrage", bloc: "rn", m: "general", title: "Démarrer : les épreuves et la méthode", h: 3,
     todo: "Regarder comment se passent les épreuves et choisir ton domaine principal pour l'épreuve d'application.",
     oc: ["oc-les-epreuves-du-crpe", "oc-les-priorites-pour-bien-debuter-1", "oc-m2-comment-choisir-son-domaine-depreuve-dapplication", "oc-m2-kit-de-demarrage-copie-1"] },
-  { id: "p-m-operations", bloc: "rn", m: "maths", title: "Les quatre opérations", h: 6,
+  { id: "p-m-operations", bloc: "rn", m: "maths", title: "Les quatre opérations", h: 2,
     todo: "Cours RAN 3 puis tous ses exercices, corrigés à la fin.", oc: ["oc-ran-3-les-quatre-operations-proprietes-et-algorithmes-copie-8"] },
-  { id: "p-f-classes", bloc: "rn", m: "francais", title: "Les classes de mots", h: 6,
+  { id: "p-f-classes", bloc: "rn", m: "francais", title: "Les classes de mots", h: 2.5,
     todo: "Partie « classes de mots » du guide de terminologie : nom, déterminant, adjectif, pronom, verbe, adverbe, préposition, conjonction. Faire une fiche.",
     pdf: ["francais-guide-terminologie"] },
-  { id: "p-m-rationnels", bloc: "rn", m: "maths", title: "Fractions, décimaux, rationnels", h: 6,
+  { id: "p-m-rationnels", bloc: "rn", m: "maths", title: "Fractions, décimaux, rationnels", h: 2,
     todo: "Cours RAN 5 et ses exercices.", oc: ["oc-ran-5-calcul-avec-les-rationnels-copie-9"] },
-  { id: "p-f-fonctions", bloc: "rn", m: "francais", title: "Les fonctions dans la phrase", h: 6,
+  { id: "p-f-fonctions", bloc: "rn", m: "francais", title: "Les fonctions dans la phrase", h: 2.5,
     todo: "Sujet, COD, COI, attribut, compléments circonstanciels, complément du nom : guide de terminologie + exercices d'identification.",
     pdf: ["francais-guide-terminologie"] },
-  { id: "p-m-proportion", bloc: "rn", m: "maths", title: "Proportionnalité et pourcentages", h: 8,
+  { id: "p-m-proportion", bloc: "rn", m: "maths", title: "Proportionnalité et pourcentages", h: 4,
     todo: "Cours RAN 7 puis RAN 11, avec leurs exercices.", oc: ["oc-ran-7-la-proportionnalite-copie-9", "oc-ran-11-les-pourcentages-copie-6"] },
-  { id: "p-f-conjugaison", bloc: "rn", m: "francais", title: "Conjugaison : formation des temps et des modes", h: 5,
+  { id: "p-f-conjugaison", bloc: "rn", m: "francais", title: "Conjugaison : formation des temps et des modes", h: 2.5,
     todo: "Radical, terminaisons, temps simples et composés, indicatif / subjonctif / conditionnel / impératif.",
     pdf: ["francais-guide-terminologie"] },
-  { id: "p-m-geo-plane", bloc: "rn", m: "maths", title: "Bases de géométrie plane", h: 6,
+  { id: "p-m-geo-plane", bloc: "rn", m: "maths", title: "Bases de géométrie plane", h: 2,
     todo: "PDF Remise à niveau #1 (cours + 10 exercices corrigés).", oc: ["oc-ran-1-les-bases-de-la-geometrie-plane-copie-7"], pdf: ["maths-rn1-geometrie-plane"] },
-  { id: "p-f-accords", bloc: "rn", m: "francais", title: "Les accords (orthographe grammaticale)", h: 5,
+  { id: "p-f-accords", bloc: "rn", m: "francais", title: "Les accords (orthographe grammaticale)", h: 2.5,
     todo: "Accords dans le groupe nominal, sujet-verbe, participe passé (être, avoir, pronominaux)." },
-  { id: "p-m-symetries", bloc: "rn", m: "maths", title: "Symétries et polygones particuliers", h: 6,
+  { id: "p-m-symetries", bloc: "rn", m: "maths", title: "Symétries et polygones particuliers", h: 2,
     todo: "Cours RAN 2 et ses exercices.", oc: ["oc-ran-2-symetries-et-polygones-particuliers-copie-8"] },
-  { id: "p-f-phrase", bloc: "rn", m: "francais", title: "La phrase simple et complexe", h: 6,
+  { id: "p-f-phrase", bloc: "rn", m: "francais", title: "La phrase simple et complexe", h: 2.5,
     todo: "Types et formes de phrases, propositions (juxtaposées, coordonnées, subordonnées) et leurs fonctions.",
     pdf: ["francais-guide-terminologie"] },
-  { id: "p-m-arith", bloc: "rn", m: "maths", title: "Arithmétique", h: 6,
+  { id: "p-m-arith", bloc: "rn", m: "maths", title: "Arithmétique", h: 2,
     todo: "Cours RAN 4 : multiples, diviseurs, nombres premiers, PGCD.", oc: ["oc-ran-4-arithmetique-copie-9"] },
-  { id: "p-f-temps", bloc: "rn", m: "francais", title: "Valeurs des temps et des modes", h: 4,
+  { id: "p-f-temps", bloc: "rn", m: "francais", title: "Valeurs des temps et des modes", h: 2.5,
     todo: "Présent, imparfait, passé simple, passé composé dans un récit : savoir justifier l'emploi d'un temps." },
-  { id: "p-m-aires", bloc: "rn", m: "maths", title: "Aires et périmètres", h: 5,
+  { id: "p-m-aires", bloc: "rn", m: "maths", title: "Aires et périmètres", h: 2,
     todo: "Cours RAN 6 et ses exercices.", oc: ["oc-ran-6-aires-et-perimetres-de-figures-planes-copie-9"] },
-  { id: "p-f-lexique", bloc: "rn", m: "francais", title: "Lexique : formation des mots et sens", h: 5,
+  { id: "p-f-lexique", bloc: "rn", m: "francais", title: "Lexique : formation des mots et sens", h: 2.5,
     todo: "Dérivation, composition, familles de mots, polysémie, synonymie, champs lexicaux, figures de style courantes." },
-  { id: "p-m-litteral", bloc: "rn", m: "maths", title: "Calcul littéral", h: 6,
+  { id: "p-m-litteral", bloc: "rn", m: "maths", title: "Calcul littéral", h: 2,
     todo: "Cours RAN 8 et ses exercices.", oc: ["oc-ran-8-le-calcul-litteral-copie-8"] },
-  { id: "p-f-orthographe", bloc: "rn", m: "francais", title: "Orthographe lexicale et homophones", h: 4,
+  { id: "p-f-orthographe", bloc: "rn", m: "francais", title: "Orthographe lexicale et homophones", h: 2.5,
     todo: "Homophones grammaticaux (a/à, et/est, ces/ses…), lettres muettes, doubles consonnes." },
-  { id: "p-m-espace", bloc: "rn", m: "maths", title: "Géométrie dans l'espace", h: 6,
+  { id: "p-m-espace", bloc: "rn", m: "maths", title: "Géométrie dans l'espace", h: 2,
     todo: "Cours RAN 9 et ses exercices.", oc: ["oc-ran-9-la-geometrie-dans-lespace-copie-9"] },
-  { id: "p-m-equations", bloc: "rn", m: "maths", title: "Équations et fonctions", h: 6,
+  { id: "p-m-equations", bloc: "rn", m: "maths", title: "Équations et fonctions", h: 2,
     todo: "Cours RAN 10 et ses exercices.", oc: ["oc-ran-10-equations-et-fonctions-copie-9"] },
-  { id: "p-m-algo", bloc: "rn", m: "maths", title: "Tableur et algorithmique (Scratch)", h: 5,
+  { id: "p-m-algo", bloc: "rn", m: "maths", title: "Tableur et algorithmique (Scratch)", h: 2,
     todo: "Cours RAN 12 et ses exercices.", oc: ["oc-ran-12-tableur-et-algorithmique-copie-3"] },
 
-  { id: "p-m-demontrer", bloc: "cours", m: "maths", title: "Démontrer en mathématiques", h: 6,
+  { id: "p-m-demontrer", bloc: "cours", m: "maths", title: "Démontrer en mathématiques", h: 2,
     todo: "Module 1 : rédiger une démonstration courte et rigoureuse.", oc: ["oc-demontrer-en-mathematiques-copie"] },
-  { id: "p-f-textes", bloc: "cours", m: "francais", title: "Analyser et comprendre un texte", h: 8,
+  { id: "p-f-textes", bloc: "cours", m: "francais", title: "Analyser et comprendre un texte", h: 5,
     todo: "Méthode de la question de compréhension / d'analyse : repérer, citer, interpréter. S'entraîner sur la 1re partie d'un sujet zéro.",
     pdf: ["sujet-zero-francais-1"] },
-  { id: "p-m-triangle", bloc: "cours", m: "maths", title: "Géométrie du triangle (Pythagore, Thalès, trigonométrie)", h: 10,
+  { id: "p-m-triangle", bloc: "cours", m: "maths", title: "Géométrie du triangle (Pythagore, Thalès, trigonométrie)", h: 4,
     todo: "Module 2 et ses exercices.", oc: ["oc-module-2-geometrie-du-triangle-2"] },
-  { id: "p-f-argumente", bloc: "cours", m: "francais", title: "L'écrit argumenté à partir d'un corpus", h: 10,
+  { id: "p-f-argumente", bloc: "cours", m: "francais", title: "L'écrit argumenté à partir d'un corpus", h: 5,
     todo: "Méthode du plan et de la rédaction ; en rédiger un sur un sujet zéro.", pdf: ["sujet-zero-francais-2"] },
-  { id: "p-m-reels", bloc: "cours", m: "maths", title: "Calculer avec les nombres réels", h: 8,
+  { id: "p-m-reels", bloc: "cours", m: "maths", title: "Calculer avec les nombres réels", h: 3,
     todo: "Module 3 et ses exercices.", oc: ["oc-module-3-calculer-avec-les-nombres-reels-2"] },
-  { id: "p-m-stats", bloc: "cours", m: "maths", title: "Statistiques et probabilités", h: 6,
+  { id: "p-m-stats", bloc: "cours", m: "maths", title: "Statistiques et probabilités", h: 3,
     todo: "Moyenne, médiane, étendue, fréquences, probabilités simples : chapitre de ton manuel + exercices d'annales." },
-  { id: "p-m-pieges", bloc: "cours", m: "maths", title: "Les pièges de l'épreuve de maths + correction du CB0", h: 4,
+  { id: "p-m-pieges", bloc: "cours", m: "maths", title: "Les pièges de l'épreuve de maths + correction du CB0", h: 2,
     oc: ["oc-crpe-les-10-pieges-de-lepreuve-de-mathematiques-copie", "oc-m2-seminaire-de-correction-cb0"] },
 
-  { id: "p-md-intro", bloc: "didac", m: "maths", title: "Didactique des maths : introduction et esprit des programmes", h: 3,
+  { id: "p-md-intro", bloc: "didac", m: "maths", title: "Didactique des maths : introduction et esprit des programmes", h: 2,
     oc: ["oc-m2-introduction-a-la-didactique-des-mathematiques-1", "oc-m2-lesprit-des-programmes-2"] },
-  { id: "p-fd-intro", bloc: "didac", m: "francais", title: "Didactique du français : introduction et esprit des programmes", h: 5,
+  { id: "p-fd-intro", bloc: "didac", m: "francais", title: "Didactique du français : introduction et esprit des programmes", h: 2.5,
     oc: ["oc-m2-introduction-a-la-didactique-du-francais-1", "oc-m2-lesprit-des-programmes-3"] },
-  { id: "p-md-nombre", bloc: "didac", m: "maths", title: "Le nombre, de la maternelle au CM2", h: 10,
+  { id: "p-md-nombre", bloc: "didac", m: "maths", title: "Le nombre, de la maternelle au CM2", h: 5,
     oc: ["oc-m2-decouvrir-le-nombre-au-cycle-1-copie", "oc-m2-se-familiariser-avec-les-motifs-organises-copie", "oc-m2-le-nombre-au-cycle-2-copie", "oc-m2-le-nombre-au-cycle-3-copie"] },
-  { id: "p-fd-lire", bloc: "didac", m: "francais", title: "Apprendre à lire (phonologie, cycle 2, lecture à voix haute)", h: 10,
+  { id: "p-fd-lire", bloc: "didac", m: "francais", title: "Apprendre à lire (phonologie, cycle 2, lecture à voix haute)", h: 5,
     oc: ["oc-m2-enseigner-la-phonologie-en-maternelle-copie", "oc-m2-apprendre-a-lire-au-cycle-2-copie", "oc-m2-enseigner-la-lecture-a-voix-haute-copie"] },
-  { id: "p-md-calcul", bloc: "didac", m: "maths", title: "Le calcul et la résolution de problèmes", h: 12,
+  { id: "p-md-calcul", bloc: "didac", m: "maths", title: "Le calcul et la résolution de problèmes", h: 6,
     oc: ["oc-m2-le-calcul-au-cycle-2-copie", "oc-m2-le-calcul-au-cycle-3-copie", "oc-m2-utiliser-les-nombres-pour-resoudre-des-problemes-au-cycle-1-copie", "oc-m2-utiliser-les-nombres-pour-resoudre-des-problemes-au-cycle-2-copie", "oc-m2-utiliser-les-nombres-pour-resoudre-les-problemes-au-cycle-3-copie"] },
-  { id: "p-fd-comprehension", bloc: "didac", m: "francais", title: "Enseigner la compréhension", h: 7,
+  { id: "p-fd-comprehension", bloc: "didac", m: "francais", title: "Enseigner la compréhension", h: 2.5,
     oc: ["oc-m2-la-comprehension-en-maternelle-copie", "oc-m2-enseigner-la-comprehension-a-lecole-elementaire-copie"] },
-  { id: "p-md-grandeurs", bloc: "didac", m: "maths", title: "Grandeurs et mesures (cycles 1 à 3)", h: 7,
+  { id: "p-md-grandeurs", bloc: "didac", m: "maths", title: "Grandeurs et mesures (cycles 1 à 3)", h: 4,
     oc: ["oc-m2-explorer-les-grandeurs-au-cycle-1-longueur-et-masse-copie", "oc-m2-les-grandeurs-et-mesures-au-cycle-2-copie", "oc-m2-les-grandeurs-et-mesures-au-cycle-3-copie"] },
-  { id: "p-fd-ecrire", bloc: "didac", m: "francais", title: "Écrire : geste d'écriture et production d'écrits", h: 8,
+  { id: "p-fd-ecrire", bloc: "didac", m: "francais", title: "Écrire : geste d'écriture et production d'écrits", h: 5,
     oc: ["oc-m2-se-preparer-a-ecrire-en-maternelle-copie", "oc-m2-le-geste-decriture-a-lecole-copie", "oc-m2-enseigner-la-production-decrits-a-lecole-elementaire-copie"] },
-  { id: "p-md-geometrie", bloc: "didac", m: "maths", title: "Géométrie et espace (cycles 1 à 3)", h: 7,
+  { id: "p-md-geometrie", bloc: "didac", m: "maths", title: "Géométrie et espace (cycles 1 à 3)", h: 4,
     oc: ["oc-m2-les-fondamentaux-explorer-les-solides-et-formes-planes-copie", "oc-m2-la-geometrie-au-cycle-2-copie", "oc-m2-la-geometrie-au-cycle-3-copie"] },
-  { id: "p-fd-langue", bloc: "didac", m: "francais", title: "Enseigner la grammaire, l'orthographe et le vocabulaire", h: 10,
+  { id: "p-fd-langue", bloc: "didac", m: "francais", title: "Enseigner la grammaire, l'orthographe et le vocabulaire", h: 5,
     oc: ["oc-m2-enseigner-la-grammaire-a-lecole-copie", "oc-m2-enseigner-lorthographe-a-lecole-copie", "oc-m2-enseigner-le-vocabulaire-a-lecole-copie"] },
-  { id: "p-md-fractions", bloc: "didac", m: "maths", title: "Fractions, proportionnalité et données", h: 7,
+  { id: "p-md-fractions", bloc: "didac", m: "maths", title: "Fractions, proportionnalité et données", h: 4,
     oc: ["oc-m2-fractions-et-decimaux-au-cycle-2-copie", "oc-m2-enseigner-la-proportionnalite-au-cycle-3-copie", "oc-m2-organisation-et-gestion-de-donnees-au-cycle-2-copie"] },
-  { id: "p-fd-oral", bloc: "didac", m: "francais", title: "Enseigner l'oral (maternelle et élémentaire)", h: 6,
+  { id: "p-fd-oral", bloc: "didac", m: "francais", title: "Enseigner l'oral (maternelle et élémentaire)", h: 2.5,
     oc: ["oc-m2-enseigner-le-langage-oral-en-maternelle-copie", "oc-m2-enseigner-loral-a-lecole-elementaire-copie"] },
-  { id: "p-d-seance", bloc: "didac", m: "general", title: "Concevoir et animer une séance (maths puis français)", h: 6,
+  { id: "p-d-seance", bloc: "didac", m: "general", title: "Concevoir et animer une séance (maths puis français)", h: 3,
     oc: ["oc-m2-concevoir-et-animer-une-seance-en-mathematiques", "oc-m2-concevoir-et-animer-une-seance"] },
 
   { id: "p-a-hg-intro", bloc: "application", domaine: "hg", m: "application", title: "Histoire-géo-EMC : l'épreuve et la méthode", h: 6,
@@ -6026,47 +6027,74 @@ function crpeWeekTarget(sessions, light) {
 // le parcours, qui reprend sur le temps restant de la séance (h = durée réservée).
 const CRPE_SEANCES_FIXEES = [
   {
-    date: "2026-10-21", start: "09h30", h: 1.5, m: "maths",
+    date: "2026-10-20", start: "17h00", h: 0.75, m: "maths",
     title: "Auto-évaluation RAN 3 en conditions d'examen",
-    todo: "En premier : sans cours ni fiches, téléphone éteint, chrono lancé, rédigé comme sur la copie. Puis correction avec le corrigé ; sous ~70 % de réussite, repasse la RAN 3 (étape 2) en « À revoir ».",
+    todo: "Sans cours ni fiches, téléphone éteint, chrono lancé, rédigé comme sur la copie. Puis correction avec le corrigé ; sous ~70 % de réussite, repasse la RAN 3 (étape 2) en « À revoir ».",
     oc: ["oc-ran-3-les-quatre-operations-proprietes-et-algorithmes-copie-8"],
   },
 ];
 
-function crpeSchedule(statut, domaine, weeksAhead = 45) {
+// Répartit les étapes non terminées sur les séances à venir (à partir de maintenant) en deux files
+// (demande du 20/10/2026) : le matin pioche dans le français, l'après-midi et le soir dans les maths,
+// chacune dans l'ordre du parcours. Les autres étapes (méthode, application, annales mélangées,
+// consolidation, oraux) gardent leur place : elles ne passent qu'une fois tout ce qui les précède
+// planifié, et les étapes de français / maths qui les suivent les attendent. Si la file préférée est
+// vide ou bloquée, la séance prend dans l'autre plutôt que de rester vide. Une étape « en cours »
+// compte pour la moitié de son temps. Renvoie le programme par semaine et la fin projetée de chaque bloc.
+function crpeSchedule(statut, domaine, done = {}, weeksAhead = 45) {
   const now = new Date();
   const nowMins = now.getHours() * 60 + now.getMinutes();
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const thisMonday = startOfWeekMonday(today);
   const todayIdx = (today.getDay() + 6) % 7;
+  const stream = (e) => (e.m === "francais" ? "fr" : e.m === "maths" ? "ma" : "autre");
   const queue = crpeEtapes(domaine)
     .filter((e) => !crpeEtapeFaite(statut[e.id]))
-    .map((e) => ({ etape: e, left: statut[e.id] === "en-cours" ? e.h / 2 : e.h, started: false }));
+    .map((e) => ({ etape: e, stream: stream(e), left: statut[e.id] === "en-cours" ? e.h / 2 : e.h, started: false }));
+  const finished = (q) => q.left <= 0.01;
+  function eligible(i) {
+    const q = queue[i];
+    if (finished(q)) return false;
+    for (let j = 0; j < i; j++) {
+      const p = queue[j];
+      if (finished(p)) continue;
+      if (q.stream === "autre" || p.stream === "autre" || p.stream === q.stream) return false;
+    }
+    return true;
+  }
+  function pick(prefs) {
+    for (const st of prefs) {
+      for (let i = 0; i < queue.length; i++) {
+        if (queue[i].stream === st && eligible(i)) return queue[i];
+      }
+    }
+    return null;
+  }
   const weeks = {};
   const blocEnd = {};
-  let qi = 0;
   for (let w = 0; w < weeksAhead; w++) {
     const ws = addDays(thisMonday, w * 7);
     const { sessions, off, light } = crpeWeekSlots(ws);
     const out = sessions.map((s) => {
       const parts = [];
-      const past = w === 0 && (s.day < todayIdx || (s.day === todayIdx && crpeMinutes(s.end) <= nowMins));
+      // Séance finie (heure passée) ou déjà cochée : on ne lui attribue plus d'étape.
+      const past = w === 0 && (s.day < todayIdx || (s.day === todayIdx && crpeMinutes(s.end) <= nowMins) || !!done[s.key]);
       const date = dateKey(addDays(ws, s.day));
       const fixe = CRPE_SEANCES_FIXEES.find((f) => f.date === date && f.start === s.start) || null;
       if (s.tampon || s.optional || past) return { ...s, parts, past, fixe };
+      const matin = crpeMinutes(s.start) < 12 * 60 + 30;
+      const prefs = matin ? ["fr", "autre", "ma"] : ["ma", "autre", "fr"];
       let cap = s.mins / 60 - (fixe ? fixe.h : 0);
-      while (cap > 0.01 && qi < queue.length) {
-        const q = queue[qi];
+      while (cap > 0.01) {
+        const q = pick(prefs);
+        if (!q) break;
         const h = Math.min(cap, q.left);
         parts.push({ etape: q.etape, suite: q.started });
         q.started = true;
         q.left -= h;
         cap -= h;
-        if (q.left <= 0.01) {
-          blocEnd[q.etape.bloc] = dateKey(addDays(ws, s.day));
-          qi++;
-        }
+        if (finished(q)) blocEnd[q.etape.bloc] = date > (blocEnd[q.etape.bloc] || "") ? date : blocEnd[q.etape.bloc];
       }
       return { ...s, parts, fixe };
     });
@@ -6137,7 +6165,7 @@ function CrpeSuiviContent() {
 
   const etapes = crpeEtapes(domaine);
   const faites = etapes.filter((e) => crpeEtapeFaite(statut[e.id])).length;
-  const schedule = crpeSchedule(statut, domaine);
+  const schedule = crpeSchedule(statut, domaine, done);
   const dEcrits = daysUntil(CRPE_ECRITS_DATE);
   const dInscription = daysUntil(CRPE_INSCRIPTION_TASK.nextDue);
 
@@ -6392,7 +6420,11 @@ function CrpePlanning({ done, updateDone, schedule, etapes }) {
                 </div>
                 {s.tampon && <div style={{ fontSize: 13, color: COLORS.muted, marginTop: 2 }}>Tampon : rattrape une séance sautée, ou repose-toi.</div>}
                 {s.optional && <div style={{ fontSize: 13, color: COLORS.muted, marginTop: 2 }}>Facultatif.</div>}
-                {s.past && !s.tampon && <div style={{ fontSize: 12, color: COLORS.muted, marginTop: 2 }}>Séance passée — coche-la si tu l'as faite.</div>}
+                {s.past && !s.tampon && (
+                  <div style={{ fontSize: 12, color: isDone ? COLORS.checked : COLORS.muted, marginTop: 2 }}>
+                    {isDone ? "Faite ✓" : "Séance passée — coche-la si tu l'as faite."}
+                  </div>
+                )}
                 {s.fixe && (
                   <div style={{ marginTop: 3, borderLeft: `2px solid #D9A25C`, paddingLeft: 8 }}>
                     <div style={{ display: "flex", gap: 6, alignItems: "baseline", flexWrap: "wrap" }}>
@@ -10040,233 +10072,234 @@ const CALENDAR_DATA = {
     { date: "2026-10-19", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-10-20", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-10-20", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
-    { date: "2026-10-20", time: "13h30 – 17h30", title: "📖 Révisions CRPE" },
+    { date: "2026-10-20", time: "13h30 – 16h00", title: "📖 Révisions CRPE — RAN 3 (fait)" },
+    { date: "2026-10-20", time: "17h00 – 17h45", title: "📝 Révisions CRPE — Auto-évaluation RAN 3 en conditions d'examen" },
     { date: "2026-10-20", time: "17h45 – 19h30", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-10-20", time: "19h30 – 21h30", title: "🏈 Football Américain" },
     { date: "2026-10-20", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-10-21", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-10-21", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
-    { date: "2026-10-21", time: "09h30 – 12h00", title: "📖 Révisions CRPE" },
-    { date: "2026-10-21", time: "13h30 – 17h00", title: "📖 Révisions CRPE" },
+    { date: "2026-10-21", time: "09h30 – 12h00", title: "📖 Révisions CRPE — Français" },
+    { date: "2026-10-21", time: "13h30 – 17h00", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-10-21", time: "17h15 – 19h00", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-10-21", time: "19h00 – 21h00", title: "🏈 Football Américain" },
     { date: "2026-10-21", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-10-22", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-10-22", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
-    { date: "2026-10-22", time: "15h30 – 17h30", title: "📖 Révisions CRPE" },
+    { date: "2026-10-22", time: "15h30 – 17h30", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-10-22", time: "17h45 – 19h30", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-10-22", time: "19h30 – 21h30", title: "🏈 Football Américain" },
     { date: "2026-10-22", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-10-23", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-10-23", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
-    { date: "2026-10-23", time: "09h30 – 12h00", title: "📖 Révisions CRPE" },
-    { date: "2026-10-23", time: "13h30 – 15h30", title: "📖 Révisions CRPE" },
+    { date: "2026-10-23", time: "09h30 – 12h00", title: "📖 Révisions CRPE — Français" },
+    { date: "2026-10-23", time: "13h30 – 15h30", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-10-23", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-10-23", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
     { date: "2026-10-23", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
-    { date: "2026-10-24", time: "09h30 – 12h00", title: "📖 Révisions CRPE" },
-    { date: "2026-10-24", time: "14h00 – 18h00", title: "📖 Révisions CRPE" },
+    { date: "2026-10-24", time: "09h30 – 12h00", title: "📖 Révisions CRPE — Français" },
+    { date: "2026-10-24", time: "14h00 – 18h00", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-10-25", time: "09h30 – 12h00", title: "📖 Révisions CRPE — tampon (rattrapage ou repos)" },
     { date: "2026-10-25", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-10-26", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-10-26", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
-    { date: "2026-10-26", time: "09h30 – 12h00", title: "📖 Révisions CRPE" },
-    { date: "2026-10-26", time: "13h30 – 15h30", title: "📖 Révisions CRPE" },
+    { date: "2026-10-26", time: "09h30 – 12h00", title: "📖 Révisions CRPE — Français" },
+    { date: "2026-10-26", time: "13h30 – 15h30", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-10-26", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-10-26", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
     { date: "2026-10-26", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
     { date: "2026-10-26", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-10-27", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-10-27", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
-    { date: "2026-10-27", time: "09h30 – 12h00", title: "📖 Révisions CRPE" },
-    { date: "2026-10-27", time: "13h30 – 17h30", title: "📖 Révisions CRPE" },
+    { date: "2026-10-27", time: "09h30 – 12h00", title: "📖 Révisions CRPE — Français" },
+    { date: "2026-10-27", time: "13h30 – 17h30", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-10-27", time: "17h45 – 19h30", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-10-27", time: "19h30 – 21h30", title: "🏈 Football Américain" },
     { date: "2026-10-27", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-10-28", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-10-28", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
-    { date: "2026-10-28", time: "09h30 – 12h00", title: "📖 Révisions CRPE" },
-    { date: "2026-10-28", time: "13h30 – 17h00", title: "📖 Révisions CRPE" },
+    { date: "2026-10-28", time: "09h30 – 12h00", title: "📖 Révisions CRPE — Français" },
+    { date: "2026-10-28", time: "13h30 – 17h00", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-10-28", time: "17h15 – 19h00", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-10-28", time: "19h00 – 21h00", title: "🏈 Football Américain" },
     { date: "2026-10-28", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-10-29", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-10-29", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
-    { date: "2026-10-29", time: "15h30 – 17h30", title: "📖 Révisions CRPE" },
+    { date: "2026-10-29", time: "15h30 – 17h30", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-10-29", time: "17h45 – 19h30", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-10-29", time: "19h30 – 21h30", title: "🏈 Football Américain" },
     { date: "2026-10-29", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-10-30", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-10-30", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
-    { date: "2026-10-30", time: "09h30 – 12h00", title: "📖 Révisions CRPE" },
-    { date: "2026-10-30", time: "13h30 – 15h30", title: "📖 Révisions CRPE" },
+    { date: "2026-10-30", time: "09h30 – 12h00", title: "📖 Révisions CRPE — Français" },
+    { date: "2026-10-30", time: "13h30 – 15h30", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-10-30", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-10-30", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
     { date: "2026-10-30", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
-    { date: "2026-10-31", time: "09h30 – 12h00", title: "📖 Révisions CRPE" },
-    { date: "2026-10-31", time: "14h00 – 18h00", title: "📖 Révisions CRPE" },
+    { date: "2026-10-31", time: "09h30 – 12h00", title: "📖 Révisions CRPE — Français" },
+    { date: "2026-10-31", time: "14h00 – 18h00", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-11-01", time: "09h30 – 12h00", title: "📖 Révisions CRPE — tampon (rattrapage ou repos)" },
     { date: "2026-11-01", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-02", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-02", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
-    { date: "2026-11-02", time: "09h30 – 12h00", title: "📖 Révisions CRPE" },
-    { date: "2026-11-02", time: "13h30 – 15h30", title: "📖 Révisions CRPE" },
+    { date: "2026-11-02", time: "09h30 – 12h00", title: "📖 Révisions CRPE — Français" },
+    { date: "2026-11-02", time: "13h30 – 15h30", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-11-02", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-02", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
     { date: "2026-11-02", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
     { date: "2026-11-02", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-03", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-03", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
-    { date: "2026-11-03", time: "09h30 – 12h00", title: "📖 Révisions CRPE" },
-    { date: "2026-11-03", time: "13h30 – 17h30", title: "📖 Révisions CRPE" },
+    { date: "2026-11-03", time: "09h30 – 12h00", title: "📖 Révisions CRPE — Français" },
+    { date: "2026-11-03", time: "13h30 – 17h30", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-11-03", time: "17h45 – 19h30", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-03", time: "19h30 – 21h30", title: "🏈 Football Américain" },
     { date: "2026-11-03", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-04", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-04", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
-    { date: "2026-11-04", time: "09h30 – 12h00", title: "📖 Révisions CRPE" },
-    { date: "2026-11-04", time: "13h30 – 17h00", title: "📖 Révisions CRPE" },
+    { date: "2026-11-04", time: "09h30 – 12h00", title: "📖 Révisions CRPE — Français" },
+    { date: "2026-11-04", time: "13h30 – 17h00", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-11-04", time: "17h15 – 19h00", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-04", time: "19h00 – 21h00", title: "🏈 Football Américain" },
     { date: "2026-11-04", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-05", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-05", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
-    { date: "2026-11-05", time: "15h30 – 17h30", title: "📖 Révisions CRPE" },
+    { date: "2026-11-05", time: "15h30 – 17h30", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-11-05", time: "17h45 – 19h30", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-05", time: "19h30 – 21h30", title: "🏈 Football Américain" },
     { date: "2026-11-05", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-06", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-06", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
-    { date: "2026-11-06", time: "09h30 – 12h00", title: "📖 Révisions CRPE" },
-    { date: "2026-11-06", time: "13h30 – 15h30", title: "📖 Révisions CRPE" },
+    { date: "2026-11-06", time: "09h30 – 12h00", title: "📖 Révisions CRPE — Français" },
+    { date: "2026-11-06", time: "13h30 – 15h30", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-11-06", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-06", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
     { date: "2026-11-06", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
-    { date: "2026-11-07", time: "09h30 – 12h00", title: "📖 Révisions CRPE" },
-    { date: "2026-11-07", time: "14h00 – 18h00", title: "📖 Révisions CRPE" },
+    { date: "2026-11-07", time: "09h30 – 12h00", title: "📖 Révisions CRPE — Français" },
+    { date: "2026-11-07", time: "14h00 – 18h00", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-11-08", time: "09h30 – 12h00", title: "📖 Révisions CRPE — tampon (rattrapage ou repos)" },
     { date: "2026-11-08", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-09", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-09", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
-    { date: "2026-11-09", time: "09h30 – 12h00", title: "📖 Révisions CRPE" },
-    { date: "2026-11-09", time: "13h30 – 15h30", title: "📖 Révisions CRPE" },
+    { date: "2026-11-09", time: "09h30 – 12h00", title: "📖 Révisions CRPE — Français" },
+    { date: "2026-11-09", time: "13h30 – 15h30", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-11-09", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-09", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
     { date: "2026-11-09", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
     { date: "2026-11-09", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-10", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-10", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
-    { date: "2026-11-10", time: "09h30 – 12h00", title: "📖 Révisions CRPE" },
-    { date: "2026-11-10", time: "13h30 – 17h30", title: "📖 Révisions CRPE" },
+    { date: "2026-11-10", time: "09h30 – 12h00", title: "📖 Révisions CRPE — Français" },
+    { date: "2026-11-10", time: "13h30 – 17h30", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-11-10", time: "17h45 – 19h30", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-10", time: "19h30 – 21h30", title: "🏈 Football Américain" },
     { date: "2026-11-10", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-11", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-11", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
-    { date: "2026-11-11", time: "09h30 – 12h00", title: "📖 Révisions CRPE" },
-    { date: "2026-11-11", time: "13h30 – 17h00", title: "📖 Révisions CRPE" },
+    { date: "2026-11-11", time: "09h30 – 12h00", title: "📖 Révisions CRPE — Français" },
+    { date: "2026-11-11", time: "13h30 – 17h00", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-11-11", time: "17h15 – 19h00", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-11", time: "19h00 – 21h00", title: "🏈 Football Américain" },
     { date: "2026-11-11", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-12", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-12", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
-    { date: "2026-11-12", time: "15h30 – 17h30", title: "📖 Révisions CRPE" },
+    { date: "2026-11-12", time: "15h30 – 17h30", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-11-12", time: "17h45 – 19h30", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-12", time: "19h30 – 21h30", title: "🏈 Football Américain" },
     { date: "2026-11-12", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-13", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-13", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
-    { date: "2026-11-13", time: "09h30 – 12h00", title: "📖 Révisions CRPE" },
-    { date: "2026-11-13", time: "13h30 – 15h30", title: "📖 Révisions CRPE" },
+    { date: "2026-11-13", time: "09h30 – 12h00", title: "📖 Révisions CRPE — Français" },
+    { date: "2026-11-13", time: "13h30 – 15h30", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-11-13", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-13", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
     { date: "2026-11-13", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
-    { date: "2026-11-14", time: "09h30 – 12h00", title: "📖 Révisions CRPE" },
-    { date: "2026-11-14", time: "14h00 – 18h00", title: "📖 Révisions CRPE" },
+    { date: "2026-11-14", time: "09h30 – 12h00", title: "📖 Révisions CRPE — Français" },
+    { date: "2026-11-14", time: "14h00 – 18h00", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-11-15", time: "09h30 – 12h00", title: "📖 Révisions CRPE — tampon (rattrapage ou repos)" },
     { date: "2026-11-15", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-16", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-16", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
-    { date: "2026-11-16", time: "09h30 – 12h00", title: "📖 Révisions CRPE" },
-    { date: "2026-11-16", time: "13h30 – 15h30", title: "📖 Révisions CRPE" },
+    { date: "2026-11-16", time: "09h30 – 12h00", title: "📖 Révisions CRPE — Français" },
+    { date: "2026-11-16", time: "13h30 – 15h30", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-11-16", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-16", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
     { date: "2026-11-16", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
     { date: "2026-11-16", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-17", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-17", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
-    { date: "2026-11-17", time: "09h30 – 12h00", title: "📖 Révisions CRPE" },
-    { date: "2026-11-17", time: "13h30 – 17h30", title: "📖 Révisions CRPE" },
+    { date: "2026-11-17", time: "09h30 – 12h00", title: "📖 Révisions CRPE — Français" },
+    { date: "2026-11-17", time: "13h30 – 17h30", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-11-17", time: "17h45 – 19h30", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-17", time: "19h30 – 21h30", title: "🏈 Football Américain" },
     { date: "2026-11-17", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-18", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-18", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
-    { date: "2026-11-18", time: "09h30 – 12h00", title: "📖 Révisions CRPE" },
-    { date: "2026-11-18", time: "13h30 – 17h00", title: "📖 Révisions CRPE" },
+    { date: "2026-11-18", time: "09h30 – 12h00", title: "📖 Révisions CRPE — Français" },
+    { date: "2026-11-18", time: "13h30 – 17h00", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-11-18", time: "17h15 – 19h00", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-18", time: "19h00 – 21h00", title: "🏈 Football Américain" },
     { date: "2026-11-18", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-19", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-19", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
-    { date: "2026-11-19", time: "15h30 – 17h30", title: "📖 Révisions CRPE" },
+    { date: "2026-11-19", time: "15h30 – 17h30", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-11-19", time: "17h45 – 19h30", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-19", time: "19h30 – 21h30", title: "🏈 Football Américain" },
     { date: "2026-11-19", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-20", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-20", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
-    { date: "2026-11-20", time: "09h30 – 12h00", title: "📖 Révisions CRPE" },
-    { date: "2026-11-20", time: "13h30 – 15h30", title: "📖 Révisions CRPE" },
+    { date: "2026-11-20", time: "09h30 – 12h00", title: "📖 Révisions CRPE — Français" },
+    { date: "2026-11-20", time: "13h30 – 15h30", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-11-20", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-20", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
     { date: "2026-11-20", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
-    { date: "2026-11-21", time: "09h30 – 12h00", title: "📖 Révisions CRPE" },
-    { date: "2026-11-21", time: "14h00 – 18h00", title: "📖 Révisions CRPE" },
+    { date: "2026-11-21", time: "09h30 – 12h00", title: "📖 Révisions CRPE — Français" },
+    { date: "2026-11-21", time: "14h00 – 18h00", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-11-22", time: "09h30 – 12h00", title: "📖 Révisions CRPE — tampon (rattrapage ou repos)" },
     { date: "2026-11-22", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-23", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-23", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
-    { date: "2026-11-23", time: "09h30 – 12h00", title: "📖 Révisions CRPE" },
-    { date: "2026-11-23", time: "13h30 – 15h30", title: "📖 Révisions CRPE" },
+    { date: "2026-11-23", time: "09h30 – 12h00", title: "📖 Révisions CRPE — Français" },
+    { date: "2026-11-23", time: "13h30 – 15h30", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-11-23", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-23", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
     { date: "2026-11-23", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
     { date: "2026-11-23", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-24", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-24", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
-    { date: "2026-11-24", time: "09h30 – 12h00", title: "📖 Révisions CRPE" },
-    { date: "2026-11-24", time: "13h30 – 17h30", title: "📖 Révisions CRPE" },
+    { date: "2026-11-24", time: "09h30 – 12h00", title: "📖 Révisions CRPE — Français" },
+    { date: "2026-11-24", time: "13h30 – 17h30", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-11-24", time: "17h45 – 19h30", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-24", time: "19h30 – 21h30", title: "🏈 Football Américain" },
     { date: "2026-11-24", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-25", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-25", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
-    { date: "2026-11-25", time: "09h30 – 12h00", title: "📖 Révisions CRPE" },
-    { date: "2026-11-25", time: "13h30 – 17h00", title: "📖 Révisions CRPE" },
+    { date: "2026-11-25", time: "09h30 – 12h00", title: "📖 Révisions CRPE — Français" },
+    { date: "2026-11-25", time: "13h30 – 17h00", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-11-25", time: "17h15 – 19h00", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-25", time: "19h00 – 21h00", title: "🏈 Football Américain" },
     { date: "2026-11-25", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-26", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-26", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
-    { date: "2026-11-26", time: "15h30 – 17h30", title: "📖 Révisions CRPE" },
+    { date: "2026-11-26", time: "15h30 – 17h30", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-11-26", time: "17h45 – 19h30", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-26", time: "19h30 – 21h30", title: "🏈 Football Américain" },
     { date: "2026-11-26", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-27", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-27", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
-    { date: "2026-11-27", time: "09h30 – 12h00", title: "📖 Révisions CRPE" },
-    { date: "2026-11-27", time: "13h30 – 15h30", title: "📖 Révisions CRPE" },
+    { date: "2026-11-27", time: "09h30 – 12h00", title: "📖 Révisions CRPE — Français" },
+    { date: "2026-11-27", time: "13h30 – 15h30", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-11-27", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-27", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
     { date: "2026-11-27", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
-    { date: "2026-11-28", time: "09h30 – 12h00", title: "📖 Révisions CRPE" },
-    { date: "2026-11-28", time: "14h00 – 18h00", title: "📖 Révisions CRPE" },
+    { date: "2026-11-28", time: "09h30 – 12h00", title: "📖 Révisions CRPE — Français" },
+    { date: "2026-11-28", time: "14h00 – 18h00", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-11-29", time: "09h30 – 12h00", title: "📖 Révisions CRPE — tampon (rattrapage ou repos)" },
     { date: "2026-11-29", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-11-30", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-11-30", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
-    { date: "2026-11-30", time: "09h30 – 12h00", title: "📖 Révisions CRPE" },
-    { date: "2026-11-30", time: "13h30 – 15h30", title: "📖 Révisions CRPE" },
+    { date: "2026-11-30", time: "09h30 – 12h00", title: "📖 Révisions CRPE — Français" },
+    { date: "2026-11-30", time: "13h30 – 15h30", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-11-30", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-11-30", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
     { date: "2026-11-30", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
