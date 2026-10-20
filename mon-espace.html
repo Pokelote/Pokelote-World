@@ -270,7 +270,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "62";
+const APP_VERSION = "63";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -6022,7 +6022,20 @@ function crpeWeekTarget(sessions, light) {
 // Répartit les étapes non terminées, dans l'ordre, sur les séances à venir (à partir d'aujourd'hui).
 // Une étape « en cours » compte pour la moitié de son temps. Renvoie le programme par semaine et la
 // date de fin projetée de chaque bloc.
+// Séances fixées à la demande (date + heure de début d'une séance de l'agenda) : elles passent avant
+// le parcours, qui reprend sur le temps restant de la séance (h = durée réservée).
+const CRPE_SEANCES_FIXEES = [
+  {
+    date: "2026-10-21", start: "09h30", h: 1.5, m: "maths",
+    title: "Auto-évaluation RAN 3 en conditions d'examen",
+    todo: "En premier : sans cours ni fiches, téléphone éteint, chrono lancé, rédigé comme sur la copie. Puis correction avec le corrigé ; sous ~70 % de réussite, repasse la RAN 3 (étape 2) en « À revoir ».",
+    oc: ["oc-ran-3-les-quatre-operations-proprietes-et-algorithmes-copie-8"],
+  },
+];
+
 function crpeSchedule(statut, domaine, weeksAhead = 45) {
+  const now = new Date();
+  const nowMins = now.getHours() * 60 + now.getMinutes();
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const thisMonday = startOfWeekMonday(today);
@@ -6038,8 +6051,11 @@ function crpeSchedule(statut, domaine, weeksAhead = 45) {
     const { sessions, off, light } = crpeWeekSlots(ws);
     const out = sessions.map((s) => {
       const parts = [];
-      if (s.tampon || s.optional || (w === 0 && s.day < todayIdx)) return { ...s, parts, past: w === 0 && s.day < todayIdx };
-      let cap = s.mins / 60;
+      const past = w === 0 && (s.day < todayIdx || (s.day === todayIdx && crpeMinutes(s.end) <= nowMins));
+      const date = dateKey(addDays(ws, s.day));
+      const fixe = CRPE_SEANCES_FIXEES.find((f) => f.date === date && f.start === s.start) || null;
+      if (s.tampon || s.optional || past) return { ...s, parts, past, fixe };
+      let cap = s.mins / 60 - (fixe ? fixe.h : 0);
       while (cap > 0.01 && qi < queue.length) {
         const q = queue[qi];
         const h = Math.min(cap, q.left);
@@ -6052,7 +6068,7 @@ function crpeSchedule(statut, domaine, weeksAhead = 45) {
           qi++;
         }
       }
-      return { ...s, parts };
+      return { ...s, parts, fixe };
     });
     weeks[dateKey(ws)] = { sessions: out, off, light };
   }
@@ -6377,6 +6393,18 @@ function CrpePlanning({ done, updateDone, schedule, etapes }) {
                 {s.tampon && <div style={{ fontSize: 13, color: COLORS.muted, marginTop: 2 }}>Tampon : rattrape une séance sautée, ou repose-toi.</div>}
                 {s.optional && <div style={{ fontSize: 13, color: COLORS.muted, marginTop: 2 }}>Facultatif.</div>}
                 {s.past && !s.tampon && <div style={{ fontSize: 12, color: COLORS.muted, marginTop: 2 }}>Séance passée — coche-la si tu l'as faite.</div>}
+                {s.fixe && (
+                  <div style={{ marginTop: 3, borderLeft: `2px solid #D9A25C`, paddingLeft: 8 }}>
+                    <div style={{ display: "flex", gap: 6, alignItems: "baseline", flexWrap: "wrap" }}>
+                      <CrpeMatiereChip m={s.fixe.m} />
+                      <span style={{ fontSize: 13, color: COLORS.text, fontWeight: 500 }}>📝 {s.fixe.title}</span>
+                      <span style={{ fontSize: 11, color: COLORS.muted }}>≈ {crpeFormatHeures(s.fixe.h)}</span>
+                    </div>
+                    <div style={{ fontSize: 12, color: COLORS.muted, lineHeight: 1.5, marginTop: 2 }}>{s.fixe.todo}</div>
+                    <CrpeEtapeRessources etape={s.fixe} />
+                    {parts.length > 0 && <div style={{ fontSize: 11, color: COLORS.muted, marginTop: 4 }}>Puis :</div>}
+                  </div>
+                )}
                 {parts.map((p, i) => (
                   <div key={i} style={{ display: "flex", gap: 6, alignItems: "baseline", marginTop: 3, flexWrap: "wrap" }}>
                     <CrpeMatiereChip m={p.etape.m} />
@@ -6386,7 +6414,7 @@ function CrpePlanning({ done, updateDone, schedule, etapes }) {
                     </span>
                   </div>
                 ))}
-                {!s.tampon && !s.optional && !s.past && parts.length === 0 && (
+                {!s.tampon && !s.optional && !s.past && !s.fixe && parts.length === 0 && (
                   <div style={{ fontSize: 12, color: COLORS.muted, marginTop: 2 }}>Rien de prévu : le parcours est fini à ce stade.</div>
                 )}
               </div>
