@@ -270,7 +270,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "68";
+const APP_VERSION = "69";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -6146,6 +6146,7 @@ function crpeSave(key, value) {
 // automatique (routine « Exercices mixtes CRPE ») qui ajoute une entrée ici : RAN acquises lues dans
 // crpe-parcours-statut, résultats des séries précédentes dans crpe-mixtes-resultats (les exercices
 // ratés reviennent sous une autre forme quelques jours plus tard). Texte brut, \n = retour à la ligne.
+// pdf: true = PDF énoncés + corrigé générés par outils/pdf-exercices-mixtes.js dans crpe/exercices-mixtes/.
 const CRPE_RAN_ETAPES = {
   1: "p-m-geo-plane", 2: "p-m-symetries", 3: "p-m-operations", 4: "p-m-arith", 5: "p-m-rationnels", 6: "p-m-aires",
   7: "p-m-proportion", 8: "p-m-litteral", 9: "p-m-espace", 10: "p-m-equations", 11: "p-m-proportion", 12: "p-m-algo",
@@ -6155,6 +6156,7 @@ const CRPE_EXERCICES_MIXTES = [
   {
     date: "2026-10-22",
     rans: [3, 4, 5],
+    pdf: true,
     exercices: [
       {
         id: "ex1", ran: 3, minutes: 8, titre: "Calcul réfléchi — nommer la propriété",
@@ -6260,10 +6262,31 @@ function CrpeExercicesMixtes({ resultats, setResultat }) {
       <div style={{ fontSize: 14, color: COLORS.text, fontWeight: 500, marginBottom: 2 }}>
         {label} · RAN {serie.rans.join(" · ")}
       </div>
-      <div style={{ fontSize: 12, color: COLORS.muted, marginBottom: 12 }}>
+      <div style={{ fontSize: 12, color: COLORS.muted, marginBottom: serie.pdf ? 8 : 12 }}>
         {serie.exercices.length} exercices · ≈ {crpeFormatMinutes(minutes)} ·{" "}
         {Object.keys(notes).length} / {serie.exercices.length} notés
       </div>
+      {serie.pdf && (
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }}>
+          {[
+            ["enonces", "📄 Énoncés (PDF)"],
+            ["corrige", "✅ Corrigé (PDF)"],
+          ].map(([nom, label]) => (
+            <a
+              key={nom}
+              href={`./crpe/exercices-mixtes/${serie.date}-${nom}.pdf`}
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                fontSize: 12, color: COLORS.text, textDecoration: "none", border: `1px solid ${COLORS.border}`,
+                borderRadius: 999, padding: "4px 12px", background: COLORS.card,
+              }}
+            >
+              {label}
+            </a>
+          ))}
+        </div>
+      )}
       <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
         {serie.exercices.map((ex, i) => {
           const n = notes[ex.id] || null;
