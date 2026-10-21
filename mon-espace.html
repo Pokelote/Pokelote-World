@@ -270,7 +270,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "66";
+const APP_VERSION = "67";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -6032,6 +6032,13 @@ const CRPE_SEANCES_FIXEES = [
     todo: "Sans cours ni fiches, téléphone éteint, chrono lancé, rédigé comme sur la copie. Puis correction avec le corrigé ; sous ~70 % de réussite, repasse la RAN 3 (étape 2) en « À revoir ».",
     oc: ["oc-ran-3-les-quatre-operations-proprietes-et-algorithmes-copie-8"],
   },
+  {
+    // Faite le 21/10 au matin, avant la RAN 5 (prévue avant elle dans le parcours) : RAN 4 passée en « Terminée ».
+    date: "2026-10-21", start: "09h30", h: 2.5, m: "maths",
+    title: "RAN 4 (arithmétique) + auto-évaluation en conditions d'examen",
+    todo: "Cours RAN 4 et ses exercices, puis auto-évaluation sans cours ni fiches, chrono lancé. Sous ~70 % de réussite, repasse la RAN 4 en « À revoir ».",
+    oc: ["oc-ran-4-arithmetique-copie-9"],
+  },
 ];
 
 // Répartit les étapes non terminées sur les séances à venir (à partir de maintenant) en deux files
@@ -10099,8 +10106,8 @@ const CALENDAR_DATA = {
     { date: "2026-10-20", time: "22h00 – 22h05", title: "🛏️ Au lit" },
     { date: "2026-10-21", time: "06h00 – 09h00", title: "🌅 Routine matin" },
     { date: "2026-10-21", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
-    { date: "2026-10-21", time: "09h30 – 12h00", title: "📖 Révisions CRPE — Maths" },
-    { date: "2026-10-21", time: "13h30 – 17h00", title: "📖 Révisions CRPE — Maths" },
+    { date: "2026-10-21", time: "09h30 – 12h00", title: "📖 Révisions CRPE — Maths : RAN 4 + auto-évaluation ✅" },
+    { date: "2026-10-21", time: "13h30 – 17h00", title: "📖 Révisions CRPE — Maths : RAN 5 (rationnels)" },
     { date: "2026-10-21", time: "17h15 – 19h00", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-10-21", time: "19h00 – 21h00", title: "🏈 Football Américain" },
     { date: "2026-10-21", time: "22h00 – 22h05", title: "🛏️ Au lit" },
