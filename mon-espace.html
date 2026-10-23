@@ -270,7 +270,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "69";
+const APP_VERSION = "70";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -6154,6 +6154,48 @@ const CRPE_RAN_ETAPES = {
 
 const CRPE_EXERCICES_MIXTES = [
   {
+    date: "2026-10-23",
+    rans: [3, 4, 5],
+    pdf: true,
+    exercices: [
+      {
+        id: "ex1", ran: 3, minutes: 7, titre: "Définitions et propriétés des opérations",
+        enonce: "a) Donne la définition de la division euclidienne d'un entier a par un entier b non nul.\nb) Vrai ou faux ? Justifie : « La soustraction est commutative. » ; « La division est associative. »\nc) Calcule mentalement en expliquant ta méthode : 48 × 25 ; 7,5 × 4 ; 360 ÷ 0,5.",
+        corrige: "a) Effectuer la division euclidienne de a par b (b ≠ 0), c'est trouver les entiers q (quotient) et r (reste) tels que a = b × q + r avec 0 ≤ r < b.\nb) Faux : 5 − 3 = 2 mais 3 − 5 = −2. Faux : (24 ÷ 4) ÷ 2 = 3 mais 24 ÷ (4 ÷ 2) = 12. Un contre-exemple suffit dans les deux cas.\nc) 48 × 25 = 12 × 4 × 25 = 12 × 100 = 1 200 (décomposition et associativité).\n7,5 × 4 = 7 × 4 + 0,5 × 4 = 28 + 2 = 30 (distributivité).\n360 ÷ 0,5 = 360 × 2 = 720 (diviser par 0,5, c'est multiplier par 2, son inverse).\nÀ l'écrit : nommer la propriété utilisée à chaque étape.",
+      },
+      {
+        id: "ex2", ran: 3, minutes: 8, titre: "Analyse d'une erreur d'élève (soustraction posée)",
+        enonce: "Un élève pose la soustraction 503 − 278 et trouve 375.\na) Calcule le résultat exact.\nb) Identifie l'erreur probable de l'élève.\nc) Explique la technique de la soustraction posée « par compensation » sur cet exemple.",
+        corrige: "a) 503 − 278 = 225.\nb) Dans chaque colonne, l'élève a soustrait le plus petit chiffre du plus grand : unités 8 − 3 = 5, dizaines 7 − 0 = 7, centaines 5 − 2 = 3. Il ne gère pas la retenue : « on ne peut pas faire 3 − 8 » devient « 8 − 3 ».\nc) Compensation (on ajoute la même quantité aux deux termes, la différence ne change pas) : unités, 3 + 10 = 13, 13 − 8 = 5, et on ajoute 1 dizaine à 278. Dizaines, 0 + 10 = 10, 10 − (7 + 1) = 2, et on ajoute 1 centaine. Centaines, 5 − (2 + 1) = 2. Résultat : 225.\nÀ l'écrit : nommer la propriété de conservation des écarts, et décrire l'erreur précisément (c'est une erreur classique, attendue en didactique).",
+      },
+      {
+        id: "ex3", ran: 4, minutes: 8, titre: "Critères de divisibilité",
+        enonce: "a) Énonce les critères de divisibilité par 3, par 4 et par 9.\nb) Le nombre 4a72 a pour chiffre des centaines a. Trouve toutes les valeurs de a pour lesquelles il est divisible par 9, puis par 3.\nc) 2 340 est-il divisible par 4 ? Par 36 ? Justifie.",
+        corrige: "a) Par 3 (et par 9) : la somme des chiffres est divisible par 3 (par 9). Par 4 : le nombre formé par les deux derniers chiffres est divisible par 4.\nb) Somme des chiffres : 4 + a + 7 + 2 = 13 + a, avec a entre 0 et 9. Divisible par 9 : 13 + a = 18, donc a = 5 (4 572). Divisible par 3 : 13 + a ∈ {15 ; 18 ; 21}, donc a ∈ {2 ; 5 ; 8}.\nc) 40 est divisible par 4, donc 2 340 aussi. 36 = 4 × 9 avec 4 et 9 premiers entre eux ; la somme des chiffres de 2 340 vaut 9, donc il est divisible par 9 ; il l'est aussi par 4, donc par 36 (2 340 = 36 × 65).\nPiège : 36 = 6 × 6 ne permet pas de conclure, car 6 et 6 ne sont pas premiers entre eux.",
+      },
+      {
+        id: "ex4", ran: 4, minutes: 9, titre: "Nombres premiers et nombre de diviseurs",
+        enonce: "a) 221 est-il un nombre premier ? Explique la méthode utilisée.\nb) Décompose 360 en produit de facteurs premiers.\nc) Combien 360 a-t-il de diviseurs ? Justifie sans tous les écrire.",
+        corrige: "a) On teste la divisibilité par les nombres premiers inférieurs ou égaux à √221 ≈ 14,9, c'est-à-dire 2, 3, 5, 7, 11 et 13. 221 = 13 × 17, donc 221 n'est pas premier.\nb) 360 = 2³ × 3² × 5.\nc) Un diviseur s'écrit 2^a × 3^b × 5^c avec a ∈ {0 ; 1 ; 2 ; 3}, b ∈ {0 ; 1 ; 2}, c ∈ {0 ; 1}, soit 4 × 3 × 2 = 24 diviseurs.\nÀ l'écrit : dire pourquoi on s'arrête à √221 (si 221 = p × q avec p ≤ q, alors p ≤ √221).",
+      },
+      {
+        id: "ex5", ran: 4, minutes: 8, titre: "Problème : carrelage et PGCD",
+        enonce: "On veut carreler une pièce rectangulaire de 3,60 m sur 2,52 m avec des dalles carrées identiques, dont le côté est un nombre entier de centimètres, les plus grandes possibles, sans aucune découpe.\na) Quel est le côté d'une dalle ?\nb) Combien de dalles faut-il ?",
+        corrige: "a) En centimètres : 360 et 252. Le côté doit diviser 360 et 252, et être le plus grand possible : c'est leur PGCD. 360 = 2³ × 3² × 5 et 252 = 2² × 3² × 7, donc PGCD = 2² × 3² = 36. Les dalles ont 36 cm de côté.\nb) 360 ÷ 36 = 10 dalles sur la longueur et 252 ÷ 36 = 7 sur la largeur, soit 10 × 7 = 70 dalles.\nPiège : convertir les mètres en centimètres avant de chercher le PGCD.",
+      },
+      {
+        id: "ex6", ran: 5, minutes: 8, titre: "Fractions : priorités et écritures",
+        enonce: "Calcule en détaillant les étapes et donne le résultat sous forme de fraction irréductible :\nE = 2/3 − 1/3 × 5/4\nF = (7/6 − 1/2) ÷ 4/9\nG) Écris 1,25 et 0,375 sous forme de fractions irréductibles.",
+        corrige: "E : la multiplication est prioritaire. 1/3 × 5/4 = 5/12, puis 2/3 − 5/12 = 8/12 − 5/12 = 3/12 = 1/4.\nF : 7/6 − 1/2 = 7/6 − 3/6 = 4/6 = 2/3, puis 2/3 ÷ 4/9 = 2/3 × 9/4 = 18/12 = 3/2.\nG : 1,25 = 125/100 = 5/4 et 0,375 = 375/1 000 = 3/8.\nPiège : pour E, calculer d'abord 2/3 − 1/3 = 1/3 donnerait 5/12, ce qui est faux.",
+      },
+      {
+        id: "ex7", ran: 5, minutes: 8, titre: "Problème : la cuve (et un vrai/faux)",
+        enonce: "a) Une cuve est remplie aux 3/5. On y verse 110 L : elle est alors remplie aux 7/8. Quelle fraction de la cuve représentent ces 110 L ? Quelle est la contenance de la cuve ?\nb) Vrai ou faux ? Justifie : « Si on ajoute 1 au numérateur et au dénominateur d'une fraction, on obtient une fraction égale. »",
+        corrige: "a) 7/8 − 3/5 = 35/40 − 24/40 = 11/40. Donc 11/40 de la cuve = 110 L, 1/40 = 10 L, et la contenance est 40 × 10 = 400 L. Vérification : 3/5 de 400 = 240 L, 240 + 110 = 350 L = 7/8 de 400.\nb) Faux. Contre-exemple : 1/2 donne 2/3, et 1/2 ≠ 2/3. Une fraction ne change pas quand on multiplie (ou divise) son numérateur et son dénominateur par un même nombre non nul, pas quand on leur ajoute un même nombre.",
+      },
+    ],
+  },
+  {
     date: "2026-10-22",
     rans: [3, 4, 5],
     pdf: true,
@@ -10355,14 +10397,12 @@ const CALENDAR_DATA = {
     { date: "2026-10-22", time: "17h45 – 19h30", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-10-22", time: "19h30 – 21h30", title: "🏈 Football Américain" },
     { date: "2026-10-22", time: "22h00 – 22h05", title: "🛏️ Au lit" },
-    { date: "2026-10-23", time: "06h00 – 09h00", title: "🌅 Routine matin" },
-    { date: "2026-10-23", time: "09h00 – 09h30", title: "🔍 Recherche d'emploi" },
-    { date: "2026-10-23", time: "09h30 – 10h30", title: "🔁 CRPE — Exercices mixtes RAN (1h)" },
-    { date: "2026-10-23", time: "10h30 – 12h00", title: "📖 Révisions CRPE — Maths" },
-    { date: "2026-10-23", time: "13h30 – 15h30", title: "📖 Révisions CRPE — Maths" },
+    { date: "2026-10-23", time: "06h00 – 07h30", title: "🌅 Routine matin" },
+    { date: "2026-10-23", time: "08h00 – 15h00", title: "💼 Apesanteur" },
+    { date: "2026-10-23", time: "15h15 – 15h45", title: "🔍 Recherche d'emploi" },
     { date: "2026-10-23", time: "15h45 – 17h45", title: "🏋️ Muscu — Fitness Park de la Valentine" },
     { date: "2026-10-23", time: "17h45 – 18h15", title: "🧖 Je prends soin de moi" },
-    { date: "2026-10-23", time: "18h15 – 19h15", title: "📖 Étude — révisions CRPE" },
+    { date: "2026-10-23", time: "18h15 – 19h15", title: "🔁 CRPE — Exercices mixtes RAN (1h)" },
     { date: "2026-10-24", time: "09h30 – 10h30", title: "🔁 CRPE — Exercices mixtes RAN (1h)" },
     { date: "2026-10-24", time: "10h30 – 12h00", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-10-24", time: "14h00 – 18h00", title: "📖 Révisions CRPE — Maths" },
