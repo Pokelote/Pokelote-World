@@ -270,7 +270,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "77";
+const APP_VERSION = "78";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -6155,6 +6155,48 @@ const CRPE_RAN_ETAPES = {
 };
 
 const CRPE_EXERCICES_MIXTES = [
+  {
+    date: "2026-10-24",
+    rans: [3, 4, 5],
+    pdf: true,
+    exercices: [
+      {
+        id: "ex1", ran: 3, minutes: 7, titre: "Calcul réfléchi et propriétés",
+        enonce: "a) Recopie et nomme la propriété utilisée : 36 × 15 = 36 × 10 + 36 × 5. Termine le calcul.\nb) Calcule astucieusement 125 × 32 en expliquant.\nc) Calcule 0,25 × 4,8 sans poser l'opération.\nd) Vrai ou faux ? Justifie : « Diviser par 4 revient à multiplier par 0,25. »",
+        corrige: "a) Distributivité de la multiplication sur l'addition (15 = 10 + 5) : 36 × 15 = 360 + 180 = 540.\nb) 32 = 8 × 4, donc 125 × 32 = (125 × 8) × 4 = 1 000 × 4 = 4 000 (associativité de la multiplication).\nc) Multiplier par 0,25, c'est multiplier par 1/4, donc diviser par 4 : 4,8 ÷ 4 = 1,2.\nd) Vrai. 0,25 = 1/4, et diviser par 4 revient à multiplier par son inverse 1/4.\nÀ l'écrit : citer la propriété, pas seulement « je fais comme ça ».",
+      },
+      {
+        id: "ex2", ran: 3, minutes: 8, titre: "Problème : division euclidienne et interprétation du reste",
+        enonce: "Un club de 247 joueurs part en déplacement dans des cars de 52 places.\na) Écris l'égalité de la division euclidienne de 247 par 52 (avec la condition sur le reste).\nb) Combien de cars faut-il réserver ? Justifie.\nc) Combien de places resteront libres ?",
+        corrige: "a) 52 × 4 = 208 et 247 − 208 = 39, donc 247 = 52 × 4 + 39 avec 0 ≤ 39 < 52.\nb) 4 cars transportent 208 joueurs ; il en reste 39 à placer (le reste n'est pas nul), donc il faut un 5e car : 5 cars.\nc) 5 × 52 = 260 places, et 260 − 247 = 13 places libres.\nPiège : la réponse n'est pas le quotient (4) ; dans un problème, il faut interpréter le reste.",
+      },
+      {
+        id: "ex3", ran: 4, minutes: 8, titre: "Nombres premiers : définition et vrai/faux",
+        enonce: "a) Donne la définition d'un nombre premier.\nb) Écris tous les nombres premiers compris entre 50 et 70.\nc) Vrai ou faux ? Justifie chaque réponse :\n– « Tout nombre impair est premier. »\n– « La somme de deux nombres premiers est toujours paire. »",
+        corrige: "a) Un nombre premier est un entier naturel qui a exactement deux diviseurs : 1 et lui-même (donc 1 n'est pas premier).\nb) 53 ; 59 ; 61 ; 67. Les autres sont divisibles par 2, 3, 5 ou 7 (par exemple 51 = 3 × 17, 57 = 3 × 19, 63 = 7 × 9, 69 = 3 × 23).\nc) Faux : 9 est impair mais 9 = 3 × 3. Faux : 2 + 3 = 5 est impair (2 est premier et pair).\nRègle : un seul contre-exemple suffit pour montrer qu'une affirmation est fausse.",
+      },
+      {
+        id: "ex4", ran: 4, minutes: 9, titre: "Problème : PPCM et horaires",
+        enonce: "Deux bus partent ensemble du terminus à 7 h 00. Le bus A repart toutes les 15 minutes, le bus B toutes les 20 minutes.\na) À quelle heure repartiront-ils de nouveau ensemble pour la première fois ? Justifie.\nb) Combien de fois partiront-ils ensemble entre 7 h 00 et 12 h 00 (les deux horaires compris) ?",
+        corrige: "a) On cherche le plus petit multiple commun non nul de 15 et 20 : 15 = 3 × 5 et 20 = 2² × 5, donc PPCM = 2² × 3 × 5 = 60. Ils repartent ensemble toutes les 60 minutes : la première fois à 8 h 00.\nb) Départs communs à 7 h, 8 h, 9 h, 10 h, 11 h et 12 h : 6 fois.\nÀ l'écrit : dire pourquoi c'est un PPCM (« multiple commun le plus petit »), puis conclure par une phrase.",
+      },
+      {
+        id: "ex5", ran: 4, minutes: 7, titre: "Analyse d'une erreur d'élève : divisibilité par 6",
+        enonce: "Pour savoir si 2 358 est divisible par 6, un élève écrit : « 2 358 est pair, donc il est divisible par 6. »\na) Son raisonnement est-il correct ? Justifie avec un contre-exemple.\nb) Énonce un critère correct de divisibilité par 6.\nc) 2 358 est-il divisible par 6 ? Par 9 ?",
+        corrige: "a) Non : être pair ne suffit pas. Contre-exemple : 4 est pair mais pas divisible par 6.\nb) Un nombre est divisible par 6 si et seulement s'il est divisible par 2 et par 3 (2 et 3 sont premiers entre eux et 6 = 2 × 3).\nc) 2 358 est pair, et la somme de ses chiffres vaut 2 + 3 + 5 + 8 = 18, multiple de 3 et de 9. Il est donc divisible par 6 (2 358 = 6 × 393) et par 9 (2 358 = 9 × 262).",
+      },
+      {
+        id: "ex6", ran: 5, minutes: 8, titre: "Fractions : simplifier et calculer",
+        enonce: "a) Rends irréductible la fraction 84/126 en une seule étape, en justifiant.\nb) Calcule en détaillant, résultat sous forme de fraction irréductible :\nG = 5/6 + 7/15\nH = (2/3 + 1/4) × 12/11\nI = 1 − 3/8 ÷ 9/4",
+        corrige: "a) PGCD(84 ; 126) = 42 (84 = 2² × 3 × 7 et 126 = 2 × 3² × 7, donc PGCD = 2 × 3 × 7). 84/126 = (84 ÷ 42)/(126 ÷ 42) = 2/3.\nG = 25/30 + 14/30 = 39/30 = 13/10.\nH = (8/12 + 3/12) × 12/11 = 11/12 × 12/11 = 1.\nI : la division est prioritaire. 3/8 ÷ 9/4 = 3/8 × 4/9 = 12/72 = 1/6, puis 1 − 1/6 = 5/6.\nPiège : dans I, calculer d'abord 1 − 3/8 est une erreur de priorité.",
+      },
+      {
+        id: "ex7", ran: 5, minutes: 8, titre: "Problème : fraction du reste (et nombre décimal)",
+        enonce: "Dans une classe, les 3/8 des élèves font du football, le tiers des autres fait du basket, et les 10 élèves restants ne font pas de sport.\na) Quelle fraction de la classe fait du basket ?\nb) Combien y a-t-il d'élèves dans la classe ?\nc) 3/8 est-il un nombre décimal ? Justifie et donne son écriture décimale.",
+        corrige: "a) Il reste 1 − 3/8 = 5/8 de la classe ; le tiers du reste : 1/3 × 5/8 = 5/24.\nb) Fraction sans sport : 1 − 3/8 − 5/24 = 24/24 − 9/24 − 5/24 = 10/24 = 5/12. Donc 5/12 de la classe = 10 élèves, 1/12 = 2 élèves, et la classe compte 24 élèves. Vérification : 9 au foot, 5 au basket, 10 sans sport, soit 24.\nc) Oui : 8 = 2³, on peut obtenir une puissance de 10 au dénominateur. 3/8 = 375/1 000 = 0,375.\nPiège : « le tiers des autres » porte sur le reste (5/8), pas sur toute la classe.",
+      },
+    ],
+  },
   {
     date: "2026-10-23",
     rans: [3, 4, 5],
