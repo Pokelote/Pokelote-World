@@ -270,7 +270,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "78";
+const APP_VERSION = "79";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -6155,6 +6155,48 @@ const CRPE_RAN_ETAPES = {
 };
 
 const CRPE_EXERCICES_MIXTES = [
+  {
+    date: "2026-10-25",
+    rans: [3, 4, 5],
+    pdf: true,
+    exercices: [
+      {
+        id: "ex1", ran: 3, minutes: 7, titre: "Calcul réfléchi et numération",
+        enonce: "a) Calcule astucieusement 4,6 + 2,7 + 5,4 et nomme les propriétés utilisées.\nb) Calcule 102 × 37 sans poser l'opération.\nc) Calcule 7,2 ÷ 0,1 puis 7,2 × 0,01.\nd) Écris la décomposition de 3 457 selon les puissances de 10. Quel est le chiffre des centaines ? Le nombre de centaines ?",
+        corrige: "a) Commutativité et associativité de l'addition : (4,6 + 5,4) + 2,7 = 10 + 2,7 = 12,7.\nb) Distributivité : 102 × 37 = (100 + 2) × 37 = 3 700 + 74 = 3 774.\nc) Diviser par 0,1, c'est multiplier par 10 : 7,2 ÷ 0,1 = 72. Multiplier par 0,01, c'est diviser par 100 : 7,2 × 0,01 = 0,072.\nd) 3 457 = 3 × 1 000 + 4 × 100 + 5 × 10 + 7. Le chiffre des centaines est 4 ; le nombre de centaines est 34 (3 457 = 34 × 100 + 57).\nPiège : ne pas confondre « chiffre des centaines » et « nombre de centaines », distinction classique au CRPE.",
+      },
+      {
+        id: "ex2", ran: 3, minutes: 8, titre: "Division euclidienne : recherche de tous les cas",
+        enonce: "Trouve tous les entiers naturels n tels que, dans la division euclidienne de n par 7, le quotient soit égal au reste. Justifie que tu les as tous trouvés.",
+        corrige: "Notons q le quotient et r le reste : n = 7q + r avec 0 ≤ r < 7. On veut q = r, donc n = 7q + q = 8q, avec 0 ≤ q < 7, c'est-à-dire q ∈ {0 ; 1 ; 2 ; 3 ; 4 ; 5 ; 6}.\nLes solutions sont donc n ∈ {0 ; 8 ; 16 ; 24 ; 32 ; 40 ; 48} (0 si on accepte n = 0).\nVérification : 48 = 7 × 6 + 6.\nÀ l'écrit : c'est la condition « reste < diviseur » qui limite le nombre de solutions, il faut l'écrire.",
+      },
+      {
+        id: "ex3", ran: 4, minutes: 8, titre: "Décomposition en facteurs premiers et carré parfait",
+        enonce: "a) Décompose 1 260 en produit de facteurs premiers.\nb) 1 260 est-il le carré d'un entier ? Justifie à l'aide de la décomposition.\nc) Quel est le plus petit entier k non nul tel que 1 260 × k soit le carré d'un entier ? Quel est alors cet entier ?",
+        corrige: "a) 1 260 = 2² × 3² × 5 × 7.\nb) Non : dans la décomposition d'un carré parfait, chaque facteur premier a un exposant pair. Ici, 5 et 7 ont l'exposant 1.\nc) Il faut rendre pairs les exposants de 5 et 7 : k = 5 × 7 = 35. 1 260 × 35 = 44 100 = 2² × 3² × 5² × 7² = (2 × 3 × 5 × 7)² = 210².",
+      },
+      {
+        id: "ex4", ran: 4, minutes: 8, titre: "Vrai ou faux ? Divisibilité",
+        enonce: "a, b et c sont des entiers naturels non nuls. Vrai ou faux ? Justifie.\na) Si a divise b et b divise c, alors a divise c.\nb) Si a divise b + c, alors a divise b et a divise c.\nc) Le produit de deux entiers consécutifs est toujours pair.",
+        corrige: "a) Vrai. b = k × a et c = m × b, donc c = (m × k) × a : a divise c. C'est une preuve générale avec des lettres.\nb) Faux. Contre-exemple : 3 divise 1 + 2 = 3, mais 3 ne divise ni 1 ni 2.\nc) Vrai. Parmi n et n + 1, l'un des deux est pair, donc le produit n(n + 1) est pair.\nRègle : vrai = preuve générale ; faux = un contre-exemple suffit.",
+      },
+      {
+        id: "ex5", ran: 4, minutes: 8, titre: "Problème : boîtes de pâtisseries (PGCD)",
+        enonce: "Un pâtissier a 180 macarons et 144 chouquettes. Il veut les répartir dans des boîtes identiques, en utilisant tous les gâteaux.\na) Peut-il faire 24 boîtes ? Justifie.\nb) Quel est le nombre maximal de boîtes ? Que contient chaque boîte ?",
+        corrige: "a) Non : 144 ÷ 24 = 6, mais 180 ÷ 24 = 7,5 n'est pas entier (180 = 24 × 7 + 12). 24 ne divise pas 180.\nb) Le nombre de boîtes doit diviser 180 et 144, et être le plus grand possible : c'est leur PGCD. 180 = 2² × 3² × 5 et 144 = 2⁴ × 3², donc PGCD = 2² × 3² = 36. Il fait 36 boîtes contenant chacune 180 ÷ 36 = 5 macarons et 144 ÷ 36 = 4 chouquettes.",
+      },
+      {
+        id: "ex6", ran: 5, minutes: 8, titre: "Analyse d'erreurs d'élève : opérations sur les fractions",
+        enonce: "Un élève a écrit :\n① 3/4 + 2/5 = 5/9\n② 2/3 × 4/5 = 8/15\n③ 5/6 − 1/3 = 4/3\nPour chaque calcul, dis s'il est juste. S'il est faux, identifie l'erreur probable et donne le bon résultat.",
+        corrige: "① Faux : l'élève a additionné les numérateurs entre eux et les dénominateurs entre eux. Il faut réduire au même dénominateur : 15/20 + 8/20 = 23/20.\n② Juste : pour multiplier deux fractions, on multiplie les numérateurs entre eux et les dénominateurs entre eux.\n③ Faux : même erreur (5 − 1 = 4 et 6 − 3 = 3). Correct : 5/6 − 2/6 = 3/6 = 1/2.\nÀ l'écrit : nommer l'origine de l'erreur (règle de la multiplication appliquée à l'addition), pas seulement corriger le résultat.",
+      },
+      {
+        id: "ex7", ran: 5, minutes: 8, titre: "Encadrer, comparer, intercaler des fractions",
+        enonce: "a) Encadre 17/6 entre deux entiers consécutifs, puis entre deux décimaux consécutifs au dixième.\nb) Range dans l'ordre croissant : 7/4 ; 1,7 ; 12/7 ; 1,75.\nc) Trouve une fraction comprise entre 2/5 et 3/5, différente de 1/2. Justifie.",
+        corrige: "a) 17 = 6 × 2 + 5, donc 17/6 = 2 + 5/6 : 2 < 17/6 < 3. 17/6 = 2,833…, donc 2,8 < 17/6 < 2,9.\nb) 7/4 = 1,75 et 12/7 ≈ 1,714. Donc 1,7 < 12/7 < 7/4 = 1,75 (7/4 et 1,75 sont égaux).\nc) 2/5 = 8/20 et 3/5 = 12/20 : par exemple 9/20 (ou 11/20) convient, car 8/20 < 9/20 < 12/20.\nAstuce : on multiplie numérateur et dénominateur pour « faire de la place » entre deux fractions.",
+      },
+    ],
+  },
   {
     date: "2026-10-24",
     rans: [3, 4, 5],
