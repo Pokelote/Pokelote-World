@@ -270,7 +270,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "79";
+const APP_VERSION = "80";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -6155,6 +6155,48 @@ const CRPE_RAN_ETAPES = {
 };
 
 const CRPE_EXERCICES_MIXTES = [
+  {
+    date: "2026-10-26",
+    rans: [3, 4, 5],
+    pdf: true,
+    exercices: [
+      {
+        id: "ex1", ran: 3, minutes: 7, titre: "Ordres de grandeur",
+        enonce: "a) Sans poser l'opération, donne un ordre de grandeur de 498 × 21, puis de 3 012 ÷ 49. Explique tes arrondis.\nb) Un élève trouve 498 × 21 = 1 045,8. Comment l'ordre de grandeur permet-il de repérer son erreur ? Donne le résultat exact.",
+        corrige: "a) 498 ≈ 500 et 21 ≈ 20, donc 498 × 21 ≈ 500 × 20 = 10 000. 3 012 ≈ 3 000 et 49 ≈ 50, donc 3 012 ÷ 49 ≈ 3 000 ÷ 50 = 60.\nb) Le résultat attendu est d'environ 10 000. 1 045,8 est environ 10 fois trop petit : c'est une erreur de position de la virgule, ou de décalage. Exact : 498 × 21 = 500 × 21 − 2 × 21 = 10 500 − 42 = 10 458.\nÀ l'écrit : l'ordre de grandeur sert à contrôler un résultat, il faut le dire.",
+      },
+      {
+        id: "ex2", ran: 3, minutes: 8, titre: "Analyse d'une erreur d'élève : multiplication posée",
+        enonce: "Un élève pose 253 × 46. Il écrit 253 × 6 = 1 518 sur la première ligne, 253 × 4 = 1 012 sur la deuxième ligne alignée sous la première, puis additionne et trouve 2 530.\na) Quel est le résultat exact ?\nb) Explique l'erreur de l'élève.\nc) Justifie le décalage de la deuxième ligne à l'aide d'une propriété.",
+        corrige: "a) 253 × 46 = 11 638.\nb) L'élève a oublié le décalage : la deuxième ligne ne vaut pas 253 × 4 mais 253 × 40 = 10 120. Il a donc calculé 253 × 6 + 253 × 4 = 253 × 10.\nc) Distributivité : 253 × 46 = 253 × (40 + 6) = 253 × 40 + 253 × 6 = 10 120 + 1 518 = 11 638. Le 0 (ou le décalage d'un rang) traduit le fait qu'on multiplie par 4 dizaines.\nÀ l'écrit : relier la technique opératoire à la numération (4 dizaines) et à la distributivité.",
+      },
+      {
+        id: "ex3", ran: 4, minutes: 8, titre: "Diviseurs d'un nombre",
+        enonce: "a) Complète : « a est un diviseur de b signifie que… ». Donne aussi la définition équivalente avec « multiple ».\nb) Écris la liste de tous les diviseurs de 72, de façon organisée.\nc) Retrouve leur nombre à partir de la décomposition de 72 en facteurs premiers.",
+        corrige: "a) a est un diviseur de b s'il existe un entier k tel que b = k × a (le reste de la division euclidienne de b par a est nul). De façon équivalente, b est un multiple de a.\nb) Par paires : 1 × 72, 2 × 36, 3 × 24, 4 × 18, 6 × 12, 8 × 9. Diviseurs : 1 ; 2 ; 3 ; 4 ; 6 ; 8 ; 9 ; 12 ; 18 ; 24 ; 36 ; 72, soit 12 diviseurs.\nc) 72 = 2³ × 3². Un diviseur s'écrit 2^a × 3^b avec a ∈ {0 ; 1 ; 2 ; 3} et b ∈ {0 ; 1 ; 2}, soit 4 × 3 = 12 diviseurs.\nMéthode : chercher les diviseurs par paires évite d'en oublier, et on peut s'arrêter dès que les paires se croisent.",
+      },
+      {
+        id: "ex4", ran: 4, minutes: 8, titre: "Problème : restes égaux (PPCM)",
+        enonce: "Un enfant a entre 100 et 150 billes. S'il les range par paquets de 4, de 5 ou de 6, il lui en reste toujours exactement 1.\nCombien a-t-il de billes ? Justifie.",
+        corrige: "Si n est le nombre de billes, n − 1 est divisible par 4, par 5 et par 6 : n − 1 est un multiple commun de 4, 5 et 6, donc un multiple de leur PPCM.\n4 = 2², 5 = 5, 6 = 2 × 3 : PPCM = 2² × 3 × 5 = 60.\nn − 1 ∈ {60 ; 120 ; 180 ; …}, donc n ∈ {61 ; 121 ; 181 ; …}. Entre 100 et 150, seul 121 convient.\nVérification : 121 = 4 × 30 + 1 = 5 × 24 + 1 = 6 × 20 + 1.\nAstuce : « il reste 1 dans chaque cas », c'est n − 1 qui est multiple commun.",
+      },
+      {
+        id: "ex5", ran: 4, minutes: 7, titre: "Vrai ou faux ? Divisibilité et nombres premiers",
+        enonce: "Vrai ou faux ? Justifie.\na) Si un nombre est divisible par 9, il est divisible par 3.\nb) Si un nombre est divisible par 3, il est divisible par 9.\nc) Un nombre qui se termine par 5 n'est jamais premier.\nd) Deux nombres premiers distincts sont premiers entre eux.",
+        corrige: "a) Vrai : si n = 9k, alors n = 3 × (3k), multiple de 3.\nb) Faux : 6 est divisible par 3 mais pas par 9.\nc) Faux : 5 se termine par 5 et il est premier. (Les autres, comme 15 ou 25, sont divisibles par 5.)\nd) Vrai : les seuls diviseurs de p sont 1 et p, ceux de q sont 1 et q ; comme p ≠ q, leur seul diviseur commun est 1.\nPiège : penser au cas particulier (ici 5 lui-même) avant de généraliser.",
+      },
+      {
+        id: "ex6", ran: 5, minutes: 8, titre: "Fraction d'une quantité",
+        enonce: "a) Calcule les 3/5 de 45 €.\nb) Les 2/7 d'un nombre valent 18. Quel est ce nombre ?\nc) Exprime 45 minutes en fraction d'heure irréductible, puis en heure décimale.\nd) Explique la différence de raisonnement entre a) et b).",
+        corrige: "a) 45 ÷ 5 = 9, puis 9 × 3 = 27 € (ou 3/5 × 45 = 135/5 = 27).\nb) 2/7 du nombre = 18, donc 1/7 = 9 et le nombre vaut 9 × 7 = 63. Vérification : 2/7 × 63 = 18.\nc) 45 min = 45/60 h = 3/4 h = 0,75 h.\nd) En a), on connaît le tout et on cherche une partie (on multiplie par la fraction). En b), on connaît une partie et on cherche le tout (on remonte à l'unité, ou on divise par la fraction).\nPiège : 45 min ne vaut pas 0,45 h.",
+      },
+      {
+        id: "ex7", ran: 5, minutes: 8, titre: "Comparer des fractions sans écriture décimale",
+        enonce: "Compare les fractions suivantes en justifiant, sans passer par l'écriture décimale :\na) 5/7 et 7/9\nb) 13/12 et 11/10\nc) 99/100 et 100/101",
+        corrige: "a) Même dénominateur : 5/7 = 45/63 et 7/9 = 49/63, donc 5/7 < 7/9.\nb) 13/12 = 1 + 1/12 et 11/10 = 1 + 1/10. Or 1/12 < 1/10, donc 13/12 < 11/10.\nc) 99/100 = 1 − 1/100 et 100/101 = 1 − 1/101. Or 1/101 < 1/100, donc on enlève moins à 1 : 99/100 < 100/101.\nMéthodes à connaître : même dénominateur, même numérateur, comparaison à 1 (« ce qui manque » ou « ce qui dépasse »).",
+      },
+    ],
+  },
   {
     date: "2026-10-25",
     rans: [3, 4, 5],
