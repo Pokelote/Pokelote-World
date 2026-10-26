@@ -270,7 +270,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "83";
+const APP_VERSION = "84";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -6110,7 +6110,10 @@ function crpeSchedule(statut, domaine, done = {}, weeksAhead = 45) {
       if (s.tampon || s.mixte || s.optional || past) return { ...s, parts, past, fixe, focus };
       const matin = crpeMinutes(s.start) < 12 * 60 + 30;
       const prev = sessions[idx - 1];
-      const apresMixte = !!(prev && prev.mixte && prev.day === s.day && prev.end === s.start);
+      // Les maths suivent les exercices mixtes seulement les jours sans séance le matin (jours d'Apesanteur) :
+      // un test refait l'après-midi d'une journée complète (26/10/2026) laisse l'après-midi au français.
+      const matinTravaille = sessions.some((o) => o.day === s.day && crpeMinutes(o.start) < 12 * 60 + 30);
+      const apresMixte = !!(prev && prev.mixte && prev.day === s.day && prev.end === s.start) && !matinTravaille;
       const prefs = focus ? [focus.stream] : matin || apresMixte ? ["ma", "autre", "fr"] : ["fr", "autre", "ma"];
       let cap = s.mins / 60 - (fixe ? fixe.h : 0);
       while (cap > 0.01) {
@@ -6155,6 +6158,45 @@ const CRPE_RAN_ETAPES = {
 };
 
 const CRPE_EXERCICES_MIXTES = [
+  {
+    date: "2026-10-26",
+    cle: "2026-10-26-apm",
+    moment: "après-midi, test refait : justifications",
+    rans: [3, 4, 5],
+    pdf: true,
+    exercices: [
+      {
+        id: "ex1", ran: 4, minutes: 10, titre: "Définitions à restituer (exemple et contre-exemple)",
+        enonce: "Donne la définition précise de chaque notion, puis un exemple et un contre-exemple.\na) La division euclidienne de a par b (a et b entiers, b ≠ 0).\nb) Un nombre premier.\nc) Deux nombres premiers entre eux.\nd) Un nombre décimal.\ne) Un nombre rationnel.",
+        corrige: "► Pourquoi cet exercice : une justification commence presque toujours par une définition. Il faut la connaître mot pour mot, avec ses conditions.\na) ► Cours (RAN 3) : effectuer la division euclidienne de a par b, c'est trouver l'unique couple d'entiers (q ; r) tel que a = b × q + r avec 0 ≤ r < b. q est le quotient, r le reste.\nExemple : 47 = 6 × 7 + 5 (5 < 6). Contre-exemple : 47 = 6 × 6 + 11 est une égalité vraie mais pas la division euclidienne, car 11 ≥ 6.\nb) ► Cours (RAN 4) : un nombre premier est un entier naturel qui a exactement deux diviseurs distincts, 1 et lui-même.\nExemple : 13 (diviseurs 1 et 13). Contre-exemples : 1 (un seul diviseur) ; 21 = 3 × 7.\nc) ► Cours (RAN 4) : deux entiers sont premiers entre eux si leur PGCD est 1, c'est-à-dire si leur seul diviseur commun positif est 1.\nExemple : 8 et 15 (8 = 2³, 15 = 3 × 5, aucun facteur commun). Contre-exemple : 12 et 18 (PGCD 6). Attention : 8 et 15 ne sont pas premiers, ils sont premiers ENTRE EUX.\nd) ► Cours (RAN 5) : un nombre décimal est un nombre qui peut s'écrire a / 10ⁿ, avec a entier et n entier naturel (fraction décimale). Son écriture décimale est finie.\nExemple : 3/4 = 75/100 = 0,75. Contre-exemple : 1/3 = 0,333… ne peut pas s'écrire avec une puissance de 10 au dénominateur.\ne) ► Cours (RAN 5) : un nombre rationnel est un nombre qui peut s'écrire a / b, avec a entier et b entier non nul.\nExemple : 1/3, ou −2 = −2/1. Contre-exemple : √2 ou π (irrationnels).\n► Erreur à éviter : définir par un exemple (« un nombre premier, c'est comme 7 ») ou oublier une condition (0 ≤ r < b ; « exactement » deux diviseurs ; b ≠ 0).",
+      },
+      {
+        id: "ex2", ran: 3, minutes: 9, titre: "Calcul astucieux : nommer chaque propriété",
+        enonce: "Calcule astucieusement, en écrivant chaque étape et en nommant la propriété utilisée à chaque étape.\na) 25 × 37 × 4\nb) 17 × 99\nc) 4,7 × 13 + 4,7 × 87\nd) 1 000 − 398",
+        corrige: "► Ce qu'on attend : une égalité par étape, et le nom exact de la propriété. Le résultat seul ne rapporte presque rien.\na) 25 × 37 × 4 = 25 × 4 × 37 (commutativité de la multiplication) = (25 × 4) × 37 (associativité) = 100 × 37 = 3 700.\n► Cours (RAN 3) : la multiplication est commutative (a × b = b × a) et associative ((a × b) × c = a × (b × c)), donc on peut regrouper les facteurs comme on veut.\nb) 17 × 99 = 17 × (100 − 1) = 17 × 100 − 17 × 1 (distributivité de la multiplication sur la soustraction) = 1 700 − 17 = 1 683.\nc) 4,7 × 13 + 4,7 × 87 = 4,7 × (13 + 87) (distributivité, utilisée dans le sens de la factorisation) = 4,7 × 100 = 470.\n► Cours (RAN 3) : k × (a + b) = k × a + k × b et k × (a − b) = k × a − k × b.\nd) 1 000 − 398 = (1 000 + 2) − (398 + 2) = 1 002 − 400 = 602 (conservation des écarts : on ajoute le même nombre aux deux termes, la différence ne change pas).\n► Cours (RAN 3) : a − b = (a + c) − (b + c). C'est cette propriété qui justifie la soustraction posée « par compensation ».\n► Erreur à éviter : écrire « par associativité » pour un changement d'ordre (c'est la commutativité), ou « distributivité » sans dire « de la multiplication sur l'addition (ou la soustraction) ».",
+      },
+      {
+        id: "ex3", ran: 3, minutes: 9, titre: "Lire une division euclidienne dans une égalité",
+        enonce: "On donne l'égalité : 2 026 = 37 × 54 + 28.\na) Sans aucun calcul, donne le quotient et le reste de la division euclidienne de 2 026 par 37. Justifie.\nb) Même question pour la division euclidienne de 2 026 par 54.\nc) L'égalité 2 026 = 37 × 50 + 176 est-elle la division euclidienne de 2 026 par 37 ? Justifie.\nd) 2 026 personnes doivent prendre des cars de 54 places. Combien de cars faut-il ? Justifie.",
+        corrige: "► Cours (RAN 3) : la division euclidienne de a par b est l'unique écriture a = b × q + r avec 0 ≤ r < b. Pour justifier, on vérifie les deux conditions : l'égalité ET l'encadrement du reste.\na) On a 2 026 = 37 × 54 + 28 et 0 ≤ 28 < 37. Donc, par définition (et par unicité), le quotient est 54 et le reste 28.\nb) On a aussi 2 026 = 54 × 37 + 28 (commutativité) et 0 ≤ 28 < 54. Donc quotient 37, reste 28.\nc) L'égalité est vraie (37 × 50 = 1 850 et 1 850 + 176 = 2 026), mais 176 ≥ 37 : la condition sur le reste n'est pas respectée. Ce n'est donc pas la division euclidienne.\nd) 2 026 = 54 × 37 + 28 : 37 cars pleins transportent 1 998 personnes et il en reste 28, qui ont besoin d'un car de plus. Il faut 38 cars.\n► Rédaction modèle : « On sait que 2 026 = 54 × 37 + 28 avec 0 ≤ 28 < 54. Or (définition de la division euclidienne)… Donc… »\n► Erreur à éviter : répondre 37 cars, sans interpréter le reste dans le contexte du problème.",
+      },
+      {
+        id: "ex4", ran: 4, minutes: 10, titre: "Démontrer avec des lettres",
+        enonce: "a) Démontre que la somme de deux nombres impairs est toujours paire.\nb) Démontre que le produit de deux entiers consécutifs est toujours pair.\nc) Théo affirme : « pour tout entier naturel n, 2ⁿ + 1 est un nombre premier ; je l'ai vérifié pour n = 0, 1 et 2 ». A-t-il raison ? Justifie.",
+        corrige: "► Cours : un nombre pair s'écrit 2k et un nombre impair s'écrit 2k + 1, avec k entier. Pour prouver qu'une propriété est toujours vraie, des exemples ne suffisent pas : on raisonne sur des lettres. Pour prouver qu'elle est fausse, un seul contre-exemple suffit.\na) Soient deux impairs 2k + 1 et 2m + 1 (k et m entiers ; deux lettres différentes, car les nombres ne sont pas forcément égaux). Leur somme vaut 2k + 1 + 2m + 1 = 2k + 2m + 2 = 2(k + m + 1). Comme k + m + 1 est un entier, la somme s'écrit 2 × (entier) : elle est paire.\nb) Soient n et n + 1 deux entiers consécutifs. L'un des deux est pair.\nSi n est pair, n = 2k et n(n + 1) = 2 × k(n + 1), qui est pair.\nSi n est impair, n + 1 est pair : n + 1 = 2k et n(n + 1) = 2 × nk, qui est pair.\nDans les deux cas, le produit est pair.\nc) Non. n = 0 : 2 ; n = 1 : 3 ; n = 2 : 5 sont bien premiers, mais pour n = 3 : 2³ + 1 = 9 = 3 × 3, qui a trois diviseurs (1, 3, 9). 9 n'est donc pas premier, et ce contre-exemple suffit à prouver que l'affirmation est fausse.\n► Erreur à éviter : en a), écrire 2k + 1 et 2k + 1 (les deux impairs seraient égaux) ; en c), répondre « oui » à partir de quelques exemples.",
+      },
+      {
+        id: "ex5", ran: 4, minutes: 10, titre: "Nombre premier, fraction irréductible, nombre décimal",
+        enonce: "a) 391 est-il un nombre premier ? Justifie en expliquant ta méthode.\nb) Décompose 460 en produit de facteurs premiers.\nc) Rends la fraction 391/460 irréductible. Justifie qu'elle l'est.\nd) Le nombre 391/460 est-il décimal ? Justifie sans poser la division.",
+        corrige: "a) ► Cours (RAN 4) : pour savoir si n est premier, on teste sa divisibilité par les nombres premiers p tels que p × p ≤ n. S'il n'en a aucun, il est premier.\nIci 19 × 19 = 361 ≤ 391 < 529 = 23 × 23 : on teste 2, 3, 5, 7, 11, 13, 17 et 19. 391 n'est pas pair, la somme de ses chiffres (13) n'est pas multiple de 3, il ne finit ni par 0 ni par 5, et 391 = 7 × 55 + 6 ; 391 = 11 × 35 + 6 ; 391 = 13 × 30 + 1 ; mais 391 = 17 × 23. Il a donc un diviseur autre que 1 et lui-même : 391 n'est pas premier.\nb) 460 = 2 × 230 = 2 × 2 × 115 = 2² × 5 × 23.\nc) 391 = 17 × 23 et 460 = 2² × 5 × 23. Le seul facteur premier commun est 23, donc PGCD(391 ; 460) = 23.\n391/460 = (17 × 23)/(20 × 23) = 17/20.\n17/20 est irréductible car 17 et 20 = 2² × 5 n'ont aucun facteur premier commun : ils sont premiers entre eux (PGCD = 1).\nd) ► Cours (RAN 5) : une fraction irréductible est un nombre décimal si et seulement si son dénominateur n'a pas d'autre facteur premier que 2 et 5.\nIci 20 = 2² × 5 : 391/460 = 17/20 est décimal. En effet 17/20 = 85/100 = 0,85.\n► Erreur à éviter : appliquer le critère du dénominateur à une fraction non simplifiée (460 contient 23, mais 23 disparaît après simplification).",
+      },
+      {
+        id: "ex6", ran: 5, minutes: 10, titre: "Vrai ou faux sur les fractions : justifier",
+        enonce: "Vrai ou faux ? Justifie chaque réponse (une propriété du cours si c'est vrai, un contre-exemple si c'est faux).\na) 7/12 est un nombre décimal.\nb) Il n'existe aucune fraction comprise entre 2/5 et 3/5.\nc) Si l'on ajoute un même nombre au numérateur et au dénominateur d'une fraction, on obtient une fraction égale.\nd) Diviser un nombre par 0,25 revient à le multiplier par 4.",
+        corrige: "► Méthode : pour « vrai », on cite une définition ou une propriété du cours ; pour « faux », un seul contre-exemple, vérifié, suffit.\na) Faux. 7/12 est irréductible (7 est premier et ne divise pas 12) et 12 = 2² × 3 contient le facteur 3. ► Cours (RAN 5) : une fraction irréductible est décimale si et seulement si son dénominateur n'a pas d'autre facteur premier que 2 et 5. Donc 7/12 n'est pas décimal (7/12 = 0,58333…).\nb) Faux. 2/5 = 4/10 et 3/5 = 6/10, et 4/10 < 5/10 < 6/10 : la fraction 5/10 = 1/2 est entre les deux (et il y en a même une infinité : 9/20, 11/20…).\nc) Faux. Contre-exemple : 1/2 ; en ajoutant 1 en haut et en bas, on obtient 2/3, et 1/2 ≠ 2/3 (car 1 × 3 ≠ 2 × 2). ► Cours (RAN 5) : une fraction ne change pas si l'on MULTIPLIE (ou divise) son numérateur et son dénominateur par un même nombre non nul : a/b = (a × k)/(b × k).\nd) Vrai. 0,25 = 1/4. ► Cours (RAN 5) : diviser par une fraction, c'est multiplier par son inverse. L'inverse de 1/4 est 4, donc diviser par 0,25 revient à multiplier par 4. Exemple de contrôle : 3 ÷ 0,25 = 12 = 3 × 4.\n► Erreur à éviter : répondre « faux » sans contre-exemple, ou « vrai » avec un seul exemple.",
+      },
+    ],
+  },
   {
     date: "2026-10-26",
     rans: [3, 4, 5],
@@ -6373,24 +6415,28 @@ const CRPE_MIXTES_NOTES = [
   { key: "ko", label: "Raté", color: "#B85C5C" },
 ];
 
+// Une date peut avoir plusieurs séries (ex. : test refait l'après-midi) : elles se distinguent par
+// « cle » (par défaut la date), qui sert aussi pour les PDF et les notes.
+const crpeCleSerie = (s) => s.cle || s.date;
+
 function crpeMixteDuJour(date) {
   return CRPE_EXERCICES_MIXTES.find((s) => s.date === date) || null;
 }
 
 function CrpeExercicesMixtes({ resultats, setResultat }) {
   const today = dateKey(new Date());
-  const series = [...CRPE_EXERCICES_MIXTES].sort((a, b) => b.date.localeCompare(a.date));
+  const series = [...CRPE_EXERCICES_MIXTES].sort((a, b) => crpeCleSerie(b).localeCompare(crpeCleSerie(a)));
   // Par défaut : la série du jour, sinon la prochaine à venir, sinon la plus récente.
   const defaut =
     crpeMixteDuJour(today) || [...series].reverse().find((s) => s.date > today) || series[0] || null;
-  const [date, setDate] = useState(defaut ? defaut.date : null);
-  const serie = series.find((s) => s.date === date) || null;
+  const [cle, setCle] = useState(defaut ? crpeCleSerie(defaut) : null);
+  const serie = series.find((s) => crpeCleSerie(s) === cle) || null;
 
   // Bilan par RAN sur toutes les séries notées.
   const bilan = {};
   CRPE_EXERCICES_MIXTES.forEach((s) =>
     s.exercices.forEach((ex) => {
-      const n = (resultats[s.date] || {})[ex.id];
+      const n = (resultats[crpeCleSerie(s)] || {})[ex.id];
       if (!n) return;
       const b = (bilan[ex.ran] = bilan[ex.ran] || { ok: 0, total: 0 });
       b.total++;
@@ -6401,12 +6447,14 @@ function CrpeExercicesMixtes({ resultats, setResultat }) {
   if (!serie) {
     return <p style={{ fontSize: 13, color: COLORS.muted, fontStyle: "italic" }}>Pas encore de série : elle est préparée le matin même.</p>;
   }
-  const notes = resultats[serie.date] || {};
+  const notes = resultats[crpeCleSerie(serie)] || {};
   // Séries passées jamais notées (pause du 22 au 25/10/2026) : pas de rattrapage obligatoire, elles
   // restent en réserve plutôt que de s'empiler.
-  const enReserve = series.filter((s) => s.date < today && !Object.keys(resultats[s.date] || {}).length);
+  const enReserve = series.filter((s) => s.date < today && !Object.keys(resultats[crpeCleSerie(s)] || {}).length);
   const minutes = serie.exercices.reduce((a, ex) => a + (ex.minutes || 0), 0);
-  const label = serie.date === today ? "Série du jour" : serie.date > today ? "Série de demain" : `Série du ${crpeFormatDate(serie.date)}`;
+  const label =
+    (serie.date === today ? "Série du jour" : serie.date > today ? "Série de demain" : `Série du ${crpeFormatDate(serie.date)}`) +
+    (serie.moment ? ` (${serie.moment})` : "");
 
   return (
     <div>
@@ -6425,16 +6473,16 @@ function CrpeExercicesMixtes({ resultats, setResultat }) {
         <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 12 }}>
           {series.slice(0, 10).map((s) => (
             <button
-              key={s.date}
-              onClick={() => setDate(s.date)}
+              key={crpeCleSerie(s)}
+              onClick={() => setCle(crpeCleSerie(s))}
               style={{
                 fontSize: 11, padding: "3px 10px", borderRadius: 999, cursor: "pointer", fontFamily: FONT_BODY,
-                border: `1px solid ${s.date === date ? darken(ENSEIGNEMENT_ACCENT, 20) : COLORS.border}`,
-                background: s.date === date ? ENSEIGNEMENT_ACCENT : "transparent",
-                color: s.date === date ? "white" : COLORS.muted,
+                border: `1px solid ${crpeCleSerie(s) === cle ? darken(ENSEIGNEMENT_ACCENT, 20) : COLORS.border}`,
+                background: crpeCleSerie(s) === cle ? ENSEIGNEMENT_ACCENT : "transparent",
+                color: crpeCleSerie(s) === cle ? "white" : COLORS.muted,
               }}
             >
-              {crpeFormatDate(s.date)}
+              {crpeFormatDate(s.date)}{s.moment ? ` · ${s.moment}` : ""}
             </button>
           ))}
         </div>
@@ -6454,7 +6502,7 @@ function CrpeExercicesMixtes({ resultats, setResultat }) {
           ].map(([nom, label]) => (
             <a
               key={nom}
-              href={`./crpe/exercices-mixtes/${serie.date}-${nom}.pdf`}
+              href={`./crpe/exercices-mixtes/${crpeCleSerie(serie)}-${nom}.pdf`}
               target="_blank"
               rel="noreferrer"
               style={{
@@ -6494,7 +6542,7 @@ function CrpeExercicesMixtes({ resultats, setResultat }) {
                   return (
                     <button
                       key={st.key}
-                      onClick={() => setResultat(serie.date, ex.id, active ? null : st.key)}
+                      onClick={() => setResultat(crpeCleSerie(serie), ex.id, active ? null : st.key)}
                       style={{
                         fontSize: 11, padding: "3px 9px", borderRadius: 999, cursor: "pointer", fontFamily: FONT_BODY,
                         border: `1px solid ${active ? darken(st.color, 20) : COLORS.border}`,
@@ -8642,7 +8690,8 @@ const NEWS_DATA = {
     items: [
       { time: "09h00 – 10h00", title: "🔁 CRPE — Exercices mixtes RAN (1h) — reprise" },
       { time: "10h00 – 12h30", title: "📖 Révisions CRPE — Maths (finir la RAN 5)" },
-      { time: "13h30 – 17h30", title: "📖 Révisions CRPE — Français" },
+      { time: "13h30 – 14h30", title: "🔁 CRPE — Exercices mixtes : test refait, justifications (1h)" },
+      { time: "14h30 – 17h30", title: "📖 Révisions CRPE — Français" },
       { time: "18h00 – 20h00", title: "🏋️ Musculation" },
       { time: "23h00", title: "🛏️ Au lit (Apesanteur demain)" },
     ],
@@ -10582,7 +10631,8 @@ const CALENDAR_DATA = {
     { date: "2026-10-26", time: "07h00 – 08h00", title: "🌅 Routine matin" },
     { date: "2026-10-26", time: "09h00 – 10h00", title: "🔁 CRPE — Exercices mixtes RAN (1h) — reprise" },
     { date: "2026-10-26", time: "10h00 – 12h30", title: "📖 Révisions CRPE — Maths (finir la RAN 5)" },
-    { date: "2026-10-26", time: "13h30 – 17h30", title: "📖 Révisions CRPE — Français" },
+    { date: "2026-10-26", time: "13h30 – 14h30", title: "🔁 CRPE — Exercices mixtes : test refait, justifications (1h)" },
+    { date: "2026-10-26", time: "14h30 – 17h30", title: "📖 Révisions CRPE — Français" },
     { date: "2026-10-26", time: "18h00 – 20h00", title: "🏋️ Musculation" },
     { date: "2026-10-26", time: "23h00 – 23h05", title: "🛏️ Au lit" },
     { date: "2026-10-27", time: "07h00 – 08h00", title: "🌅 Routine matin" },

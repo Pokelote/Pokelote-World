@@ -1,7 +1,7 @@
 // Génère les PDF d'une série d'exercices mixtes CRPE (énoncés + corrigé) à partir de
 // CRPE_EXERCICES_MIXTES dans mon-espace.html. Utilisé à la main et par la routine du matin.
-// Usage : node outils/pdf-exercices-mixtes.js AAAA-MM-JJ
-// Produit crpe/exercices-mixtes/AAAA-MM-JJ-enonces.pdf et AAAA-MM-JJ-corrige.pdf.
+// Usage : node outils/pdf-exercices-mixtes.js AAAA-MM-JJ[-suffixe]   (date, ou « cle » d'une 2e série du jour)
+// Produit crpe/exercices-mixtes/<cle>-enonces.pdf et <cle>-corrige.pdf.
 const fs = require("fs");
 const path = require("path");
 
@@ -16,8 +16,8 @@ function loadPlaywright() {
 
 const root = path.join(__dirname, "..");
 const date = process.argv[2];
-if (!/^\d{4}-\d{2}-\d{2}$/.test(date || "")) {
-  console.error("Usage : node outils/pdf-exercices-mixtes.js AAAA-MM-JJ");
+if (!/^\d{4}-\d{2}-\d{2}(-[a-z0-9]+)?$/.test(date || "")) {
+  console.error("Usage : node outils/pdf-exercices-mixtes.js AAAA-MM-JJ[-suffixe]");
   process.exit(1);
 }
 
@@ -25,7 +25,7 @@ const html = fs.readFileSync(path.join(root, "mon-espace.html"), "utf8");
 const start = html.indexOf("const CRPE_EXERCICES_MIXTES = [");
 const end = html.indexOf("\n];", start);
 const series = new Function(`return ${html.slice(start + "const CRPE_EXERCICES_MIXTES = ".length, end + 2)};`)();
-const serie = series.find((s) => s.date === date);
+const serie = series.find((s) => (s.cle || s.date) === date);
 if (!serie) {
   console.error(`Pas de série pour le ${date}`);
   process.exit(1);
@@ -33,7 +33,7 @@ if (!serie) {
 
 const JOURS = ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"];
 const MOIS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
-const d = new Date(date + "T12:00:00");
+const d = new Date(serie.date + "T12:00:00");
 const dateLongue = `${JOURS[d.getDay()]} ${d.getDate() === 1 ? "1er" : d.getDate()} ${MOIS[d.getMonth()]} ${d.getFullYear()}`;
 const minutes = serie.exercices.reduce((a, ex) => a + (ex.minutes || 0), 0);
 // Espace insécable dans les nombres (« 4 700 ») pour qu'ils ne soient pas coupés en fin de ligne.
@@ -53,7 +53,7 @@ function page(corrige) {
       <h2>Exercice ${i + 1} — ${esc(ex.titre)}</h2>
       <div class="meta">RAN ${ex.ran}${ex.minutes ? ` · ${ex.minutes} min` : ""}</div>
       <p class="enonce">${esc(ex.enonce)}</p>
-      ${corrige ? `<div class="corrige"><strong>Corrigé</strong><br>${esc(ex.corrige)}</div>` : ""}
+      ${corrige ? `<div class="corrige"><strong>Corrigé</strong><br>${esc(ex.corrige).replace(/(►[^<:]*:)/g, "<b>$1</b>")}</div>` : ""}
     </section>`
     )
     .join("");
@@ -71,7 +71,7 @@ function page(corrige) {
   </style></head><body>
     <header>
       <h1>CRPE — Exercices mixtes${corrige ? " · CORRIGÉ" : ""}</h1>
-      <div class="sous">Série du ${dateLongue} · RAN ${serie.rans.join(", ")} · ${serie.exercices.length} exercices · ≈ ${minutes} min</div>
+      <div class="sous">Série du ${dateLongue}${serie.moment ? ` (${serie.moment})` : ""} · RAN ${serie.rans.join(", ")} · ${serie.exercices.length} exercices · ≈ ${minutes} min</div>
     </header>
     ${
       corrige
