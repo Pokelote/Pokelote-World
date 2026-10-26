@@ -270,7 +270,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "80";
+const APP_VERSION = "81";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -6402,6 +6402,9 @@ function CrpeExercicesMixtes({ resultats, setResultat }) {
     return <p style={{ fontSize: 13, color: COLORS.muted, fontStyle: "italic" }}>Pas encore de série : elle est préparée le matin même.</p>;
   }
   const notes = resultats[serie.date] || {};
+  // Séries passées jamais notées (pause du 22 au 25/10/2026) : pas de rattrapage obligatoire, elles
+  // restent en réserve plutôt que de s'empiler.
+  const enReserve = series.filter((s) => s.date < today && !Object.keys(resultats[s.date] || {}).length);
   const minutes = serie.exercices.reduce((a, ex) => a + (ex.minutes || 0), 0);
   const label = serie.date === today ? "Série du jour" : serie.date > today ? "Série de demain" : `Série du ${crpeFormatDate(serie.date)}`;
 
@@ -6411,6 +6414,13 @@ function CrpeExercicesMixtes({ resultats, setResultat }) {
         Une heure maximum, sans cours ni fiches, chrono lancé, en rédigeant comme sur la copie. Ensuite seulement, ouvre les
         corrigés et note chaque exercice : ce que tu rates revient sous une autre forme les jours suivants.
       </p>
+      {enReserve.length > 0 && (
+        <p style={{ fontSize: 12, color: COLORS.muted, lineHeight: 1.5, marginBottom: 10, fontStyle: "italic" }}>
+          {enReserve.length} série{enReserve.length > 1 ? "s" : ""} passée{enReserve.length > 1 ? "s" : ""} non
+          notée{enReserve.length > 1 ? "s" : ""} : pas de rattrapage, elles restent en réserve (facultatif, un
+          week-end ou un soir d'Apesanteur). Fais seulement celle du jour.
+        </p>
+      )}
       {series.length > 1 && (
         <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 12 }}>
           {series.slice(0, 10).map((s) => (
@@ -8597,10 +8607,11 @@ const NEWS_DATA = {
     title: "Agenda du jour",
     accent: "#C98B6E",
     items: [
-      { time: "06h00 – 07h30", title: "🌅 Routine matin" },
-      { time: "08h00 – 15h00", title: "💼 Apesanteur" },
-      { time: "18h15 – 19h15", title: "🔁 CRPE — Exercices mixtes RAN (1h)" },
-      { time: "19h30 – 00h00", title: "🎉 Méli Mélo" },
+      { time: "09h00 – 10h00", title: "🔁 CRPE — Exercices mixtes RAN (1h) — reprise" },
+      { time: "10h00 – 12h30", title: "📖 Révisions CRPE — Maths (finir la RAN 5)" },
+      { time: "13h30 – 17h30", title: "📖 Révisions CRPE — Français" },
+      { time: "18h00 – 20h00", title: "🏋️ Musculation" },
+      { time: "23h00", title: "🛏️ Au lit (Apesanteur demain)" },
     ],
   },
   mails: {
@@ -10536,8 +10547,8 @@ const CALENDAR_DATA = {
     { date: "2026-10-25", time: "14h00 – 18h00", title: "🏈 La Cage — club de foot US" },
     { date: "2026-10-26", time: "00h00 – 00h05", title: "🛏️ Au lit" },
     { date: "2026-10-26", time: "07h00 – 08h00", title: "🌅 Routine matin" },
-    { date: "2026-10-26", time: "08h00 – 09h00", title: "🔁 CRPE — Exercices mixtes RAN (1h)" },
-    { date: "2026-10-26", time: "09h00 – 12h00", title: "📖 Révisions CRPE — Maths" },
+    { date: "2026-10-26", time: "09h00 – 10h00", title: "🔁 CRPE — Exercices mixtes RAN (1h) — reprise" },
+    { date: "2026-10-26", time: "10h00 – 12h30", title: "📖 Révisions CRPE — Maths (finir la RAN 5)" },
     { date: "2026-10-26", time: "13h30 – 17h30", title: "📖 Révisions CRPE — Français" },
     { date: "2026-10-26", time: "18h00 – 20h00", title: "🏋️ Musculation" },
     { date: "2026-10-26", time: "23h00 – 23h05", title: "🛏️ Au lit" },
