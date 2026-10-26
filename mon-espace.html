@@ -270,7 +270,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "82";
+const APP_VERSION = "83";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -5771,47 +5771,47 @@ const CRPE_PARCOURS = [
     todo: "Regarder comment se passent les épreuves et choisir ton domaine principal pour l'épreuve d'application.",
     oc: ["oc-les-epreuves-du-crpe", "oc-les-priorites-pour-bien-debuter-1", "oc-m2-comment-choisir-son-domaine-depreuve-dapplication", "oc-m2-kit-de-demarrage-copie-1"] },
   { id: "p-m-operations", bloc: "rn", m: "maths", title: "Les quatre opérations", h: 2,
-    todo: "Cours RAN 3 puis tous ses exercices, corrigés à la fin.", oc: ["oc-ran-3-les-quatre-operations-proprietes-et-algorithmes-copie-8"] },
+    todo: "Cours RAN 3 puis tous ses exercices, corrigés à la fin.", oc: ["oc-ran-3-les-quatre-operations-proprietes-et-algorithmes-copie-8"], pdf: ["ran-fiche-3"] },
   { id: "p-f-classes", bloc: "rn", m: "francais", title: "Les classes de mots", h: 2.5,
     todo: "Partie « classes de mots » du guide de terminologie : nom, déterminant, adjectif, pronom, verbe, adverbe, préposition, conjonction. Faire une fiche.",
     pdf: ["francais-guide-terminologie"] },
   { id: "p-m-rationnels", bloc: "rn", m: "maths", title: "Fractions, décimaux, rationnels", h: 2,
-    todo: "Cours RAN 5 et ses exercices.", oc: ["oc-ran-5-calcul-avec-les-rationnels-copie-9"] },
+    todo: "Cours RAN 5 et ses exercices.", oc: ["oc-ran-5-calcul-avec-les-rationnels-copie-9"], pdf: ["ran-fiche-5"] },
   { id: "p-f-fonctions", bloc: "rn", m: "francais", title: "Les fonctions dans la phrase", h: 2.5,
     todo: "Sujet, COD, COI, attribut, compléments circonstanciels, complément du nom : guide de terminologie + exercices d'identification.",
     pdf: ["francais-guide-terminologie"] },
   { id: "p-m-proportion", bloc: "rn", m: "maths", title: "Proportionnalité et pourcentages", h: 4,
-    todo: "Cours RAN 7 puis RAN 11, avec leurs exercices.", oc: ["oc-ran-7-la-proportionnalite-copie-9", "oc-ran-11-les-pourcentages-copie-6"] },
+    todo: "Cours RAN 7 puis RAN 11, avec leurs exercices.", oc: ["oc-ran-7-la-proportionnalite-copie-9", "oc-ran-11-les-pourcentages-copie-6"], pdf: ["ran-fiche-7", "ran-fiche-11"] },
   { id: "p-f-conjugaison", bloc: "rn", m: "francais", title: "Conjugaison : formation des temps et des modes", h: 2.5,
     todo: "Radical, terminaisons, temps simples et composés, indicatif / subjonctif / conditionnel / impératif.",
     pdf: ["francais-guide-terminologie"] },
   { id: "p-m-geo-plane", bloc: "rn", m: "maths", title: "Bases de géométrie plane", h: 2,
-    todo: "PDF Remise à niveau #1 (cours + 10 exercices corrigés).", oc: ["oc-ran-1-les-bases-de-la-geometrie-plane-copie-7"], pdf: ["maths-rn1-geometrie-plane"] },
+    todo: "PDF Remise à niveau #1 (cours + 10 exercices corrigés).", oc: ["oc-ran-1-les-bases-de-la-geometrie-plane-copie-7"], pdf: ["maths-rn1-geometrie-plane", "ran-fiche-1"] },
   { id: "p-f-accords", bloc: "rn", m: "francais", title: "Les accords (orthographe grammaticale)", h: 2.5,
     todo: "Accords dans le groupe nominal, sujet-verbe, participe passé (être, avoir, pronominaux)." },
   { id: "p-m-symetries", bloc: "rn", m: "maths", title: "Symétries et polygones particuliers", h: 2,
-    todo: "Cours RAN 2 et ses exercices.", oc: ["oc-ran-2-symetries-et-polygones-particuliers-copie-8"] },
+    todo: "Cours RAN 2 et ses exercices.", oc: ["oc-ran-2-symetries-et-polygones-particuliers-copie-8"], pdf: ["ran-fiche-2"] },
   { id: "p-f-phrase", bloc: "rn", m: "francais", title: "La phrase simple et complexe", h: 2.5,
     todo: "Types et formes de phrases, propositions (juxtaposées, coordonnées, subordonnées) et leurs fonctions.",
     pdf: ["francais-guide-terminologie"] },
   { id: "p-m-arith", bloc: "rn", m: "maths", title: "Arithmétique", h: 2,
-    todo: "Cours RAN 4 : multiples, diviseurs, nombres premiers, PGCD.", oc: ["oc-ran-4-arithmetique-copie-9"] },
+    todo: "Cours RAN 4 : multiples, diviseurs, nombres premiers, PGCD.", oc: ["oc-ran-4-arithmetique-copie-9"], pdf: ["ran-fiche-4"] },
   { id: "p-f-temps", bloc: "rn", m: "francais", title: "Valeurs des temps et des modes", h: 2.5,
     todo: "Présent, imparfait, passé simple, passé composé dans un récit : savoir justifier l'emploi d'un temps." },
   { id: "p-m-aires", bloc: "rn", m: "maths", title: "Aires et périmètres", h: 2,
-    todo: "Cours RAN 6 et ses exercices.", oc: ["oc-ran-6-aires-et-perimetres-de-figures-planes-copie-9"] },
+    todo: "Cours RAN 6 et ses exercices.", oc: ["oc-ran-6-aires-et-perimetres-de-figures-planes-copie-9"], pdf: ["ran-fiche-6"] },
   { id: "p-f-lexique", bloc: "rn", m: "francais", title: "Lexique : formation des mots et sens", h: 2.5,
     todo: "Dérivation, composition, familles de mots, polysémie, synonymie, champs lexicaux, figures de style courantes." },
   { id: "p-m-litteral", bloc: "rn", m: "maths", title: "Calcul littéral", h: 2,
-    todo: "Cours RAN 8 et ses exercices.", oc: ["oc-ran-8-le-calcul-litteral-copie-8"] },
+    todo: "Cours RAN 8 et ses exercices.", oc: ["oc-ran-8-le-calcul-litteral-copie-8"], pdf: ["ran-fiche-8"] },
   { id: "p-f-orthographe", bloc: "rn", m: "francais", title: "Orthographe lexicale et homophones", h: 2.5,
     todo: "Homophones grammaticaux (a/à, et/est, ces/ses…), lettres muettes, doubles consonnes." },
   { id: "p-m-espace", bloc: "rn", m: "maths", title: "Géométrie dans l'espace", h: 2,
-    todo: "Cours RAN 9 et ses exercices.", oc: ["oc-ran-9-la-geometrie-dans-lespace-copie-9"] },
+    todo: "Cours RAN 9 et ses exercices.", oc: ["oc-ran-9-la-geometrie-dans-lespace-copie-9"], pdf: ["ran-fiche-9"] },
   { id: "p-m-equations", bloc: "rn", m: "maths", title: "Équations et fonctions", h: 2,
-    todo: "Cours RAN 10 et ses exercices.", oc: ["oc-ran-10-equations-et-fonctions-copie-9"] },
+    todo: "Cours RAN 10 et ses exercices.", oc: ["oc-ran-10-equations-et-fonctions-copie-9"], pdf: ["ran-fiche-10"] },
   { id: "p-m-algo", bloc: "rn", m: "maths", title: "Tableur et algorithmique (Scratch)", h: 2,
-    todo: "Cours RAN 12 et ses exercices.", oc: ["oc-ran-12-tableur-et-algorithmique-copie-3"] },
+    todo: "Cours RAN 12 et ses exercices.", oc: ["oc-ran-12-tableur-et-algorithmique-copie-3"], pdf: ["ran-fiche-12"] },
 
   { id: "p-m-demontrer", bloc: "cours", m: "maths", title: "Démontrer en mathématiques", h: 2,
     todo: "Module 1 : rédiger une démonstration courte et rigoureuse.", oc: ["oc-demontrer-en-mathematiques-copie"] },
@@ -7294,6 +7294,21 @@ function InscriptionPratiquesContent() {
 // (CRPE_LESSON_STAGES, supprimées) par les vrais documents de révision de Clément, stockés tels quels
 // dans ce dossier et ouverts en un clic — l'app sert de tableau de bord (statut, futur planning selon
 // son EDT), pas de copie du contenu.
+const CRPE_RAN_FICHES = [
+  [1, "geometrie-plane", "Les bases de la géométrie plane", "m-geo-plane"],
+  [2, "symetries-polygones", "Symétries et polygones particuliers", "m-transfo"],
+  [3, "quatre-operations", "Les quatre opérations", "m-operations"],
+  [4, "arithmetique", "Arithmétique", "m-arith"],
+  [5, "rationnels", "Calcul avec les rationnels", "m-fractions"],
+  [6, "aires-perimetres", "Aires et périmètres", "m-grandeurs"],
+  [7, "proportionnalite", "La proportionnalité", "m-proportion"],
+  [8, "calcul-litteral", "Le calcul littéral", "m-litteral"],
+  [9, "geometrie-espace", "La géométrie dans l'espace", "m-espace"],
+  [10, "equations-fonctions", "Équations et fonctions", "m-litteral"],
+  [11, "pourcentages", "Les pourcentages", "m-proportion"],
+  [12, "tableur-algorithmique", "Tableur et algorithmique", "m-algo"],
+];
+
 const CRPE_FICHIERS = [
   {
     id: "maths-rn1-geometrie-plane",
@@ -7303,6 +7318,24 @@ const CRPE_FICHIERS = [
     file: "./crpe/maths-remise-a-niveau-1-bases-geometrie-plane.pdf",
     topic: "m-geo-plane",
   },
+  // Dossier crpe/ran-maths/ (26/10/2026, demande de Clément) : une fiche de cours par RAN et la fiche de
+  // révision qui les rassemble, générées par outils/pdf-ran-maths.js.
+  {
+    id: "ran-fiche-revision",
+    matiere: "Maths — dossier des RAN",
+    title: "Fiche de révision — les 12 RAN de maths",
+    meta: "L'essentiel de chaque RAN sur 3 pages + formulaire et conversions",
+    file: "./crpe/ran-maths/fiche-revision-toutes-les-ran.pdf",
+    topic: "m-operations",
+  },
+  ...CRPE_RAN_FICHES.map(([n, slug, titre, topic]) => ({
+    id: `ran-fiche-${n}`,
+    matiere: "Maths — dossier des RAN",
+    title: `RAN ${n} — ${titre}`,
+    meta: "Fiche de cours : définitions, propriétés, méthodes, exemples, pièges",
+    file: `./crpe/ran-maths/ran-${String(n).padStart(2, "0")}-${slug}.pdf`,
+    topic,
+  })),
   {
     id: "francais-guide-terminologie",
     matiere: "Français",
