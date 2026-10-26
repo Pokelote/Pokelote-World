@@ -270,7 +270,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "84";
+const APP_VERSION = "85";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -6164,6 +6164,42 @@ const CRPE_EXERCICES_MIXTES = [
     moment: "après-midi, test refait : justifications",
     rans: [3, 4, 5],
     pdf: true,
+    // Révision flash de 5 à 10 min avant le test, dans le vocabulaire attendu au CRPE (demande du 26/10).
+    rappels: [
+      { titre: "1. Nommer avec le vocabulaire exact", points: [
+        "Addition : les termes, la somme · soustraction : la différence · multiplication : les facteurs, le produit · division : le dividende, le diviseur, le quotient, le reste.",
+        "Chiffre ≠ nombre : dans 3 457, le chiffre des centaines est 4, le nombre de centaines est 34.",
+        "Un nombre et ses écritures : 3/4, 75/100 et 0,75 sont trois écritures (fractionnaire, fraction décimale, décimale) d'un même nombre.",
+        "On dit : « a est un multiple de b », « b est un diviseur de a », « b divise a », « a est divisible par b ».",
+      ] },
+      { titre: "2. Les propriétés des opérations (à citer par leur nom)", points: [
+        "Commutativité (+ et ×) : a × b = b × a · associativité : (a × b) × c = a × (b × c) → on peut changer l'ordre et regrouper.",
+        "Distributivité de la multiplication sur l'addition (ou la soustraction) : k × (a + b) = k × a + k × b. Dans l'autre sens, c'est une factorisation.",
+        "Conservation des écarts : a − b = (a + c) − (b + c) · conservation du quotient : a ÷ b = (a × c) ÷ (b × c), c ≠ 0.",
+        "Ni la soustraction ni la division ne sont commutatives ou associatives.",
+      ] },
+      { titre: "3. Définitions de la RAN 3 et de la RAN 4", points: [
+        "Division euclidienne de a par b (b ≠ 0) : l'unique couple d'entiers (q ; r) tel que a = b × q + r ET 0 ≤ r < b. Justifier = vérifier les deux conditions.",
+        "a multiple de b : il existe un entier k tel que a = k × b (le reste de la division euclidienne est nul).",
+        "Nombre premier : entier naturel qui a exactement deux diviseurs distincts, 1 et lui-même (1 n'est pas premier).",
+        "Tester si n est premier : essayer les diviseurs premiers p tels que p × p ≤ n.",
+        "Premiers entre eux : PGCD = 1 (ce ne sont pas forcément des nombres premiers).",
+        "Décomposition en produit de facteurs premiers : unique. PGCD = produit des facteurs communs, au plus petit exposant.",
+      ] },
+      { titre: "4. Définitions de la RAN 5", points: [
+        "Nombre décimal : peut s'écrire a / 10ⁿ (a entier) · nombre rationnel : peut s'écrire a / b (a, b entiers, b ≠ 0).",
+        "Une fraction IRRÉDUCTIBLE est décimale si et seulement si son dénominateur n'a pas d'autre facteur premier que 2 et 5.",
+        "Une fraction ne change pas si l'on MULTIPLIE (ou divise) numérateur et dénominateur par un même nombre non nul — pas si l'on ajoute.",
+        "Diviser par une fraction, c'est multiplier par son inverse.",
+      ] },
+      { titre: "5. Justifier comme le jury l'attend", points: [
+        "Structure : On sait que… (données) · Or… (définition ou propriété énoncée en entier) · Donc… (conclusion qui répond à la question).",
+        "« Justifier » = citer la propriété utilisée · « démontrer » = raisonnement valable dans tous les cas (avec des lettres) · « expliquer l'erreur » = décrire la procédure de l'élève et la notion en cause.",
+        "Toujours vrai → raisonnement général : pair = 2k, impair = 2k + 1, deux nombres quelconques = deux lettres différentes. Des exemples ne prouvent rien.",
+        "Faux → UN contre-exemple suffit, mais il doit être calculé et vérifié.",
+        "Conclure par une phrase, et interpréter un résultat (un reste, un nombre de cars…) dans le contexte du problème.",
+      ] },
+    ],
     exercices: [
       {
         id: "ex1", ran: 4, minutes: 10, titre: "Définitions à restituer (exemple et contre-exemple)",
@@ -6497,6 +6533,7 @@ function CrpeExercicesMixtes({ resultats, setResultat }) {
       {serie.pdf && (
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }}>
           {[
+            ...(serie.rappels ? [["revision", "📘 Révision flash (PDF)"]] : []),
             ["enonces", "📄 Énoncés (PDF)"],
             ["corrige", "✅ Corrigé (PDF)"],
           ].map(([nom, label]) => (
@@ -8690,8 +8727,8 @@ const NEWS_DATA = {
     items: [
       { time: "09h00 – 10h00", title: "🔁 CRPE — Exercices mixtes RAN (1h) — reprise" },
       { time: "10h00 – 12h30", title: "📖 Révisions CRPE — Maths (finir la RAN 5)" },
-      { time: "13h30 – 14h30", title: "🔁 CRPE — Exercices mixtes : test refait, justifications (1h)" },
-      { time: "14h30 – 17h30", title: "📖 Révisions CRPE — Français" },
+      { time: "13h30 – 14h40", title: "🔁 CRPE — Exercices mixtes : révision flash (10 min) puis test refait (1h)" },
+      { time: "14h40 – 17h30", title: "📖 Révisions CRPE — Français" },
       { time: "18h00 – 20h00", title: "🏋️ Musculation" },
       { time: "23h00", title: "🛏️ Au lit (Apesanteur demain)" },
     ],
@@ -10631,8 +10668,8 @@ const CALENDAR_DATA = {
     { date: "2026-10-26", time: "07h00 – 08h00", title: "🌅 Routine matin" },
     { date: "2026-10-26", time: "09h00 – 10h00", title: "🔁 CRPE — Exercices mixtes RAN (1h) — reprise" },
     { date: "2026-10-26", time: "10h00 – 12h30", title: "📖 Révisions CRPE — Maths (finir la RAN 5)" },
-    { date: "2026-10-26", time: "13h30 – 14h30", title: "🔁 CRPE — Exercices mixtes : test refait, justifications (1h)" },
-    { date: "2026-10-26", time: "14h30 – 17h30", title: "📖 Révisions CRPE — Français" },
+    { date: "2026-10-26", time: "13h30 – 14h40", title: "🔁 CRPE — Exercices mixtes : révision flash (10 min) puis test refait (1h)" },
+    { date: "2026-10-26", time: "14h40 – 17h30", title: "📖 Révisions CRPE — Français" },
     { date: "2026-10-26", time: "18h00 – 20h00", title: "🏋️ Musculation" },
     { date: "2026-10-26", time: "23h00 – 23h05", title: "🛏️ Au lit" },
     { date: "2026-10-27", time: "07h00 – 08h00", title: "🌅 Routine matin" },

@@ -1,7 +1,7 @@
 // Génère les PDF d'une série d'exercices mixtes CRPE (énoncés + corrigé) à partir de
 // CRPE_EXERCICES_MIXTES dans mon-espace.html. Utilisé à la main et par la routine du matin.
 // Usage : node outils/pdf-exercices-mixtes.js AAAA-MM-JJ[-suffixe]   (date, ou « cle » d'une 2e série du jour)
-// Produit crpe/exercices-mixtes/<cle>-enonces.pdf et <cle>-corrige.pdf.
+// Produit crpe/exercices-mixtes/<cle>-enonces.pdf et <cle>-corrige.pdf (+ <cle>-revision.pdf si la série a des rappels).
 const fs = require("fs");
 const path = require("path");
 
@@ -82,15 +82,40 @@ function page(corrige) {
   </body></html>`;
 }
 
+// Révision flash de 5 à 10 min à lire juste avant la série (serie.rappels : [{ titre, points }]).
+function pageRevision() {
+  const blocs = serie.rappels
+    .map((r) => `<section><h2>${esc(r.titre)}</h2><ul>${r.points.map((pt) => `<li>${esc(pt)}</li>`).join("")}</ul></section>`)
+    .join("");
+  return `<!doctype html><html lang="fr"><head><meta charset="utf-8"><style>
+    body { font-family: "DejaVu Sans", Arial, sans-serif; font-size: 10pt; color: #111; line-height: 1.4; margin: 0; }
+    header { border-bottom: 2px solid #1f4e79; padding-bottom: 6px; margin-bottom: 10px; }
+    h1 { font-size: 15pt; margin: 0 0 3px; color: #1f4e79; }
+    .sous { color: #444; font-size: 9.5pt; }
+    section { break-inside: avoid; margin-bottom: 8px; border-left: 3px solid #1f4e79; background: #f3f6fa; padding: 4px 10px; }
+    h2 { font-size: 11pt; margin: 2px 0; color: #1f4e79; }
+    ul { margin: 2px 0; padding-left: 16px; }
+    li { margin: 1px 0; }
+  </style></head><body>
+    <header>
+      <h1>Révision flash avant le test (5 à 10 min)</h1>
+      <div class="sous">Série du ${dateLongue}${serie.moment ? ` (${serie.moment})` : ""} · RAN ${serie.rans.join(", ")} · lis, puis range la fiche avant de lancer le chrono.</div>
+    </header>
+    ${blocs}
+  </body></html>`;
+}
+
 (async () => {
   const { chromium } = loadPlaywright();
   const exe = fs.existsSync("/opt/pw-browsers/chromium") ? "/opt/pw-browsers/chromium" : undefined;
   const browser = await chromium.launch(exe ? { executablePath: exe } : {});
   const out = path.join(root, "crpe", "exercices-mixtes");
   fs.mkdirSync(out, { recursive: true });
-  for (const [corrige, nom] of [[false, "enonces"], [true, "corrige"]]) {
+  const pages = [["enonces", page(false)], ["corrige", page(true)]];
+  if (serie.rappels) pages.push(["revision", pageRevision()]);
+  for (const [nom, contenu] of pages) {
     const p = await browser.newPage();
-    await p.setContent(page(corrige), { waitUntil: "load" });
+    await p.setContent(contenu, { waitUntil: "load" });
     const file = path.join(out, `${date}-${nom}.pdf`);
     await p.pdf({ path: file, format: "A4", margin: { top: "16mm", bottom: "16mm", left: "16mm", right: "16mm" }, printBackground: true });
     console.log(path.relative(root, file));
