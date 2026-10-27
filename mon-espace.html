@@ -270,7 +270,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "89";
+const APP_VERSION = "90";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -5998,7 +5998,7 @@ function crpeWeekSlots(weekStart) {
     .map((ev) => {
       const [start, end] = ev.time.split("–").map((x) => x.trim());
       const day = Math.round((new Date(ev.date + "T00:00:00") - weekStart) / 86400000);
-      return { day, start, end: end || start, tampon: /tampon/i.test(ev.title), mixte: /exercices mixtes/i.test(ev.title) };
+      return { day, start, end: end || start, tampon: /tampon/i.test(ev.title), mixte: /exercices mixtes|séance guidée/i.test(ev.title) };
     })
     .concat(CRPE_AGENDA_PATTERN.filter((p) => p.day >= agendaDays).map((p) => ({ ...p })));
   raw.sort((a, b) => a.day - b.day || crpeMinutes(a.start) - crpeMinutes(b.start));
@@ -6530,6 +6530,341 @@ function crpeMixteDuJour(date) {
   return CRPE_EXERCICES_MIXTES.find((s) => s.date === date) || null;
 }
 
+// Séances guidées (demande de Clément du 27/10/2026, après une série du 27/10 notée 5 « partiel » et
+// 1 « raté ») : « me les faire faire de manière plus accompagnée, plus didactique, et plus tard sous
+// forme de test ». Chaque notion suit quatre temps : cours (définition + exemple), exemple résolu
+// commenté (le pourquoi de chaque étape), exercice guidé (indice puis réponse à chaque étape), exercice
+// en autonomie noté. Progression par notion (cle) : guidé → semi-guidé (indices seulement, corrigé à
+// la fin) → contrôle (format des exercices mixtes), dès que l'exercice en autonomie est « Réussi ».
+// Notes stockées dans crpe-mixtes-resultats sous la clé « g-<cle de séance> », par clé de notion.
+const CRPE_SEANCES_GUIDEES = [
+  {
+    date: "2026-10-27",
+    cle: "2026-10-27-guidee",
+    titre: "Justifier : fraction-quotient, erreur d'élève, problèmes PGCD/PPCM",
+    rans: [3, 4, 5],
+    notions: [
+      {
+        cle: "fraction-quotient", niveau: "guidé", ran: 5, minutes: 20,
+        titre: "La fraction comme quotient : encadrer, décomposer, décimal ou non",
+        pourquoi: "Exercice raté le 27/10 (ex. 5). C'est aussi la notion qui sert à justifier tout encadrement de fraction.",
+        cours: [
+          ["Fraction-quotient", "a/b est le nombre qui, multiplié par b, donne a (b ≠ 0).", "5/4 est le nombre qui, multiplié par 4, donne 5 : 4 × 5/4 = 5, et 5/4 = 1,25."],
+          ["Encadrer a/b entre deux entiers", "On cherche les deux multiples consécutifs de b qui entourent a : si b × n < a < b × (n + 1), alors n < a/b < n + 1.", "17/5 : 5 × 3 = 15 < 17 < 20 = 5 × 4, donc 3 < 17/5 < 4."],
+          ["Lien avec la division euclidienne", "Si a = b × q + r (0 ≤ r < b), alors a/b = q + r/b : le quotient donne la partie entière, le reste le numérateur de la fraction restante.", "17 = 5 × 3 + 2, donc 17/5 = 3 + 2/5."],
+          ["Fraction décimale ou non", "Une fraction IRRÉDUCTIBLE est un nombre décimal si et seulement si son dénominateur n'a pas d'autre facteur premier que 2 et 5.", "17/5 = 3,4 est décimal (5) ; 5/6 ne l'est pas (6 = 2 × 3 contient 3)."],
+        ],
+        methode: [
+          "Écrire la définition de la fraction au sens quotient (c'est la justification de tout le reste).",
+          "Pour encadrer : multiplier chaque borne par le dénominateur et comparer au numérateur.",
+          "Pour décomposer : poser la division euclidienne du numérateur par le dénominateur.",
+          "Pour « décimal ou non » : rendre la fraction irréductible, puis décomposer le dénominateur en facteurs premiers.",
+          "Conclure chaque question par une phrase.",
+        ],
+        exempleResolu: {
+          enonce: "Encadre 23/7 entre deux entiers consécutifs, puis entre deux décimaux consécutifs au dixième. Décompose 23/7 en entier + fraction inférieure à 1. Est-il décimal ?",
+          etapes: [
+            { texte: "23/7 est le nombre qui, multiplié par 7, donne 23.", pourquoi: "On commence par la définition : c'est elle qui permet de comparer en multipliant par 7." },
+            { texte: "7 × 3 = 21 < 23 < 28 = 7 × 4, donc 3 < 23/7 < 4.", pourquoi: "3 multiplié par 7 donne moins que 23 et 4 multiplié par 7 donne plus : le nombre qui donne exactement 23 est entre les deux." },
+            { texte: "7 × 3,2 = 22,4 < 23 < 23,1 = 7 × 3,3, donc 3,2 < 23/7 < 3,3.", pourquoi: "Même raisonnement au dixième : on essaie 3,1 ; 3,2 ; 3,3… jusqu'à dépasser 23." },
+            { texte: "23 = 7 × 3 + 2 (2 < 7), donc 23/7 = (7 × 3 + 2)/7 = 3 + 2/7.", pourquoi: "La division euclidienne donne la partie entière (3) et ce qu'il reste (2 septièmes)." },
+            { texte: "23/7 est irréductible (7 est premier et ne divise pas 23) et 7 n'est ni 2 ni 5 : 23/7 n'est pas décimal.", pourquoi: "On applique le critère, après avoir vérifié que la fraction est irréductible." },
+          ],
+        },
+        guide: {
+          enonce: "Même travail avec 19/6.",
+          etapes: [
+            { consigne: "Écris la définition de 19/6 au sens quotient.", indice: "« 19/6 est le nombre qui, multiplié par … , donne … ».", reponse: "19/6 est le nombre qui, multiplié par 6, donne 19." },
+            { consigne: "Encadre 19/6 entre deux entiers consécutifs. Justifie.", indice: "Cherche les multiples de 6 de part et d'autre de 19.", reponse: "6 × 3 = 18 < 19 < 24 = 6 × 4, donc 3 < 19/6 < 4." },
+            { consigne: "Encadre 19/6 au dixième. Justifie.", indice: "Calcule 6 × 3,1 puis 6 × 3,2.", reponse: "6 × 3,1 = 18,6 < 19 < 19,2 = 6 × 3,2, donc 3,1 < 19/6 < 3,2." },
+            { consigne: "Écris 19/6 comme un entier plus une fraction inférieure à 1.", indice: "Division euclidienne de 19 par 6.", reponse: "19 = 6 × 3 + 1 (1 < 6), donc 19/6 = 3 + 1/6." },
+            { consigne: "19/6 est-il un nombre décimal ? Justifie.", indice: "Est-elle irréductible ? Décompose 6 en facteurs premiers.", reponse: "19/6 est irréductible (19 est premier et ne divise pas 6) et 6 = 2 × 3 contient le facteur 3 : 19/6 n'est pas décimal (3,1666…)." },
+          ],
+        },
+        autonomie: {
+          enonce: "Sans aide : encadre 29/8 entre deux entiers puis au dixième, décompose-le en entier + fraction inférieure à 1, et dis s'il est décimal. Justifie chaque réponse.",
+          corrige: "29/8 est le nombre qui, multiplié par 8, donne 29.\n8 × 3 = 24 < 29 < 32 = 8 × 4, donc 3 < 29/8 < 4.\n8 × 3,6 = 28,8 < 29 < 29,6 = 8 × 3,7, donc 3,6 < 29/8 < 3,7.\n29 = 8 × 3 + 5 (5 < 8), donc 29/8 = 3 + 5/8.\n29/8 est irréductible (29 est premier) et 8 = 2³ n'a que le facteur 2 : 29/8 est décimal. En effet 29/8 = 3 625/1 000 = 3,625.",
+        },
+        jeSais: [
+          "Je sais écrire la définition de a/b au sens quotient.",
+          "Je justifie un encadrement en multipliant les bornes par le dénominateur.",
+          "Je relie a/b = q + r/b à la division euclidienne.",
+          "Je sais dire si une fraction est décimale, en la rendant d'abord irréductible.",
+        ],
+      },
+      {
+        cle: "erreur-eleve", niveau: "guidé", ran: 3, minutes: 20,
+        titre: "Analyser une erreur d'élève en trois temps",
+        pourquoi: "Exercices 1 et 6 du 27/10 notés « partiel » : c'est un format qui revient à chaque sujet du CRPE.",
+        cours: [
+          ["Procédure", "Suite des actions que l'élève a réellement faites (ce qu'on observe sur sa copie).", "« L'élève a soustrait le plus petit chiffre du plus grand dans chaque colonne. »"],
+          ["Erreur de calcul / erreur de procédure", "Erreur de calcul : un fait numérique faux (7 × 8 = 54). Erreur de procédure : la méthode elle-même est fausse.", "Écrire 52 − 27 = 35 n'est pas une erreur de calcul : chaque soustraction de chiffres est juste, c'est la méthode qui est fausse."],
+          ["Conception erronée", "Idée fausse, souvent cohérente pour l'élève, qui explique une erreur répétée.", "« Un nombre décimal, ce sont deux entiers séparés par une virgule. »"],
+          ["Numération de position", "La valeur d'un chiffre dépend de son rang ; 10 unités d'un rang = 1 unité du rang supérieur.", "Dans 52, le 5 vaut 5 dizaines = 50 unités ; 52 = 4 dizaines et 12 unités."],
+        ],
+        methode: [
+          "1. Constater : donner le résultat juste et le vérifier.",
+          "2. Décrire la procédure de l'élève (« l'élève a… »), précisément, rang par rang si besoin.",
+          "3. Expliquer l'origine : nommer la notion en cause (numération, propriété) ou la conception erronée, avec le vocabulaire exact.",
+          "4. Si on le demande : proposer une aide (matériel, tableau de numération, droite graduée, calcul inverse…).",
+        ],
+        exempleResolu: {
+          enonce: "Un élève écrit : 52 − 27 = 35. Analyse cette erreur.",
+          etapes: [
+            { texte: "Résultat juste : 52 − 27 = 25. Vérification : 25 + 27 = 52.", pourquoi: "On commence toujours par le bon résultat, contrôlé par l'opération inverse." },
+            { texte: "Procédure : aux unités, l'élève a calculé 7 − 2 = 5 au lieu de 2 − 7 ; aux dizaines, 5 − 2 = 3.", pourquoi: "On décrit ce qu'il a fait, colonne par colonne, sans juger." },
+            { texte: "Origine : face à « 2 − 7 impossible », il inverse les chiffres. Il ne mobilise pas l'échange 1 dizaine = 10 unités (52 = 4 dizaines et 12 unités) : c'est une difficulté de numération, pas de calcul.", pourquoi: "On nomme la notion en cause avec le vocabulaire : numération de position, échange, retenue." },
+            { texte: "Aide : manipuler des barres de dizaines et des cubes, ou écrire 52 = 40 + 12 avant de soustraire (méthode par cassage).", pourquoi: "L'aide vise la notion en cause, pas seulement le résultat." },
+          ],
+        },
+        guide: {
+          enonce: "Un élève affirme : « 2,12 est plus grand que 2,9 car 12 est plus grand que 9 ». Analyse cette erreur.",
+          etapes: [
+            { consigne: "1. Donne la bonne comparaison et justifie-la.", indice: "Compare rang par rang, ou écris 2,9 avec deux chiffres après la virgule.", reponse: "2,9 > 2,12 : même partie entière (2), puis 9 dixièmes > 1 dixième. Ou : 2,9 = 2,90 et 90 centièmes > 12 centièmes." },
+            { consigne: "2. Décris la procédure de l'élève.", indice: "Qu'a-t-il comparé exactement ?", reponse: "Il a comparé les parties décimales comme si c'étaient des nombres entiers : 12 et 9." },
+            { consigne: "3. Nomme la conception erronée et la notion en cause.", indice: "Que représente le 1 de 2,12 ? Et le 9 de 2,9 ?", reponse: "Conception erronée : un décimal serait formé de deux entiers séparés par une virgule. Il ignore la valeur des chiffres selon leur rang (dixièmes, centièmes) : numération décimale." },
+            { consigne: "4. Propose une aide.", indice: "Un outil où l'on voit les rangs ou la position des nombres.", reponse: "Tableau de numération (unités, dixièmes, centièmes), écriture 2,9 = 2,90, placement des deux nombres sur une droite graduée." },
+          ],
+        },
+        autonomie: {
+          enonce: "Sans aide : un élève écrit 4,6 × 10 = 4,60. Analyse cette erreur en trois temps, puis propose une aide.",
+          corrige: "1. Résultat juste : 4,6 × 10 = 46.\n2. Procédure : l'élève a « ajouté un zéro » à droite du nombre, comme il le fait avec les entiers (23 × 10 = 230).\n3. Origine : il généralise aux décimaux une règle valable seulement pour les entiers. Multiplier par 10 rend chaque chiffre 10 fois plus grand : il prend la valeur du rang supérieur (6 dixièmes deviennent 6 unités, 4 unités deviennent 4 dizaines). Ajouter un 0 à droite de la partie décimale ne change pas le nombre (4,60 = 4,6). Notion en cause : numération décimale de position.\n4. Aide : tableau de numération où l'on fait glisser chaque chiffre d'un rang vers la gauche ; contrôle par un ordre de grandeur (4,6 × 10 ≈ 5 × 10 = 50).",
+        },
+        jeSais: [
+          "Je commence par le résultat juste, vérifié.",
+          "Je décris la procédure de l'élève sans la juger.",
+          "Je nomme la notion ou la conception erronée en cause.",
+          "Je propose une aide qui vise cette notion.",
+        ],
+      },
+      {
+        cle: "probleme-pgcd-ppcm", niveau: "guidé", ran: 4, minutes: 20,
+        titre: "Problèmes : reconnaître le PGCD ou le PPCM et rédiger",
+        pourquoi: "Exercices 3 et 4 du 27/10 notés « partiel » : la difficulté est souvent d'expliquer pourquoi c'est le PGCD (ou le PPCM).",
+        cours: [
+          ["PGCD", "Le plus grand diviseur commun à deux entiers. Il répond à « le plus grand nombre qui divise à la fois… » : partages en lots identiques, découpages en carrés, espacements réguliers.", "126 roses et 84 tulipes en bouquets identiques, le plus possible : PGCD(126 ; 84) = 42 bouquets."],
+          ["PPCM", "Le plus petit multiple commun non nul. Il répond à « la prochaine fois que… ensemble » : rencontres, passages simultanés, piles de même hauteur.", "Bus toutes les 15 et 25 min : ils repartent ensemble toutes les PPCM(15 ; 25) = 75 min."],
+          ["Algorithme d'Euclide", "PGCD(a ; b) = PGCD(b ; r), r étant le reste de a par b ; le PGCD est le dernier reste non nul.", "126 = 84 × 1 + 42 ; 84 = 42 × 2 + 0 : PGCD = 42."],
+        ],
+        methode: [
+          "1. Traduire : le nombre cherché doit diviser a et b (diviseur commun) ou être un multiple de a et de b (multiple commun).",
+          "2. Choisir : « le plus grand » diviseur commun → PGCD ; « le plus petit » multiple commun → PPCM. L'écrire.",
+          "3. Calculer (Euclide ou décompositions en facteurs premiers).",
+          "4. Répondre à TOUTES les questions (souvent une deuxième : le contenu de chaque lot, l'heure…), puis vérifier.",
+        ],
+        exempleResolu: {
+          enonce: "Un fleuriste a 126 roses et 84 tulipes. Il veut faire le plus grand nombre de bouquets identiques en utilisant toutes les fleurs. Combien de bouquets ? Que contient chacun ?",
+          etapes: [
+            { texte: "Le nombre de bouquets doit diviser 126 (roses réparties sans reste) et 84 (tulipes) : c'est un diviseur commun de 126 et 84.", pourquoi: "On traduit la contrainte « identiques, toutes les fleurs » en « diviseur commun »." },
+            { texte: "On veut le plus grand nombre de bouquets : c'est le PGCD de 126 et 84.", pourquoi: "C'est la phrase que le jury attend : elle justifie le choix de l'outil." },
+            { texte: "126 = 84 × 1 + 42 ; 84 = 42 × 2 + 0. PGCD(126 ; 84) = 42.", pourquoi: "Algorithme d'Euclide : le dernier reste non nul est le PGCD." },
+            { texte: "42 bouquets, chacun avec 126 ÷ 42 = 3 roses et 84 ÷ 42 = 2 tulipes. Vérification : 42 × 3 = 126 et 42 × 2 = 84.", pourquoi: "On répond aux deux questions et on vérifie." },
+          ],
+        },
+        guide: {
+          enonce: "La ligne de bus A part toutes les 15 min, la ligne B toutes les 25 min. Elles partent ensemble à 7 h 00. À quelle heure partiront-elles de nouveau ensemble ?",
+          etapes: [
+            { consigne: "Traduis : que doit être la durée cherchée par rapport à 15 et à 25 ?", indice: "Les départs de A ont lieu après 15, 30, 45… minutes.", reponse: "La durée doit être un multiple de 15 et un multiple de 25 : un multiple commun." },
+            { consigne: "Quel outil, et pourquoi ?", indice: "On cherche la PROCHAINE fois.", reponse: "On cherche le plus petit multiple commun non nul : le PPCM de 15 et 25." },
+            { consigne: "Calcule-le.", indice: "Décompose 15 et 25 en facteurs premiers.", reponse: "15 = 3 × 5 et 25 = 5² ; PPCM = 3 × 5² = 75." },
+            { consigne: "Réponds à la question et vérifie.", indice: "75 minutes après 7 h 00.", reponse: "75 min = 1 h 15 : elles repartent ensemble à 8 h 15. Vérification : 75 = 15 × 5 = 25 × 3." },
+          ],
+        },
+        autonomie: {
+          enonce: "Sans aide : une plaque de 270 cm sur 180 cm doit être découpée en carrés identiques, les plus grands possibles, sans perte. Quelle est la longueur du côté d'un carré ? Combien de carrés obtient-on ? Justifie le choix de l'outil.",
+          corrige: "Le côté d'un carré doit diviser 270 et 180 (pas de perte) : c'est un diviseur commun ; on veut les plus grands carrés, donc le côté est le PGCD de 270 et 180.\n270 = 180 × 1 + 90 ; 180 = 90 × 2 + 0 : PGCD(270 ; 180) = 90.\nCôté : 90 cm. Nombre de carrés : (270 ÷ 90) × (180 ÷ 90) = 3 × 2 = 6 carrés.\nVérification : 6 × 90 × 90 = 48 600 cm² = 270 × 180.",
+        },
+        jeSais: [
+          "Je traduis la contrainte en « diviseur commun » ou « multiple commun ».",
+          "J'écris pourquoi c'est le PGCD (le plus grand) ou le PPCM (le plus petit).",
+          "Je calcule par Euclide ou par décomposition.",
+          "Je réponds à toutes les questions et je vérifie.",
+        ],
+      },
+    ],
+  },
+];
+
+const CRPE_NIVEAUX_GUIDES = {
+  "guidé": "Guidé : indice et réponse à chaque étape",
+  "semi-guidé": "Semi-guidé : indices seulement, corrigé à la fin",
+  "contrôle": "Contrôle : comme les exercices mixtes",
+};
+
+function CrpeGuideeBloc({ titre, children }) {
+  return (
+    <div style={{ marginTop: 12 }}>
+      <div style={{ fontSize: 11, fontWeight: 600, color: COLORS.muted, textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 6 }}>{titre}</div>
+      {children}
+    </div>
+  );
+}
+
+function CrpeDeplier({ label, children }) {
+  return (
+    <details style={{ marginTop: 4 }}>
+      <summary style={{ fontSize: 12, color: ENSEIGNEMENT_ACCENT, cursor: "pointer" }}>{label}</summary>
+      <div style={{ fontSize: 12, color: COLORS.text, lineHeight: 1.6, whiteSpace: "pre-wrap", marginTop: 4, borderLeft: `2px solid ${COLORS.border}`, paddingLeft: 10 }}>
+        {children}
+      </div>
+    </details>
+  );
+}
+
+function CrpeSeanceGuidee({ resultats, setResultat }) {
+  const today = dateKey(new Date());
+  const seances = [...CRPE_SEANCES_GUIDEES].sort((a, b) => b.cle.localeCompare(a.cle));
+  const defaut = seances.find((s) => s.date === today) || [...seances].reverse().find((s) => s.date > today) || seances[0] || null;
+  const [cle, setCle] = useState(defaut ? defaut.cle : null);
+  const seance = seances.find((s) => s.cle === cle) || null;
+  if (!seance) {
+    return <p style={{ fontSize: 13, color: COLORS.muted, fontStyle: "italic" }}>Pas encore de séance guidée.</p>;
+  }
+  const cleNotes = `g-${seance.cle}`;
+  const notes = resultats[cleNotes] || {};
+  const minutes = seance.notions.reduce((a, n) => a + (n.minutes || 0), 0);
+  const texte = { fontSize: 13, color: COLORS.text, lineHeight: 1.6 };
+
+  return (
+    <div>
+      <p style={{ fontSize: 12, color: COLORS.muted, lineHeight: 1.5, marginBottom: 10 }}>
+        Pour apprendre avant de te tester. Chaque notion se fait en quatre temps : le cours (définition + exemple), un exemple
+        résolu où chaque étape est expliquée, un exercice guidé (essaie, puis ouvre l'indice, puis la réponse), et un exercice
+        en autonomie à noter. Quand l'exercice en autonomie est réussi, la notion passe au niveau suivant : semi-guidé, puis
+        contrôle (le format des exercices mixtes).
+      </p>
+      {seances.length > 1 && (
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 12 }}>
+          {seances.slice(0, 10).map((s) => (
+            <button
+              key={s.cle}
+              onClick={() => setCle(s.cle)}
+              style={{
+                fontSize: 11, padding: "3px 10px", borderRadius: 999, cursor: "pointer", fontFamily: FONT_BODY,
+                border: `1px solid ${s.cle === cle ? darken(ENSEIGNEMENT_ACCENT, 20) : COLORS.border}`,
+                background: s.cle === cle ? ENSEIGNEMENT_ACCENT : "transparent",
+                color: s.cle === cle ? "white" : COLORS.muted,
+              }}
+            >
+              {crpeFormatDate(s.date)}
+            </button>
+          ))}
+        </div>
+      )}
+      <div style={{ fontSize: 14, color: COLORS.text, fontWeight: 500, marginBottom: 2 }}>
+        {seance.date === today ? "Séance du jour" : `Séance du ${crpeFormatDate(seance.date)}`} · {seance.titre}
+      </div>
+      <div style={{ fontSize: 12, color: COLORS.muted, marginBottom: 8 }}>
+        {seance.notions.length} notions · ≈ {crpeFormatMinutes(minutes)} · RAN {seance.rans.join(" · ")}
+      </div>
+      <a
+        href={`./crpe/seances-guidees/${seance.cle}.pdf`}
+        target="_blank"
+        rel="noreferrer"
+        style={{
+          display: "inline-block", fontSize: 12, color: COLORS.text, textDecoration: "none", border: `1px solid ${COLORS.border}`,
+          borderRadius: 999, padding: "4px 12px", background: COLORS.card, marginBottom: 12,
+        }}
+      >
+        📄 Séance en PDF (aides et corrigés à la fin)
+      </a>
+      <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+        {seance.notions.map((n, i) => {
+          const note = notes[n.cle] || null;
+          return (
+            <div key={n.cle} style={{ background: COLORS.track, borderRadius: 8, padding: "12px 14px" }}>
+              <div style={{ display: "flex", gap: 8, alignItems: "baseline", flexWrap: "wrap", marginBottom: 4 }}>
+                <span style={{ fontSize: 14, color: COLORS.text, fontWeight: 600 }}>
+                  {i + 1}. {n.titre}
+                </span>
+                <span style={{ fontSize: 10, color: crpeMatiere("maths").color, border: `1px solid ${crpeMatiere("maths").color}`, borderRadius: 999, padding: "1px 7px" }}>
+                  RAN {n.ran}
+                </span>
+                <span style={{ fontSize: 11, color: COLORS.muted }}>{n.minutes} min</span>
+              </div>
+              <div style={{ fontSize: 11, color: COLORS.muted, marginBottom: 2 }}>{CRPE_NIVEAUX_GUIDES[n.niveau] || n.niveau}</div>
+              {n.pourquoi && <div style={{ fontSize: 12, color: COLORS.muted, fontStyle: "italic" }}>{n.pourquoi}</div>}
+
+              <CrpeGuideeBloc titre="1 · Le cours">
+                {n.cours.map(([notion, def, ex]) => (
+                  <div key={notion} style={{ ...texte, marginBottom: 6 }}>
+                    <b>{notion}</b> : {def}
+                    <div style={{ fontSize: 12, color: COLORS.muted }}>Exemple : {ex}</div>
+                  </div>
+                ))}
+                <div style={{ ...texte, fontWeight: 500, marginTop: 6 }}>La méthode</div>
+                <ol style={{ margin: "2px 0 0", paddingLeft: 18 }}>
+                  {n.methode.map((m) => (
+                    <li key={m} style={{ ...texte, fontSize: 12 }}>{m}</li>
+                  ))}
+                </ol>
+              </CrpeGuideeBloc>
+
+              <CrpeGuideeBloc titre="2 · Exemple résolu">
+                <div style={{ ...texte, marginBottom: 6 }}>{n.exempleResolu.enonce}</div>
+                {n.exempleResolu.etapes.map((e, k) => (
+                  <div key={k} style={{ ...texte, fontSize: 12, marginBottom: 6, borderLeft: `2px solid ${COLORS.checked}`, paddingLeft: 10 }}>
+                    {e.texte}
+                    <div style={{ color: COLORS.muted, fontStyle: "italic" }}>Pourquoi : {e.pourquoi}</div>
+                  </div>
+                ))}
+              </CrpeGuideeBloc>
+
+              <CrpeGuideeBloc titre="3 · À toi, guidé">
+                <div style={{ ...texte, marginBottom: 6 }}>{n.guide.enonce}</div>
+                {n.guide.etapes.map((e, k) => (
+                  <div key={k} style={{ marginBottom: 8 }}>
+                    <div style={{ ...texte, fontSize: 12 }}>
+                      <b>Étape {k + 1}.</b> {e.consigne}
+                    </div>
+                    {e.indice && <CrpeDeplier label="💡 Indice">{e.indice}</CrpeDeplier>}
+                    {n.niveau === "guidé" && <CrpeDeplier label="Voir la réponse">{e.reponse}</CrpeDeplier>}
+                  </div>
+                ))}
+                {n.niveau !== "guidé" && (
+                  <CrpeDeplier label="Voir le corrigé de l'exercice guidé">{n.guide.etapes.map((e) => e.reponse).join("\n")}</CrpeDeplier>
+                )}
+              </CrpeGuideeBloc>
+
+              <CrpeGuideeBloc titre="4 · En autonomie">
+                <div style={{ ...texte, whiteSpace: "pre-wrap" }}>{n.autonomie.enonce}</div>
+                <CrpeDeplier label="Voir le corrigé">{n.autonomie.corrige}</CrpeDeplier>
+                <div style={{ display: "flex", gap: 4, marginTop: 8, flexWrap: "wrap" }}>
+                  {CRPE_MIXTES_NOTES.map((st) => {
+                    const active = note === st.key;
+                    return (
+                      <button
+                        key={st.key}
+                        onClick={() => setResultat(cleNotes, n.cle, active ? null : st.key)}
+                        style={{
+                          fontSize: 11, padding: "3px 9px", borderRadius: 999, cursor: "pointer", fontFamily: FONT_BODY,
+                          border: `1px solid ${active ? darken(st.color, 20) : COLORS.border}`,
+                          background: active ? st.color : "transparent",
+                          color: active ? "white" : COLORS.muted,
+                        }}
+                      >
+                        {st.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              </CrpeGuideeBloc>
+
+              <CrpeGuideeBloc titre="Je sais…">
+                <ul style={{ margin: 0, paddingLeft: 18 }}>
+                  {n.jeSais.map((j) => (
+                    <li key={j} style={{ ...texte, fontSize: 12 }}>{j}</li>
+                  ))}
+                </ul>
+              </CrpeGuideeBloc>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 function CrpeExercicesMixtes({ resultats, setResultat }) {
   const today = dateKey(new Date());
   const series = [...CRPE_EXERCICES_MIXTES].sort((a, b) => crpeCleSerie(b).localeCompare(crpeCleSerie(a)));
@@ -6768,7 +7103,11 @@ function CrpeSuiviContent() {
 
       <CrpeProchaineEtape etapes={etapes} statut={statut} setEtape={setEtape} />
 
-      <CollapsibleSection title="🔁 Exercices mixtes du jour" accent={ENSEIGNEMENT_ACCENT} badge="1h max">
+      <CollapsibleSection title="🧭 Séance guidée" accent={ENSEIGNEMENT_ACCENT} badge="apprendre avant le test">
+        <CrpeSeanceGuidee resultats={resultats} setResultat={setResultat} />
+      </CollapsibleSection>
+
+      <CollapsibleSection title="🔁 Exercices mixtes du jour" accent={ENSEIGNEMENT_ACCENT} badge="1h max" defaultOpen={false}>
         <CrpeExercicesMixtes resultats={resultats} setResultat={setResultat} />
       </CollapsibleSection>
 
@@ -10758,7 +11097,7 @@ const CALENDAR_DATA = {
     { date: "2026-10-26", time: "23h00 – 23h05", title: "🛏️ Au lit" },
     { date: "2026-10-27", time: "07h00 – 08h00", title: "🌅 Routine matin" },
     { date: "2026-10-27", time: "08h00 – 15h00", title: "💼 Apesanteur" },
-    { date: "2026-10-27", time: "15h30 – 16h30", title: "🔁 CRPE — Exercices mixtes RAN (1h)" },
+    { date: "2026-10-27", time: "15h30 – 16h30", title: "🧭 CRPE — Séance guidée (1h)" },
     { date: "2026-10-27", time: "16h30 – 18h30", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-10-27", time: "19h30 – 21h30", title: "🏈 Football Américain" },
     { date: "2026-10-27", time: "23h00 – 23h05", title: "🛏️ Au lit" },
