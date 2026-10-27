@@ -270,7 +270,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "86";
+const APP_VERSION = "87";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -6607,10 +6607,15 @@ function CrpeExercicesMixtes({ resultats, setResultat }) {
             ...(serie.rappels ? [["revision", "📘 Révision flash (PDF)"]] : []),
             ["enonces", "📄 Énoncés (PDF)"],
             ["corrige", "✅ Corrigé (PDF)"],
+            ["definitions", "📗 Fiche des définitions"],
           ].map(([nom, label]) => (
             <a
               key={nom}
-              href={`./crpe/exercices-mixtes/${crpeCleSerie(serie)}-${nom}.pdf`}
+              href={
+                nom === "definitions"
+                  ? "./crpe/ran-maths/fiche-definitions-ran-maths.pdf"
+                  : `./crpe/exercices-mixtes/${crpeCleSerie(serie)}-${nom}.pdf`
+              }
               target="_blank"
               rel="noreferrer"
               style={{
@@ -7482,6 +7487,14 @@ const CRPE_FICHIERS = [
     title: "Fiche de révision — les 12 RAN de maths",
     meta: "L'essentiel de chaque RAN sur 3 pages + formulaire et conversions",
     file: "./crpe/ran-maths/fiche-revision-toutes-les-ran.pdf",
+    topic: "m-operations",
+  },
+  {
+    id: "ran-fiche-definitions",
+    matiere: "Maths — dossier des RAN",
+    title: "Fiche des définitions — les 12 RAN de maths",
+    meta: "Chaque définition dans le vocabulaire du CRPE, toujours suivie d'un exemple",
+    file: "./crpe/ran-maths/fiche-definitions-ran-maths.pdf",
     topic: "m-operations",
   },
   ...CRPE_RAN_FICHES.map(([n, slug, titre, topic]) => ({
