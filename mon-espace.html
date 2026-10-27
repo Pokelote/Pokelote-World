@@ -270,7 +270,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "85";
+const APP_VERSION = "86";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -6158,6 +6158,77 @@ const CRPE_RAN_ETAPES = {
 };
 
 const CRPE_EXERCICES_MIXTES = [
+  {
+    date: "2026-10-27",
+    rans: [3, 4, 5],
+    pdf: true,
+    // Révision flash de 5 à 10 min avant la série, dans le vocabulaire attendu au CRPE.
+    rappels: [
+      { titre: "1. Le vocabulaire exact", points: [
+        "Division : le dividende, le diviseur, le quotient, le reste. Division euclidienne : a = b × q + r avec 0 ≤ r < b · division décimale : quotient exact ou approché, sans reste.",
+        "Numération décimale de position : chaque rang vaut 10 unités du rang inférieur. Dans une division posée, on partage rang par rang (centaines, dizaines, unités).",
+        "Un nombre décimal a une partie entière et une partie décimale : 3,6 = 3 unités et 6 dixièmes = 36 dixièmes = 36/10.",
+        "« Un ordre de grandeur » sert à contrôler un résultat : on le dit à l'écrit.",
+      ] },
+      { titre: "2. Les propriétés à citer par leur nom", points: [
+        "Commutativité et associativité : vraies pour + et ×, fausses pour − et ÷ (un contre-exemple le montre).",
+        "Conservation du quotient : a ÷ b = (a × c) ÷ (b × c), c ≠ 0. Elle justifie qu'on « enlève la virgule » du diviseur.",
+        "Distributivité de la multiplication sur l'addition : k × (a + b) = k × a + k × b.",
+        "Multiplier par 0,1, c'est multiplier par 1/10, donc diviser par 10.",
+      ] },
+      { titre: "3. RAN 4 : définitions et méthodes", points: [
+        "a est divisible par b ⇔ il existe un entier k tel que a = k × b ⇔ le reste de la division euclidienne de a par b est nul.",
+        "Critères de divisibilité par 2, 3, 4, 5, 9, 10, 25 : savoir les énoncer ET savoir pourquoi ils marchent (décomposer le nombre selon la numération).",
+        "Si a est divisible par m et par n, et que m et n sont premiers entre eux (PGCD = 1), alors a est divisible par m × n.",
+        "PGCD : plus grand diviseur commun · algorithme d'Euclide : PGCD(a ; b) = PGCD(b ; r) ; le PGCD est le dernier reste non nul.",
+        "Dans un problème, le PGCD répond à « le plus grand … qui divise à la fois … ».",
+      ] },
+      { titre: "4. RAN 5 : la fraction et les décimaux", points: [
+        "Fraction-quotient : a/b est le nombre qui, multiplié par b, donne a (b ≠ 0).",
+        "Fraction décimale : dénominateur 10, 100, 1 000… · nombre décimal : peut s'écrire avec une fraction décimale.",
+        "Encadrer un nombre entre deux décimaux consécutifs d'un rang donné (unités, dixièmes…) se justifie en multipliant chaque borne.",
+        "a/b = q + r/b quand a = b × q + r : lien entre fraction et division euclidienne.",
+      ] },
+      { titre: "5. Justifier comme le jury l'attend", points: [
+        "On sait que… (données) · Or… (définition ou propriété énoncée en entier) · Donc… (conclusion qui répond à la question).",
+        "Erreur d'élève : 1) donner le bon résultat, 2) décrire précisément ce que l'élève a fait, 3) nommer la notion ou la conception erronée en cause.",
+        "Démontrer un critère ou une propriété : écrire le nombre avec ses chiffres (100a + 10b + c) ou avec des lettres, jamais avec un seul exemple.",
+        "Vrai → propriété ou démonstration · faux → un contre-exemple calculé. Toujours conclure par une phrase, dans le contexte.",
+      ] },
+    ],
+    exercices: [
+      {
+        id: "ex1", ran: 3, minutes: 9, titre: "Erreur d'élève : un zéro oublié au quotient",
+        enonce: "Un élève pose la division de 4 218 par 6 et trouve 73.\na) À l'aide d'un ordre de grandeur, montre que ce résultat est faux. Justifie.\nb) Donne le quotient exact et vérifie-le à l'aide de la définition de la division.\nc) Explique précisément l'erreur de l'élève en t'appuyant sur la numération.",
+        corrige: "a) 4 218 ≈ 4 200 et 4 200 ÷ 6 = 700 : le quotient doit être proche de 700, pas de 73 (environ 10 fois trop petit). On peut aussi dire : 6 × 73 = 438, très loin de 4 218.\n► Cours (RAN 3) : l'ordre de grandeur sert à contrôler la vraisemblance d'un résultat.\nb) 4 218 = 6 × 703 + 0 : le quotient est 703 et le reste 0.\n► Cours (RAN 3) : division euclidienne de a par b : a = b × q + r avec 0 ≤ r < b. Ici 6 × 703 = 4 218 et le reste 0 vérifie bien 0 ≤ 0 < 6.\nc) On partage rang par rang. 42 centaines ÷ 6 = 7 centaines, reste 0. On abaisse 1 : 1 dizaine ÷ 6 = 0 dizaine, reste 1 dizaine. On abaisse 8 : 18 unités ÷ 6 = 3 unités. Quotient : 7 centaines, 0 dizaine, 3 unités = 703.\nL'élève a « sauté » l'étape des dizaines : comme 1 < 6, il n'a rien écrit au lieu d'écrire 0 au quotient. Il a perdu le rang des dizaines, donc la valeur du 7 (7 dizaines au lieu de 7 centaines).\n► Rédaction modèle : « L'élève n'a pas écrit le 0 des dizaines au quotient : le chiffre 0 marque un rang vide dans la numération de position. »\n► Erreur à éviter : se contenter de dire « il a oublié un zéro » sans dire de quel rang il s'agit ni pourquoi il le faut.",
+      },
+      {
+        id: "ex2", ran: 3, minutes: 8, titre: "Vrai ou faux ? Propriétés des opérations",
+        enonce: "Vrai ou faux ? Justifie chaque réponse (une propriété si c'est vrai, un contre-exemple si c'est faux).\na) La division est commutative.\nb) Pour tous nombres a, b, c : (a − b) − c = a − (b − c).\nc) Si l'on multiplie le dividende et le diviseur par 10, le quotient ne change pas, et le reste de la division euclidienne non plus.\nd) Multiplier un nombre par 0,1 revient à le diviser par 10.",
+        corrige: "a) Faux. 12 ÷ 4 = 3 mais 4 ÷ 12 = 1/3 ≠ 3.\n► Cours (RAN 3) : l'addition et la multiplication sont commutatives ; la soustraction et la division ne le sont pas.\nb) Faux. Avec a = 10, b = 5, c = 2 : (10 − 5) − 2 = 3 mais 10 − (5 − 2) = 7. La soustraction n'est pas associative.\nc) Faux pour le reste. Le quotient se conserve : ► Cours (RAN 3) : conservation du quotient, a ÷ b = (a × c) ÷ (b × c), c ≠ 0. Mais le reste est lui aussi multiplié : 17 = 5 × 3 + 2, alors que 170 = 50 × 3 + 20 (quotient 3, reste 20 et non 2).\nd) Vrai. 0,1 = 1/10, et multiplier par 1/10, c'est diviser par 10 (prendre le dixième). Contrôle : 45 × 0,1 = 4,5 = 45 ÷ 10.\n► Erreur à éviter : en c), répondre « vrai » en ne pensant qu'au quotient : une affirmation avec « et » est fausse dès qu'une des deux parties l'est.",
+      },
+      {
+        id: "ex3", ran: 4, minutes: 9, titre: "Démontrer un critère de divisibilité",
+        enonce: "a) Énonce le critère de divisibilité par 9.\nb) On écrit un nombre de trois chiffres n = 100a + 10b + c (a, b, c sont ses chiffres). Démontre que n est divisible par 9 si et seulement si a + b + c l'est.\nc) Trouve le chiffre x pour que le nombre 4x52 (4 milliers, x centaines, 5 dizaines, 2 unités) soit divisible par 9. Justifie.\nd) Ce nombre est-il divisible par 36 ? Justifie sans poser la division.",
+        corrige: "a) ► Cours (RAN 4) : un nombre est divisible par 9 si et seulement si la somme de ses chiffres est divisible par 9.\nb) n = 100a + 10b + c = 99a + 9b + (a + b + c) = 9 × (11a + b) + (a + b + c).\n9 × (11a + b) est un multiple de 9. Donc n est un multiple de 9 si et seulement si a + b + c est un multiple de 9 (la somme d'un multiple de 9 et d'un nombre est un multiple de 9 exactement quand ce nombre en est un).\n► Pourquoi ça marche : 100 = 99 + 1 et 10 = 9 + 1, et 99 et 9 sont des multiples de 9 (c'est la numération de position qui donne le critère).\nc) Somme des chiffres : 4 + x + 5 + 2 = 11 + x, avec x entre 0 et 9, donc 11 + x est entre 11 et 20. Le seul multiple de 9 possible est 18, d'où x = 7. Le nombre est 4 752 (4 752 = 9 × 528).\nd) 4 752 est divisible par 9 (question c) et par 4, car le nombre formé par ses deux derniers chiffres, 52, est divisible par 4 (52 = 4 × 13).\n► Cours (RAN 4) : si un nombre est divisible par m et par n, et que m et n sont premiers entre eux, il est divisible par m × n. Or PGCD(4 ; 9) = 1. Donc 4 752 est divisible par 36 (4 752 = 36 × 132).\n► Erreur à éviter : conclure « divisible par 4 et par 9 donc par 36 » sans dire que 4 et 9 sont premiers entre eux (avec 4 et 6, ce serait faux : 12 n'est pas divisible par 24).",
+      },
+      {
+        id: "ex4", ran: 4, minutes: 9, titre: "Problème : arbres autour d'un terrain (PGCD)",
+        enonce: "Un terrain rectangulaire mesure 156 m sur 84 m. On veut planter des arbres sur tout son pourtour, régulièrement espacés, avec un arbre à chaque coin. L'espacement doit être un nombre entier de mètres, le plus grand possible.\na) Explique pourquoi l'espacement cherché est le PGCD de 156 et 84.\nb) Calcule ce PGCD par l'algorithme d'Euclide.\nc) Combien d'arbres faut-il planter ? Justifie.",
+        corrige: "a) Comme il y a un arbre à chaque coin, chaque côté est partagé en un nombre entier d'intervalles égaux : l'espacement doit diviser 156 et diviser 84. C'est un diviseur commun de 156 et 84, et on veut le plus grand : c'est leur PGCD.\n► Cours (RAN 4) : le PGCD de a et b est le plus grand diviseur commun à a et à b.\nb) 156 = 84 × 1 + 72 ; 84 = 72 × 1 + 12 ; 72 = 12 × 6 + 0. Le dernier reste non nul est 12 : PGCD(156 ; 84) = 12. L'espacement est de 12 m.\n► Cours (RAN 4) : algorithme d'Euclide : PGCD(a ; b) = PGCD(b ; r), où r est le reste de a par b ; le PGCD est le dernier reste non nul.\nc) Périmètre : 2 × (156 + 84) = 480 m. Sur un contour fermé, il y a autant d'arbres que d'intervalles : 480 ÷ 12 = 40 arbres.\nVérification par côté : 156 ÷ 12 = 13 intervalles et 84 ÷ 12 = 7 intervalles, soit 2 × 13 + 2 × 7 = 40 intervalles, donc 40 arbres.\n► Erreur à éviter : compter 41 arbres (sur un segment ouvert il y a un arbre de plus que d'intervalles, mais sur un contour fermé le premier et le dernier arbre sont le même).",
+      },
+      {
+        id: "ex5", ran: 5, minutes: 8, titre: "Fraction-quotient : encadrer et décomposer",
+        enonce: "a) Donne la définition de la fraction 7/3 au sens de « quotient ».\nb) Encadre 7/3 entre deux entiers consécutifs, puis entre deux nombres décimaux consécutifs ayant un chiffre après la virgule. Justifie chaque encadrement.\nc) Écris 7/3 comme la somme d'un entier et d'une fraction inférieure à 1. Quel lien avec la division euclidienne ?\nd) 7/3 est-il un nombre décimal ? Justifie.",
+        corrige: "a) ► Cours (RAN 5) : 7/3 est le nombre qui, multiplié par 3, donne 7 (c'est le quotient de 7 par 3).\nb) 3 × 2 = 6 < 7 < 9 = 3 × 3, donc 2 < 7/3 < 3.\n3 × 2,3 = 6,9 < 7 < 7,2 = 3 × 2,4, donc 2,3 < 7/3 < 2,4.\n► Rédaction : on multiplie chaque borne par 3 et on compare à 7 ; c'est la définition de a) qui justifie la méthode.\nc) 7 = 3 × 2 + 1 (division euclidienne de 7 par 3, reste 1 < 3), donc 7/3 = (3 × 2 + 1)/3 = 2 + 1/3. Le quotient euclidien donne la partie entière et le reste donne le numérateur de la fraction restante.\nd) Non. 7/3 est irréductible (7 est premier et ne divise pas 3) et son dénominateur 3 a un facteur premier autre que 2 et 5.\n► Cours (RAN 5) : une fraction irréductible est un nombre décimal si et seulement si son dénominateur n'a pas d'autre facteur premier que 2 et 5. (Son écriture décimale 2,333… est infinie.)\n► Erreur à éviter : écrire 7/3 = 2,33 : c'est une valeur approchée, pas une égalité.",
+      },
+      {
+        id: "ex6", ran: 5, minutes: 8, titre: "Erreurs d'élève : multiplier et diviser des décimaux",
+        enonce: "Un élève écrit : 0,4 × 0,2 = 0,8 et 3,6 ÷ 0,4 = 0,9.\na) Donne les résultats exacts.\nb) Justifie-les à l'aide des fractions décimales (pour le produit) et de la conservation du quotient (pour la division).\nc) Quelle conception erronée peut expliquer ces deux erreurs ?",
+        corrige: "a) 0,4 × 0,2 = 0,08 et 3,6 ÷ 0,4 = 9.\nb) 0,4 = 4/10 et 0,2 = 2/10, donc 0,4 × 0,2 = (4 × 2)/(10 × 10) = 8/100 = 0,08.\n► Cours (RAN 5) : a/b × c/d = (a × c)/(b × d) ; dixièmes × dixièmes = centièmes.\n3,6 ÷ 0,4 = (3,6 × 10) ÷ (0,4 × 10) = 36 ÷ 4 = 9.\n► Cours (RAN 3) : conservation du quotient : a ÷ b = (a × c) ÷ (b × c), c ≠ 0.\nContrôle : 9 × 0,4 = 3,6.\nc) L'élève traite les décimaux comme des entiers « avec une virgule » : il calcule 4 × 2 = 8 et 36 ÷ 4 = 9, puis garde la virgule au même endroit, sans tenir compte des rangs (dixièmes, centièmes). On retrouve aussi l'idée fausse « multiplier agrandit, diviser rapetisse » : ici, multiplier par 0,2 rend le nombre plus petit et diviser par 0,4 le rend plus grand.\n► Rédaction modèle : donner le bon résultat, décrire la procédure de l'élève, puis nommer la notion en cause (valeur des chiffres selon leur rang).\n► Erreur à éviter : dire seulement « il s'est trompé de place pour la virgule » sans expliquer pourquoi la virgule bouge.",
+      },
+    ],
+  },
   {
     date: "2026-10-26",
     cle: "2026-10-26-apm",
