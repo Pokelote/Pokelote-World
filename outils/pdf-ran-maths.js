@@ -1,10 +1,11 @@
 // Génère le dossier crpe/ran-maths/ : une fiche de cours par RAN de maths (ran-01-….pdf à ran-12-….pdf)
-// et la fiche de révision qui rassemble toutes les RAN (fiche-revision-toutes-les-ran.pdf), à partir de
+// la fiche de révision qui rassemble toutes les RAN (fiche-revision-toutes-les-ran.pdf) et la fiche des
+// définitions, chacune avec un exemple (fiche-definitions-ran-maths.pdf), à partir de
 // outils/ran-maths-contenu.js.
 // Usage : node outils/pdf-ran-maths.js
 const fs = require("fs");
 const path = require("path");
-const { RAN, FORMULAIRE } = require("./ran-maths-contenu");
+const { RAN, FORMULAIRE, DEFINITIONS } = require("./ran-maths-contenu");
 
 function loadPlaywright() {
   for (const p of ["playwright", "/opt/node22/lib/node_modules/playwright"]) {
@@ -89,12 +90,34 @@ function pageSynthese() {
   </body></html>`;
 }
 
+function pageDefinitions() {
+  const blocs = DEFINITIONS.map(
+    (d) => `<h2><span class="num">RAN ${d.n}</span>${d.titre}</h2>
+    <table class="defs"><tr><th style="width:22%">Notion</th><th style="width:44%">Définition</th><th>Exemple</th></tr>
+    ${d.items.map(([notion, def, ex]) => `<tr><td><b>${notion}</b></td><td>${def}</td><td>${ex}</td></tr>`).join("")}
+    </table>`
+  ).join("");
+  return `<!doctype html><html lang="fr"><head><meta charset="utf-8"><style>${CSS}
+    .defs { break-inside: auto; font-size: 9.3pt; }
+    .defs tr { break-inside: avoid; }
+    .defs td:last-child { background: #f4faf4; }
+  </style></head><body>
+    <header>
+      <h1>Fiche des définitions — les 12 RAN de maths</h1>
+      <div class="sous">CRPE · Mathématiques · Chaque définition, dans le vocabulaire attendu, suivie d'un exemple. À savoir restituer mot pour mot : une justification commence presque toujours par une définition.</div>
+    </header>
+    ${insecables(blocs)}
+  </body></html>`;
+}
+
 (async () => {
   const { chromium } = loadPlaywright();
   const exe = fs.existsSync("/opt/pw-browsers/chromium") ? "/opt/pw-browsers/chromium" : undefined;
   const browser = await chromium.launch(exe ? { executablePath: exe } : {});
   fs.mkdirSync(out, { recursive: true });
-  const pages = [...RAN.map((r) => [fichier(r), pageRan(r)]), ["fiche-revision-toutes-les-ran.pdf", pageSynthese()]];
+  const pages = [...RAN.map((r) => [fichier(r), pageRan(r)]), ["fiche-revision-toutes-les-ran.pdf", pageSynthese()],
+    ["fiche-definitions-ran-maths.pdf", pageDefinitions()],
+  ];
   for (const [nom, contenu] of pages) {
     const p = await browser.newPage();
     await p.setContent(contenu, { waitUntil: "load" });
