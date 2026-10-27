@@ -270,7 +270,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "87";
+const APP_VERSION = "88";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -6177,17 +6177,17 @@ const CRPE_EXERCICES_MIXTES = [
         "Multiplier par 0,1, c'est multiplier par 1/10, donc diviser par 10.",
       ] },
       { titre: "3. RAN 4 : définitions et méthodes", points: [
-        "a est divisible par b ⇔ il existe un entier k tel que a = k × b ⇔ le reste de la division euclidienne de a par b est nul.",
-        "Critères de divisibilité par 2, 3, 4, 5, 9, 10, 25 : savoir les énoncer ET savoir pourquoi ils marchent (décomposer le nombre selon la numération).",
-        "Si a est divisible par m et par n, et que m et n sont premiers entre eux (PGCD = 1), alors a est divisible par m × n.",
-        "PGCD : plus grand diviseur commun · algorithme d'Euclide : PGCD(a ; b) = PGCD(b ; r) ; le PGCD est le dernier reste non nul.",
+        "a est divisible par b ⇔ il existe un entier k tel que a = k × b ⇔ le reste de la division euclidienne de a par b est nul. Exemple : 91 = 7 × 13, donc 91 est divisible par 7.",
+        "Critères de divisibilité par 2, 3, 4, 5, 9, 10, 25 : savoir les énoncer ET savoir pourquoi ils marchent (décomposer le nombre selon la numération). Exemple : 1 236 est divisible par 3 car 1 + 2 + 3 + 6 = 12, multiple de 3.",
+        "Si a est divisible par m et par n, et que m et n sont premiers entre eux (PGCD = 1), alors a est divisible par m × n. Exemple : 60 est divisible par 3 et par 5, premiers entre eux, donc par 15.",
+        "PGCD : plus grand diviseur commun · algorithme d'Euclide : PGCD(a ; b) = PGCD(b ; r) ; le PGCD est le dernier reste non nul. Exemple : 48 = 18 × 2 + 12 ; 18 = 12 × 1 + 6 ; 12 = 6 × 2 + 0, donc PGCD(48 ; 18) = 6.",
         "Dans un problème, le PGCD répond à « le plus grand … qui divise à la fois … ».",
       ] },
       { titre: "4. RAN 5 : la fraction et les décimaux", points: [
-        "Fraction-quotient : a/b est le nombre qui, multiplié par b, donne a (b ≠ 0).",
-        "Fraction décimale : dénominateur 10, 100, 1 000… · nombre décimal : peut s'écrire avec une fraction décimale.",
+        "Fraction-quotient : a/b est le nombre qui, multiplié par b, donne a (b ≠ 0). Exemple : 5/4 est le nombre qui, multiplié par 4, donne 5 (5/4 = 1,25).",
+        "Fraction décimale : dénominateur 10, 100, 1 000… · nombre décimal : peut s'écrire avec une fraction décimale. Exemple : 2/5 = 4/10 = 0,4 est décimal.",
         "Encadrer un nombre entre deux décimaux consécutifs d'un rang donné (unités, dixièmes…) se justifie en multipliant chaque borne.",
-        "a/b = q + r/b quand a = b × q + r : lien entre fraction et division euclidienne.",
+        "a/b = q + r/b quand a = b × q + r : lien entre fraction et division euclidienne. Exemple : 11 = 4 × 2 + 3, donc 11/4 = 2 + 3/4.",
       ] },
       { titre: "5. Justifier comme le jury l'attend", points: [
         "On sait que… (données) · Or… (définition ou propriété énoncée en entier) · Donc… (conclusion qui répond à la question).",
