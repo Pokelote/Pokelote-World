@@ -1,0 +1,874 @@
+[
+ {
+  "id": "d1-droite-segment-demi-droite",
+  "ran": 1,
+  "type": "Définition",
+  "q": "Droite, segment, demi-droite : donne la définition et un exemple.",
+  "r": "(AB) : droite illimitée passant par A et B ; [AB] : portion de droite limitée par A et B ; [AB) : demi-droite d'origine A passant par B.",
+  "ex": "AB = 5 cm est la longueur du segment [AB] ; on n'écrit jamais (AB) = 5 cm."
+ },
+ {
+  "id": "d1-points-alignes",
+  "ran": 1,
+  "type": "Définition",
+  "q": "Points alignés : donne la définition et un exemple.",
+  "r": "Points qui appartiennent à une même droite.",
+  "ex": "Si M est le milieu de [AB], alors A, M et B sont alignés."
+ },
+ {
+  "id": "d1-droites-paralleles-perpendiculaires",
+  "ran": 1,
+  "type": "Définition",
+  "q": "Droites parallèles / perpendiculaires : donne la définition et un exemple.",
+  "r": "Parallèles : aucun point commun ou confondues. Perpendiculaires : sécantes en formant un angle droit.",
+  "ex": "Les bords opposés d'une feuille sont parallèles ; deux bords consécutifs sont perpendiculaires."
+ },
+ {
+  "id": "d1-milieu",
+  "ran": 1,
+  "type": "Définition",
+  "q": "Milieu : donne la définition et un exemple.",
+  "r": "Point I de [AB] tel que IA = IB.",
+  "ex": "Si AB = 8 cm, le milieu I vérifie IA = IB = 4 cm."
+ },
+ {
+  "id": "d1-mediatrice",
+  "ran": 1,
+  "type": "Définition",
+  "q": "Médiatrice : donne la définition et un exemple.",
+  "r": "Droite perpendiculaire à un segment en son milieu ; c'est l'ensemble des points équidistants des extrémités.",
+  "ex": "Si MA = MB = 6 cm, alors M est sur la médiatrice de [AB]."
+ },
+ {
+  "id": "d1-cercle",
+  "ran": 1,
+  "type": "Définition",
+  "q": "Cercle : donne la définition et un exemple.",
+  "r": "Ensemble des points situés à une même distance r (le rayon) d'un point O (le centre).",
+  "ex": "Cercle de centre O et de rayon 3 cm : tout point M du cercle vérifie OM = 3 cm ; son diamètre mesure 6 cm."
+ },
+ {
+  "id": "d1-distance-d-un-point-a-une-droite",
+  "ran": 1,
+  "type": "Définition",
+  "q": "Distance d'un point à une droite : donne la définition et un exemple.",
+  "r": "Longueur AH, où H est le pied de la perpendiculaire à la droite passant par A ; c'est la plus courte distance.",
+  "ex": "A est à 4 cm de (d) si la perpendiculaire à (d) issue de A la coupe en H avec AH = 4 cm."
+ },
+ {
+  "id": "d1-angles-complementaires-supplementaires",
+  "ran": 1,
+  "type": "Définition",
+  "q": "Angles complémentaires / supplémentaires : donne la définition et un exemple.",
+  "r": "Complémentaires : somme 90° ; supplémentaires : somme 180°.",
+  "ex": "35° et 55° sont complémentaires ; 35° et 145° sont supplémentaires."
+ },
+ {
+  "id": "d1-hauteur-d-un-triangle",
+  "ran": 1,
+  "type": "Définition",
+  "q": "Hauteur d'un triangle : donne la définition et un exemple.",
+  "r": "Droite passant par un sommet et perpendiculaire au côté opposé.",
+  "ex": "Dans ABC, la hauteur issue de A coupe (BC) en H avec (AH) ⊥ (BC)."
+ },
+ {
+  "id": "d1-mediane-d-un-triangle",
+  "ran": 1,
+  "type": "Définition",
+  "q": "Médiane d'un triangle : donne la définition et un exemple.",
+  "r": "Droite (ou segment) joignant un sommet au milieu du côté opposé.",
+  "ex": "Si I est le milieu de [BC], (AI) est la médiane issue de A."
+ },
+ {
+  "id": "p1-que-peut-on-dire-de-deux-droites-perpend",
+  "ran": 1,
+  "type": "Propriété",
+  "q": "Que peut-on dire de deux droites perpendiculaires à une même droite ?",
+  "r": "Elles sont parallèles entre elles.",
+  "ex": "(d1) ⊥ (d) et (d2) ⊥ (d), donc (d1) // (d2)."
+ },
+ {
+  "id": "p1-que-vaut-la-somme-des-angles-d-un-triang",
+  "ran": 1,
+  "type": "Propriété",
+  "q": "Que vaut la somme des angles d'un triangle ?",
+  "r": "180°.",
+  "ex": "Â = 48° et B̂ = 67°, donc Ĉ = 180° − 48° − 67° = 65°."
+ },
+ {
+  "id": "p1-quand-peut-on-construire-un-triangle-de-",
+  "ran": 1,
+  "type": "Propriété",
+  "q": "Quand peut-on construire un triangle de côtés a ≤ b ≤ c ?",
+  "r": "Si et seulement si c < a + b (inégalité triangulaire).",
+  "ex": "4, 5 et 10 cm : 4 + 5 = 9 < 10, le triangle n'est pas constructible."
+ },
+ {
+  "id": "d2-symetrique-par-rapport-a-une-droite",
+  "ran": 2,
+  "type": "Définition",
+  "q": "Symétrique par rapport à une droite : donne la définition et un exemple.",
+  "r": "M' est le symétrique de M par rapport à (d) si (d) est la médiatrice de [MM'].",
+  "ex": "Le symétrique d'un point de l'axe est lui-même ; une figure et son symétrique se superposent par pliage."
+ },
+ {
+  "id": "d2-symetrique-par-rapport-a-un-point",
+  "ran": 2,
+  "type": "Définition",
+  "q": "Symétrique par rapport à un point : donne la définition et un exemple.",
+  "r": "M' est le symétrique de M par rapport à O si O est le milieu de [MM'].",
+  "ex": "Si O(0 ; 0) et M(3 ; 2), alors M'(−3 ; −2)."
+ },
+ {
+  "id": "d2-axe-centre-de-symetrie-d-une-figure",
+  "ran": 2,
+  "type": "Définition",
+  "q": "Axe / centre de symétrie d'une figure : donne la définition et un exemple.",
+  "r": "Axe : droite telle que la figure est sa propre image par la symétrie axiale. Centre : point tel que la figure est sa propre image par la symétrie centrale.",
+  "ex": "Le rectangle a 2 axes et un centre de symétrie ; la lettre A a un axe, la lettre N un centre."
+ },
+ {
+  "id": "d2-polygone-regulier",
+  "ran": 2,
+  "type": "Définition",
+  "q": "Polygone régulier : donne la définition et un exemple.",
+  "r": "Polygone dont tous les côtés ont la même longueur et tous les angles la même mesure.",
+  "ex": "Le carré et le triangle équilatéral ; un losange non carré n'est pas régulier (angles différents)."
+ },
+ {
+  "id": "d2-triangle-isocele",
+  "ran": 2,
+  "type": "Définition",
+  "q": "Triangle isocèle : donne la définition et un exemple.",
+  "r": "Triangle qui a deux côtés de même longueur.",
+  "ex": "ABC avec AB = AC = 5 cm, isocèle en A : ses angles B̂ et Ĉ sont égaux."
+ },
+ {
+  "id": "d2-parallelogramme",
+  "ran": 2,
+  "type": "Définition",
+  "q": "Parallélogramme : donne la définition et un exemple.",
+  "r": "Quadrilatère dont les côtés opposés sont parallèles deux à deux.",
+  "ex": "ABCD avec (AB) // (CD) et (AD) // (BC) ; ses diagonales se coupent en leur milieu."
+ },
+ {
+  "id": "d2-rectangle",
+  "ran": 2,
+  "type": "Définition",
+  "q": "Rectangle : donne la définition et un exemple.",
+  "r": "Quadrilatère qui a quatre angles droits.",
+  "ex": "Une feuille A4 (21 × 29,7 cm) ; ses diagonales ont la même longueur."
+ },
+ {
+  "id": "d2-losange",
+  "ran": 2,
+  "type": "Définition",
+  "q": "Losange : donne la définition et un exemple.",
+  "r": "Quadrilatère qui a quatre côtés de même longueur.",
+  "ex": "Un losange de côté 4 cm ; ses diagonales sont perpendiculaires."
+ },
+ {
+  "id": "d2-carre",
+  "ran": 2,
+  "type": "Définition",
+  "q": "Carré : donne la définition et un exemple.",
+  "r": "Quadrilatère qui est à la fois un rectangle et un losange.",
+  "ex": "Un carré de côté 3 cm : 4 angles droits, 4 côtés de 3 cm, 4 axes de symétrie."
+ },
+ {
+  "id": "d2-trapeze",
+  "ran": 2,
+  "type": "Définition",
+  "q": "Trapèze : donne la définition et un exemple.",
+  "r": "Quadrilatère qui a deux côtés parallèles (les bases).",
+  "ex": "ABCD avec (AB) // (CD), AB = 8 cm et CD = 5 cm."
+ },
+ {
+  "id": "p2-comment-reconnaitre-un-parallelogramme-p",
+  "ran": 2,
+  "type": "Propriété",
+  "q": "Comment reconnaître un parallélogramme par ses diagonales ?",
+  "r": "Un quadrilatère dont les diagonales se coupent en leur milieu est un parallélogramme.",
+  "ex": "[AC] et [BD] ont le même milieu O : ABCD est un parallélogramme."
+ },
+ {
+  "id": "p2-quand-un-parallelogramme-est-il-un-recta",
+  "ran": 2,
+  "type": "Propriété",
+  "q": "Quand un parallélogramme est-il un rectangle ? un losange ?",
+  "r": "Rectangle : un angle droit ou des diagonales de même longueur. Losange : deux côtés consécutifs égaux ou des diagonales perpendiculaires.",
+  "ex": "Un parallélogramme aux diagonales de 6 cm et 6 cm est un rectangle."
+ },
+ {
+  "id": "d3-somme-difference-produit-quotient",
+  "ran": 3,
+  "type": "Définition",
+  "q": "Somme, différence, produit, quotient : donne la définition et un exemple.",
+  "r": "Résultats de l'addition, de la soustraction, de la multiplication et de la division ; les nombres additionnés sont les termes, les nombres multipliés les facteurs.",
+  "ex": "Dans 6 × 7 = 42, 6 et 7 sont les facteurs, 42 est le produit."
+ },
+ {
+  "id": "d3-chiffre-nombre-de",
+  "ran": 3,
+  "type": "Définition",
+  "q": "Chiffre / nombre de : donne la définition et un exemple.",
+  "r": "Le chiffre d'un rang est le symbole écrit à ce rang ; le nombre de (dizaines, centaines…) compte toutes les unités de ce rang contenues dans le nombre.",
+  "ex": "3 457 : chiffre des centaines 4 ; nombre de centaines 34."
+ },
+ {
+  "id": "d3-division-euclidienne",
+  "ran": 3,
+  "type": "Définition",
+  "q": "Division euclidienne : donne la définition et un exemple.",
+  "r": "Diviser a par b (b ≠ 0), c'est trouver l'unique couple d'entiers (q ; r) tel que a = b × q + r avec 0 ≤ r < b.",
+  "ex": "47 = 6 × 7 + 5 : quotient 7, reste 5 (5 < 6)."
+ },
+ {
+  "id": "d3-dividende-diviseur-quotient-reste",
+  "ran": 3,
+  "type": "Définition",
+  "q": "Dividende, diviseur, quotient, reste : donne la définition et un exemple.",
+  "r": "Dans a = b × q + r : a est le dividende, b le diviseur, q le quotient, r le reste.",
+  "ex": "Dans 47 = 6 × 7 + 5 : dividende 47, diviseur 6, quotient 7, reste 5."
+ },
+ {
+  "id": "d3-commutativite",
+  "ran": 3,
+  "type": "Définition",
+  "q": "Commutativité : donne la définition et un exemple.",
+  "r": "On peut échanger l'ordre des nombres sans changer le résultat (vrai pour + et ×).",
+  "ex": "25 × 37 × 4 = 25 × 4 × 37 = 3 700 ; mais 12 ÷ 4 ≠ 4 ÷ 12."
+ },
+ {
+  "id": "d3-associativite",
+  "ran": 3,
+  "type": "Définition",
+  "q": "Associativité : donne la définition et un exemple.",
+  "r": "On peut regrouper les nombres comme on veut sans changer le résultat (vrai pour + et ×).",
+  "ex": "(17 + 25) + 75 = 17 + (25 + 75) = 117."
+ },
+ {
+  "id": "d3-distributivite",
+  "ran": 3,
+  "type": "Définition",
+  "q": "Distributivité : donne la définition et un exemple.",
+  "r": "k × (a + b) = k × a + k × b (de la multiplication sur l'addition, ou sur la soustraction).",
+  "ex": "17 × 99 = 17 × (100 − 1) = 1 700 − 17 = 1 683."
+ },
+ {
+  "id": "d3-conservation-des-ecarts",
+  "ran": 3,
+  "type": "Définition",
+  "q": "Conservation des écarts : donne la définition et un exemple.",
+  "r": "a − b = (a + c) − (b + c) : la différence ne change pas si l'on ajoute le même nombre aux deux termes.",
+  "ex": "1 000 − 398 = 1 002 − 400 = 602."
+ },
+ {
+  "id": "d3-conservation-du-quotient",
+  "ran": 3,
+  "type": "Définition",
+  "q": "Conservation du quotient : donne la définition et un exemple.",
+  "r": "a ÷ b = (a × c) ÷ (b × c), c ≠ 0.",
+  "ex": "3,6 ÷ 0,4 = 36 ÷ 4 = 9."
+ },
+ {
+  "id": "d3-ordre-de-grandeur",
+  "ran": 3,
+  "type": "Définition",
+  "q": "Ordre de grandeur : donne la définition et un exemple.",
+  "r": "Valeur approchée simple d'un résultat, obtenue en arrondissant les nombres, qui sert à contrôler un calcul.",
+  "ex": "498 × 21 ≈ 500 × 20 = 10 000."
+ },
+ {
+  "id": "p3-quelles-operations-sont-commutatives-et-",
+  "ran": 3,
+  "type": "Propriété",
+  "q": "Quelles opérations sont commutatives et associatives ?",
+  "r": "L'addition et la multiplication (pas la soustraction ni la division).",
+  "ex": "12 ÷ 4 = 3 mais 4 ÷ 12 = 1/3 : la division n'est pas commutative."
+ },
+ {
+  "id": "p3-quelle-propriete-justifie-le-decalage-da",
+  "ran": 3,
+  "type": "Propriété",
+  "q": "Quelle propriété justifie le « décalage » dans la multiplication posée ?",
+  "r": "La distributivité de la multiplication sur l'addition, avec la numération (on multiplie par des dizaines).",
+  "ex": "253 × 46 = 253 × 40 + 253 × 6 = 10 120 + 1 518 = 11 638."
+ },
+ {
+  "id": "p3-quelles-sont-les-deux-conditions-de-la-d",
+  "ran": 3,
+  "type": "Propriété",
+  "q": "Quelles sont les deux conditions de la division euclidienne de a par b ?",
+  "r": "a = b × q + r ET 0 ≤ r < b.",
+  "ex": "47 = 6 × 7 + 5 convient ; 47 = 6 × 6 + 11 non, car 11 ≥ 6."
+ },
+ {
+  "id": "p3-dans-quel-ordre-effectue-t-on-les-calcul",
+  "ran": 3,
+  "type": "Propriété",
+  "q": "Dans quel ordre effectue-t-on les calculs (priorités) ?",
+  "r": "Parenthèses, puissances, × et ÷ de gauche à droite, puis + et − de gauche à droite.",
+  "ex": "20 − 8 ÷ 2 × 3 = 20 − 12 = 8."
+ },
+ {
+  "id": "d4-multiple-diviseur",
+  "ran": 4,
+  "type": "Définition",
+  "q": "Multiple / diviseur : donne la définition et un exemple.",
+  "r": "a est un multiple de b (et b un diviseur de a) s'il existe un entier k tel que a = k × b ; le reste de la division de a par b est alors nul.",
+  "ex": "36 = 4 × 9 : 36 est un multiple de 4 et 4 est un diviseur de 36."
+ },
+ {
+  "id": "d4-nombre-pair-impair",
+  "ran": 4,
+  "type": "Définition",
+  "q": "Nombre pair / impair : donne la définition et un exemple.",
+  "r": "Pair : s'écrit 2k ; impair : s'écrit 2k + 1 (k entier).",
+  "ex": "14 = 2 × 7 est pair ; 15 = 2 × 7 + 1 est impair."
+ },
+ {
+  "id": "d4-nombre-premier",
+  "ran": 4,
+  "type": "Définition",
+  "q": "Nombre premier : donne la définition et un exemple.",
+  "r": "Entier naturel qui a exactement deux diviseurs distincts : 1 et lui-même.",
+  "ex": "13 (diviseurs 1 et 13) ; 1 n'est pas premier, 21 = 3 × 7 non plus."
+ },
+ {
+  "id": "d4-decomposition-en-facteurs-premiers",
+  "ran": 4,
+  "type": "Définition",
+  "q": "Décomposition en facteurs premiers : donne la définition et un exemple.",
+  "r": "Écriture d'un entier ≥ 2 comme produit de nombres premiers ; elle est unique (à l'ordre près).",
+  "ex": "360 = 2³ × 3² × 5."
+ },
+ {
+  "id": "d4-pgcd",
+  "ran": 4,
+  "type": "Définition",
+  "q": "PGCD : donne la définition et un exemple.",
+  "r": "Plus grand diviseur commun à deux entiers.",
+  "ex": "PGCD(252 ; 360) = 36 ; il sert à rendre 252/360 irréductible : 7/10."
+ },
+ {
+  "id": "d4-ppcm",
+  "ran": 4,
+  "type": "Définition",
+  "q": "PPCM : donne la définition et un exemple.",
+  "r": "Plus petit multiple commun non nul à deux entiers.",
+  "ex": "PPCM(12 ; 18) = 36 : deux phares qui clignotent toutes les 12 s et 18 s se retrouvent toutes les 36 s."
+ },
+ {
+  "id": "d4-nombres-premiers-entre-eux",
+  "ran": 4,
+  "type": "Définition",
+  "q": "Nombres premiers entre eux : donne la définition et un exemple.",
+  "r": "Deux entiers dont le PGCD est 1.",
+  "ex": "8 et 15 (8 = 2³, 15 = 3 × 5), alors qu'aucun des deux n'est premier."
+ },
+ {
+  "id": "d4-critere-de-divisibilite",
+  "ran": 4,
+  "type": "Définition",
+  "q": "Critère de divisibilité : donne la définition et un exemple.",
+  "r": "Règle qui permet de savoir si un nombre est divisible par un autre sans poser la division.",
+  "ex": "4 752 : 4 + 7 + 5 + 2 = 18, multiple de 9, donc 4 752 est divisible par 9."
+ },
+ {
+  "id": "d4-fraction-irreductible",
+  "ran": 4,
+  "type": "Définition",
+  "q": "Fraction irréductible : donne la définition et un exemple.",
+  "r": "Fraction dont le numérateur et le dénominateur sont premiers entre eux.",
+  "ex": "17/20 est irréductible ; 391/460 ne l'est pas (on simplifie par 23)."
+ },
+ {
+  "id": "p4-enonce-les-criteres-de-divisibilite-par-",
+  "ran": 4,
+  "type": "Propriété",
+  "q": "Énonce les critères de divisibilité par 3 et par 9.",
+  "r": "Un nombre est divisible par 3 (par 9) si et seulement si la somme de ses chiffres est divisible par 3 (par 9).",
+  "ex": "4 752 : 4 + 7 + 5 + 2 = 18, divisible par 9, donc 4 752 aussi."
+ },
+ {
+  "id": "p4-comment-tester-si-un-entier-n-est-premie",
+  "ran": 4,
+  "type": "Propriété",
+  "q": "Comment tester si un entier n est premier ?",
+  "r": "On teste sa divisibilité par les nombres premiers p tels que p × p ≤ n ; s'il n'en a aucun, il est premier.",
+  "ex": "221 : on teste jusqu'à 13 (13 × 13 = 169 ≤ 221 < 289) ; 221 = 13 × 17, il n'est pas premier."
+ },
+ {
+  "id": "p4-si-a-est-divisible-par-m-et-par-n-quand-",
+  "ran": 4,
+  "type": "Propriété",
+  "q": "Si a est divisible par m et par n, quand est-il divisible par m × n ?",
+  "r": "Quand m et n sont premiers entre eux (PGCD = 1).",
+  "ex": "Divisible par 4 et par 9 (PGCD 1) → par 36 ; mais 12 est divisible par 4 et 6 sans l'être par 24."
+ },
+ {
+  "id": "p4-enonce-l-algorithme-d-euclide",
+  "ran": 4,
+  "type": "Propriété",
+  "q": "Énonce l'algorithme d'Euclide.",
+  "r": "PGCD(a ; b) = PGCD(b ; r), où r est le reste de la division de a par b ; le PGCD est le dernier reste non nul.",
+  "ex": "360 = 252 × 1 + 108 ; 252 = 108 × 2 + 36 ; 108 = 36 × 3 + 0 : PGCD = 36."
+ },
+ {
+  "id": "p4-pgcd-ou-ppcm-comment-choisir-dans-un-pro",
+  "ran": 4,
+  "type": "Propriété",
+  "q": "PGCD ou PPCM : comment choisir dans un problème ?",
+  "r": "« Le plus grand nombre qui divise à la fois… » (partages, carrés, espacements) → PGCD. « La prochaine fois ensemble » (rencontres, cycles) → PPCM.",
+  "ex": "Bus toutes les 15 et 25 min → PPCM = 75 min."
+ },
+ {
+  "id": "d5-fraction",
+  "ran": 5,
+  "type": "Définition",
+  "q": "Fraction : donne la définition et un exemple.",
+  "r": "Écriture a/b (b ≠ 0) ; a est le numérateur, b le dénominateur.",
+  "ex": "Dans 3/4, 3 est le numérateur et 4 le dénominateur."
+ },
+ {
+  "id": "d5-fraction-quotient",
+  "ran": 5,
+  "type": "Définition",
+  "q": "Fraction-quotient : donne la définition et un exemple.",
+  "r": "a/b est le nombre qui, multiplié par b, donne a.",
+  "ex": "7/3 est le nombre qui, multiplié par 3, donne 7 : 3 × 7/3 = 7."
+ },
+ {
+  "id": "d5-fraction-decimale",
+  "ran": 5,
+  "type": "Définition",
+  "q": "Fraction décimale : donne la définition et un exemple.",
+  "r": "Fraction dont le dénominateur est 10, 100, 1 000…",
+  "ex": "325/100 = 3,25."
+ },
+ {
+  "id": "d5-nombre-decimal",
+  "ran": 5,
+  "type": "Définition",
+  "q": "Nombre décimal : donne la définition et un exemple.",
+  "r": "Nombre qui peut s'écrire a/10ⁿ (a entier) ; son écriture décimale est finie.",
+  "ex": "3/4 = 75/100 = 0,75 est décimal ; 1/3 = 0,333… ne l'est pas."
+ },
+ {
+  "id": "d5-nombre-rationnel",
+  "ran": 5,
+  "type": "Définition",
+  "q": "Nombre rationnel : donne la définition et un exemple.",
+  "r": "Nombre qui peut s'écrire a/b avec a et b entiers, b ≠ 0.",
+  "ex": "1/3, −2 = −2/1 et 0,75 sont rationnels ; √2 et π ne le sont pas."
+ },
+ {
+  "id": "d5-nombre-irrationnel",
+  "ran": 5,
+  "type": "Définition",
+  "q": "Nombre irrationnel : donne la définition et un exemple.",
+  "r": "Nombre réel qui n'est pas rationnel.",
+  "ex": "√2 ≈ 1,414… et π ≈ 3,1416…"
+ },
+ {
+  "id": "d5-inverse",
+  "ran": 5,
+  "type": "Définition",
+  "q": "Inverse : donne la définition et un exemple.",
+  "r": "L'inverse d'un nombre non nul x est le nombre qui, multiplié par x, donne 1 : 1/x.",
+  "ex": "L'inverse de 2/3 est 3/2 ; l'inverse de 0,25 est 4."
+ },
+ {
+  "id": "d5-oppose",
+  "ran": 5,
+  "type": "Définition",
+  "q": "Opposé : donne la définition et un exemple.",
+  "r": "L'opposé de x est le nombre qui, ajouté à x, donne 0 : −x.",
+  "ex": "L'opposé de 5 est −5 ; soustraire 5, c'est ajouter −5."
+ },
+ {
+  "id": "d5-ecriture-scientifique",
+  "ran": 5,
+  "type": "Définition",
+  "q": "Écriture scientifique : donne la définition et un exemple.",
+  "r": "Écriture a × 10ⁿ avec 1 ≤ a < 10 et n entier relatif.",
+  "ex": "45 000 = 4,5 × 10⁴ ; 0,0032 = 3,2 × 10⁻³."
+ },
+ {
+  "id": "d5-puissance",
+  "ran": 5,
+  "type": "Définition",
+  "q": "Puissance : donne la définition et un exemple.",
+  "r": "aⁿ est le produit de n facteurs égaux à a ; a⁻ⁿ = 1/aⁿ ; a⁰ = 1.",
+  "ex": "2³ = 2 × 2 × 2 = 8 ; 10⁻² = 1/100 = 0,01."
+ },
+ {
+  "id": "p5-quand-une-fraction-est-elle-un-nombre-de",
+  "ran": 5,
+  "type": "Propriété",
+  "q": "Quand une fraction est-elle un nombre décimal ?",
+  "r": "Une fraction IRRÉDUCTIBLE est décimale si et seulement si son dénominateur n'a pas d'autre facteur premier que 2 et 5.",
+  "ex": "17/20 = 0,85 (20 = 2² × 5) ; 7/12 n'est pas décimal (12 = 2² × 3)."
+ },
+ {
+  "id": "p5-que-change-t-on-dans-une-fraction-sans-c",
+  "ran": 5,
+  "type": "Propriété",
+  "q": "Que change-t-on dans une fraction sans changer le nombre ?",
+  "r": "On peut MULTIPLIER (ou diviser) numérateur et dénominateur par un même nombre non nul ; pas ajouter.",
+  "ex": "1/2 = 3/6 ; mais 1/2 ≠ 2/3 (on a ajouté 1)."
+ },
+ {
+  "id": "p5-comment-divise-t-on-par-une-fraction",
+  "ran": 5,
+  "type": "Propriété",
+  "q": "Comment divise-t-on par une fraction ?",
+  "r": "On multiplie par son inverse.",
+  "ex": "2/3 ÷ 4/9 = 2/3 × 9/4 = 3/2."
+ },
+ {
+  "id": "p5-comment-encadrer-a-b-entre-deux-entiers-",
+  "ran": 5,
+  "type": "Propriété",
+  "q": "Comment encadrer a/b entre deux entiers en le justifiant ?",
+  "r": "On cherche les multiples consécutifs de b qui entourent a : si b × n < a < b × (n + 1), alors n < a/b < n + 1.",
+  "ex": "17/5 : 15 < 17 < 20, donc 3 < 17/5 < 4."
+ },
+ {
+  "id": "d6-perimetre",
+  "ran": 6,
+  "type": "Définition",
+  "q": "Périmètre : donne la définition et un exemple.",
+  "r": "Longueur du contour d'une figure.",
+  "ex": "Rectangle 8 m × 4 m : P = 2 × (8 + 4) = 24 m."
+ },
+ {
+  "id": "d6-aire",
+  "ran": 6,
+  "type": "Définition",
+  "q": "Aire : donne la définition et un exemple.",
+  "r": "Mesure de la surface d'une figure, dans une unité d'aire.",
+  "ex": "Rectangle 8 m × 4 m : A = 8 × 4 = 32 m²."
+ },
+ {
+  "id": "d6-hauteur-relative-a-une-base",
+  "ran": 6,
+  "type": "Définition",
+  "q": "Hauteur relative à une base : donne la définition et un exemple.",
+  "r": "Segment perpendiculaire à la base, joignant celle-ci au sommet (ou au côté) opposé.",
+  "ex": "Triangle de base 6 cm et de hauteur 4 cm : A = 6 × 4 ÷ 2 = 12 cm²."
+ },
+ {
+  "id": "d6-disque-cercle",
+  "ran": 6,
+  "type": "Définition",
+  "q": "Disque / cercle : donne la définition et un exemple.",
+  "r": "Le cercle est la ligne ; le disque est la surface qu'il délimite.",
+  "ex": "r = 2 cm : périmètre du cercle 2π × 2 ≈ 12,57 cm ; aire du disque π × 2² ≈ 12,57 cm²."
+ },
+ {
+  "id": "d6-hectare-are",
+  "ran": 6,
+  "type": "Définition",
+  "q": "Hectare, are : donne la définition et un exemple.",
+  "r": "1 a = 100 m² ; 1 ha = 10 000 m².",
+  "ex": "Un terrain de 200 m × 150 m mesure 30 000 m² = 3 ha."
+ },
+ {
+  "id": "d6-agrandissement-reduction-de-rapport-k",
+  "ran": 6,
+  "type": "Définition",
+  "q": "Agrandissement / réduction de rapport k : donne la définition et un exemple.",
+  "r": "Transformation qui multiplie toutes les longueurs par k ; les aires sont multipliées par k².",
+  "ex": "Côté d'un carré × 3 : aire × 9."
+ },
+ {
+  "id": "d7-grandeurs-proportionnelles",
+  "ran": 7,
+  "type": "Définition",
+  "q": "Grandeurs proportionnelles : donne la définition et un exemple.",
+  "r": "On obtient les valeurs de l'une en multipliant celles de l'autre par un même nombre non nul.",
+  "ex": "Prix et masse de pommes à 2,50 €/kg : 3 kg → 7,50 € ; 5 kg → 12,50 €."
+ },
+ {
+  "id": "d7-coefficient-de-proportionnalite",
+  "ran": 7,
+  "type": "Définition",
+  "q": "Coefficient de proportionnalité : donne la définition et un exemple.",
+  "r": "Nombre par lequel on multiplie les valeurs d'une grandeur pour obtenir celles de l'autre.",
+  "ex": "Ici 2,50 (€ par kg)."
+ },
+ {
+  "id": "d7-linearite-additive-multiplicative",
+  "ran": 7,
+  "type": "Définition",
+  "q": "Linéarité additive / multiplicative : donne la définition et un exemple.",
+  "r": "f(a + b) = f(a) + f(b) ; f(k × a) = k × f(a).",
+  "ex": "8 kg = 3 kg + 5 kg → 7,50 + 12,50 = 20 € ; 6 kg = 2 × 3 kg → 15 €."
+ },
+ {
+  "id": "d7-quatrieme-proportionnelle",
+  "ran": 7,
+  "type": "Définition",
+  "q": "Quatrième proportionnelle : donne la définition et un exemple.",
+  "r": "Valeur manquante x d'un tableau de proportionnalité a/b = c/x ; x = b × c ÷ a.",
+  "ex": "3 kg → 7,50 € ; 5 kg → x = 7,50 × 5 ÷ 3 = 12,50 €."
+ },
+ {
+  "id": "d7-vitesse-moyenne",
+  "ran": 7,
+  "type": "Définition",
+  "q": "Vitesse moyenne : donne la définition et un exemple.",
+  "r": "Quotient de la distance parcourue par la durée : v = d/t.",
+  "ex": "45 km en 1 h 40 min = 5/3 h : v = 27 km/h."
+ },
+ {
+  "id": "d7-echelle",
+  "ran": 7,
+  "type": "Définition",
+  "q": "Échelle : donne la définition et un exemple.",
+  "r": "Rapport entre une distance sur le plan et la distance réelle, dans la même unité.",
+  "ex": "Au 1/25 000, 4 cm sur la carte représentent 100 000 cm = 1 km."
+ },
+ {
+  "id": "d8-expression-litterale",
+  "ran": 8,
+  "type": "Définition",
+  "q": "Expression littérale : donne la définition et un exemple.",
+  "r": "Expression qui contient une ou plusieurs lettres désignant des nombres.",
+  "ex": "3x² − 5 ; pour x = −2, elle vaut 3 × 4 − 5 = 7."
+ },
+ {
+  "id": "d8-reduire",
+  "ran": 8,
+  "type": "Définition",
+  "q": "Réduire : donne la définition et un exemple.",
+  "r": "Regrouper les termes semblables d'une somme.",
+  "ex": "4x + 3 − 7x + 5 = −3x + 8."
+ },
+ {
+  "id": "d8-developper",
+  "ran": 8,
+  "type": "Définition",
+  "q": "Développer : donne la définition et un exemple.",
+  "r": "Transformer un produit en somme.",
+  "ex": "(x + 2)(3x − 1) = 3x² + 5x − 2."
+ },
+ {
+  "id": "d8-factoriser",
+  "ran": 8,
+  "type": "Définition",
+  "q": "Factoriser : donne la définition et un exemple.",
+  "r": "Transformer une somme en produit.",
+  "ex": "6x² + 9x = 3x(2x + 3) ; 9x² − 25 = (3x − 5)(3x + 5)."
+ },
+ {
+  "id": "d8-identites-remarquables",
+  "ran": 8,
+  "type": "Définition",
+  "q": "Identités remarquables : donne la définition et un exemple.",
+  "r": "(a + b)² = a² + 2ab + b² ; (a − b)² = a² − 2ab + b² ; (a + b)(a − b) = a² − b².",
+  "ex": "(2x − 3)² = 4x² − 12x + 9."
+ },
+ {
+  "id": "d8-contre-exemple",
+  "ran": 8,
+  "type": "Définition",
+  "q": "Contre-exemple : donne la définition et un exemple.",
+  "r": "Exemple pour lequel une affirmation générale est fausse ; un seul suffit à la réfuter.",
+  "ex": "« (x + 1)² = x² + 1 » est faux : pour x = 1, 4 ≠ 2."
+ },
+ {
+  "id": "d9-polyedre",
+  "ran": 9,
+  "type": "Définition",
+  "q": "Polyèdre : donne la définition et un exemple.",
+  "r": "Solide dont toutes les faces sont des polygones.",
+  "ex": "Cube, pavé droit, prisme, pyramide ; le cylindre n'en est pas un."
+ },
+ {
+  "id": "d9-face-arete-sommet",
+  "ran": 9,
+  "type": "Définition",
+  "q": "Face, arête, sommet : donne la définition et un exemple.",
+  "r": "Face : polygone qui limite le solide ; arête : côté commun à deux faces ; sommet : point où se rejoignent des arêtes.",
+  "ex": "Le cube a 6 faces, 12 arêtes, 8 sommets."
+ },
+ {
+  "id": "d9-prisme-droit",
+  "ran": 9,
+  "type": "Définition",
+  "q": "Prisme droit : donne la définition et un exemple.",
+  "r": "Polyèdre dont deux faces (les bases) sont des polygones superposables et parallèles, et les autres faces des rectangles.",
+  "ex": "Une boîte de Toblerone (prisme à base triangulaire)."
+ },
+ {
+  "id": "d9-pyramide",
+  "ran": 9,
+  "type": "Définition",
+  "q": "Pyramide : donne la définition et un exemple.",
+  "r": "Polyèdre dont une face est un polygone (la base) et les autres faces des triangles ayant un sommet commun.",
+  "ex": "Pyramide à base carrée de côté 6 m et de hauteur 4 m : V = 36 × 4 ÷ 3 = 48 m³."
+ },
+ {
+  "id": "d9-patron",
+  "ran": 9,
+  "type": "Définition",
+  "q": "Patron : donne la définition et un exemple.",
+  "r": "Figure plane qui, par pliage, permet de construire le solide sans recouvrement.",
+  "ex": "Une croix de 6 carrés est un patron du cube (il en existe 11)."
+ },
+ {
+  "id": "d9-volume-contenance",
+  "ran": 9,
+  "type": "Définition",
+  "q": "Volume / contenance : donne la définition et un exemple.",
+  "r": "Mesure de l'espace occupé (m³, dm³…) ; contenance : volume intérieur exprimé en litres (1 dm³ = 1 L).",
+  "ex": "Cylindre r = 3 cm, h = 10 cm : V = 90π ≈ 282,7 cm³ ≈ 0,28 L."
+ },
+ {
+  "id": "d10-equation",
+  "ran": 10,
+  "type": "Définition",
+  "q": "Équation : donne la définition et un exemple.",
+  "r": "Égalité dans laquelle figure un nombre inconnu.",
+  "ex": "5x − 7 = 2x + 8."
+ },
+ {
+  "id": "d10-solution-d-une-equation",
+  "ran": 10,
+  "type": "Définition",
+  "q": "Solution d'une équation : donne la définition et un exemple.",
+  "r": "Valeur de l'inconnue qui rend l'égalité vraie.",
+  "ex": "x = 5 est solution de 5x − 7 = 2x + 8 car 18 = 18."
+ },
+ {
+  "id": "d10-fonction",
+  "ran": 10,
+  "type": "Définition",
+  "q": "Fonction : donne la définition et un exemple.",
+  "r": "Processus qui, à un nombre x, associe un unique nombre noté f(x).",
+  "ex": "f : x ↦ 3x + 2."
+ },
+ {
+  "id": "d10-image-antecedent",
+  "ran": 10,
+  "type": "Définition",
+  "q": "Image / antécédent : donne la définition et un exemple.",
+  "r": "f(x) est l'image de x ; x est un antécédent de f(x).",
+  "ex": "f(x) = 3x + 2 : l'image de 1 est 5 ; un antécédent de 20 est 6."
+ },
+ {
+  "id": "d10-fonction-lineaire",
+  "ran": 10,
+  "type": "Définition",
+  "q": "Fonction linéaire : donne la définition et un exemple.",
+  "r": "Fonction de la forme x ↦ ax ; sa représentation est une droite passant par l'origine.",
+  "ex": "x ↦ 2,5x modélise le prix de x kg à 2,50 €/kg."
+ },
+ {
+  "id": "d10-fonction-affine",
+  "ran": 10,
+  "type": "Définition",
+  "q": "Fonction affine : donne la définition et un exemple.",
+  "r": "Fonction de la forme x ↦ ax + b ; a est le coefficient directeur, b l'ordonnée à l'origine.",
+  "ex": "Abonnement 10 € + 2 € par séance : x ↦ 2x + 10."
+ },
+ {
+  "id": "d11-pourcentage",
+  "ran": 11,
+  "type": "Définition",
+  "q": "Pourcentage : donne la définition et un exemple.",
+  "r": "t % est la fraction t/100 ; prendre t % d'une quantité, c'est la multiplier par t/100.",
+  "ex": "15 % de 240 = 240 × 0,15 = 36."
+ },
+ {
+  "id": "d11-coefficient-multiplicateur",
+  "ran": 11,
+  "type": "Définition",
+  "q": "Coefficient multiplicateur : donne la définition et un exemple.",
+  "r": "Nombre par lequel on multiplie une valeur pour appliquer une évolution : 1 + t/100 (hausse) ou 1 − t/100 (baisse).",
+  "ex": "+20 % → × 1,2 ; −15 % → × 0,85."
+ },
+ {
+  "id": "d11-taux-d-evolution",
+  "ran": 11,
+  "type": "Définition",
+  "q": "Taux d'évolution : donne la définition et un exemple.",
+  "r": "(valeur d'arrivée − valeur de départ) ÷ valeur de départ × 100.",
+  "ex": "De 40 à 50 : +25 % ; de 50 à 40 : −20 %."
+ },
+ {
+  "id": "d11-evolutions-successives",
+  "ran": 11,
+  "type": "Définition",
+  "q": "Évolutions successives : donne la définition et un exemple.",
+  "r": "On multiplie les coefficients multiplicateurs.",
+  "ex": "+10 % puis +10 % : × 1,1 × 1,1 = × 1,21, soit +21 %."
+ },
+ {
+  "id": "d11-point-de-pourcentage",
+  "ran": 11,
+  "type": "Définition",
+  "q": "Point de pourcentage : donne la définition et un exemple.",
+  "r": "Écart entre deux pourcentages.",
+  "ex": "Passer de 10 % à 12 % : +2 points, soit une hausse de 20 %."
+ },
+ {
+  "id": "d12-cellule-plage",
+  "ran": 12,
+  "type": "Définition",
+  "q": "Cellule, plage : donne la définition et un exemple.",
+  "r": "Cellule : case repérée par sa colonne et sa ligne ; plage : ensemble de cellules.",
+  "ex": "B3 ; la plage A1:A10."
+ },
+ {
+  "id": "d12-formule",
+  "ran": 12,
+  "type": "Définition",
+  "q": "Formule : donne la définition et un exemple.",
+  "r": "Calcul saisi dans une cellule, qui commence par « = ».",
+  "ex": "=SOMME(A1:A10) ; =B2*C2."
+ },
+ {
+  "id": "d12-reference-relative-absolue",
+  "ran": 12,
+  "type": "Définition",
+  "q": "Référence relative / absolue : donne la définition et un exemple.",
+  "r": "Relative (A1) : se décale lors de la recopie ; absolue ($A$1) : reste figée.",
+  "ex": "=B2*(1+$E$1) recopiée en C3 devient =B3*(1+$E$1)."
+ },
+ {
+  "id": "d12-algorithme",
+  "ran": 12,
+  "type": "Définition",
+  "q": "Algorithme : donne la définition et un exemple.",
+  "r": "Suite finie d'instructions qui permet de résoudre un problème.",
+  "ex": "Une recette de cuisine ; le tracé d'un carré : répéter 4 fois [avancer de 100 ; tourner de 90°]."
+ },
+ {
+  "id": "d12-variable",
+  "ran": 12,
+  "type": "Définition",
+  "q": "Variable : donne la définition et un exemple.",
+  "r": "Case mémoire nommée dont la valeur peut changer au cours du programme.",
+  "ex": "« mettre score à 0 », puis « ajouter 1 à score »."
+ },
+ {
+  "id": "d12-boucle",
+  "ran": 12,
+  "type": "Définition",
+  "q": "Boucle : donne la définition et un exemple.",
+  "r": "Instruction qui répète un bloc, un nombre de fois donné ou jusqu'à une condition.",
+  "ex": "« répéter 6 fois [avancer de 50 ; tourner de 60°] » trace un hexagone régulier."
+ },
+ {
+  "id": "d12-instruction-conditionnelle",
+  "ran": 12,
+  "type": "Définition",
+  "q": "Instruction conditionnelle : donne la définition et un exemple.",
+  "r": "Instruction qui n'exécute un bloc que si une condition est vraie (si… alors… sinon).",
+  "ex": "si réponse = 12 alors dire « Bravo » sinon dire « Essaie encore »."
+ }
+]
