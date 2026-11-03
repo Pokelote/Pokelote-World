@@ -881,4 +881,27 @@ const DEFINITIONS = [
   ] },
 ];
 
-module.exports = { RAN, FORMULAIRE, F, DEFINITIONS };
+// Cartes « propriété » pour les boîtes à questions (27/10/2026 → 03/11/2026) : ce qu'il faut savoir
+// énoncer pour justifier. [ran, question, réponse, exemple].
+const PROPRIETES = [
+  [1, "Que peut-on dire de deux droites perpendiculaires à une même droite ?", "Elles sont parallèles entre elles.", "(d1) ⊥ (d) et (d2) ⊥ (d), donc (d1) // (d2)."],
+  [1, "Que vaut la somme des angles d'un triangle ?", "180°.", "Â = 48° et B̂ = 67°, donc Ĉ = 180° − 48° − 67° = 65°."],
+  [1, "Quand peut-on construire un triangle de côtés a ≤ b ≤ c ?", "Si et seulement si c < a + b (inégalité triangulaire).", "4, 5 et 10 cm : 4 + 5 = 9 < 10, le triangle n'est pas constructible."],
+  [2, "Comment reconnaître un parallélogramme par ses diagonales ?", "Un quadrilatère dont les diagonales se coupent en leur milieu est un parallélogramme.", "[AC] et [BD] ont le même milieu O : ABCD est un parallélogramme."],
+  [2, "Quand un parallélogramme est-il un rectangle ? un losange ?", "Rectangle : un angle droit ou des diagonales de même longueur. Losange : deux côtés consécutifs égaux ou des diagonales perpendiculaires.", "Un parallélogramme aux diagonales de 6 cm et 6 cm est un rectangle."],
+  [3, "Quelles opérations sont commutatives et associatives ?", "L'addition et la multiplication (pas la soustraction ni la division).", "12 ÷ 4 = 3 mais 4 ÷ 12 = 1/3 : la division n'est pas commutative."],
+  [3, "Quelle propriété justifie le « décalage » dans la multiplication posée ?", "La distributivité de la multiplication sur l'addition, avec la numération (on multiplie par des dizaines).", "253 × 46 = 253 × 40 + 253 × 6 = 10 120 + 1 518 = 11 638."],
+  [3, "Quelles sont les deux conditions de la division euclidienne de a par b ?", "a = b × q + r ET 0 ≤ r < b.", "47 = 6 × 7 + 5 convient ; 47 = 6 × 6 + 11 non, car 11 ≥ 6."],
+  [3, "Dans quel ordre effectue-t-on les calculs (priorités) ?", "Parenthèses, puissances, × et ÷ de gauche à droite, puis + et − de gauche à droite.", "20 − 8 ÷ 2 × 3 = 20 − 12 = 8."],
+  [4, "Énonce les critères de divisibilité par 3 et par 9.", "Un nombre est divisible par 3 (par 9) si et seulement si la somme de ses chiffres est divisible par 3 (par 9).", "4 752 : 4 + 7 + 5 + 2 = 18, divisible par 9, donc 4 752 aussi."],
+  [4, "Comment tester si un entier n est premier ?", "On teste sa divisibilité par les nombres premiers p tels que p × p ≤ n ; s'il n'en a aucun, il est premier.", "221 : on teste jusqu'à 13 (13 × 13 = 169 ≤ 221 < 289) ; 221 = 13 × 17, il n'est pas premier."],
+  [4, "Si a est divisible par m et par n, quand est-il divisible par m × n ?", "Quand m et n sont premiers entre eux (PGCD = 1).", "Divisible par 4 et par 9 (PGCD 1) → par 36 ; mais 12 est divisible par 4 et 6 sans l'être par 24."],
+  [4, "Énonce l'algorithme d'Euclide.", "PGCD(a ; b) = PGCD(b ; r), où r est le reste de la division de a par b ; le PGCD est le dernier reste non nul.", "360 = 252 × 1 + 108 ; 252 = 108 × 2 + 36 ; 108 = 36 × 3 + 0 : PGCD = 36."],
+  [4, "PGCD ou PPCM : comment choisir dans un problème ?", "« Le plus grand nombre qui divise à la fois… » (partages, carrés, espacements) → PGCD. « La prochaine fois ensemble » (rencontres, cycles) → PPCM.", "Bus toutes les 15 et 25 min → PPCM = 75 min."],
+  [5, "Quand une fraction est-elle un nombre décimal ?", "Une fraction IRRÉDUCTIBLE est décimale si et seulement si son dénominateur n'a pas d'autre facteur premier que 2 et 5.", "17/20 = 0,85 (20 = 2² × 5) ; 7/12 n'est pas décimal (12 = 2² × 3)."],
+  [5, "Que change-t-on dans une fraction sans changer le nombre ?", "On peut MULTIPLIER (ou diviser) numérateur et dénominateur par un même nombre non nul ; pas ajouter.", "1/2 = 3/6 ; mais 1/2 ≠ 2/3 (on a ajouté 1)."],
+  [5, "Comment divise-t-on par une fraction ?", "On multiplie par son inverse.", "2/3 ÷ 4/9 = 2/3 × 9/4 = 3/2."],
+  [5, "Comment encadrer a/b entre deux entiers en le justifiant ?", "On cherche les multiples consécutifs de b qui entourent a : si b × n < a < b × (n + 1), alors n < a/b < n + 1.", "17/5 : 15 < 17 < 20, donc 3 < 17/5 < 4."],
+];
+
+module.exports = { RAN, FORMULAIRE, F, DEFINITIONS, PROPRIETES };
