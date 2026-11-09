@@ -270,7 +270,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "102";
+const APP_VERSION = "103";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -9329,11 +9329,9 @@ const NEWS_DATA = {
     title: "Agenda du jour",
     accent: "#C98B6E",
     items: [
-      { time: "06h45 – 07h45", title: "🌅 Routine matin" },
-      { time: "08h00 – 15h00", title: "💼 Apesanteur" },
-      { time: "16h30 – 17h30", title: "🧭 CRPE — Séance guidée (reprise après la maladie)" },
+      { time: "08h00 – 15h00", title: "💼 Apesanteur (exceptionnel)" },
+      { time: "16h30 – 17h30", title: "🧭 CRPE — Séance guidée" },
       { time: "17h30 – 18h30", title: "📖 Révisions CRPE — Maths" },
-      { time: "19h30 – 21h30", title: "🏈 Football Américain" },
       { time: "23h00", title: "🛏️ Au lit (Apesanteur demain)" },
     ],
   },
@@ -11356,23 +11354,23 @@ const CALENDAR_DATA = {
     { date: "2026-11-08", time: "09h00 – 10h30", title: "📖 Révisions CRPE — tampon (rattrapage ou repos)" },
     { date: "2026-11-08", time: "10h30 – 12h30", title: "🧹 Grand ménage" },
     { date: "2026-11-09", time: "00h00 – 00h05", title: "🛏️ Au lit" },
-    { date: "2026-11-09", time: "07h45 – 08h45", title: "🌅 Routine matin" },
-    { date: "2026-11-09", time: "09h00 – 10h00", title: "🧭 CRPE — Séance guidée (1h)" },
-    { date: "2026-11-09", time: "10h00 – 11h00", title: "📖 Révisions CRPE — Maths" },
-    { date: "2026-11-09", time: "11h00 – 13h00", title: "🏋️ Musculation" },
-    { date: "2026-11-09", time: "14h00 – 17h00", title: "📖 Révisions CRPE — Français" },
+    { date: "2026-11-09", time: "06h45 – 07h45", title: "🌅 Routine matin" },
+    { date: "2026-11-09", time: "08h00 – 15h00", title: "💼 Apesanteur" },
+    { date: "2026-11-09", time: "16h30 – 17h30", title: "🧭 CRPE — Séance guidée (1h)" },
+    { date: "2026-11-09", time: "17h30 – 18h30", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-11-09", time: "23h00 – 23h05", title: "🛏️ Au lit" },
     { date: "2026-11-10", time: "06h45 – 07h45", title: "🌅 Routine matin" },
     { date: "2026-11-10", time: "08h00 – 15h00", title: "💼 Apesanteur" },
     { date: "2026-11-10", time: "16h30 – 17h30", title: "🧭 CRPE — Séance guidée (1h)" },
     { date: "2026-11-10", time: "17h30 – 18h30", title: "📖 Révisions CRPE — Maths" },
     { date: "2026-11-10", time: "19h30 – 21h30", title: "🏈 Football Américain" },
-    { date: "2026-11-10", time: "23h00 – 23h05", title: "🛏️ Au lit" },
-    { date: "2026-11-11", time: "06h45 – 07h45", title: "🌅 Routine matin" },
-    { date: "2026-11-11", time: "08h00 – 15h00", title: "💼 Apesanteur" },
-    { date: "2026-11-11", time: "15h30 – 15h45", title: "🧺 Lancer une machine (linge sport)" },
-    { date: "2026-11-11", time: "16h30 – 17h30", title: "🧭 CRPE — Séance guidée (1h)" },
-    { date: "2026-11-11", time: "17h30 – 18h30", title: "📖 Révisions CRPE — Maths" },
+    { date: "2026-11-11", time: "00h00 – 00h05", title: "🛏️ Au lit" },
+    { date: "2026-11-11", time: "07h45 – 08h45", title: "🌅 Routine matin" },
+    { date: "2026-11-11", time: "09h00 – 10h00", title: "🧭 CRPE — Séance guidée (1h)" },
+    { date: "2026-11-11", time: "10h00 – 11h00", title: "📖 Révisions CRPE — Maths" },
+    { date: "2026-11-11", time: "11h00 – 13h00", title: "🏋️ Musculation" },
+    { date: "2026-11-11", time: "13h45 – 14h00", title: "🧺 Lancer une machine (linge sport)" },
+    { date: "2026-11-11", time: "14h00 – 17h00", title: "📖 Révisions CRPE — Français" },
     { date: "2026-11-11", time: "19h30 – 21h30", title: "🏈 Football Américain" },
     { date: "2026-11-12", time: "00h00 – 00h05", title: "🛏️ Au lit" },
     { date: "2026-11-12", time: "07h45 – 08h45", title: "🌅 Routine matin" },
