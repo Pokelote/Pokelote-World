@@ -7,7 +7,8 @@
   "type": "Définition",
   "q": "Quelle différence fais-tu entre (AB), [AB], [AB) et AB ?",
   "r": "(AB) : droite illimitée passant par A et B ; [AB] : portion de droite limitée par A et B ; [AB) : demi-droite d'origine A passant par B.",
-  "ex": "AB = 5 cm est la longueur du segment [AB] ; on n'écrit jamais (AB) = 5 cm."
+  "ex": "AB = 5 cm est la longueur du segment [AB] ; on n'écrit jamais (AB) = 5 cm.",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><line x1=\"10\" y1=\"18\" x2=\"150\" y2=\"18\" /><circle cx=\"50\" cy=\"18\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"50\" y=\"13\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">A</text><circle cx=\"100\" cy=\"18\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"100\" y=\"13\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">B</text><text x=\"140\" y=\"12\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">(AB)</text><line x1=\"50\" y1=\"45\" x2=\"100\" y2=\"45\" /><line x1=\"50\" y1=\"41\" x2=\"50\" y2=\"49\" /><line x1=\"100\" y1=\"41\" x2=\"100\" y2=\"49\" /><circle cx=\"50\" cy=\"45\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"50\" y=\"40\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">A</text><circle cx=\"100\" cy=\"45\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"100\" y=\"40\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">B</text><text x=\"130\" y=\"48\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">[AB]</text><line x1=\"50\" y1=\"72\" x2=\"150\" y2=\"72\" /><line x1=\"50\" y1=\"68\" x2=\"50\" y2=\"76\" /><circle cx=\"50\" cy=\"72\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"50\" y=\"67\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">A</text><circle cx=\"100\" cy=\"72\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"100\" y=\"67\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">B</text><text x=\"140\" y=\"66\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">[AB)</text></svg>"
  },
  {
   "id": "d1-points-alignes",
@@ -17,7 +18,8 @@
   "type": "Définition",
   "q": "Quand dit-on que des points sont alignés ?",
   "r": "Points qui appartiennent à une même droite.",
-  "ex": "Si M est le milieu de [AB], alors A, M et B sont alignés."
+  "ex": "Si M est le milieu de [AB], alors A, M et B sont alignés.",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><line x1=\"10\" y1=\"70\" x2=\"150\" y2=\"20\" /><circle cx=\"35\" cy=\"61\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"33\" y=\"55\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">A</text><circle cx=\"80\" cy=\"45\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"78\" y=\"39\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">B</text><circle cx=\"125\" cy=\"29\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"123\" y=\"23\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">C</text><circle cx=\"110\" cy=\"70\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"110\" y=\"81\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">D</text><text x=\"60\" y=\"86\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">A, B, C alignés ; D non</text></svg>"
  },
  {
   "id": "d1-droites-paralleles-perpendiculaires",
@@ -27,7 +29,8 @@
   "type": "Définition",
   "q": "Quand deux droites sont-elles parallèles ? perpendiculaires ?",
   "r": "Parallèles : aucun point commun ou confondues. Perpendiculaires : sécantes en formant un angle droit.",
-  "ex": "Les bords opposés d'une feuille sont parallèles ; deux bords consécutifs sont perpendiculaires."
+  "ex": "Les bords opposés d'une feuille sont parallèles ; deux bords consécutifs sont perpendiculaires.",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><line x1=\"10\" y1=\"25\" x2=\"150\" y2=\"25\" /><line x1=\"10\" y1=\"55\" x2=\"150\" y2=\"55\" /><text x=\"152\" y=\"22\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"end\" font-size=\"8\">(d1)</text><text x=\"152\" y=\"52\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"end\" font-size=\"8\">(d2)</text><line x1=\"60\" y1=\"10\" x2=\"60\" y2=\"85\" /><text x=\"64\" y=\"85\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"start\" font-size=\"8\">(d3)</text><path d=\"M65 25 L65 30 L60 30\" stroke-width=\"0.8\"/><path d=\"M65 55 L65 60 L60 60\" stroke-width=\"0.8\"/><text x=\"115\" y=\"40\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">(d1) // (d2)</text></svg>"
  },
  {
   "id": "d1-milieu",
@@ -37,7 +40,8 @@
   "type": "Définition",
   "q": "Comment définit-on le milieu d'un segment [AB] ?",
   "r": "Point I de [AB] tel que IA = IB.",
-  "ex": "Si AB = 8 cm, le milieu I vérifie IA = IB = 4 cm."
+  "ex": "Si AB = 8 cm, le milieu I vérifie IA = IB = 4 cm.",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><line x1=\"20\" y1=\"50\" x2=\"140\" y2=\"50\" /><line x1=\"50\" y1=\"47\" x2=\"50\" y2=\"53\" stroke-width=\"0.8\"/><line x1=\"110\" y1=\"47\" x2=\"110\" y2=\"53\" stroke-width=\"0.8\"/><circle cx=\"20\" cy=\"50\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"20\" y=\"45\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">A</text><circle cx=\"140\" cy=\"50\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"140\" y=\"45\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">B</text><circle cx=\"80\" cy=\"50\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"80\" y=\"45\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">I</text><text x=\"80\" y=\"75\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">IA = IB</text></svg>"
  },
  {
   "id": "d1-mediatrice",
@@ -47,7 +51,8 @@
   "type": "Définition",
   "q": "Qu'est-ce que la médiatrice d'un segment ? Quelle propriété ont ses points ?",
   "r": "Droite perpendiculaire à un segment en son milieu ; c'est l'ensemble des points équidistants des extrémités.",
-  "ex": "Si MA = MB = 6 cm, alors M est sur la médiatrice de [AB]."
+  "ex": "Si MA = MB = 6 cm, alors M est sur la médiatrice de [AB].",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><line x1=\"25\" y1=\"60\" x2=\"135\" y2=\"60\" /><line x1=\"80\" y1=\"8\" x2=\"80\" y2=\"86\" /><path d=\"M85 60 L85 55 L80 55\" stroke-width=\"0.8\"/><line x1=\"52.5\" y1=\"57\" x2=\"52.5\" y2=\"63\" stroke-width=\"0.8\"/><line x1=\"107.5\" y1=\"57\" x2=\"107.5\" y2=\"63\" stroke-width=\"0.8\"/><line x1=\"80\" y1=\"18\" x2=\"25\" y2=\"60\" stroke-dasharray=\"3 2.5\"/><line x1=\"80\" y1=\"18\" x2=\"135\" y2=\"60\" stroke-dasharray=\"3 2.5\"/><line x1=\"55.3142005774951\" y1=\"40.6256614375774\" x2=\"51.67271895732172\" y2=\"35.85705455401702\" stroke-width=\"0.8\"/><line x1=\"53.32728104267828\" y1=\"42.14294544598298\" x2=\"49.6857994225049\" y2=\"37.3743385624226\" stroke-width=\"0.8\"/><line x1=\"108.32728104267828\" y1=\"35.85705455401702\" x2=\"104.6857994225049\" y2=\"40.6256614375774\" stroke-width=\"0.8\"/><line x1=\"110.3142005774951\" y1=\"37.3743385624226\" x2=\"106.67271895732172\" y2=\"42.14294544598298\" stroke-width=\"0.8\"/><circle cx=\"25\" cy=\"60\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"19\" y=\"64\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">A</text><circle cx=\"135\" cy=\"60\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"141\" y=\"64\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">B</text><circle cx=\"80\" cy=\"18\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"87\" y=\"18\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">M</text><text x=\"110\" y=\"84\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">MA = MB</text></svg>"
  },
  {
   "id": "d1-cercle",
@@ -57,7 +62,8 @@
   "type": "Définition",
   "q": "Comment définit-on un cercle ? Que sont son rayon et son diamètre ?",
   "r": "Ensemble des points situés à une même distance r (le rayon) d'un point O (le centre).",
-  "ex": "Cercle de centre O et de rayon 3 cm : tout point M du cercle vérifie OM = 3 cm ; son diamètre mesure 6 cm."
+  "ex": "Cercle de centre O et de rayon 3 cm : tout point M du cercle vérifie OM = 3 cm ; son diamètre mesure 6 cm.",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><circle cx=\"80\" cy=\"45\" r=\"35\"/><line x1=\"45\" y1=\"45\" x2=\"115\" y2=\"45\" stroke-dasharray=\"3 2.5\"/><line x1=\"80\" y1=\"45\" x2=\"104.7\" y2=\"20.3\" /><circle cx=\"80\" cy=\"45\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"80\" y=\"55\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">O</text><text x=\"98\" y=\"28\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\" font-style=\"italic\">r</text><text x=\"80\" y=\"88\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">rayon r · diamètre 2r (pointillés)</text></svg>"
  },
  {
   "id": "d1-distance-d-un-point-a-une-droite",
@@ -67,7 +73,8 @@
   "type": "Définition",
   "q": "Comment mesure-t-on la distance d'un point A à une droite (d) ?",
   "r": "Longueur AH, où H est le pied de la perpendiculaire à la droite passant par A ; c'est la plus courte distance.",
-  "ex": "A est à 4 cm de (d) si la perpendiculaire à (d) issue de A la coupe en H avec AH = 4 cm."
+  "ex": "A est à 4 cm de (d) si la perpendiculaire à (d) issue de A la coupe en H avec AH = 4 cm.",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><line x1=\"10\" y1=\"70\" x2=\"150\" y2=\"70\" /><text x=\"150\" y=\"82\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"end\" font-size=\"8\">(d)</text><line x1=\"70\" y1=\"18\" x2=\"70\" y2=\"70\" stroke-dasharray=\"3 2.5\"/><path d=\"M75 70 L75 65 L70 65\" stroke-width=\"0.8\"/><line x1=\"70\" y1=\"18\" x2=\"125\" y2=\"70\" stroke-width=\"0.8\"/><circle cx=\"70\" cy=\"18\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"63\" y=\"18\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">A</text><circle cx=\"70\" cy=\"70\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"64\" y=\"80\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">H</text><circle cx=\"125\" cy=\"70\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"120\" y=\"20\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">AH = distance</text><text x=\"120\" y=\"29\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">de A à (d)</text></svg>"
  },
  {
   "id": "d1-angles-complementaires-supplementaires",
@@ -77,7 +84,8 @@
   "type": "Définition",
   "q": "Que sont deux angles complémentaires ? supplémentaires ?",
   "r": "Complémentaires : somme 90° ; supplémentaires : somme 180°.",
-  "ex": "35° et 55° sont complémentaires ; 35° et 145° sont supplémentaires."
+  "ex": "35° et 55° sont complémentaires ; 35° et 145° sont supplémentaires.",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><line x1=\"10\" y1=\"75\" x2=\"150\" y2=\"75\" /><line x1=\"80\" y1=\"75\" x2=\"115\" y2=\"25\" /><path d=\"M98 75 A18 18 0 0 0 90.3 60.3\" stroke-width=\"0.8\"/><path d=\"M62 75 A18 18 0 0 1 90.3 60.3\" stroke-width=\"0.8\"/><text x=\"108\" y=\"70\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">55°</text><text x=\"62\" y=\"64\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">125°</text><text x=\"80\" y=\"88\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">55° + 125° = 180° : supplémentaires</text></svg>"
  },
  {
   "id": "d1-hauteur-d-un-triangle",
@@ -87,7 +95,8 @@
   "type": "Définition",
   "q": "Qu'est-ce qu'une hauteur dans un triangle ?",
   "r": "Droite passant par un sommet et perpendiculaire au côté opposé.",
-  "ex": "Dans ABC, la hauteur issue de A coupe (BC) en H avec (AH) ⊥ (BC)."
+  "ex": "Dans ABC, la hauteur issue de A coupe (BC) en H avec (AH) ⊥ (BC).",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><polygon points=\"55,14 18,74 142,74\" /><line x1=\"55\" y1=\"14\" x2=\"55\" y2=\"74\" stroke-dasharray=\"3 2.5\"/><path d=\"M60 74 L60 69 L55 69\" stroke-width=\"0.8\"/><circle cx=\"55\" cy=\"14\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"55\" y=\"10\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">A</text><circle cx=\"18\" cy=\"74\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"12\" y=\"78\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">B</text><circle cx=\"142\" cy=\"74\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"148\" y=\"78\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">C</text><circle cx=\"55\" cy=\"74\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"55\" y=\"85\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">H</text><text x=\"125\" y=\"20\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">(AH) ⊥ (BC)</text></svg>"
  },
  {
   "id": "d1-mediane-d-un-triangle",
@@ -97,7 +106,8 @@
   "type": "Définition",
   "q": "Qu'est-ce qu'une médiane dans un triangle ?",
   "r": "Droite (ou segment) joignant un sommet au milieu du côté opposé.",
-  "ex": "Si I est le milieu de [BC], (AI) est la médiane issue de A."
+  "ex": "Si I est le milieu de [BC], (AI) est la médiane issue de A.",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><polygon points=\"55,14 18,74 142,74\" /><line x1=\"55\" y1=\"14\" x2=\"80\" y2=\"74\" stroke-dasharray=\"3 2.5\"/><line x1=\"49\" y1=\"71\" x2=\"49\" y2=\"77\" stroke-width=\"0.8\"/><line x1=\"111\" y1=\"71\" x2=\"111\" y2=\"77\" stroke-width=\"0.8\"/><circle cx=\"55\" cy=\"14\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"55\" y=\"10\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">A</text><circle cx=\"18\" cy=\"74\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"12\" y=\"78\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">B</text><circle cx=\"142\" cy=\"74\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"148\" y=\"78\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">C</text><circle cx=\"80\" cy=\"74\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"80\" y=\"85\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">I</text><text x=\"122\" y=\"20\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">I milieu de [BC]</text></svg>"
  },
  {
   "id": "p1-que-peut-on-dire-de-deux-droites-perpend",
@@ -137,7 +147,8 @@
   "type": "Définition",
   "q": "Quand dit-on que M' est le symétrique de M par rapport à une droite (d) ?",
   "r": "M' est le symétrique de M par rapport à (d) si (d) est la médiatrice de [MM'].",
-  "ex": "Le symétrique d'un point de l'axe est lui-même ; une figure et son symétrique se superposent par pliage."
+  "ex": "Le symétrique d'un point de l'axe est lui-même ; une figure et son symétrique se superposent par pliage.",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><line x1=\"80\" y1=\"5\" x2=\"80\" y2=\"85\" stroke-dasharray=\"3 2.5\"/><text x=\"86\" y=\"12\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"start\" font-size=\"8\">(d)</text><line x1=\"40\" y1=\"45\" x2=\"120\" y2=\"45\" stroke-width=\"0.8\"/><path d=\"M85 45 L85 40 L80 40\" stroke-width=\"0.8\"/><line x1=\"60\" y1=\"42\" x2=\"60\" y2=\"48\" stroke-width=\"0.8\"/><line x1=\"100\" y1=\"42\" x2=\"100\" y2=\"48\" stroke-width=\"0.8\"/><circle cx=\"40\" cy=\"45\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"40\" y=\"40\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">M</text><circle cx=\"120\" cy=\"45\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"120\" y=\"40\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">M'</text><text x=\"40\" y=\"80\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">(d) médiatrice</text><text x=\"40\" y=\"88\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">de [MM']</text></svg>"
  },
  {
   "id": "d2-symetrique-par-rapport-a-un-point",
@@ -147,7 +158,8 @@
   "type": "Définition",
   "q": "Quand dit-on que M' est le symétrique de M par rapport à un point O ?",
   "r": "M' est le symétrique de M par rapport à O si O est le milieu de [MM'].",
-  "ex": "Si O(0 ; 0) et M(3 ; 2), alors M'(−3 ; −2)."
+  "ex": "Si O(0 ; 0) et M(3 ; 2), alors M'(−3 ; −2).",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><line x1=\"25\" y1=\"65\" x2=\"135\" y2=\"25\" stroke-width=\"0.8\"/><line x1=\"51.474770810739884\" y1=\"52.18061972953469\" x2=\"53.525229189260116\" y2=\"57.81938027046531\" stroke-width=\"0.8\"/><line x1=\"106.47477081073988\" y1=\"32.18061972953469\" x2=\"108.52522918926012\" y2=\"37.81938027046531\" stroke-width=\"0.8\"/><circle cx=\"25\" cy=\"65\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"23\" y=\"75\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">M</text><circle cx=\"80\" cy=\"45\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"80\" y=\"56\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">O</text><circle cx=\"135\" cy=\"25\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"135\" y=\"20\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">M'</text><text x=\"80\" y=\"84\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">O milieu de [MM']</text></svg>"
  },
  {
   "id": "d2-axe-centre-de-symetrie-d-une-figure",
@@ -157,7 +169,8 @@
   "type": "Définition",
   "q": "Qu'est-ce qu'un axe de symétrie d'une figure ? un centre de symétrie ?",
   "r": "Axe : droite telle que la figure est sa propre image par la symétrie axiale. Centre : point tel que la figure est sa propre image par la symétrie centrale.",
-  "ex": "Le rectangle a 2 axes et un centre de symétrie ; la lettre A a un axe, la lettre N un centre."
+  "ex": "Le rectangle a 2 axes et un centre de symétrie ; la lettre A a un axe, la lettre N un centre.",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><rect x=\"35\" y=\"22\" width=\"90\" height=\"46\"/><line x1=\"80\" y1=\"12\" x2=\"80\" y2=\"78\" stroke-dasharray=\"3 2.5\"/><line x1=\"25\" y1=\"45\" x2=\"135\" y2=\"45\" stroke-dasharray=\"3 2.5\"/><circle cx=\"80\" cy=\"45\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"86\" y=\"42\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">O</text><text x=\"80\" y=\"88\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">rectangle : 2 axes et un centre O</text></svg>"
  },
  {
   "id": "d2-polygone-regulier",
@@ -167,7 +180,8 @@
   "type": "Définition",
   "q": "Qu'est-ce qu'un polygone régulier ?",
   "r": "Polygone dont tous les côtés ont la même longueur et tous les angles la même mesure.",
-  "ex": "Le carré et le triangle équilatéral ; un losange non carré n'est pas régulier (angles différents)."
+  "ex": "Le carré et le triangle équilatéral ; un losange non carré n'est pas régulier (angles différents).",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><polygon points=\"80,10 113,30 113,65 80,82 47,65 47,30\" /><circle cx=\"80\" cy=\"46\" r=\"38\" stroke-dasharray=\"3 2.5\" stroke-width=\"0.8\"/><text x=\"140\" y=\"50\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">hexagone</text><text x=\"140\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">régulier</text></svg>"
  },
  {
   "id": "d2-triangle-isocele",
@@ -177,7 +191,8 @@
   "type": "Définition",
   "q": "Qu'est-ce qu'un triangle isocèle ? Quelle propriété ont ses angles ?",
   "r": "Triangle qui a deux côtés de même longueur.",
-  "ex": "ABC avec AB = AC = 5 cm, isocèle en A : ses angles B̂ et Ĉ sont égaux."
+  "ex": "ABC avec AB = AC = 5 cm, isocèle en A : ses angles B̂ et Ĉ sont égaux.",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><polygon points=\"80,12 35,78 125,78\" /><line x1=\"59.97868202842264\" y1=\"46.69001047392453\" x2=\"55.02131797157736\" y2=\"43.30998952607547\" stroke-width=\"0.8\"/><line x1=\"104.97868202842264\" y1=\"43.30998952607547\" x2=\"100.02131797157736\" y2=\"46.69001047392453\" stroke-width=\"0.8\"/><circle cx=\"80\" cy=\"12\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"80\" y=\"9\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">A</text><circle cx=\"35\" cy=\"78\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"29\" y=\"84\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">B</text><circle cx=\"125\" cy=\"78\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"131\" y=\"84\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">C</text><text x=\"80\" y=\"70\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">AB = AC</text></svg>"
  },
  {
   "id": "d2-parallelogramme",
@@ -187,7 +202,8 @@
   "type": "Définition",
   "q": "Qu'est-ce qu'un parallélogramme ? Quelle propriété ont ses diagonales ?",
   "r": "Quadrilatère dont les côtés opposés sont parallèles deux à deux.",
-  "ex": "ABCD avec (AB) // (CD) et (AD) // (BC) ; ses diagonales se coupent en leur milieu."
+  "ex": "ABCD avec (AB) // (CD) et (AD) // (BC) ; ses diagonales se coupent en leur milieu.",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><polygon points=\"25,72 105,72 135,20 55,20\" /><line x1=\"25\" y1=\"72\" x2=\"135\" y2=\"20\" stroke-dasharray=\"3 2.5\"/><line x1=\"105\" y1=\"72\" x2=\"55\" y2=\"20\" stroke-dasharray=\"3 2.5\"/><line x1=\"51.21786114931975\" y1=\"56.287783200484085\" x2=\"53.78213885068025\" y2=\"61.712216799515915\" stroke-width=\"0.8\"/><line x1=\"106.21786114931975\" y1=\"30.28778320048409\" x2=\"108.78213885068025\" y2=\"35.712216799515915\" stroke-width=\"0.8\"/><line x1=\"91.20388670060916\" y1=\"61.98036747988267\" x2=\"95.52888509002031\" y2=\"57.82171518237196\" stroke-width=\"0.8\"/><line x1=\"89.47111490997969\" y1=\"60.17828481762804\" x2=\"93.79611329939084\" y2=\"56.01963252011733\" stroke-width=\"0.8\"/><line x1=\"66.20388670060916\" y1=\"35.98036747988267\" x2=\"70.52888509002031\" y2=\"31.821715182371964\" stroke-width=\"0.8\"/><line x1=\"64.47111490997969\" y1=\"34.17828481762804\" x2=\"68.79611329939084\" y2=\"30.01963252011733\" stroke-width=\"0.8\"/><circle cx=\"25\" cy=\"72\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"19\" y=\"76\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">A</text><circle cx=\"105\" cy=\"72\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"111\" y=\"76\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">B</text><circle cx=\"135\" cy=\"20\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"141\" y=\"17\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">C</text><circle cx=\"55\" cy=\"20\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"49\" y=\"17\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">D</text></svg>"
  },
  {
   "id": "d2-rectangle",
@@ -197,7 +213,8 @@
   "type": "Définition",
   "q": "Qu'est-ce qu'un rectangle ? Quelle propriété ont ses diagonales ?",
   "r": "Quadrilatère qui a quatre angles droits.",
-  "ex": "Une feuille A4 (21 × 29,7 cm) ; ses diagonales ont la même longueur."
+  "ex": "Une feuille A4 (21 × 29,7 cm) ; ses diagonales ont la même longueur.",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><polygon points=\"30,72 130,72 130,20 30,20\" /><line x1=\"30\" y1=\"72\" x2=\"130\" y2=\"20\" stroke-dasharray=\"3 2.5\"/><line x1=\"130\" y1=\"72\" x2=\"30\" y2=\"20\" stroke-dasharray=\"3 2.5\"/><path d=\"M35 72 L35 67 L30 67\" stroke-width=\"0.8\"/><path d=\"M125 72 L125 67 L130 67\" stroke-width=\"0.8\"/><path d=\"M125 20 L125 25 L130 25\" stroke-width=\"0.8\"/><path d=\"M35 20 L35 25 L30 25\" stroke-width=\"0.8\"/><circle cx=\"30\" cy=\"72\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"24\" y=\"76\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">A</text><circle cx=\"130\" cy=\"72\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"136\" y=\"76\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">B</text><circle cx=\"130\" cy=\"20\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"136\" y=\"17\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">C</text><circle cx=\"30\" cy=\"20\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"24\" y=\"17\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">D</text></svg>"
  },
  {
   "id": "d2-losange",
@@ -207,7 +224,8 @@
   "type": "Définition",
   "q": "Qu'est-ce qu'un losange ? Quelle propriété ont ses diagonales ?",
   "r": "Quadrilatère qui a quatre côtés de même longueur.",
-  "ex": "Un losange de côté 4 cm ; ses diagonales sont perpendiculaires."
+  "ex": "Un losange de côté 4 cm ; ses diagonales sont perpendiculaires.",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><polygon points=\"80,82 130,46 80,10 30,46\" /><line x1=\"80\" y1=\"82\" x2=\"80\" y2=\"10\" stroke-dasharray=\"3 2.5\"/><line x1=\"130\" y1=\"46\" x2=\"30\" y2=\"46\" stroke-dasharray=\"3 2.5\"/><line x1=\"103.24708582246477\" y1=\"61.56539697564552\" x2=\"106.75291417753523\" y2=\"66.43460302435449\" stroke-width=\"0.8\"/><line x1=\"103.24708582246477\" y1=\"30.434603024354484\" x2=\"106.75291417753523\" y2=\"25.565396975645516\" stroke-width=\"0.8\"/><line x1=\"56.752914177535224\" y1=\"30.434603024354484\" x2=\"53.247085822464776\" y2=\"25.565396975645516\" stroke-width=\"0.8\"/><line x1=\"56.752914177535224\" y1=\"61.56539697564552\" x2=\"53.247085822464776\" y2=\"66.43460302435449\" stroke-width=\"0.8\"/><path d=\"M85 46 L85 41 L80 41\" stroke-width=\"0.8\"/><circle cx=\"80\" cy=\"82\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"74\" y=\"86\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">A</text><circle cx=\"130\" cy=\"46\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"136\" y=\"50\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">B</text><circle cx=\"80\" cy=\"10\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"86\" y=\"7\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">C</text><circle cx=\"30\" cy=\"46\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"24\" y=\"43\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">D</text></svg>"
  },
  {
   "id": "d2-carre",
@@ -217,7 +235,8 @@
   "type": "Définition",
   "q": "Qu'est-ce qu'un carré (définition à partir du rectangle et du losange) ?",
   "r": "Quadrilatère qui est à la fois un rectangle et un losange.",
-  "ex": "Un carré de côté 3 cm : 4 angles droits, 4 côtés de 3 cm, 4 axes de symétrie."
+  "ex": "Un carré de côté 3 cm : 4 angles droits, 4 côtés de 3 cm, 4 axes de symétrie.",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><polygon points=\"45,80 115,80 115,10 45,10\" /><line x1=\"45\" y1=\"80\" x2=\"115\" y2=\"10\" stroke-dasharray=\"3 2.5\"/><line x1=\"115\" y1=\"80\" x2=\"45\" y2=\"10\" stroke-dasharray=\"3 2.5\"/><path d=\"M50 80 L50 75 L45 75\" stroke-width=\"0.8\"/><line x1=\"80\" y1=\"77\" x2=\"80\" y2=\"83\" stroke-width=\"0.8\"/><line x1=\"112\" y1=\"45\" x2=\"118\" y2=\"45\" stroke-width=\"0.8\"/><line x1=\"80\" y1=\"13\" x2=\"80\" y2=\"7\" stroke-width=\"0.8\"/><line x1=\"48\" y1=\"45\" x2=\"42\" y2=\"45\" stroke-width=\"0.8\"/><path d=\"M82.828 47.828 L85.656 45 L82.828 42.172\" stroke-width=\"0.8\"/><circle cx=\"45\" cy=\"80\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"39\" y=\"84\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">A</text><circle cx=\"115\" cy=\"80\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"121\" y=\"84\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">B</text><circle cx=\"115\" cy=\"10\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"121\" y=\"7\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">C</text><circle cx=\"45\" cy=\"10\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"39\" y=\"7\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">D</text></svg>"
  },
  {
   "id": "d2-trapeze",
@@ -227,7 +246,8 @@
   "type": "Définition",
   "q": "Qu'est-ce qu'un trapèze ?",
   "r": "Quadrilatère qui a deux côtés parallèles (les bases).",
-  "ex": "ABCD avec (AB) // (CD), AB = 8 cm et CD = 5 cm."
+  "ex": "ABCD avec (AB) // (CD), AB = 8 cm et CD = 5 cm.",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><polygon points=\"20,72 140,72 110,22 50,22\" /><text x=\"80\" y=\"84\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">grande base B</text><text x=\"80\" y=\"16\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">petite base b</text><text x=\"80\" y=\"50\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">bases parallèles</text></svg>"
  },
  {
   "id": "p2-comment-reconnaitre-un-parallelogramme-p",
@@ -277,7 +297,8 @@
   "type": "Définition",
   "q": "Qu'est-ce que la division euclidienne de a par b ? Quelles sont ses deux conditions ?",
   "r": "Diviser a par b (b ≠ 0), c'est trouver l'unique couple d'entiers (q ; r) tel que a = b × q + r avec 0 ≤ r < b.",
-  "ex": "47 = 6 × 7 + 5 : quotient 7, reste 5 (5 < 6)."
+  "ex": "47 = 6 × 7 + 5 : quotient 7, reste 5 (5 < 6).",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><text x=\"55\" y=\"25\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"end\" font-size=\"13\">4 7</text><line x1=\"62\" y1=\"12\" x2=\"62\" y2=\"58\" /><line x1=\"62\" y1=\"30\" x2=\"100\" y2=\"30\" /><text x=\"80\" y=\"25\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"13\">6</text><text x=\"80\" y=\"46\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"13\">7</text><text x=\"55\" y=\"46\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"end\" font-size=\"13\">– 4 2</text><line x1=\"28\" y1=\"50\" x2=\"58\" y2=\"50\" stroke-width=\"0.8\"/><text x=\"55\" y=\"64\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"end\" font-size=\"13\">5</text><text x=\"108\" y=\"28\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"start\" font-size=\"7\">diviseur</text><text x=\"108\" y=\"49\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"start\" font-size=\"7\">quotient</text><text x=\"20\" y=\"64\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"end\" font-size=\"7\">reste</text><text x=\"80\" y=\"84\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">47 = 6 × 7 + 5 et 5 < 6</text></svg>"
  },
  {
   "id": "d3-dividende-diviseur-quotient-reste",
@@ -537,7 +558,8 @@
   "type": "Définition",
   "q": "Dans une fraction a/b, comment s'appellent a et b ?",
   "r": "Écriture a/b (b ≠ 0) ; a est le numérateur, b le dénominateur.",
-  "ex": "Dans 3/4, 3 est le numérateur et 4 le dénominateur."
+  "ex": "Dans 3/4, 3 est le numérateur et 4 le dénominateur.",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><rect x=\"20\" y=\"20\" width=\"30\" height=\"26\" fill=\"currentColor\" fill-opacity=\"0.25\"/><rect x=\"50\" y=\"20\" width=\"30\" height=\"26\" fill=\"currentColor\" fill-opacity=\"0.25\"/><rect x=\"80\" y=\"20\" width=\"30\" height=\"26\" fill=\"currentColor\" fill-opacity=\"0.25\"/><rect x=\"110\" y=\"20\" width=\"30\" height=\"26\" /><text x=\"80\" y=\"64\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">3/4 : on partage en 4 parts égales</text><text x=\"80\" y=\"76\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">et on en prend 3</text></svg>"
  },
  {
   "id": "d5-fraction-quotient",
@@ -567,7 +589,8 @@
   "type": "Définition",
   "q": "Qu'est-ce qu'un nombre décimal ?",
   "r": "Nombre qui peut s'écrire a/10ⁿ (a entier) ; son écriture décimale est finie.",
-  "ex": "3/4 = 75/100 = 0,75 est décimal ; 1/3 = 0,333… ne l'est pas."
+  "ex": "3/4 = 75/100 = 0,75 est décimal ; 1/3 = 0,333… ne l'est pas.",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><line x1=\"10\" y1=\"45\" x2=\"150\" y2=\"45\" /><line x1=\"15\" y1=\"38\" x2=\"15\" y2=\"52\" /><line x1=\"28\" y1=\"41\" x2=\"28\" y2=\"49\" /><line x1=\"41\" y1=\"41\" x2=\"41\" y2=\"49\" /><line x1=\"54\" y1=\"41\" x2=\"54\" y2=\"49\" /><line x1=\"67\" y1=\"41\" x2=\"67\" y2=\"49\" /><line x1=\"80\" y1=\"38\" x2=\"80\" y2=\"52\" /><line x1=\"93\" y1=\"41\" x2=\"93\" y2=\"49\" /><line x1=\"106\" y1=\"41\" x2=\"106\" y2=\"49\" /><line x1=\"119\" y1=\"41\" x2=\"119\" y2=\"49\" /><line x1=\"132\" y1=\"41\" x2=\"132\" y2=\"49\" /><line x1=\"145\" y1=\"38\" x2=\"145\" y2=\"52\" /><text x=\"15\" y=\"64\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">0</text><text x=\"145\" y=\"64\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">1</text><circle cx=\"112.5\" cy=\"45\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"112.5\" y=\"36\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">0,75</text><text x=\"80\" y=\"82\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">graduation en dixièmes</text></svg>"
  },
  {
   "id": "d5-nombre-rationnel",
@@ -697,7 +720,8 @@
   "type": "Définition",
   "q": "Qu'est-ce que la hauteur relative à une base (triangle, parallélogramme) ?",
   "r": "Segment perpendiculaire à la base, joignant celle-ci au sommet (ou au côté) opposé.",
-  "ex": "Triangle de base 6 cm et de hauteur 4 cm : A = 6 × 4 ÷ 2 = 12 cm²."
+  "ex": "Triangle de base 6 cm et de hauteur 4 cm : A = 6 × 4 ÷ 2 = 12 cm².",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><polygon points=\"60,14 18,72 142,72\" fill=\"currentColor\" fill-opacity=\"0.12\"/><line x1=\"60\" y1=\"14\" x2=\"60\" y2=\"72\" stroke-dasharray=\"3 2.5\"/><path d=\"M65 72 L65 67 L60 67\" stroke-width=\"0.8\"/><text x=\"66\" y=\"45\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"start\" font-size=\"9\" font-style=\"italic\">h</text><text x=\"80\" y=\"84\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">base b</text><text x=\"130\" y=\"30\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">A = b × h ÷ 2</text></svg>"
  },
  {
   "id": "d6-disque-cercle",
@@ -707,7 +731,8 @@
   "type": "Définition",
   "q": "Quelle différence entre un cercle et un disque ? Quelles formules leur associer ?",
   "r": "Le cercle est la ligne ; le disque est la surface qu'il délimite.",
-  "ex": "r = 2 cm : périmètre du cercle 2π × 2 ≈ 12,57 cm ; aire du disque π × 2² ≈ 12,57 cm²."
+  "ex": "r = 2 cm : périmètre du cercle 2π × 2 ≈ 12,57 cm ; aire du disque π × 2² ≈ 12,57 cm².",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><circle cx=\"45\" cy=\"42\" r=\"28\"/><circle cx=\"115\" cy=\"42\" r=\"28\" fill=\"currentColor\" fill-opacity=\"0.2\"/><text x=\"45\" y=\"84\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">cercle : P = 2πr</text><text x=\"115\" y=\"84\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">disque : A = πr²</text></svg>"
  },
  {
   "id": "d6-hectare-are",
@@ -727,7 +752,8 @@
   "type": "Définition",
   "q": "Dans un agrandissement ou une réduction de rapport k, que deviennent les longueurs et les aires ?",
   "r": "Transformation qui multiplie toutes les longueurs par k ; les aires sont multipliées par k².",
-  "ex": "Côté d'un carré × 3 : aire × 9."
+  "ex": "Côté d'un carré × 3 : aire × 9.",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><rect x=\"15\" y=\"40\" width=\"30\" height=\"30\"/><rect x=\"75\" y=\"10\" width=\"60\" height=\"60\"/><text x=\"30\" y=\"82\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">côté 1</text><text x=\"105\" y=\"82\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">côté 2 (k = 2)</text><text x=\"105\" y=\"42\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">aire × 4</text></svg>"
  },
  {
   "id": "d7-grandeurs-proportionnelles",
@@ -737,7 +763,8 @@
   "type": "Définition",
   "q": "Quand deux grandeurs sont-elles proportionnelles ?",
   "r": "On obtient les valeurs de l'une en multipliant celles de l'autre par un même nombre non nul.",
-  "ex": "Prix et masse de pommes à 2,50 €/kg : 3 kg → 7,50 € ; 5 kg → 12,50 €."
+  "ex": "Prix et masse de pommes à 2,50 €/kg : 3 kg → 7,50 € ; 5 kg → 12,50 €.",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><line x1=\"20\" y1=\"80\" x2=\"150\" y2=\"80\" /><line x1=\"20\" y1=\"80\" x2=\"20\" y2=\"8\" /><path d=\"M145 82.5 L150 80 L145 77.5\"/><path d=\"M22.5 13 L20 8 L17.5 13\"/><line x1=\"20\" y1=\"80\" x2=\"140\" y2=\"14\" /><circle cx=\"55\" cy=\"60.75\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"90\" cy=\"41.5\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"125\" cy=\"22.25\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"150\" y=\"90\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"end\" font-size=\"7\">masse</text><text x=\"24\" y=\"12\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"start\" font-size=\"7\">prix</text><text x=\"110\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">droite qui passe</text><text x=\"110\" y=\"69\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">par l'origine</text></svg>"
  },
  {
   "id": "d7-coefficient-de-proportionnalite",
@@ -787,7 +814,8 @@
   "type": "Définition",
   "q": "Qu'est-ce que l'échelle d'un plan ou d'une carte ?",
   "r": "Rapport entre une distance sur le plan et la distance réelle, dans la même unité.",
-  "ex": "Au 1/25 000, 4 cm sur la carte représentent 100 000 cm = 1 km."
+  "ex": "Au 1/25 000, 4 cm sur la carte représentent 100 000 cm = 1 km.",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><line x1=\"20\" y1=\"45\" x2=\"140\" y2=\"45\" /><line x1=\"20\" y1=\"40\" x2=\"20\" y2=\"50\" /><line x1=\"50\" y1=\"40\" x2=\"50\" y2=\"50\" /><line x1=\"80\" y1=\"40\" x2=\"80\" y2=\"50\" /><line x1=\"110\" y1=\"40\" x2=\"110\" y2=\"50\" /><line x1=\"140\" y1=\"40\" x2=\"140\" y2=\"50\" /><rect x=\"20\" y=\"42\" width=\"30\" height=\"6\" fill=\"currentColor\" fill-opacity=\"0.4\"/><text x=\"20\" y=\"62\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">0</text><text x=\"50\" y=\"62\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">250 m</text><text x=\"80\" y=\"82\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1/25 000 : 1 cm sur la carte = 250 m</text></svg>"
  },
  {
   "id": "d8-expression-litterale",
@@ -867,7 +895,8 @@
   "type": "Définition",
   "q": "Que sont les faces, les arêtes et les sommets d'un solide ?",
   "r": "Face : polygone qui limite le solide ; arête : côté commun à deux faces ; sommet : point où se rejoignent des arêtes.",
-  "ex": "Le cube a 6 faces, 12 arêtes, 8 sommets."
+  "ex": "Le cube a 6 faces, 12 arêtes, 8 sommets.",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><rect x=\"30\" y=\"30\" width=\"50\" height=\"50\"/><line x1=\"30\" y1=\"30\" x2=\"55\" y2=\"12\" /><line x1=\"80\" y1=\"30\" x2=\"105\" y2=\"12\" /><line x1=\"55\" y1=\"12\" x2=\"105\" y2=\"12\" /><line x1=\"105\" y1=\"12\" x2=\"105\" y2=\"62\" /><line x1=\"80\" y1=\"80\" x2=\"105\" y2=\"62\" /><line x1=\"30\" y1=\"80\" x2=\"55\" y2=\"62\" stroke-dasharray=\"3 2.5\"/><line x1=\"55\" y1=\"62\" x2=\"105\" y2=\"62\" stroke-dasharray=\"3 2.5\"/><line x1=\"55\" y1=\"12\" x2=\"55\" y2=\"62\" stroke-dasharray=\"3 2.5\"/><circle cx=\"80\" cy=\"30\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"106\" y=\"32\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">sommet</text><text x=\"55\" y=\"58\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">face</text><text x=\"125\" y=\"40\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">arête</text><text x=\"95\" y=\"88\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">arêtes cachées en pointillés</text></svg>"
  },
  {
   "id": "d9-prisme-droit",
@@ -887,7 +916,8 @@
   "type": "Définition",
   "q": "Qu'est-ce qu'une pyramide ? Comment calcule-t-on son volume ?",
   "r": "Polyèdre dont une face est un polygone (la base) et les autres faces des triangles ayant un sommet commun.",
-  "ex": "Pyramide à base carrée de côté 6 m et de hauteur 4 m : V = 36 × 4 ÷ 3 = 48 m³."
+  "ex": "Pyramide à base carrée de côté 6 m et de hauteur 4 m : V = 36 × 4 ÷ 3 = 48 m³.",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><polygon points=\"20,75 100,75 130,55 50,55\" /><line x1=\"20\" y1=\"75\" x2=\"75\" y2=\"10\" /><line x1=\"100\" y1=\"75\" x2=\"75\" y2=\"10\" /><line x1=\"130\" y1=\"55\" x2=\"75\" y2=\"10\" /><line x1=\"50\" y1=\"55\" x2=\"75\" y2=\"10\" stroke-dasharray=\"3 2.5\"/><line x1=\"75\" y1=\"10\" x2=\"75\" y2=\"65\" stroke-dasharray=\"3 2.5\"/><text x=\"80\" y=\"40\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"start\" font-size=\"9\" font-style=\"italic\">h</text><text x=\"80\" y=\"88\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">V = aire de la base × h ÷ 3</text></svg>"
  },
  {
   "id": "d9-patron",
@@ -897,7 +927,8 @@
   "type": "Définition",
   "q": "Qu'est-ce que le patron d'un solide ?",
   "r": "Figure plane qui, par pliage, permet de construire le solide sans recouvrement.",
-  "ex": "Une croix de 6 carrés est un patron du cube (il en existe 11)."
+  "ex": "Une croix de 6 carrés est un patron du cube (il en existe 11).",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><rect x=\"55\" y=\"5\" width=\"25\" height=\"25\"/><rect x=\"25\" y=\"30\" width=\"25\" height=\"25\"/><rect x=\"55\" y=\"30\" width=\"25\" height=\"25\"/><rect x=\"85\" y=\"30\" width=\"25\" height=\"25\"/><rect x=\"115\" y=\"30\" width=\"25\" height=\"25\"/><rect x=\"55\" y=\"55\" width=\"25\" height=\"25\"/><text x=\"130\" y=\"78\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">un patron</text><text x=\"130\" y=\"88\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">du cube</text></svg>"
  },
  {
   "id": "d9-volume-contenance",
@@ -957,7 +988,8 @@
   "type": "Définition",
   "q": "Qu'est-ce qu'une fonction linéaire ? Comment est sa représentation graphique ?",
   "r": "Fonction de la forme x ↦ ax ; sa représentation est une droite passant par l'origine.",
-  "ex": "x ↦ 2,5x modélise le prix de x kg à 2,50 €/kg."
+  "ex": "x ↦ 2,5x modélise le prix de x kg à 2,50 €/kg.",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><line x1=\"15\" y1=\"70\" x2=\"150\" y2=\"70\" /><line x1=\"40\" y1=\"85\" x2=\"40\" y2=\"5\" /><path d=\"M145 72.5 L150 70 L145 67.5\"/><path d=\"M42.5 10 L40 5 L37.5 10\"/><line x1=\"25\" y1=\"77\" x2=\"140\" y2=\"22\" /><circle cx=\"40\" cy=\"70\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"34\" y=\"80\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">O</text><text x=\"115\" y=\"52\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">y = ax</text></svg>"
  },
  {
   "id": "d10-fonction-affine",
@@ -967,7 +999,8 @@
   "type": "Définition",
   "q": "Qu'est-ce qu'une fonction affine ? Que représentent a et b ?",
   "r": "Fonction de la forme x ↦ ax + b ; a est le coefficient directeur, b l'ordonnée à l'origine.",
-  "ex": "Abonnement 10 € + 2 € par séance : x ↦ 2x + 10."
+  "ex": "Abonnement 10 € + 2 € par séance : x ↦ 2x + 10.",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><line x1=\"15\" y1=\"70\" x2=\"150\" y2=\"70\" /><line x1=\"40\" y1=\"85\" x2=\"40\" y2=\"5\" /><path d=\"M145 72.5 L150 70 L145 67.5\"/><path d=\"M42.5 10 L40 5 L37.5 10\"/><line x1=\"15\" y1=\"64\" x2=\"145\" y2=\"10\" /><circle cx=\"40\" cy=\"53.6\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"34\" y=\"56.6\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">b</text><text x=\"146\" y=\"80\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\" font-style=\"italic\">x</text><text x=\"46\" y=\"10\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"start\" font-size=\"8\" font-style=\"italic\">y</text><text x=\"112\" y=\"50\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">y = ax + b</text></svg>"
  },
  {
   "id": "d11-pourcentage",
@@ -1177,7 +1210,8 @@
   "type": "Fonctions",
   "q": "Qu'est-ce que le sujet ? Comment l'identifier ?",
   "r": "Fonction du groupe qui commande l'accord du verbe (personne, nombre). Test : on peut l'encadrer par « c'est… qui ».",
-  "ex": "« Les enfants jouent » : « c'est les enfants qui jouent » → « les enfants » est sujet."
+  "ex": "« Les enfants jouent » : « c'est les enfants qui jouent » → « les enfants » est sujet.",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><rect x=\"6\" y=\"16\" width=\"62\" height=\"20\" fill=\"currentColor\" fill-opacity=\"0.15\"/><rect x=\"72\" y=\"16\" width=\"38\" height=\"20\"/><text x=\"37\" y=\"30\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">Les enfants</text><text x=\"91\" y=\"30\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">jouent</text><text x=\"114\" y=\"30\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"start\" font-size=\"8\">dans la cour.</text><text x=\"37\" y=\"48\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">sujet</text><text x=\"91\" y=\"48\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">verbe</text><text x=\"80\" y=\"74\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\" font-style=\"italic\">« C'est les enfants QUI jouent »</text></svg>"
  },
  {
   "id": "f-qu-est-ce-qu-un-complement-du-verbe-quelles-sortes-distingue-t-on",
@@ -1195,7 +1229,8 @@
   "type": "Fonctions",
   "q": "Qu'est-ce qu'un complément de phrase (anciennement complément circonstanciel) ?",
   "r": "Complément qui porte sur toute la phrase : on peut le supprimer et le déplacer. Il précise le temps, le lieu, la cause, le but, la manière…",
-  "ex": "« Demain, nous irons à la plage » : « demain » peut être supprimé ou déplacé (« Nous irons demain… »)."
+  "ex": "« Demain, nous irons à la plage » : « demain » peut être supprimé ou déplacé (« Nous irons demain… »).",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><rect x=\"4\" y=\"12\" width=\"44\" height=\"20\" fill=\"currentColor\" fill-opacity=\"0.15\"/><text x=\"26\" y=\"26\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">Demain,</text><text x=\"102\" y=\"26\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">nous irons à la plage.</text><text x=\"26\" y=\"44\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">complément</text><text x=\"26\" y=\"52\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">de phrase</text><text x=\"80\" y=\"72\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\" font-style=\"italic\">supprimable : Nous irons à la plage.</text><text x=\"80\" y=\"84\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\" font-style=\"italic\">déplaçable : Nous irons demain à la plage.</text></svg>"
  },
  {
   "id": "f-qu-est-ce-que-l-attribut-du-sujet",
@@ -1240,7 +1275,8 @@
   "type": "Phrase",
   "q": "Quelle différence entre phrase simple et phrase complexe ?",
   "r": "Phrase simple : un seul verbe conjugué (une seule proposition). Phrase complexe : plusieurs propositions, donc plusieurs verbes conjugués.",
-  "ex": "« Le chat dort. » (simple) ; « Le chat dort car il est fatigué. » (complexe)."
+  "ex": "« Le chat dort. » (simple) ; « Le chat dort car il est fatigué. » (complexe).",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><rect x=\"4\" y=\"14\" width=\"152\" height=\"20\"/><text x=\"80\" y=\"28\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">Le chat dort.</text><text x=\"80\" y=\"44\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">phrase simple : 1 proposition</text><rect x=\"4\" y=\"54\" width=\"60\" height=\"20\"/><rect x=\"66\" y=\"54\" width=\"90\" height=\"20\"/><text x=\"34\" y=\"68\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">Le chat dort</text><text x=\"111\" y=\"68\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">car il est fatigué.</text><text x=\"80\" y=\"86\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">phrase complexe : 2 propositions</text></svg>"
  },
  {
   "id": "f-quelles-sont-les-trois-facons-de-relier-des-propositions-dans-une-phra",
@@ -1258,7 +1294,8 @@
   "type": "Phrase",
   "q": "Qu'est-ce qu'une proposition subordonnée relative ?",
   "r": "Proposition introduite par un pronom relatif (qui, que, dont, où, lequel…) ; elle complète un nom ou un pronom, son antécédent.",
-  "ex": "« Le livre que tu m'as prêté est passionnant » : antécédent « livre »."
+  "ex": "« Le livre que tu m'as prêté est passionnant » : antécédent « livre ».",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><text x=\"40\" y=\"22\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\" font-weight=\"bold\">Le livre</text><rect x=\"66\" y=\"10\" width=\"90\" height=\"18\" fill=\"currentColor\" fill-opacity=\"0.15\"/><text x=\"111\" y=\"22\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">que tu m'as prêté</text><text x=\"80\" y=\"44\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">est passionnant.</text><text x=\"40\" y=\"62\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">antécédent</text><text x=\"111\" y=\"62\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">subordonnée relative</text><text x=\"80\" y=\"82\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\" font-style=\"italic\">« que » : pronom relatif</text></svg>"
  },
  {
   "id": "f-qu-est-ce-qu-une-proposition-subordonnee-conjonctive",
@@ -1456,7 +1493,8 @@
   "type": "Histoire — repères",
   "q": "Que s'est-il passé en 52 av. J.-C. ?",
   "r": "Défaite de Vercingétorix face à Jules César à Alésia : la Gaule est conquise par Rome (Gaule romaine, gallo-romains).",
-  "ex": "Thème « Et avant la France ? » (CM1)."
+  "ex": "Thème « Et avant la France ? » (CM1).",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 70\" width=\"160\" height=\"70\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><line x1=\"8\" y1=\"45\" x2=\"154\" y2=\"45\" /><path d=\"M149 47.5 L154 45 L149 42.5\"/><line x1=\"14.857142857142858\" y1=\"41\" x2=\"14.857142857142858\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"14.857142857142858\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">0</text><line x1=\"49.14285714285714\" y1=\"41\" x2=\"49.14285714285714\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"49.14285714285714\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">500</text><line x1=\"83.42857142857143\" y1=\"41\" x2=\"83.42857142857143\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"83.42857142857143\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1000</text><line x1=\"117.71428571428571\" y1=\"41\" x2=\"117.71428571428571\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"117.71428571428571\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1500</text><line x1=\"152\" y1=\"41\" x2=\"152\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"152\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">2000</text><circle cx=\"11.291428571428572\" cy=\"45\" r=\"3.2\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"11.291428571428572\" y1=\"40\" x2=\"11.291428571428572\" y2=\"24\" stroke-width=\"0.8\"/><text x=\"30\" y=\"18\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\" font-weight=\"bold\">−52 Alésia</text></svg>"
  },
  {
   "id": "h-qui-est-clovis-et-pourquoi-est-il-un-repere",
@@ -1465,7 +1503,8 @@
   "type": "Histoire — repères",
   "q": "Qui est Clovis et pourquoi est-il un repère ?",
   "r": "Roi des Francs, baptisé vers 496-500 (date discutée) : il s'appuie sur l'Église ; on en fait souvent le premier roi chrétien des Francs.",
-  "ex": "Thème « Et avant la France ? » (CM1)."
+  "ex": "Thème « Et avant la France ? » (CM1).",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 70\" width=\"160\" height=\"70\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><line x1=\"8\" y1=\"45\" x2=\"154\" y2=\"45\" /><path d=\"M149 47.5 L154 45 L149 42.5\"/><line x1=\"14.857142857142858\" y1=\"41\" x2=\"14.857142857142858\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"14.857142857142858\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">0</text><line x1=\"49.14285714285714\" y1=\"41\" x2=\"49.14285714285714\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"49.14285714285714\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">500</text><line x1=\"83.42857142857143\" y1=\"41\" x2=\"83.42857142857143\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"83.42857142857143\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1000</text><line x1=\"117.71428571428571\" y1=\"41\" x2=\"117.71428571428571\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"117.71428571428571\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1500</text><line x1=\"152\" y1=\"41\" x2=\"152\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"152\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">2000</text><circle cx=\"48.86857142857143\" cy=\"45\" r=\"3.2\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48.86857142857143\" y1=\"40\" x2=\"48.86857142857143\" y2=\"24\" stroke-width=\"0.8\"/><text x=\"48.86857142857143\" y=\"18\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\" font-weight=\"bold\">vers 496-500 Clovis</text></svg>"
  },
  {
   "id": "h-que-s-est-il-passe-en-800",
@@ -1474,7 +1513,8 @@
   "type": "Histoire — repères",
   "q": "Que s'est-il passé en 800 ?",
   "r": "Charlemagne, roi des Francs, est couronné empereur à Rome par le pape.",
-  "ex": "Repère du Moyen Âge (CM1)."
+  "ex": "Repère du Moyen Âge (CM1).",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 70\" width=\"160\" height=\"70\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><line x1=\"8\" y1=\"45\" x2=\"154\" y2=\"45\" /><path d=\"M149 47.5 L154 45 L149 42.5\"/><line x1=\"14.857142857142858\" y1=\"41\" x2=\"14.857142857142858\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"14.857142857142858\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">0</text><line x1=\"49.14285714285714\" y1=\"41\" x2=\"49.14285714285714\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"49.14285714285714\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">500</text><line x1=\"83.42857142857143\" y1=\"41\" x2=\"83.42857142857143\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"83.42857142857143\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1000</text><line x1=\"117.71428571428571\" y1=\"41\" x2=\"117.71428571428571\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"117.71428571428571\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1500</text><line x1=\"152\" y1=\"41\" x2=\"152\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"152\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">2000</text><circle cx=\"69.71428571428571\" cy=\"45\" r=\"3.2\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"69.71428571428571\" y1=\"40\" x2=\"69.71428571428571\" y2=\"24\" stroke-width=\"0.8\"/><text x=\"69.71428571428571\" y=\"18\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\" font-weight=\"bold\">800 Charlemagne</text></svg>"
  },
  {
   "id": "h-quel-repere-est-associe-a-l-annee-987",
@@ -1483,7 +1523,8 @@
   "type": "Histoire — repères",
   "q": "Quel repère est associé à l'année 987 ?",
   "r": "Hugues Capet devient roi des Francs : début de la dynastie des Capétiens.",
-  "ex": "Thème « Le temps des rois » (CM1)."
+  "ex": "Thème « Le temps des rois » (CM1).",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 70\" width=\"160\" height=\"70\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><line x1=\"8\" y1=\"45\" x2=\"154\" y2=\"45\" /><path d=\"M149 47.5 L154 45 L149 42.5\"/><line x1=\"14.857142857142858\" y1=\"41\" x2=\"14.857142857142858\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"14.857142857142858\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">0</text><line x1=\"49.14285714285714\" y1=\"41\" x2=\"49.14285714285714\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"49.14285714285714\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">500</text><line x1=\"83.42857142857143\" y1=\"41\" x2=\"83.42857142857143\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"83.42857142857143\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1000</text><line x1=\"117.71428571428571\" y1=\"41\" x2=\"117.71428571428571\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"117.71428571428571\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1500</text><line x1=\"152\" y1=\"41\" x2=\"152\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"152\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">2000</text><circle cx=\"82.53714285714287\" cy=\"45\" r=\"3.2\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"82.53714285714287\" y1=\"40\" x2=\"82.53714285714287\" y2=\"24\" stroke-width=\"0.8\"/><text x=\"82.53714285714287\" y=\"18\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\" font-weight=\"bold\">987 Hugues Capet</text></svg>"
  },
  {
   "id": "h-qu-est-ce-que-l-edit-de-nantes-1598",
@@ -1492,7 +1533,8 @@
   "type": "Histoire — repères",
   "q": "Qu'est-ce que l'édit de Nantes (1598) ?",
   "r": "Édit signé par Henri IV qui met fin aux guerres de Religion en accordant aux protestants une liberté de culte limitée.",
-  "ex": "Thème « Le temps des rois » (CM1)."
+  "ex": "Thème « Le temps des rois » (CM1).",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 70\" width=\"160\" height=\"70\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><line x1=\"8\" y1=\"45\" x2=\"154\" y2=\"45\" /><path d=\"M149 47.5 L154 45 L149 42.5\"/><line x1=\"14.857142857142858\" y1=\"41\" x2=\"14.857142857142858\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"14.857142857142858\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">0</text><line x1=\"49.14285714285714\" y1=\"41\" x2=\"49.14285714285714\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"49.14285714285714\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">500</text><line x1=\"83.42857142857143\" y1=\"41\" x2=\"83.42857142857143\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"83.42857142857143\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1000</text><line x1=\"117.71428571428571\" y1=\"41\" x2=\"117.71428571428571\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"117.71428571428571\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1500</text><line x1=\"152\" y1=\"41\" x2=\"152\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"152\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">2000</text><circle cx=\"124.43428571428572\" cy=\"45\" r=\"3.2\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"124.43428571428572\" y1=\"40\" x2=\"124.43428571428572\" y2=\"24\" stroke-width=\"0.8\"/><text x=\"126.43428571428572\" y=\"18\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"end\" font-size=\"8\" font-weight=\"bold\">1598 édit de Nantes</text></svg>"
  },
  {
   "id": "h-quel-roi-incarne-la-monarchie-absolue-donne-les-dates-de-son-regne",
@@ -1501,7 +1543,8 @@
   "type": "Histoire — repères",
   "q": "Quel roi incarne la monarchie absolue ? Donne les dates de son règne.",
   "r": "Louis XIV (1643-1715), qui gouverne seul et fait de Versailles le centre du pouvoir.",
-  "ex": "Thème « Le temps des rois » (CM1)."
+  "ex": "Thème « Le temps des rois » (CM1).",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 70\" width=\"160\" height=\"70\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><line x1=\"8\" y1=\"45\" x2=\"154\" y2=\"45\" /><path d=\"M149 47.5 L154 45 L149 42.5\"/><line x1=\"14.857142857142858\" y1=\"41\" x2=\"14.857142857142858\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"14.857142857142858\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">0</text><line x1=\"49.14285714285714\" y1=\"41\" x2=\"49.14285714285714\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"49.14285714285714\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">500</text><line x1=\"83.42857142857143\" y1=\"41\" x2=\"83.42857142857143\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"83.42857142857143\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1000</text><line x1=\"117.71428571428571\" y1=\"41\" x2=\"117.71428571428571\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"117.71428571428571\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1500</text><line x1=\"152\" y1=\"41\" x2=\"152\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"152\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">2000</text><circle cx=\"130.05714285714285\" cy=\"45\" r=\"3.2\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"130.05714285714285\" y1=\"40\" x2=\"130.05714285714285\" y2=\"24\" stroke-width=\"0.8\"/><text x=\"132.05714285714285\" y=\"18\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"end\" font-size=\"8\" font-weight=\"bold\">1643-1715 Louis XIV</text></svg>"
  },
  {
   "id": "h-que-s-est-il-passe-le-14-juillet-1789-et-le-26-aout-1789",
@@ -1510,7 +1553,8 @@
   "type": "Histoire — repères",
   "q": "Que s'est-il passé le 14 juillet 1789 et le 26 août 1789 ?",
   "r": "14 juillet 1789 : prise de la Bastille, symbole du début de la Révolution. 26 août 1789 : Déclaration des droits de l'homme et du citoyen.",
-  "ex": "Thème « Le temps de la Révolution et de l'Empire » (CM1)."
+  "ex": "Thème « Le temps de la Révolution et de l'Empire » (CM1).",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 70\" width=\"160\" height=\"70\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><line x1=\"8\" y1=\"45\" x2=\"154\" y2=\"45\" /><path d=\"M149 47.5 L154 45 L149 42.5\"/><line x1=\"14.857142857142858\" y1=\"41\" x2=\"14.857142857142858\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"14.857142857142858\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">0</text><line x1=\"49.14285714285714\" y1=\"41\" x2=\"49.14285714285714\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"49.14285714285714\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">500</text><line x1=\"83.42857142857143\" y1=\"41\" x2=\"83.42857142857143\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"83.42857142857143\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1000</text><line x1=\"117.71428571428571\" y1=\"41\" x2=\"117.71428571428571\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"117.71428571428571\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1500</text><line x1=\"152\" y1=\"41\" x2=\"152\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"152\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">2000</text><circle cx=\"137.53142857142856\" cy=\"45\" r=\"3.2\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"137.53142857142856\" y1=\"40\" x2=\"137.53142857142856\" y2=\"24\" stroke-width=\"0.8\"/><text x=\"139.53142857142856\" y=\"18\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"end\" font-size=\"8\" font-weight=\"bold\">1789 Révolution</text></svg>"
  },
  {
   "id": "h-quand-la-premiere-republique-est-elle-proclamee",
@@ -1519,7 +1563,8 @@
   "type": "Histoire — repères",
   "q": "Quand la Première République est-elle proclamée ?",
   "r": "En septembre 1792 (21-22 septembre), après l'abolition de la monarchie.",
-  "ex": "Thème « Le temps de la Révolution et de l'Empire » (CM1)."
+  "ex": "Thème « Le temps de la Révolution et de l'Empire » (CM1).",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 70\" width=\"160\" height=\"70\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><line x1=\"8\" y1=\"45\" x2=\"154\" y2=\"45\" /><path d=\"M149 47.5 L154 45 L149 42.5\"/><line x1=\"14.857142857142858\" y1=\"41\" x2=\"14.857142857142858\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"14.857142857142858\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">0</text><line x1=\"49.14285714285714\" y1=\"41\" x2=\"49.14285714285714\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"49.14285714285714\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">500</text><line x1=\"83.42857142857143\" y1=\"41\" x2=\"83.42857142857143\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"83.42857142857143\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1000</text><line x1=\"117.71428571428571\" y1=\"41\" x2=\"117.71428571428571\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"117.71428571428571\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1500</text><line x1=\"152\" y1=\"41\" x2=\"152\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"152\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">2000</text><circle cx=\"137.73714285714286\" cy=\"45\" r=\"3.2\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"137.73714285714286\" y1=\"40\" x2=\"137.73714285714286\" y2=\"24\" stroke-width=\"0.8\"/><text x=\"139.73714285714286\" y=\"18\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"end\" font-size=\"8\" font-weight=\"bold\">1792 Ire République</text></svg>"
  },
  {
   "id": "h-quels-reperes-sont-associes-a-l-annee-1804",
@@ -1528,7 +1573,8 @@
   "type": "Histoire — repères",
   "q": "Quels repères sont associés à l'année 1804 ?",
   "r": "Napoléon Bonaparte est sacré empereur des Français ; le Code civil est promulgué.",
-  "ex": "Thème « Le temps de la Révolution et de l'Empire » (CM1)."
+  "ex": "Thème « Le temps de la Révolution et de l'Empire » (CM1).",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 70\" width=\"160\" height=\"70\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><line x1=\"8\" y1=\"45\" x2=\"154\" y2=\"45\" /><path d=\"M149 47.5 L154 45 L149 42.5\"/><line x1=\"14.857142857142858\" y1=\"41\" x2=\"14.857142857142858\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"14.857142857142858\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">0</text><line x1=\"49.14285714285714\" y1=\"41\" x2=\"49.14285714285714\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"49.14285714285714\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">500</text><line x1=\"83.42857142857143\" y1=\"41\" x2=\"83.42857142857143\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"83.42857142857143\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1000</text><line x1=\"117.71428571428571\" y1=\"41\" x2=\"117.71428571428571\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"117.71428571428571\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1500</text><line x1=\"152\" y1=\"41\" x2=\"152\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"152\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">2000</text><circle cx=\"138.56\" cy=\"45\" r=\"3.2\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"138.56\" y1=\"40\" x2=\"138.56\" y2=\"24\" stroke-width=\"0.8\"/><text x=\"140.56\" y=\"18\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"end\" font-size=\"8\" font-weight=\"bold\">1804 Napoléon Ier</text></svg>"
  },
  {
   "id": "h-que-s-est-il-passe-en-1848",
@@ -1537,7 +1583,8 @@
   "type": "Histoire — repères",
   "q": "Que s'est-il passé en 1848 ?",
   "r": "Abolition définitive de l'esclavage dans les colonies françaises (décret porté par Victor Schœlcher) et instauration du suffrage universel masculin (IIe République).",
-  "ex": "Thème « Le temps de la République » (CM2)."
+  "ex": "Thème « Le temps de la République » (CM2).",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 70\" width=\"160\" height=\"70\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><line x1=\"8\" y1=\"45\" x2=\"154\" y2=\"45\" /><path d=\"M149 47.5 L154 45 L149 42.5\"/><line x1=\"14.857142857142858\" y1=\"41\" x2=\"14.857142857142858\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"14.857142857142858\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">0</text><line x1=\"49.14285714285714\" y1=\"41\" x2=\"49.14285714285714\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"49.14285714285714\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">500</text><line x1=\"83.42857142857143\" y1=\"41\" x2=\"83.42857142857143\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"83.42857142857143\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1000</text><line x1=\"117.71428571428571\" y1=\"41\" x2=\"117.71428571428571\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"117.71428571428571\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1500</text><line x1=\"152\" y1=\"41\" x2=\"152\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"152\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">2000</text><circle cx=\"141.57714285714286\" cy=\"45\" r=\"3.2\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"141.57714285714286\" y1=\"40\" x2=\"141.57714285714286\" y2=\"24\" stroke-width=\"0.8\"/><text x=\"143.57714285714286\" y=\"18\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"end\" font-size=\"8\" font-weight=\"bold\">1848 abolition</text></svg>"
  },
  {
   "id": "h-que-sont-les-lois-ferry-1881-1882",
@@ -1546,7 +1593,8 @@
   "type": "Histoire — repères",
   "q": "Que sont les lois Ferry (1881-1882) ?",
   "r": "Lois qui rendent l'école primaire gratuite, obligatoire (de 6 à 13 ans) et laïque.",
-  "ex": "« L'école primaire au temps de Jules Ferry » (CM2)."
+  "ex": "« L'école primaire au temps de Jules Ferry » (CM2).",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 70\" width=\"160\" height=\"70\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><line x1=\"8\" y1=\"45\" x2=\"154\" y2=\"45\" /><path d=\"M149 47.5 L154 45 L149 42.5\"/><line x1=\"14.857142857142858\" y1=\"41\" x2=\"14.857142857142858\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"14.857142857142858\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">0</text><line x1=\"49.14285714285714\" y1=\"41\" x2=\"49.14285714285714\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"49.14285714285714\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">500</text><line x1=\"83.42857142857143\" y1=\"41\" x2=\"83.42857142857143\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"83.42857142857143\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1000</text><line x1=\"117.71428571428571\" y1=\"41\" x2=\"117.71428571428571\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"117.71428571428571\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1500</text><line x1=\"152\" y1=\"41\" x2=\"152\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"152\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">2000</text><circle cx=\"143.90857142857143\" cy=\"45\" r=\"3.2\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"143.90857142857143\" y1=\"40\" x2=\"143.90857142857143\" y2=\"24\" stroke-width=\"0.8\"/><text x=\"145.90857142857143\" y=\"18\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"end\" font-size=\"8\" font-weight=\"bold\">1881-1882 lois Ferry</text></svg>"
  },
  {
   "id": "h-que-dit-la-loi-de-1905",
@@ -1555,7 +1603,8 @@
   "type": "Histoire — repères",
   "q": "Que dit la loi de 1905 ?",
   "r": "Loi de séparation des Églises et de l'État : la République assure la liberté de conscience et ne reconnaît ni ne finance aucun culte. Fondement de la laïcité.",
-  "ex": "Thème « Le temps de la République » (CM2) et EMC."
+  "ex": "Thème « Le temps de la République » (CM2) et EMC.",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 70\" width=\"160\" height=\"70\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><line x1=\"8\" y1=\"45\" x2=\"154\" y2=\"45\" /><path d=\"M149 47.5 L154 45 L149 42.5\"/><line x1=\"14.857142857142858\" y1=\"41\" x2=\"14.857142857142858\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"14.857142857142858\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">0</text><line x1=\"49.14285714285714\" y1=\"41\" x2=\"49.14285714285714\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"49.14285714285714\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">500</text><line x1=\"83.42857142857143\" y1=\"41\" x2=\"83.42857142857143\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"83.42857142857143\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1000</text><line x1=\"117.71428571428571\" y1=\"41\" x2=\"117.71428571428571\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"117.71428571428571\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1500</text><line x1=\"152\" y1=\"41\" x2=\"152\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"152\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">2000</text><circle cx=\"145.4857142857143\" cy=\"45\" r=\"3.2\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"145.4857142857143\" y1=\"40\" x2=\"145.4857142857143\" y2=\"24\" stroke-width=\"0.8\"/><text x=\"147.4857142857143\" y=\"18\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"end\" font-size=\"8\" font-weight=\"bold\">1905 laïcité</text></svg>"
  },
  {
   "id": "h-quelles-sont-les-dates-des-deux-guerres-mondiales",
@@ -1564,7 +1613,8 @@
   "type": "Histoire — repères",
   "q": "Quelles sont les dates des deux guerres mondiales ?",
   "r": "Première Guerre mondiale : 1914-1918 (armistice du 11 novembre 1918). Seconde Guerre mondiale : 1939-1945 (capitulation allemande le 8 mai 1945).",
-  "ex": "Thème « La France, des guerres mondiales à l'Union européenne » (CM2)."
+  "ex": "Thème « La France, des guerres mondiales à l'Union européenne » (CM2).",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 70\" width=\"160\" height=\"70\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><line x1=\"8\" y1=\"45\" x2=\"154\" y2=\"45\" /><path d=\"M149 47.5 L154 45 L149 42.5\"/><line x1=\"14.857142857142858\" y1=\"41\" x2=\"14.857142857142858\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"14.857142857142858\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">0</text><line x1=\"49.14285714285714\" y1=\"41\" x2=\"49.14285714285714\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"49.14285714285714\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">500</text><line x1=\"83.42857142857143\" y1=\"41\" x2=\"83.42857142857143\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"83.42857142857143\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1000</text><line x1=\"117.71428571428571\" y1=\"41\" x2=\"117.71428571428571\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"117.71428571428571\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1500</text><line x1=\"152\" y1=\"41\" x2=\"152\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"152\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">2000</text><circle cx=\"147.2\" cy=\"45\" r=\"3.2\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"147.2\" y1=\"40\" x2=\"147.2\" y2=\"24\" stroke-width=\"0.8\"/><text x=\"149.2\" y=\"18\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"end\" font-size=\"8\" font-weight=\"bold\">1914-18 · 1939-45</text></svg>"
  },
  {
   "id": "h-quand-les-femmes-obtiennent-elles-le-droit-de-vote-en-france",
@@ -1573,7 +1623,8 @@
   "type": "Histoire — repères",
   "q": "Quand les femmes obtiennent-elles le droit de vote en France ?",
   "r": "Par l'ordonnance du 21 avril 1944 ; elles votent pour la première fois en 1945.",
-  "ex": "« Des républicains, des républicaines » (CM2)."
+  "ex": "« Des républicains, des républicaines » (CM2).",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 70\" width=\"160\" height=\"70\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><line x1=\"8\" y1=\"45\" x2=\"154\" y2=\"45\" /><path d=\"M149 47.5 L154 45 L149 42.5\"/><line x1=\"14.857142857142858\" y1=\"41\" x2=\"14.857142857142858\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"14.857142857142858\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">0</text><line x1=\"49.14285714285714\" y1=\"41\" x2=\"49.14285714285714\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"49.14285714285714\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">500</text><line x1=\"83.42857142857143\" y1=\"41\" x2=\"83.42857142857143\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"83.42857142857143\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1000</text><line x1=\"117.71428571428571\" y1=\"41\" x2=\"117.71428571428571\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"117.71428571428571\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1500</text><line x1=\"152\" y1=\"41\" x2=\"152\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"152\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">2000</text><circle cx=\"148.16\" cy=\"45\" r=\"3.2\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"148.16\" y1=\"40\" x2=\"148.16\" y2=\"24\" stroke-width=\"0.8\"/><text x=\"150.16\" y=\"18\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"end\" font-size=\"8\" font-weight=\"bold\">1944 vote des femmes</text></svg>"
  },
  {
   "id": "h-que-s-est-il-passe-en-1957",
@@ -1582,7 +1633,8 @@
   "type": "Histoire — repères",
   "q": "Que s'est-il passé en 1957 ?",
   "r": "Signature des traités de Rome, qui créent la Communauté économique européenne (CEE), ancêtre de l'Union européenne.",
-  "ex": "Thème « La France, des guerres mondiales à l'Union européenne » (CM2)."
+  "ex": "Thème « La France, des guerres mondiales à l'Union européenne » (CM2).",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 70\" width=\"160\" height=\"70\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><line x1=\"8\" y1=\"45\" x2=\"154\" y2=\"45\" /><path d=\"M149 47.5 L154 45 L149 42.5\"/><line x1=\"14.857142857142858\" y1=\"41\" x2=\"14.857142857142858\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"14.857142857142858\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">0</text><line x1=\"49.14285714285714\" y1=\"41\" x2=\"49.14285714285714\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"49.14285714285714\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">500</text><line x1=\"83.42857142857143\" y1=\"41\" x2=\"83.42857142857143\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"83.42857142857143\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1000</text><line x1=\"117.71428571428571\" y1=\"41\" x2=\"117.71428571428571\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"117.71428571428571\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1500</text><line x1=\"152\" y1=\"41\" x2=\"152\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"152\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">2000</text><circle cx=\"149.05142857142857\" cy=\"45\" r=\"3.2\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"149.05142857142857\" y1=\"40\" x2=\"149.05142857142857\" y2=\"24\" stroke-width=\"0.8\"/><text x=\"151.05142857142857\" y=\"18\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"end\" font-size=\"8\" font-weight=\"bold\">1957 traités de Rome</text></svg>"
  },
  {
   "id": "h-qu-est-ce-que-la-ve-republique",
@@ -1591,7 +1643,8 @@
   "type": "Histoire — repères",
   "q": "Qu'est-ce que la Ve République ?",
   "r": "Régime politique actuel de la France, fondé par la Constitution de 1958 (Charles de Gaulle).",
-  "ex": "Repère du XXe siècle (CM2)."
+  "ex": "Repère du XXe siècle (CM2).",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 70\" width=\"160\" height=\"70\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><line x1=\"8\" y1=\"45\" x2=\"154\" y2=\"45\" /><path d=\"M149 47.5 L154 45 L149 42.5\"/><line x1=\"14.857142857142858\" y1=\"41\" x2=\"14.857142857142858\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"14.857142857142858\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">0</text><line x1=\"49.14285714285714\" y1=\"41\" x2=\"49.14285714285714\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"49.14285714285714\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">500</text><line x1=\"83.42857142857143\" y1=\"41\" x2=\"83.42857142857143\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"83.42857142857143\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1000</text><line x1=\"117.71428571428571\" y1=\"41\" x2=\"117.71428571428571\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"117.71428571428571\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1500</text><line x1=\"152\" y1=\"41\" x2=\"152\" y2=\"49\" stroke-width=\"0.8\"/><text x=\"152\" y=\"60\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">2000</text><circle cx=\"149.12\" cy=\"45\" r=\"3.2\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"149.12\" y1=\"40\" x2=\"149.12\" y2=\"24\" stroke-width=\"0.8\"/><text x=\"151.12\" y=\"18\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"end\" font-size=\"8\" font-weight=\"bold\">1958 Ve République</text></svg>"
  },
  {
   "id": "h-qu-est-ce-qu-une-source-document-primaire-et-une-source-secondaire",
@@ -1609,7 +1662,8 @@
   "type": "Histoire — démarche",
   "q": "Qu'est-ce qu'une frise chronologique et à quoi sert-elle ?",
   "r": "Représentation linéaire et orientée du temps, avec une échelle régulière, sur laquelle on place des dates et des périodes. Elle aide à se repérer et à situer les événements les uns par rapport aux autres.",
-  "ex": "Placer Clovis, Charlemagne et Louis XIV sur une frise graduée en siècles."
+  "ex": "Placer Clovis, Charlemagne et Louis XIV sur une frise graduée en siècles.",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><line x1=\"5\" y1=\"40\" x2=\"155\" y2=\"40\" /><path d=\"M150 42.5 L155 40 L150 37.5\"/><line x1=\"10\" y1=\"35\" x2=\"10\" y2=\"45\" /><text x=\"10\" y=\"58\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1600</text><line x1=\"45\" y1=\"35\" x2=\"45\" y2=\"45\" /><text x=\"45\" y=\"58\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1700</text><line x1=\"80\" y1=\"35\" x2=\"80\" y2=\"45\" /><text x=\"80\" y=\"58\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1800</text><line x1=\"115\" y1=\"35\" x2=\"115\" y2=\"45\" /><text x=\"115\" y=\"58\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1900</text><line x1=\"150\" y1=\"35\" x2=\"150\" y2=\"45\" /><text x=\"150\" y=\"58\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">2000</text><rect x=\"25\" y=\"36\" width=\"49\" height=\"8\" fill=\"currentColor\" fill-opacity=\"0.3\" stroke=\"none\"/><text x=\"50\" y=\"28\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">Louis XIV</text><circle cx=\"73.3\" cy=\"40\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"110\" y=\"28\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1789</text><line x1=\"110.15\" y1=\"31\" x2=\"110.15\" y2=\"37\" stroke-width=\"0.8\"/><text x=\"80\" y=\"80\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">échelle régulière : 1 graduation = 100 ans</text></svg>"
  },
  {
   "id": "h-comment-trouve-t-on-le-siecle-d-une-date",
@@ -1618,7 +1672,8 @@
   "type": "Histoire — démarche",
   "q": "Comment trouve-t-on le siècle d'une date ?",
   "r": "On prend le nombre de centaines et on ajoute 1 (pour les années après J.-C. qui ne finissent pas par 00).",
-  "ex": "1789 → 17 + 1 = XVIIIe siècle ; 1515 → XVIe siècle ; 1900 → XIXe siècle."
+  "ex": "1789 → 17 + 1 = XVIIIe siècle ; 1515 → XVIe siècle ; 1900 → XIXe siècle.",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><line x1=\"10\" y1=\"40\" x2=\"150\" y2=\"40\" /><line x1=\"30\" y1=\"34\" x2=\"30\" y2=\"46\" /><line x1=\"130\" y1=\"34\" x2=\"130\" y2=\"46\" /><text x=\"30\" y=\"58\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">1701</text><text x=\"130\" y=\"58\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">1800</text><rect x=\"30\" y=\"36\" width=\"100\" height=\"8\" fill=\"currentColor\" fill-opacity=\"0.2\" stroke=\"none\"/><text x=\"80\" y=\"14\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\" font-weight=\"bold\">XVIIIe siècle</text><circle cx=\"118.9\" cy=\"40\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"118.9\" y=\"32\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"9\">1789</text><text x=\"80\" y=\"82\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1789 : 17 centaines + 1 = XVIIIe</text></svg>"
  },
  {
   "id": "h-quelles-sont-les-grandes-periodes-de-l-histoire",
@@ -1627,7 +1682,8 @@
   "type": "Histoire — démarche",
   "q": "Quelles sont les grandes périodes de l'histoire ?",
   "r": "Préhistoire, Antiquité (vers −3000, invention de l'écriture), Moyen Âge (476), Temps modernes (1492), époque contemporaine (1789).",
-  "ex": "Chaque période commence par un repère conventionnel."
+  "ex": "Chaque période commence par un repère conventionnel.",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><line x1=\"15\" y1=\"40\" x2=\"155\" y2=\"40\" /><path d=\"M150 42.5 L155 40 L150 37.5\"/><line x1=\"15\" y1=\"34\" x2=\"15\" y2=\"46\" /><text x=\"15\" y=\"58\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">−3000</text><line x1=\"50\" y1=\"34\" x2=\"50\" y2=\"46\" /><text x=\"50\" y=\"58\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">476</text><line x1=\"87\" y1=\"34\" x2=\"87\" y2=\"46\" /><text x=\"87\" y=\"58\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1492</text><line x1=\"120\" y1=\"34\" x2=\"120\" y2=\"46\" /><text x=\"120\" y=\"58\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1789</text><rect x=\"15\" y=\"34\" width=\"35\" height=\"12\" fill=\"currentColor\" fill-opacity=\"0.08\" stroke=\"none\"/><rect x=\"87\" y=\"34\" width=\"33\" height=\"12\" fill=\"currentColor\" fill-opacity=\"0.08\" stroke=\"none\"/><text x=\"32\" y=\"28\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">Antiquité</text><text x=\"68\" y=\"22\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">Moyen</text><text x=\"68\" y=\"30\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">Âge</text><text x=\"103\" y=\"22\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">Temps</text><text x=\"103\" y=\"30\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">modernes</text><text x=\"140\" y=\"22\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">Époque</text><text x=\"140\" y=\"30\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">contemp.</text><text x=\"80\" y=\"78\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">Préhistoire avant −3000 (écriture)</text></svg>"
  },
  {
   "id": "h-qu-est-ce-qu-un-paysage-en-geographie",
@@ -1636,7 +1692,8 @@
   "type": "Géographie",
   "q": "Qu'est-ce qu'un paysage en géographie ?",
   "r": "Portion d'espace visible, organisée et transformée par les sociétés, que l'on décrit avec des plans (premier plan, arrière-plan) et des éléments naturels et humains.",
-  "ex": "Décrire une photo de littoral : plage, port, immeubles, routes."
+  "ex": "Décrire une photo de littoral : plage, port, immeubles, routes.",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><rect x=\"10\" y=\"8\" width=\"140\" height=\"74\"/><line x1=\"10\" y1=\"34\" x2=\"150\" y2=\"34\" stroke-dasharray=\"3 2.5\"/><line x1=\"10\" y1=\"58\" x2=\"150\" y2=\"58\" stroke-dasharray=\"3 2.5\"/><text x=\"80\" y=\"24\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">arrière-plan (relief, horizon)</text><text x=\"80\" y=\"48\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">second plan</text><text x=\"80\" y=\"72\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">premier plan</text></svg>"
  },
  {
   "id": "h-quelle-difference-entre-espace-urbain-periurbain-et-rural",
@@ -1645,7 +1702,8 @@
   "type": "Géographie",
   "q": "Quelle différence entre espace urbain, périurbain et rural ?",
   "r": "Urbain : ville dense (bâti continu). Périurbain : couronne autour de la ville, résidentielle, liée à la ville par les mobilités. Rural : campagne, faible densité.",
-  "ex": "Un lotissement à 20 km d'une ville où l'on travaille = espace périurbain."
+  "ex": "Un lotissement à 20 km d'une ville où l'on travaille = espace périurbain.",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><circle cx=\"60\" cy=\"45\" r=\"40\" fill=\"currentColor\" fill-opacity=\"0.05\"/><circle cx=\"60\" cy=\"45\" r=\"26\" fill=\"currentColor\" fill-opacity=\"0.12\"/><circle cx=\"60\" cy=\"45\" r=\"12\" fill=\"currentColor\" fill-opacity=\"0.35\"/><text x=\"60\" y=\"48\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">ville</text><text x=\"60\" y=\"27\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"6\">périurbain</text><text x=\"60\" y=\"13\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"6\">rural</text><line x1=\"84\" y1=\"45\" x2=\"112\" y2=\"45\" stroke-width=\"0.8\"/><path d=\"M107 47.5 L112 45 L107 42.5\"/><text x=\"136\" y=\"42\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">mobilités</text><text x=\"136\" y=\"52\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">quotidiennes</text></svg>"
  },
  {
   "id": "h-qu-est-ce-qu-une-metropole",
@@ -1681,7 +1739,8 @@
   "type": "Géographie",
   "q": "Qu'est-ce que l'échelle d'une carte ? Qu'est-ce que changer d'échelle ?",
   "r": "Rapport entre une distance sur la carte et la distance réelle. Changer d'échelle : étudier un phénomène à différents niveaux (local, national, mondial).",
-  "ex": "1/25 000 : 1 cm sur la carte = 250 m dans la réalité."
+  "ex": "1/25 000 : 1 cm sur la carte = 250 m dans la réalité.",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><line x1=\"20\" y1=\"45\" x2=\"140\" y2=\"45\" /><line x1=\"20\" y1=\"40\" x2=\"20\" y2=\"50\" /><line x1=\"50\" y1=\"40\" x2=\"50\" y2=\"50\" /><line x1=\"80\" y1=\"40\" x2=\"80\" y2=\"50\" /><line x1=\"110\" y1=\"40\" x2=\"110\" y2=\"50\" /><line x1=\"140\" y1=\"40\" x2=\"140\" y2=\"50\" /><rect x=\"20\" y=\"42\" width=\"30\" height=\"6\" fill=\"currentColor\" fill-opacity=\"0.4\"/><text x=\"20\" y=\"62\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">0</text><text x=\"50\" y=\"62\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"8\">250 m</text><text x=\"80\" y=\"82\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">1/25 000 : 1 cm sur la carte = 250 m</text></svg>"
  },
  {
   "id": "h-qu-est-ce-qu-un-croquis-et-que-doit-il-comporter",
@@ -1690,7 +1749,8 @@
   "type": "Géographie",
   "q": "Qu'est-ce qu'un croquis et que doit-il comporter ?",
   "r": "Représentation simplifiée d'un espace pour en montrer l'organisation ; il comporte un titre, une légende organisée et une orientation.",
-  "ex": "Croquis d'un quartier : zones d'habitat, de commerce, axes de transport."
+  "ex": "Croquis d'un quartier : zones d'habitat, de commerce, axes de transport.",
+  "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 90\" width=\"160\" height=\"90\" font-family=\"DejaVu Sans, Arial, sans-serif\" font-size=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\"><rect x=\"8\" y=\"8\" width=\"80\" height=\"74\"/><circle cx=\"48\" cy=\"45\" r=\"16\" fill=\"currentColor\" fill-opacity=\"0.3\"/><line x1=\"8\" y1=\"70\" x2=\"88\" y2=\"20\" stroke-width=\"2\"/><circle cx=\"48\" cy=\"45\" r=\"1.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"48\" y=\"18\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">N ↑</text><rect x=\"96\" y=\"20\" width=\"8\" height=\"6\" fill=\"currentColor\" fill-opacity=\"0.3\"/><text x=\"108\" y=\"26\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"start\" font-size=\"7\">habitat</text><line x1=\"96\" y1=\"40\" x2=\"104\" y2=\"40\" stroke-width=\"2\"/><text x=\"108\" y=\"43\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"start\" font-size=\"7\">axe</text><text x=\"122\" y=\"64\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">titre, légende,</text><text x=\"122\" y=\"74\" stroke=\"none\" fill=\"currentColor\" text-anchor=\"middle\" font-size=\"7\">orientation</text></svg>"
  },
  {
   "id": "h-quels-sont-les-themes-de-geographie-du-cm1-et-du-cm2",
