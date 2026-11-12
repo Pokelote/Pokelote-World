@@ -6,6 +6,7 @@
 const fs = require("fs");
 const path = require("path");
 const { RAN, FORMULAIRE, DEFINITIONS } = require("./ran-maths-contenu");
+const { ILLUSTRATIONS_MATHS } = require("./illustrations");
 
 function loadPlaywright() {
   for (const p of ["playwright", "/opt/node22/lib/node_modules/playwright"]) {
@@ -52,6 +53,10 @@ const CSS = `
   .f > span:last-child { padding: 0 2px; }
   .oc { font-size: 9pt; color: #555; margin-top: 12px; border-top: 1px solid #ccc; padding-top: 6px; }
   a { color: #1f4e79; }
+  .figs { display: flex; flex-wrap: wrap; gap: 8px; }
+  figure { margin: 0; width: 31%; border: 1px solid #dde4ec; border-radius: 4px; padding: 4px; text-align: center; break-inside: avoid; }
+  figure svg { width: 100%; height: auto; }
+  figcaption { font-size: 8pt; color: #555; }
   .grille { columns: 2; column-gap: 14px; }
   .bloc { break-inside: avoid; border: 1px solid #c9d6e3; border-radius: 4px; padding: 6px 8px; margin: 0 0 10px; }
   .bloc ul { padding-left: 14px; font-size: 9.3pt; }
@@ -61,6 +66,17 @@ const CSS = `
 // Espace insécable dans les nombres (« 10 000 ») pour qu'ils ne soient pas coupés en fin de ligne.
 const insecables = (t) => t.replace(/(\d) (?=\d{3}(?!\d))/g, "$1&nbsp;");
 
+// « En images » : les illustrations des définitions de la RAN (outils/illustrations.js), ajoutées
+// après insecables(), qui abîmerait les coordonnées des SVG.
+function figuresRan(n) {
+  const d = DEFINITIONS.find((x) => x.n === n);
+  const figs = d ? d.items.filter(([notion]) => ILLUSTRATIONS_MATHS[notion]) : [];
+  if (!figs.length) return "";
+  return `<h2>En images</h2><div class="figs">${figs
+    .map(([notion]) => `<figure>${ILLUSTRATIONS_MATHS[notion]}<figcaption>${notion}</figcaption></figure>`)
+    .join("")}</div>`;
+}
+
 function pageRan(r) {
   const sections = r.sections.map((s) => `<h2>${s.h}</h2>${s.html}`).join("");
   return `<!doctype html><html lang="fr"><head><meta charset="utf-8"><style>${CSS}</style></head><body>
@@ -69,6 +85,7 @@ function pageRan(r) {
       <div class="sous">CRPE · Mathématiques · Remise à niveau ${r.n} sur 12 · Fiche de cours : définitions, propriétés, méthodes, exemples, pièges</div>
     </header>
     ${insecables(sections)}
+    ${figuresRan(r.n)}
     <h2>L'essentiel à retenir</h2>
     ${insecables(r.essentiel)}
     ${lienOC[r.n] ? `<div class="oc">Cours complet et exercices : Objectif CRPE → <a href="${lienOC[r.n]}">RAN ${r.n}</a>.</div>` : ""}
@@ -94,19 +111,21 @@ function pageDefinitions() {
   const blocs = DEFINITIONS.map(
     (d) => `<h2><span class="num">RAN ${d.n}</span>${d.titre}</h2>
     <table class="defs"><tr><th style="width:22%">Notion</th><th style="width:44%">Définition</th><th>Exemple</th></tr>
-    ${d.items.map(([notion, def, ex]) => `<tr><td><b>${notion}</b></td><td>${def}</td><td>${ex}</td></tr>`).join("")}
+    ${d.items.map(([notion, def, ex]) => `<tr><td><b>${notion}</b></td><td>${insecables(def)}</td><td>${insecables(ex)}${ILLUSTRATIONS_MATHS[notion] ? `<div class="fig">${ILLUSTRATIONS_MATHS[notion]}</div>` : ""}</td></tr>`).join("")}
     </table>`
   ).join("");
   return `<!doctype html><html lang="fr"><head><meta charset="utf-8"><style>${CSS}
     .defs { break-inside: auto; font-size: 9.3pt; }
     .defs tr { break-inside: avoid; }
     .defs td:last-child { background: #f4faf4; }
+    .fig { margin-top: 3px; }
+    .fig svg { height: 22mm; width: auto; }
   </style></head><body>
     <header>
       <h1>Fiche des définitions — les 12 RAN de maths</h1>
       <div class="sous">CRPE · Mathématiques · Chaque définition, dans le vocabulaire attendu, suivie d'un exemple. À savoir restituer mot pour mot : une justification commence presque toujours par une définition.</div>
     </header>
-    ${insecables(blocs)}
+    ${blocs}
   </body></html>`;
 }
 

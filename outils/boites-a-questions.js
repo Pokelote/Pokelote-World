@@ -14,6 +14,7 @@ const fs = require("fs");
 const path = require("path");
 const { DEFINITIONS, PROPRIETES } = require("./ran-maths-contenu");
 const { QUESTIONS_MATHS, FRANCAIS, HGEMC } = require("./boites-contenu");
+const { ILLUSTRATIONS_MATHS, ILLUSTRATIONS_QUESTIONS } = require("./illustrations");
 
 function loadPlaywright() {
   for (const p of ["playwright", "/opt/node22/lib/node_modules/playwright"]) {
@@ -40,15 +41,15 @@ DEFINITIONS.forEach((d) =>
   d.items.forEach(([notion, def, ex]) => {
     const q = QUESTIONS_MATHS[notion];
     if (!q) throw new Error(`Pas de question pour la définition « ${notion} »`);
-    cartes.push({ id: `d${d.n}-${slug(notion)}`, matiere: "maths", groupe: `RAN ${d.n}`, ran: d.n, type: "Définition", q, r: def, ex });
+    cartes.push({ id: `d${d.n}-${slug(notion)}`, matiere: "maths", groupe: `RAN ${d.n}`, ran: d.n, type: "Définition", q, r: def, ex, svg: ILLUSTRATIONS_MATHS[notion] });
   })
 );
 PROPRIETES.forEach(([ran, q, r, ex]) =>
   cartes.push({ id: `p${ran}-${slug(q)}`, matiere: "maths", groupe: `RAN ${ran}`, ran, type: "Propriété", q, r, ex })
 );
 cartes.sort((a, b) => a.ran - b.ran || (a.type === b.type ? 0 : a.type === "Définition" ? -1 : 1));
-FRANCAIS.forEach(([groupe, q, r, ex]) => cartes.push({ id: `f-${slug(q, 70)}`, matiere: "francais", groupe, type: groupe, q, r, ex }));
-HGEMC.forEach(([groupe, q, r, ex]) => cartes.push({ id: `h-${slug(q, 70)}`, matiere: "hgemc", groupe, type: groupe, q, r, ex }));
+FRANCAIS.forEach(([groupe, q, r, ex]) => cartes.push({ id: `f-${slug(q, 70)}`, matiere: "francais", groupe, type: groupe, q, r, ex, svg: ILLUSTRATIONS_QUESTIONS[q] }));
+HGEMC.forEach(([groupe, q, r, ex]) => cartes.push({ id: `h-${slug(q, 70)}`, matiere: "hgemc", groupe, type: groupe, q, r, ex, svg: ILLUSTRATIONS_QUESTIONS[q] }));
 const ids = new Set();
 cartes.forEach((c) => {
   if (ids.has(c.id)) throw new Error(`Identifiant de carte en double : ${c.id}`);
@@ -58,6 +59,7 @@ cartes.forEach((c) => {
 fs.mkdirSync(out, { recursive: true });
 // Espace insécable avant « ? », « : », « ; » et « ! » (typographie française : pas de « ? » seul en début de ligne).
 cartes.forEach((c) => ["q", "r", "ex"].forEach((k) => (c[k] = c[k].replace(/ ([?:;!])/g, "\u00a0$1"))));
+cartes.forEach((c) => c.svg === undefined && delete c.svg);
 fs.writeFileSync(path.join(out, "cartes-boites-a-questions.json"), JSON.stringify(cartes, null, 1) + "\n");
 console.log(`crpe/ran-maths/cartes-boites-a-questions.json (${cartes.length} cartes)`);
 
@@ -94,7 +96,7 @@ function feuilles(liste) {
     const versoHtml = verso
       .map((c) =>
         c
-          ? `<div class="carte dos"><div class="tag">${esc(c.groupe)} · réponse</div><div class="r">${esc(c.r)}</div><div class="ex"><b>Exemple :</b> ${esc(c.ex)}</div></div>`
+          ? `<div class="carte dos"><div class="tag">${esc(c.groupe)} · réponse</div><div class="r">${esc(c.r)}</div><div class="ex"><b>Exemple :</b> ${esc(c.ex)}</div>${c.svg ? `<div class="fig">${c.svg}</div>` : ""}</div>`
           : `<div class="carte vide"></div>`
       )
       .join("");
@@ -119,6 +121,8 @@ const CSS = `
   .q { font-size: 12pt; font-weight: bold; flex: 1; display: flex; align-items: center; line-height: 1.35; }
   .box { font-size: 7.5pt; color: #777; }
   .dos .r { font-size: 9.5pt; line-height: 1.35; }
+  .fig { margin-top: 2mm; text-align: center; }
+  .fig svg { height: 20mm; width: auto; }
   .dos .ex { font-size: 8.5pt; line-height: 1.35; margin-top: 2.5mm; padding: 2mm 3mm; background: #f4faf4; border-left: 2px solid #2e7d32; }
 `;
 

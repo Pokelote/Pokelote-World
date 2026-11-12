@@ -270,7 +270,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "105";
+const APP_VERSION = "106";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -6894,6 +6894,12 @@ function CrpeBoitesContent() {
               <div style={{ fontSize: 13, color: COLORS.text, lineHeight: 1.6, borderLeft: `2px solid ${COLORS.checked}`, paddingLeft: 10, marginBottom: 14 }}>
                 <b>Exemple :</b> {carte.ex}
               </div>
+              {carte.svg && (
+                <div
+                  style={{ color: COLORS.text, maxWidth: 280, margin: "0 0 14px" }}
+                  dangerouslySetInnerHTML={{ __html: carte.svg.replace(/width="\d+" height="\d+"/, 'width="100%" height="auto"') }}
+                />
+              )}
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                 <button onClick={() => repondre(true)} style={gros(COLORS.checked)}>
                   ✅ Bien répondu · revient dans {CRPE_BOITES_DELAI_OK} jours
