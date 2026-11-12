@@ -217,7 +217,7 @@ const ILLUSTRATIONS_QUESTIONS = {
   // Français
   "Qu'est-ce que le sujet ? Comment l'identifier ?": svg(
     `<rect x="6" y="16" width="62" height="20" fill="currentColor" fill-opacity="0.15"/><rect x="72" y="16" width="38" height="20"/>` +
-      txt(37, 30, "Les enfants", { s: 9 }) + txt(91, 30, "jouent", { s: 9 }) + txt(114, 30, "dans la cour.", { s: 8, a: "start" }) + txt(37, 48, "sujet", { s: 8 }) + txt(91, 48, "verbe", { s: 8 }) +
+      txt(37, 30, "Les enfants", { s: 9 }) + txt(91, 30, "jouent", { s: 9 }) + txt(113, 30, "dans la cour.", { s: 6.5, a: "start" }) + txt(37, 48, "sujet", { s: 8 }) + txt(91, 48, "verbe", { s: 8 }) +
       txt(80, 74, "« C'est les enfants QUI jouent »", { s: 8, i: true })
   ),
   "Qu'est-ce qu'un complément de phrase (anciennement complément circonstanciel) ?": svg(

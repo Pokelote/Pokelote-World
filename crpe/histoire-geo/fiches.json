@@ -1,0 +1,27 @@
+[
+ {
+  "fichier": "fiche-01-epreuve-et-demarche.pdf",
+  "titre": "HG-EMC 1 — L'épreuve et la démarche en histoire-géographie",
+  "etape": "p-a-hg-intro"
+ },
+ {
+  "fichier": "fiche-02-se-reperer-dans-le-temps.pdf",
+  "titre": "HG-EMC 2 — Se repérer dans le temps",
+  "etape": "p-a-hg-temps"
+ },
+ {
+  "fichier": "fiche-03-se-reperer-dans-l-espace.pdf",
+  "titre": "HG-EMC 3 — Se repérer dans l'espace : notions de géographie",
+  "etape": "p-a-hg-espace"
+ },
+ {
+  "fichier": "fiche-04-emc.pdf",
+  "titre": "HG-EMC 4 — L'enseignement moral et civique (EMC)",
+  "etape": "p-a-hg-emc"
+ },
+ {
+  "fichier": "fiche-05-themes-du-cycle-3.pdf",
+  "titre": "HG-EMC 5 — Les thèmes d'histoire et de géographie du cycle 3",
+  "etape": "p-a-hg-themes"
+ }
+]

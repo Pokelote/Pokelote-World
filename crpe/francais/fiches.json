@@ -1,0 +1,42 @@
+[
+ {
+  "fichier": "fiche-01-classes-de-mots.pdf",
+  "titre": "Français 1 — Les classes de mots",
+  "etape": "p-f-classes"
+ },
+ {
+  "fichier": "fiche-02-fonctions.pdf",
+  "titre": "Français 2 — Les fonctions dans la phrase",
+  "etape": "p-f-fonctions"
+ },
+ {
+  "fichier": "fiche-03-phrase.pdf",
+  "titre": "Français 3 — La phrase simple et complexe",
+  "etape": "p-f-phrase"
+ },
+ {
+  "fichier": "fiche-04-conjugaison.pdf",
+  "titre": "Français 4 — Conjugaison : formation des temps et des modes",
+  "etape": "p-f-conjugaison"
+ },
+ {
+  "fichier": "fiche-05-valeurs-des-temps.pdf",
+  "titre": "Français 5 — Valeurs des temps et des modes",
+  "etape": "p-f-temps"
+ },
+ {
+  "fichier": "fiche-06-accords.pdf",
+  "titre": "Français 6 — Les accords (orthographe grammaticale)",
+  "etape": "p-f-accords"
+ },
+ {
+  "fichier": "fiche-07-lexique.pdf",
+  "titre": "Français 7 — Lexique : formation des mots et sens",
+  "etape": "p-f-lexique"
+ },
+ {
+  "fichier": "fiche-08-orthographe.pdf",
+  "titre": "Français 8 — Orthographe lexicale et homophones",
+  "etape": "p-f-orthographe"
+ }
+]
