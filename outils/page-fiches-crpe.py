@@ -154,6 +154,8 @@ index = page("Mes fiches CRPE", f"""
 <h1>Mes fiches CRPE</h1>
 <p class="sub">Toutes les fiches préparées pour toi, accessibles depuis n'importe quel téléphone ou ordinateur. Touche un titre pour ouvrir le PDF.</p>
 <div class="note">Pour recopier sur papier : commence par la <b>fiche des définitions</b> (une définition, un exemple), puis la <b>fiche de révision</b>. Les fiches des RAN détaillent chaque chapitre.</div>
+<h2>Frise chronologique de l'histoire de France</h2>
+<p><a href="./frise-histoire-france.png" target="_blank" rel="noreferrer"><img src="./frise-histoire-france.png" alt="Frise chronologique de l'histoire de France : périodes et repères du cycle 3" style="width:100%;border-radius:10px;border:1px solid var(--line)"></a></p>
 <h2>À recopier — fiches de cours</h2>
 <ul>{"".join(fiche_li(*f) for f in FICHES)}</ul>
 <h2>Pour t'entraîner</h2>

@@ -73,7 +73,7 @@ const esc = (t) =>
 const PAQUETS = [
   { matiere: "maths", titre: "RAN de maths", fichier: "boites-a-questions-cartes.pdf", conseil: "Commence par les RAN déjà travaillées (3, 4, 5), puis ajoute les autres au fur et à mesure du parcours." },
   { matiere: "francais", titre: "Français (grammaire, lexique, orthographe)", fichier: "boites-a-questions-francais.pdf", conseil: "Vocabulaire de la « Grammaire du français — Terminologie grammaticale » (Eduscol) : commence par les classes de mots et les fonctions." },
-  { matiere: "hgemc", titre: "Histoire-géographie-EMC", fichier: "boites-a-questions-histoire-geo-emc.pdf", conseil: "Repères et notions des programmes du cycle 3, utiles pour l'épreuve d'application si tu choisis ce domaine." },
+  { matiere: "hgemc", titre: "Histoire-géographie-EMC", fichier: "boites-a-questions-histoire-geo-emc.pdf", conseil: "Repères et notions des programmes du cycle 3, utiles pour l'épreuve d'application si tu choisis ce domaine.", image: "frise-histoire-france.png" },
 ];
 
 // 8 cartes par feuille (2 colonnes × 4 lignes). Le verso inverse les colonnes de chaque ligne pour
@@ -149,6 +149,7 @@ function document(paquet, liste) {
     </ul>
     <h2>Sur le site</h2>
     <p>L'onglet « Boîtes à questions » (Apprentissage → Révisions CRPE) fait la même chose sans papier : il te présente chaque jour les cartes à revoir, et tu indiques si tu as bien répondu ; il recalcule tout seul la date de la prochaine fois (7 jours ou le lendemain).</p>
+    ${paquet.image ? `<h2>La frise à avoir en tête</h2><img src="data:image/png;base64,${fs.readFileSync(path.join(root, "crpe", paquet.image)).toString("base64")}" style="width:100%;border:1px solid #ccc;border-radius:4px">` : ""}
     <h2>Nombre de cartes par thème</h2>
     <p>${Object.entries(parGroupe).map(([g, n]) => `${esc(g)} : ${n}`).join(" · ")}</p>
   </div>
