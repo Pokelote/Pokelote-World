@@ -5,6 +5,7 @@
 # Usage : python3 outils/page-fiches-crpe.py
 import glob
 import html
+import json
 import os
 
 import pypdf
@@ -36,11 +37,36 @@ RAN = [
 ]
 
 # Fiches créées pour Clément (à recopier).
-FICHES = [
-    ("ran-maths/fiches-tout-en-un.pdf", "📚 Toutes les fiches en un seul PDF", "fiche de révision + définitions + les 12 fiches RAN"),
+FICHES_MATHS = [
+    ("ran-maths/fiches-tout-en-un.pdf", "📚 Toutes les fiches de maths en un seul PDF", "fiche de révision + définitions + les 12 fiches RAN"),
     ("ran-maths/fiche-revision-toutes-les-ran.pdf", "Fiche de révision — les 12 RAN", "l'essentiel de chaque RAN + formulaire"),
     ("ran-maths/fiche-definitions-ran-maths.pdf", "Fiche des définitions — les 12 RAN", "une définition, un exemple"),
 ] + [(f"ran-maths/ran-{slug}.pdf", f"RAN {int(slug[:2])} — {titre}", "définitions, propriétés, méthodes, exemples, pièges") for slug, titre in RAN]
+
+
+# Fiches de français et d'histoire-géo-EMC (node outils/pdf-fiches-francais-hg.js) : la fiche de
+# révision puis les fiches numérotées ; le tout-en-un est assemblé ici.
+def fiches_dossier(dossier, revision, court, nom_complet):
+    liste = json.load(open(os.path.join(CRPE, dossier, "fiches.json")))
+    nums = [f["fichier"] for f in liste]
+    tout = f"{dossier}/fiches-tout-en-un.pdf"
+    w = pypdf.PdfWriter()
+    for f in [revision] + nums:
+        w.append(os.path.join(CRPE, dossier, f))
+    w.add_metadata({"/Title": f"Fiches CRPE — {nom_complet}"})
+    with open(os.path.join(CRPE, tout), "wb") as fh:
+        w.write(fh)
+    return [
+        (tout, f"📚 Toutes les fiches {court} en un seul PDF", f"fiche de révision + les {len(nums)} fiches"),
+        (f"{dossier}/{revision}", f"Fiche de révision — {nom_complet}", "l'essentiel de chaque fiche"),
+    ] + [(f"{dossier}/{f['fichier']}", f["titre"], "définitions, règles, méthodes, exemples, pièges") for f in liste]
+
+
+FICHES_GROUPES = [
+    ("Mathématiques — les 12 RAN", FICHES_MATHS),
+    ("Français", fiches_dossier("francais", "fiche-revision-francais.pdf", "de français", "Français")),
+    ("Histoire-géographie-EMC", fiches_dossier("histoire-geo", "fiche-revision-histoire-geo-emc.pdf", "d'histoire-géo-EMC", "Histoire-géographie-EMC")),
+]
 
 ENTRAINEMENT = [
     ("seances-guidees/2026-10-27-guidee.pdf", "Séance guidée du 27/10 (à faire)", "fraction-quotient, erreur d'élève, PGCD/PPCM — aides et corrigés à la fin"),
@@ -153,11 +179,11 @@ mixtes = "".join(
 index = page("Mes fiches CRPE", f"""
 <h1>Mes fiches CRPE</h1>
 <p class="sub">Toutes les fiches préparées pour toi, accessibles depuis n'importe quel téléphone ou ordinateur. Touche un titre pour ouvrir le PDF.</p>
-<div class="note">Pour recopier sur papier : commence par la <b>fiche des définitions</b> (une définition, un exemple), puis la <b>fiche de révision</b>. Les fiches des RAN détaillent chaque chapitre.</div>
+<div class="note">Pour recopier sur papier : commence par la <b>fiche des définitions</b> (une définition, un exemple), puis la <b>fiche de révision</b>. Les fiches des RAN détaillent chaque chapitre. En français et en histoire-géo-EMC, une fiche par étape du parcours, avec sa fiche de révision.</div>
 <h2>Frise chronologique de l'histoire de France</h2>
 <p><a href="./frise-histoire-france.png" target="_blank" rel="noreferrer"><img src="./frise-histoire-france.png" alt="Frise chronologique de l'histoire de France : périodes et repères du cycle 3" style="width:100%;border-radius:10px;border:1px solid var(--line)"></a></p>
 <h2>À recopier — fiches de cours</h2>
-<ul>{"".join(fiche_li(*f) for f in FICHES)}</ul>
+{"".join(f'<h3>{esc(g)}</h3><ul>{"".join(fiche_li(*f) for f in liste)}</ul>' for g, liste in FICHES_GROUPES)}
 <h2>Pour t'entraîner</h2>
 <ul>{"".join(fiche_li(*f) for f in ENTRAINEMENT)}</ul>
 <h2>Exercices mixtes déjà faits (énoncés ; corrigés à côté sur le site)</h2>
@@ -172,7 +198,9 @@ liste = page("Polycopiés CRPE à imprimer", f"""
 <p class="sub">Concours externe M2 (bac+5), session 2027. Coche au fur et à mesure. Les cours « Objectif CRPE » se téléchargent depuis la plateforme (live.objectif-crpe.fr) ou depuis le dossier CRPE du PC ; les autres sont sur la page « Mes fiches CRPE » du site. Ne pas imprimer les cours marqués « L3 ». Conseil : recto verso, agrafé par polycopié.</p>
 {polys_html(True)}
 <h2>Fiches de Claude (facultatif, à recopier plutôt qu'imprimer)</h2>
-<ul>{poly_li("Toutes les fiches en un seul PDF (révision, définitions, 12 RAN)", "Site — Mes fiches CRPE", "ran-maths/fiches-tout-en-un.pdf", True)}</ul>
+<ul>{poly_li("Maths : toutes les fiches en un seul PDF (révision, définitions, 12 RAN)", "Site — Mes fiches CRPE", "ran-maths/fiches-tout-en-un.pdf", True)}
+{poly_li("Français : toutes les fiches en un seul PDF (révision + 8 fiches)", "Site — Mes fiches CRPE", "francais/fiches-tout-en-un.pdf", True)}
+{poly_li("Histoire-géo-EMC : toutes les fiches en un seul PDF (révision + 5 fiches)", "Site — Mes fiches CRPE", "histoire-geo/fiches-tout-en-un.pdf", True)}</ul>
 """)
 open(os.path.join(CRPE, "index.html"), "w").write(index)
 open(os.path.join(CRPE, "polycopies-a-imprimer.html"), "w").write(liste)
