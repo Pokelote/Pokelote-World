@@ -44,7 +44,9 @@ FICHES = [
 
 ENTRAINEMENT = [
     ("seances-guidees/2026-10-27-guidee.pdf", "Séance guidée du 27/10 (à faire)", "fraction-quotient, erreur d'élève, PGCD/PPCM — aides et corrigés à la fin"),
-    ("ran-maths/boites-a-questions-cartes.pdf", "Boîtes à questions — cartes à imprimer", "recto verso, bord long ; mode d'emploi en page 1"),
+    ("ran-maths/boites-a-questions-cartes.pdf", "Boîtes à questions — maths (cartes à imprimer)", "recto verso, bord long ; mode d'emploi en page 1"),
+    ("ran-maths/boites-a-questions-francais.pdf", "Boîtes à questions — français (cartes à imprimer)", "grammaire, lexique, orthographe ; recto verso, bord long"),
+    ("ran-maths/boites-a-questions-histoire-geo-emc.pdf", "Boîtes à questions — histoire-géo-EMC (cartes à imprimer)", "repères, notions, EMC ; recto verso, bord long"),
 ]
 MIXTES = sorted({os.path.basename(f).rsplit("-", 1)[0] for f in glob.glob(os.path.join(CRPE, "exercices-mixtes", "*-enonces.pdf"))}, reverse=True)
 
