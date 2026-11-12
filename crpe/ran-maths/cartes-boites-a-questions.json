@@ -1,874 +1,1776 @@
 [
  {
   "id": "d1-droite-segment-demi-droite",
+  "matiere": "maths",
+  "groupe": "RAN 1",
   "ran": 1,
   "type": "Définition",
-  "q": "Droite, segment, demi-droite : donne la définition et un exemple.",
-  "r": "(AB) : droite illimitée passant par A et B ; [AB] : portion de droite limitée par A et B ; [AB) : demi-droite d'origine A passant par B.",
-  "ex": "AB = 5 cm est la longueur du segment [AB] ; on n'écrit jamais (AB) = 5 cm."
+  "q": "Quelle différence fais-tu entre (AB), [AB], [AB) et AB ?",
+  "r": "(AB) : droite illimitée passant par A et B ; [AB] : portion de droite limitée par A et B ; [AB) : demi-droite d'origine A passant par B.",
+  "ex": "AB = 5 cm est la longueur du segment [AB] ; on n'écrit jamais (AB) = 5 cm."
  },
  {
   "id": "d1-points-alignes",
+  "matiere": "maths",
+  "groupe": "RAN 1",
   "ran": 1,
   "type": "Définition",
-  "q": "Points alignés : donne la définition et un exemple.",
+  "q": "Quand dit-on que des points sont alignés ?",
   "r": "Points qui appartiennent à une même droite.",
   "ex": "Si M est le milieu de [AB], alors A, M et B sont alignés."
  },
  {
   "id": "d1-droites-paralleles-perpendiculaires",
+  "matiere": "maths",
+  "groupe": "RAN 1",
   "ran": 1,
   "type": "Définition",
-  "q": "Droites parallèles / perpendiculaires : donne la définition et un exemple.",
-  "r": "Parallèles : aucun point commun ou confondues. Perpendiculaires : sécantes en formant un angle droit.",
-  "ex": "Les bords opposés d'une feuille sont parallèles ; deux bords consécutifs sont perpendiculaires."
+  "q": "Quand deux droites sont-elles parallèles ? perpendiculaires ?",
+  "r": "Parallèles : aucun point commun ou confondues. Perpendiculaires : sécantes en formant un angle droit.",
+  "ex": "Les bords opposés d'une feuille sont parallèles ; deux bords consécutifs sont perpendiculaires."
  },
  {
   "id": "d1-milieu",
+  "matiere": "maths",
+  "groupe": "RAN 1",
   "ran": 1,
   "type": "Définition",
-  "q": "Milieu : donne la définition et un exemple.",
+  "q": "Comment définit-on le milieu d'un segment [AB] ?",
   "r": "Point I de [AB] tel que IA = IB.",
   "ex": "Si AB = 8 cm, le milieu I vérifie IA = IB = 4 cm."
  },
  {
   "id": "d1-mediatrice",
+  "matiere": "maths",
+  "groupe": "RAN 1",
   "ran": 1,
   "type": "Définition",
-  "q": "Médiatrice : donne la définition et un exemple.",
-  "r": "Droite perpendiculaire à un segment en son milieu ; c'est l'ensemble des points équidistants des extrémités.",
+  "q": "Qu'est-ce que la médiatrice d'un segment ? Quelle propriété ont ses points ?",
+  "r": "Droite perpendiculaire à un segment en son milieu ; c'est l'ensemble des points équidistants des extrémités.",
   "ex": "Si MA = MB = 6 cm, alors M est sur la médiatrice de [AB]."
  },
  {
   "id": "d1-cercle",
+  "matiere": "maths",
+  "groupe": "RAN 1",
   "ran": 1,
   "type": "Définition",
-  "q": "Cercle : donne la définition et un exemple.",
+  "q": "Comment définit-on un cercle ? Que sont son rayon et son diamètre ?",
   "r": "Ensemble des points situés à une même distance r (le rayon) d'un point O (le centre).",
-  "ex": "Cercle de centre O et de rayon 3 cm : tout point M du cercle vérifie OM = 3 cm ; son diamètre mesure 6 cm."
+  "ex": "Cercle de centre O et de rayon 3 cm : tout point M du cercle vérifie OM = 3 cm ; son diamètre mesure 6 cm."
  },
  {
   "id": "d1-distance-d-un-point-a-une-droite",
+  "matiere": "maths",
+  "groupe": "RAN 1",
   "ran": 1,
   "type": "Définition",
-  "q": "Distance d'un point à une droite : donne la définition et un exemple.",
-  "r": "Longueur AH, où H est le pied de la perpendiculaire à la droite passant par A ; c'est la plus courte distance.",
+  "q": "Comment mesure-t-on la distance d'un point A à une droite (d) ?",
+  "r": "Longueur AH, où H est le pied de la perpendiculaire à la droite passant par A ; c'est la plus courte distance.",
   "ex": "A est à 4 cm de (d) si la perpendiculaire à (d) issue de A la coupe en H avec AH = 4 cm."
  },
  {
   "id": "d1-angles-complementaires-supplementaires",
+  "matiere": "maths",
+  "groupe": "RAN 1",
   "ran": 1,
   "type": "Définition",
-  "q": "Angles complémentaires / supplémentaires : donne la définition et un exemple.",
-  "r": "Complémentaires : somme 90° ; supplémentaires : somme 180°.",
-  "ex": "35° et 55° sont complémentaires ; 35° et 145° sont supplémentaires."
+  "q": "Que sont deux angles complémentaires ? supplémentaires ?",
+  "r": "Complémentaires : somme 90° ; supplémentaires : somme 180°.",
+  "ex": "35° et 55° sont complémentaires ; 35° et 145° sont supplémentaires."
  },
  {
   "id": "d1-hauteur-d-un-triangle",
+  "matiere": "maths",
+  "groupe": "RAN 1",
   "ran": 1,
   "type": "Définition",
-  "q": "Hauteur d'un triangle : donne la définition et un exemple.",
+  "q": "Qu'est-ce qu'une hauteur dans un triangle ?",
   "r": "Droite passant par un sommet et perpendiculaire au côté opposé.",
   "ex": "Dans ABC, la hauteur issue de A coupe (BC) en H avec (AH) ⊥ (BC)."
  },
  {
   "id": "d1-mediane-d-un-triangle",
+  "matiere": "maths",
+  "groupe": "RAN 1",
   "ran": 1,
   "type": "Définition",
-  "q": "Médiane d'un triangle : donne la définition et un exemple.",
+  "q": "Qu'est-ce qu'une médiane dans un triangle ?",
   "r": "Droite (ou segment) joignant un sommet au milieu du côté opposé.",
   "ex": "Si I est le milieu de [BC], (AI) est la médiane issue de A."
  },
  {
   "id": "p1-que-peut-on-dire-de-deux-droites-perpend",
+  "matiere": "maths",
+  "groupe": "RAN 1",
   "ran": 1,
   "type": "Propriété",
-  "q": "Que peut-on dire de deux droites perpendiculaires à une même droite ?",
+  "q": "Que peut-on dire de deux droites perpendiculaires à une même droite ?",
   "r": "Elles sont parallèles entre elles.",
   "ex": "(d1) ⊥ (d) et (d2) ⊥ (d), donc (d1) // (d2)."
  },
  {
   "id": "p1-que-vaut-la-somme-des-angles-d-un-triang",
+  "matiere": "maths",
+  "groupe": "RAN 1",
   "ran": 1,
   "type": "Propriété",
-  "q": "Que vaut la somme des angles d'un triangle ?",
+  "q": "Que vaut la somme des angles d'un triangle ?",
   "r": "180°.",
   "ex": "Â = 48° et B̂ = 67°, donc Ĉ = 180° − 48° − 67° = 65°."
  },
  {
   "id": "p1-quand-peut-on-construire-un-triangle-de-",
+  "matiere": "maths",
+  "groupe": "RAN 1",
   "ran": 1,
   "type": "Propriété",
-  "q": "Quand peut-on construire un triangle de côtés a ≤ b ≤ c ?",
+  "q": "Quand peut-on construire un triangle de côtés a ≤ b ≤ c ?",
   "r": "Si et seulement si c < a + b (inégalité triangulaire).",
-  "ex": "4, 5 et 10 cm : 4 + 5 = 9 < 10, le triangle n'est pas constructible."
+  "ex": "4, 5 et 10 cm : 4 + 5 = 9 < 10, le triangle n'est pas constructible."
  },
  {
   "id": "d2-symetrique-par-rapport-a-une-droite",
+  "matiere": "maths",
+  "groupe": "RAN 2",
   "ran": 2,
   "type": "Définition",
-  "q": "Symétrique par rapport à une droite : donne la définition et un exemple.",
+  "q": "Quand dit-on que M' est le symétrique de M par rapport à une droite (d) ?",
   "r": "M' est le symétrique de M par rapport à (d) si (d) est la médiatrice de [MM'].",
-  "ex": "Le symétrique d'un point de l'axe est lui-même ; une figure et son symétrique se superposent par pliage."
+  "ex": "Le symétrique d'un point de l'axe est lui-même ; une figure et son symétrique se superposent par pliage."
  },
  {
   "id": "d2-symetrique-par-rapport-a-un-point",
+  "matiere": "maths",
+  "groupe": "RAN 2",
   "ran": 2,
   "type": "Définition",
-  "q": "Symétrique par rapport à un point : donne la définition et un exemple.",
+  "q": "Quand dit-on que M' est le symétrique de M par rapport à un point O ?",
   "r": "M' est le symétrique de M par rapport à O si O est le milieu de [MM'].",
-  "ex": "Si O(0 ; 0) et M(3 ; 2), alors M'(−3 ; −2)."
+  "ex": "Si O(0 ; 0) et M(3 ; 2), alors M'(−3 ; −2)."
  },
  {
   "id": "d2-axe-centre-de-symetrie-d-une-figure",
+  "matiere": "maths",
+  "groupe": "RAN 2",
   "ran": 2,
   "type": "Définition",
-  "q": "Axe / centre de symétrie d'une figure : donne la définition et un exemple.",
-  "r": "Axe : droite telle que la figure est sa propre image par la symétrie axiale. Centre : point tel que la figure est sa propre image par la symétrie centrale.",
-  "ex": "Le rectangle a 2 axes et un centre de symétrie ; la lettre A a un axe, la lettre N un centre."
+  "q": "Qu'est-ce qu'un axe de symétrie d'une figure ? un centre de symétrie ?",
+  "r": "Axe : droite telle que la figure est sa propre image par la symétrie axiale. Centre : point tel que la figure est sa propre image par la symétrie centrale.",
+  "ex": "Le rectangle a 2 axes et un centre de symétrie ; la lettre A a un axe, la lettre N un centre."
  },
  {
   "id": "d2-polygone-regulier",
+  "matiere": "maths",
+  "groupe": "RAN 2",
   "ran": 2,
   "type": "Définition",
-  "q": "Polygone régulier : donne la définition et un exemple.",
+  "q": "Qu'est-ce qu'un polygone régulier ?",
   "r": "Polygone dont tous les côtés ont la même longueur et tous les angles la même mesure.",
-  "ex": "Le carré et le triangle équilatéral ; un losange non carré n'est pas régulier (angles différents)."
+  "ex": "Le carré et le triangle équilatéral ; un losange non carré n'est pas régulier (angles différents)."
  },
  {
   "id": "d2-triangle-isocele",
+  "matiere": "maths",
+  "groupe": "RAN 2",
   "ran": 2,
   "type": "Définition",
-  "q": "Triangle isocèle : donne la définition et un exemple.",
+  "q": "Qu'est-ce qu'un triangle isocèle ? Quelle propriété ont ses angles ?",
   "r": "Triangle qui a deux côtés de même longueur.",
-  "ex": "ABC avec AB = AC = 5 cm, isocèle en A : ses angles B̂ et Ĉ sont égaux."
+  "ex": "ABC avec AB = AC = 5 cm, isocèle en A : ses angles B̂ et Ĉ sont égaux."
  },
  {
   "id": "d2-parallelogramme",
+  "matiere": "maths",
+  "groupe": "RAN 2",
   "ran": 2,
   "type": "Définition",
-  "q": "Parallélogramme : donne la définition et un exemple.",
+  "q": "Qu'est-ce qu'un parallélogramme ? Quelle propriété ont ses diagonales ?",
   "r": "Quadrilatère dont les côtés opposés sont parallèles deux à deux.",
-  "ex": "ABCD avec (AB) // (CD) et (AD) // (BC) ; ses diagonales se coupent en leur milieu."
+  "ex": "ABCD avec (AB) // (CD) et (AD) // (BC) ; ses diagonales se coupent en leur milieu."
  },
  {
   "id": "d2-rectangle",
+  "matiere": "maths",
+  "groupe": "RAN 2",
   "ran": 2,
   "type": "Définition",
-  "q": "Rectangle : donne la définition et un exemple.",
+  "q": "Qu'est-ce qu'un rectangle ? Quelle propriété ont ses diagonales ?",
   "r": "Quadrilatère qui a quatre angles droits.",
-  "ex": "Une feuille A4 (21 × 29,7 cm) ; ses diagonales ont la même longueur."
+  "ex": "Une feuille A4 (21 × 29,7 cm) ; ses diagonales ont la même longueur."
  },
  {
   "id": "d2-losange",
+  "matiere": "maths",
+  "groupe": "RAN 2",
   "ran": 2,
   "type": "Définition",
-  "q": "Losange : donne la définition et un exemple.",
+  "q": "Qu'est-ce qu'un losange ? Quelle propriété ont ses diagonales ?",
   "r": "Quadrilatère qui a quatre côtés de même longueur.",
-  "ex": "Un losange de côté 4 cm ; ses diagonales sont perpendiculaires."
+  "ex": "Un losange de côté 4 cm ; ses diagonales sont perpendiculaires."
  },
  {
   "id": "d2-carre",
+  "matiere": "maths",
+  "groupe": "RAN 2",
   "ran": 2,
   "type": "Définition",
-  "q": "Carré : donne la définition et un exemple.",
+  "q": "Qu'est-ce qu'un carré (définition à partir du rectangle et du losange) ?",
   "r": "Quadrilatère qui est à la fois un rectangle et un losange.",
-  "ex": "Un carré de côté 3 cm : 4 angles droits, 4 côtés de 3 cm, 4 axes de symétrie."
+  "ex": "Un carré de côté 3 cm : 4 angles droits, 4 côtés de 3 cm, 4 axes de symétrie."
  },
  {
   "id": "d2-trapeze",
+  "matiere": "maths",
+  "groupe": "RAN 2",
   "ran": 2,
   "type": "Définition",
-  "q": "Trapèze : donne la définition et un exemple.",
+  "q": "Qu'est-ce qu'un trapèze ?",
   "r": "Quadrilatère qui a deux côtés parallèles (les bases).",
   "ex": "ABCD avec (AB) // (CD), AB = 8 cm et CD = 5 cm."
  },
  {
   "id": "p2-comment-reconnaitre-un-parallelogramme-p",
+  "matiere": "maths",
+  "groupe": "RAN 2",
   "ran": 2,
   "type": "Propriété",
-  "q": "Comment reconnaître un parallélogramme par ses diagonales ?",
+  "q": "Comment reconnaître un parallélogramme par ses diagonales ?",
   "r": "Un quadrilatère dont les diagonales se coupent en leur milieu est un parallélogramme.",
-  "ex": "[AC] et [BD] ont le même milieu O : ABCD est un parallélogramme."
+  "ex": "[AC] et [BD] ont le même milieu O : ABCD est un parallélogramme."
  },
  {
   "id": "p2-quand-un-parallelogramme-est-il-un-recta",
+  "matiere": "maths",
+  "groupe": "RAN 2",
   "ran": 2,
   "type": "Propriété",
-  "q": "Quand un parallélogramme est-il un rectangle ? un losange ?",
-  "r": "Rectangle : un angle droit ou des diagonales de même longueur. Losange : deux côtés consécutifs égaux ou des diagonales perpendiculaires.",
+  "q": "Quand un parallélogramme est-il un rectangle ? un losange ?",
+  "r": "Rectangle : un angle droit ou des diagonales de même longueur. Losange : deux côtés consécutifs égaux ou des diagonales perpendiculaires.",
   "ex": "Un parallélogramme aux diagonales de 6 cm et 6 cm est un rectangle."
  },
  {
   "id": "d3-somme-difference-produit-quotient",
+  "matiere": "maths",
+  "groupe": "RAN 3",
   "ran": 3,
   "type": "Définition",
-  "q": "Somme, différence, produit, quotient : donne la définition et un exemple.",
-  "r": "Résultats de l'addition, de la soustraction, de la multiplication et de la division ; les nombres additionnés sont les termes, les nombres multipliés les facteurs.",
+  "q": "Comment s'appellent le résultat et les nombres de chacune des quatre opérations ?",
+  "r": "Résultats de l'addition, de la soustraction, de la multiplication et de la division ; les nombres additionnés sont les termes, les nombres multipliés les facteurs.",
   "ex": "Dans 6 × 7 = 42, 6 et 7 sont les facteurs, 42 est le produit."
  },
  {
   "id": "d3-chiffre-nombre-de",
+  "matiere": "maths",
+  "groupe": "RAN 3",
   "ran": 3,
   "type": "Définition",
-  "q": "Chiffre / nombre de : donne la définition et un exemple.",
-  "r": "Le chiffre d'un rang est le symbole écrit à ce rang ; le nombre de (dizaines, centaines…) compte toutes les unités de ce rang contenues dans le nombre.",
-  "ex": "3 457 : chiffre des centaines 4 ; nombre de centaines 34."
+  "q": "Dans 3 457, quelle différence entre « le chiffre des centaines » et « le nombre de centaines » ?",
+  "r": "Le chiffre d'un rang est le symbole écrit à ce rang ; le nombre de (dizaines, centaines…) compte toutes les unités de ce rang contenues dans le nombre.",
+  "ex": "3 457 : chiffre des centaines 4 ; nombre de centaines 34."
  },
  {
   "id": "d3-division-euclidienne",
+  "matiere": "maths",
+  "groupe": "RAN 3",
   "ran": 3,
   "type": "Définition",
-  "q": "Division euclidienne : donne la définition et un exemple.",
-  "r": "Diviser a par b (b ≠ 0), c'est trouver l'unique couple d'entiers (q ; r) tel que a = b × q + r avec 0 ≤ r < b.",
-  "ex": "47 = 6 × 7 + 5 : quotient 7, reste 5 (5 < 6)."
+  "q": "Qu'est-ce que la division euclidienne de a par b ? Quelles sont ses deux conditions ?",
+  "r": "Diviser a par b (b ≠ 0), c'est trouver l'unique couple d'entiers (q ; r) tel que a = b × q + r avec 0 ≤ r < b.",
+  "ex": "47 = 6 × 7 + 5 : quotient 7, reste 5 (5 < 6)."
  },
  {
   "id": "d3-dividende-diviseur-quotient-reste",
+  "matiere": "maths",
+  "groupe": "RAN 3",
   "ran": 3,
   "type": "Définition",
-  "q": "Dividende, diviseur, quotient, reste : donne la définition et un exemple.",
-  "r": "Dans a = b × q + r : a est le dividende, b le diviseur, q le quotient, r le reste.",
-  "ex": "Dans 47 = 6 × 7 + 5 : dividende 47, diviseur 6, quotient 7, reste 5."
+  "q": "Dans a = b × q + r, comment s'appellent a, b, q et r ?",
+  "r": "Dans a = b × q + r : a est le dividende, b le diviseur, q le quotient, r le reste.",
+  "ex": "Dans 47 = 6 × 7 + 5 : dividende 47, diviseur 6, quotient 7, reste 5."
  },
  {
   "id": "d3-commutativite",
+  "matiere": "maths",
+  "groupe": "RAN 3",
   "ran": 3,
   "type": "Définition",
-  "q": "Commutativité : donne la définition et un exemple.",
+  "q": "Que dit la commutativité ? Pour quelles opérations est-elle vraie ?",
   "r": "On peut échanger l'ordre des nombres sans changer le résultat (vrai pour + et ×).",
-  "ex": "25 × 37 × 4 = 25 × 4 × 37 = 3 700 ; mais 12 ÷ 4 ≠ 4 ÷ 12."
+  "ex": "25 × 37 × 4 = 25 × 4 × 37 = 3 700 ; mais 12 ÷ 4 ≠ 4 ÷ 12."
  },
  {
   "id": "d3-associativite",
+  "matiere": "maths",
+  "groupe": "RAN 3",
   "ran": 3,
   "type": "Définition",
-  "q": "Associativité : donne la définition et un exemple.",
+  "q": "Que dit l'associativité ? Pour quelles opérations est-elle vraie ?",
   "r": "On peut regrouper les nombres comme on veut sans changer le résultat (vrai pour + et ×).",
   "ex": "(17 + 25) + 75 = 17 + (25 + 75) = 117."
  },
  {
   "id": "d3-distributivite",
+  "matiere": "maths",
+  "groupe": "RAN 3",
   "ran": 3,
   "type": "Définition",
-  "q": "Distributivité : donne la définition et un exemple.",
+  "q": "Énonce la distributivité de la multiplication sur l'addition.",
   "r": "k × (a + b) = k × a + k × b (de la multiplication sur l'addition, ou sur la soustraction).",
   "ex": "17 × 99 = 17 × (100 − 1) = 1 700 − 17 = 1 683."
  },
  {
   "id": "d3-conservation-des-ecarts",
+  "matiere": "maths",
+  "groupe": "RAN 3",
   "ran": 3,
   "type": "Définition",
-  "q": "Conservation des écarts : donne la définition et un exemple.",
-  "r": "a − b = (a + c) − (b + c) : la différence ne change pas si l'on ajoute le même nombre aux deux termes.",
+  "q": "Qu'est-ce que la conservation des écarts ? À quoi sert-elle ?",
+  "r": "a − b = (a + c) − (b + c) : la différence ne change pas si l'on ajoute le même nombre aux deux termes.",
   "ex": "1 000 − 398 = 1 002 − 400 = 602."
  },
  {
   "id": "d3-conservation-du-quotient",
+  "matiere": "maths",
+  "groupe": "RAN 3",
   "ran": 3,
   "type": "Définition",
-  "q": "Conservation du quotient : donne la définition et un exemple.",
+  "q": "Qu'est-ce que la conservation du quotient ? À quoi sert-elle ?",
   "r": "a ÷ b = (a × c) ÷ (b × c), c ≠ 0.",
   "ex": "3,6 ÷ 0,4 = 36 ÷ 4 = 9."
  },
  {
   "id": "d3-ordre-de-grandeur",
+  "matiere": "maths",
+  "groupe": "RAN 3",
   "ran": 3,
   "type": "Définition",
-  "q": "Ordre de grandeur : donne la définition et un exemple.",
+  "q": "Qu'est-ce qu'un ordre de grandeur et à quoi sert-il ?",
   "r": "Valeur approchée simple d'un résultat, obtenue en arrondissant les nombres, qui sert à contrôler un calcul.",
   "ex": "498 × 21 ≈ 500 × 20 = 10 000."
  },
  {
   "id": "p3-quelles-operations-sont-commutatives-et-",
+  "matiere": "maths",
+  "groupe": "RAN 3",
   "ran": 3,
   "type": "Propriété",
-  "q": "Quelles opérations sont commutatives et associatives ?",
+  "q": "Quelles opérations sont commutatives et associatives ?",
   "r": "L'addition et la multiplication (pas la soustraction ni la division).",
-  "ex": "12 ÷ 4 = 3 mais 4 ÷ 12 = 1/3 : la division n'est pas commutative."
+  "ex": "12 ÷ 4 = 3 mais 4 ÷ 12 = 1/3 : la division n'est pas commutative."
  },
  {
   "id": "p3-quelle-propriete-justifie-le-decalage-da",
+  "matiere": "maths",
+  "groupe": "RAN 3",
   "ran": 3,
   "type": "Propriété",
-  "q": "Quelle propriété justifie le « décalage » dans la multiplication posée ?",
+  "q": "Quelle propriété justifie le « décalage » dans la multiplication posée ?",
   "r": "La distributivité de la multiplication sur l'addition, avec la numération (on multiplie par des dizaines).",
   "ex": "253 × 46 = 253 × 40 + 253 × 6 = 10 120 + 1 518 = 11 638."
  },
  {
   "id": "p3-quelles-sont-les-deux-conditions-de-la-d",
+  "matiere": "maths",
+  "groupe": "RAN 3",
   "ran": 3,
   "type": "Propriété",
-  "q": "Quelles sont les deux conditions de la division euclidienne de a par b ?",
+  "q": "Quelles sont les deux conditions de la division euclidienne de a par b ?",
   "r": "a = b × q + r ET 0 ≤ r < b.",
-  "ex": "47 = 6 × 7 + 5 convient ; 47 = 6 × 6 + 11 non, car 11 ≥ 6."
+  "ex": "47 = 6 × 7 + 5 convient ; 47 = 6 × 6 + 11 non, car 11 ≥ 6."
  },
  {
   "id": "p3-dans-quel-ordre-effectue-t-on-les-calcul",
+  "matiere": "maths",
+  "groupe": "RAN 3",
   "ran": 3,
   "type": "Propriété",
-  "q": "Dans quel ordre effectue-t-on les calculs (priorités) ?",
+  "q": "Dans quel ordre effectue-t-on les calculs (priorités) ?",
   "r": "Parenthèses, puissances, × et ÷ de gauche à droite, puis + et − de gauche à droite.",
   "ex": "20 − 8 ÷ 2 × 3 = 20 − 12 = 8."
  },
  {
   "id": "d4-multiple-diviseur",
+  "matiere": "maths",
+  "groupe": "RAN 4",
   "ran": 4,
   "type": "Définition",
-  "q": "Multiple / diviseur : donne la définition et un exemple.",
-  "r": "a est un multiple de b (et b un diviseur de a) s'il existe un entier k tel que a = k × b ; le reste de la division de a par b est alors nul.",
-  "ex": "36 = 4 × 9 : 36 est un multiple de 4 et 4 est un diviseur de 36."
+  "q": "Quand dit-on que a est un multiple de b (ou que b est un diviseur de a) ?",
+  "r": "a est un multiple de b (et b un diviseur de a) s'il existe un entier k tel que a = k × b ; le reste de la division de a par b est alors nul.",
+  "ex": "36 = 4 × 9 : 36 est un multiple de 4 et 4 est un diviseur de 36."
  },
  {
   "id": "d4-nombre-pair-impair",
+  "matiere": "maths",
+  "groupe": "RAN 4",
   "ran": 4,
   "type": "Définition",
-  "q": "Nombre pair / impair : donne la définition et un exemple.",
-  "r": "Pair : s'écrit 2k ; impair : s'écrit 2k + 1 (k entier).",
-  "ex": "14 = 2 × 7 est pair ; 15 = 2 × 7 + 1 est impair."
+  "q": "Comment écrit-on un nombre pair ? un nombre impair ?",
+  "r": "Pair : s'écrit 2k ; impair : s'écrit 2k + 1 (k entier).",
+  "ex": "14 = 2 × 7 est pair ; 15 = 2 × 7 + 1 est impair."
  },
  {
   "id": "d4-nombre-premier",
+  "matiere": "maths",
+  "groupe": "RAN 4",
   "ran": 4,
   "type": "Définition",
-  "q": "Nombre premier : donne la définition et un exemple.",
-  "r": "Entier naturel qui a exactement deux diviseurs distincts : 1 et lui-même.",
-  "ex": "13 (diviseurs 1 et 13) ; 1 n'est pas premier, 21 = 3 × 7 non plus."
+  "q": "Qu'est-ce qu'un nombre premier ? 1 est-il premier ?",
+  "r": "Entier naturel qui a exactement deux diviseurs distincts : 1 et lui-même.",
+  "ex": "13 (diviseurs 1 et 13) ; 1 n'est pas premier, 21 = 3 × 7 non plus."
  },
  {
   "id": "d4-decomposition-en-facteurs-premiers",
+  "matiere": "maths",
+  "groupe": "RAN 4",
   "ran": 4,
   "type": "Définition",
-  "q": "Décomposition en facteurs premiers : donne la définition et un exemple.",
-  "r": "Écriture d'un entier ≥ 2 comme produit de nombres premiers ; elle est unique (à l'ordre près).",
+  "q": "Qu'est-ce que la décomposition d'un entier en produit de facteurs premiers ?",
+  "r": "Écriture d'un entier ≥ 2 comme produit de nombres premiers ; elle est unique (à l'ordre près).",
   "ex": "360 = 2³ × 3² × 5."
  },
  {
   "id": "d4-pgcd",
+  "matiere": "maths",
+  "groupe": "RAN 4",
   "ran": 4,
   "type": "Définition",
-  "q": "PGCD : donne la définition et un exemple.",
+  "q": "Qu'est-ce que le PGCD de deux entiers ? À quoi sert-il ?",
   "r": "Plus grand diviseur commun à deux entiers.",
-  "ex": "PGCD(252 ; 360) = 36 ; il sert à rendre 252/360 irréductible : 7/10."
+  "ex": "PGCD(252 ; 360) = 36 ; il sert à rendre 252/360 irréductible : 7/10."
  },
  {
   "id": "d4-ppcm",
+  "matiere": "maths",
+  "groupe": "RAN 4",
   "ran": 4,
   "type": "Définition",
-  "q": "PPCM : donne la définition et un exemple.",
+  "q": "Qu'est-ce que le PPCM de deux entiers ? À quoi sert-il ?",
   "r": "Plus petit multiple commun non nul à deux entiers.",
-  "ex": "PPCM(12 ; 18) = 36 : deux phares qui clignotent toutes les 12 s et 18 s se retrouvent toutes les 36 s."
+  "ex": "PPCM(12 ; 18) = 36 : deux phares qui clignotent toutes les 12 s et 18 s se retrouvent toutes les 36 s."
  },
  {
   "id": "d4-nombres-premiers-entre-eux",
+  "matiere": "maths",
+  "groupe": "RAN 4",
   "ran": 4,
   "type": "Définition",
-  "q": "Nombres premiers entre eux : donne la définition et un exemple.",
+  "q": "Quand dit-on que deux entiers sont premiers entre eux ?",
   "r": "Deux entiers dont le PGCD est 1.",
   "ex": "8 et 15 (8 = 2³, 15 = 3 × 5), alors qu'aucun des deux n'est premier."
  },
  {
   "id": "d4-critere-de-divisibilite",
+  "matiere": "maths",
+  "groupe": "RAN 4",
   "ran": 4,
   "type": "Définition",
-  "q": "Critère de divisibilité : donne la définition et un exemple.",
+  "q": "Qu'est-ce qu'un critère de divisibilité ? Donne celui par 9.",
   "r": "Règle qui permet de savoir si un nombre est divisible par un autre sans poser la division.",
-  "ex": "4 752 : 4 + 7 + 5 + 2 = 18, multiple de 9, donc 4 752 est divisible par 9."
+  "ex": "4 752 : 4 + 7 + 5 + 2 = 18, multiple de 9, donc 4 752 est divisible par 9."
  },
  {
   "id": "d4-fraction-irreductible",
+  "matiere": "maths",
+  "groupe": "RAN 4",
   "ran": 4,
   "type": "Définition",
-  "q": "Fraction irréductible : donne la définition et un exemple.",
+  "q": "Qu'est-ce qu'une fraction irréductible ?",
   "r": "Fraction dont le numérateur et le dénominateur sont premiers entre eux.",
-  "ex": "17/20 est irréductible ; 391/460 ne l'est pas (on simplifie par 23)."
+  "ex": "17/20 est irréductible ; 391/460 ne l'est pas (on simplifie par 23)."
  },
  {
   "id": "p4-enonce-les-criteres-de-divisibilite-par-",
+  "matiere": "maths",
+  "groupe": "RAN 4",
   "ran": 4,
   "type": "Propriété",
   "q": "Énonce les critères de divisibilité par 3 et par 9.",
   "r": "Un nombre est divisible par 3 (par 9) si et seulement si la somme de ses chiffres est divisible par 3 (par 9).",
-  "ex": "4 752 : 4 + 7 + 5 + 2 = 18, divisible par 9, donc 4 752 aussi."
+  "ex": "4 752 : 4 + 7 + 5 + 2 = 18, divisible par 9, donc 4 752 aussi."
  },
  {
   "id": "p4-comment-tester-si-un-entier-n-est-premie",
+  "matiere": "maths",
+  "groupe": "RAN 4",
   "ran": 4,
   "type": "Propriété",
-  "q": "Comment tester si un entier n est premier ?",
-  "r": "On teste sa divisibilité par les nombres premiers p tels que p × p ≤ n ; s'il n'en a aucun, il est premier.",
-  "ex": "221 : on teste jusqu'à 13 (13 × 13 = 169 ≤ 221 < 289) ; 221 = 13 × 17, il n'est pas premier."
+  "q": "Comment tester si un entier n est premier ?",
+  "r": "On teste sa divisibilité par les nombres premiers p tels que p × p ≤ n ; s'il n'en a aucun, il est premier.",
+  "ex": "221 : on teste jusqu'à 13 (13 × 13 = 169 ≤ 221 < 289) ; 221 = 13 × 17, il n'est pas premier."
  },
  {
   "id": "p4-si-a-est-divisible-par-m-et-par-n-quand-",
+  "matiere": "maths",
+  "groupe": "RAN 4",
   "ran": 4,
   "type": "Propriété",
-  "q": "Si a est divisible par m et par n, quand est-il divisible par m × n ?",
+  "q": "Si a est divisible par m et par n, quand est-il divisible par m × n ?",
   "r": "Quand m et n sont premiers entre eux (PGCD = 1).",
-  "ex": "Divisible par 4 et par 9 (PGCD 1) → par 36 ; mais 12 est divisible par 4 et 6 sans l'être par 24."
+  "ex": "Divisible par 4 et par 9 (PGCD 1) → par 36 ; mais 12 est divisible par 4 et 6 sans l'être par 24."
  },
  {
   "id": "p4-enonce-l-algorithme-d-euclide",
+  "matiere": "maths",
+  "groupe": "RAN 4",
   "ran": 4,
   "type": "Propriété",
   "q": "Énonce l'algorithme d'Euclide.",
-  "r": "PGCD(a ; b) = PGCD(b ; r), où r est le reste de la division de a par b ; le PGCD est le dernier reste non nul.",
-  "ex": "360 = 252 × 1 + 108 ; 252 = 108 × 2 + 36 ; 108 = 36 × 3 + 0 : PGCD = 36."
+  "r": "PGCD(a ; b) = PGCD(b ; r), où r est le reste de la division de a par b ; le PGCD est le dernier reste non nul.",
+  "ex": "360 = 252 × 1 + 108 ; 252 = 108 × 2 + 36 ; 108 = 36 × 3 + 0 : PGCD = 36."
  },
  {
   "id": "p4-pgcd-ou-ppcm-comment-choisir-dans-un-pro",
+  "matiere": "maths",
+  "groupe": "RAN 4",
   "ran": 4,
   "type": "Propriété",
-  "q": "PGCD ou PPCM : comment choisir dans un problème ?",
+  "q": "PGCD ou PPCM : comment choisir dans un problème ?",
   "r": "« Le plus grand nombre qui divise à la fois… » (partages, carrés, espacements) → PGCD. « La prochaine fois ensemble » (rencontres, cycles) → PPCM.",
   "ex": "Bus toutes les 15 et 25 min → PPCM = 75 min."
  },
  {
   "id": "d5-fraction",
+  "matiere": "maths",
+  "groupe": "RAN 5",
   "ran": 5,
   "type": "Définition",
-  "q": "Fraction : donne la définition et un exemple.",
-  "r": "Écriture a/b (b ≠ 0) ; a est le numérateur, b le dénominateur.",
+  "q": "Dans une fraction a/b, comment s'appellent a et b ?",
+  "r": "Écriture a/b (b ≠ 0) ; a est le numérateur, b le dénominateur.",
   "ex": "Dans 3/4, 3 est le numérateur et 4 le dénominateur."
  },
  {
   "id": "d5-fraction-quotient",
+  "matiere": "maths",
+  "groupe": "RAN 5",
   "ran": 5,
   "type": "Définition",
-  "q": "Fraction-quotient : donne la définition et un exemple.",
+  "q": "Que signifie a/b au sens « quotient » ?",
   "r": "a/b est le nombre qui, multiplié par b, donne a.",
-  "ex": "7/3 est le nombre qui, multiplié par 3, donne 7 : 3 × 7/3 = 7."
+  "ex": "7/3 est le nombre qui, multiplié par 3, donne 7 : 3 × 7/3 = 7."
  },
  {
   "id": "d5-fraction-decimale",
+  "matiere": "maths",
+  "groupe": "RAN 5",
   "ran": 5,
   "type": "Définition",
-  "q": "Fraction décimale : donne la définition et un exemple.",
+  "q": "Qu'est-ce qu'une fraction décimale ?",
   "r": "Fraction dont le dénominateur est 10, 100, 1 000…",
   "ex": "325/100 = 3,25."
  },
  {
   "id": "d5-nombre-decimal",
+  "matiere": "maths",
+  "groupe": "RAN 5",
   "ran": 5,
   "type": "Définition",
-  "q": "Nombre décimal : donne la définition et un exemple.",
-  "r": "Nombre qui peut s'écrire a/10ⁿ (a entier) ; son écriture décimale est finie.",
-  "ex": "3/4 = 75/100 = 0,75 est décimal ; 1/3 = 0,333… ne l'est pas."
+  "q": "Qu'est-ce qu'un nombre décimal ?",
+  "r": "Nombre qui peut s'écrire a/10ⁿ (a entier) ; son écriture décimale est finie.",
+  "ex": "3/4 = 75/100 = 0,75 est décimal ; 1/3 = 0,333… ne l'est pas."
  },
  {
   "id": "d5-nombre-rationnel",
+  "matiere": "maths",
+  "groupe": "RAN 5",
   "ran": 5,
   "type": "Définition",
-  "q": "Nombre rationnel : donne la définition et un exemple.",
+  "q": "Qu'est-ce qu'un nombre rationnel ?",
   "r": "Nombre qui peut s'écrire a/b avec a et b entiers, b ≠ 0.",
-  "ex": "1/3, −2 = −2/1 et 0,75 sont rationnels ; √2 et π ne le sont pas."
+  "ex": "1/3, −2 = −2/1 et 0,75 sont rationnels ; √2 et π ne le sont pas."
  },
  {
   "id": "d5-nombre-irrationnel",
+  "matiere": "maths",
+  "groupe": "RAN 5",
   "ran": 5,
   "type": "Définition",
-  "q": "Nombre irrationnel : donne la définition et un exemple.",
+  "q": "Qu'est-ce qu'un nombre irrationnel ? Donne deux exemples.",
   "r": "Nombre réel qui n'est pas rationnel.",
   "ex": "√2 ≈ 1,414… et π ≈ 3,1416…"
  },
  {
   "id": "d5-inverse",
+  "matiere": "maths",
+  "groupe": "RAN 5",
   "ran": 5,
   "type": "Définition",
-  "q": "Inverse : donne la définition et un exemple.",
-  "r": "L'inverse d'un nombre non nul x est le nombre qui, multiplié par x, donne 1 : 1/x.",
-  "ex": "L'inverse de 2/3 est 3/2 ; l'inverse de 0,25 est 4."
+  "q": "Qu'est-ce que l'inverse d'un nombre non nul ?",
+  "r": "L'inverse d'un nombre non nul x est le nombre qui, multiplié par x, donne 1 : 1/x.",
+  "ex": "L'inverse de 2/3 est 3/2 ; l'inverse de 0,25 est 4."
  },
  {
   "id": "d5-oppose",
+  "matiere": "maths",
+  "groupe": "RAN 5",
   "ran": 5,
   "type": "Définition",
-  "q": "Opposé : donne la définition et un exemple.",
-  "r": "L'opposé de x est le nombre qui, ajouté à x, donne 0 : −x.",
-  "ex": "L'opposé de 5 est −5 ; soustraire 5, c'est ajouter −5."
+  "q": "Qu'est-ce que l'opposé d'un nombre ?",
+  "r": "L'opposé de x est le nombre qui, ajouté à x, donne 0 : −x.",
+  "ex": "L'opposé de 5 est −5 ; soustraire 5, c'est ajouter −5."
  },
  {
   "id": "d5-ecriture-scientifique",
+  "matiere": "maths",
+  "groupe": "RAN 5",
   "ran": 5,
   "type": "Définition",
-  "q": "Écriture scientifique : donne la définition et un exemple.",
+  "q": "Qu'est-ce que l'écriture scientifique d'un nombre ?",
   "r": "Écriture a × 10ⁿ avec 1 ≤ a < 10 et n entier relatif.",
-  "ex": "45 000 = 4,5 × 10⁴ ; 0,0032 = 3,2 × 10⁻³."
+  "ex": "45 000 = 4,5 × 10⁴ ; 0,0032 = 3,2 × 10⁻³."
  },
  {
   "id": "d5-puissance",
+  "matiere": "maths",
+  "groupe": "RAN 5",
   "ran": 5,
   "type": "Définition",
-  "q": "Puissance : donne la définition et un exemple.",
-  "r": "aⁿ est le produit de n facteurs égaux à a ; a⁻ⁿ = 1/aⁿ ; a⁰ = 1.",
-  "ex": "2³ = 2 × 2 × 2 = 8 ; 10⁻² = 1/100 = 0,01."
+  "q": "Que signifient aⁿ, a⁰ et a⁻ⁿ ?",
+  "r": "aⁿ est le produit de n facteurs égaux à a ; a⁻ⁿ = 1/aⁿ ; a⁰ = 1.",
+  "ex": "2³ = 2 × 2 × 2 = 8 ; 10⁻² = 1/100 = 0,01."
  },
  {
   "id": "p5-quand-une-fraction-est-elle-un-nombre-de",
+  "matiere": "maths",
+  "groupe": "RAN 5",
   "ran": 5,
   "type": "Propriété",
-  "q": "Quand une fraction est-elle un nombre décimal ?",
+  "q": "Quand une fraction est-elle un nombre décimal ?",
   "r": "Une fraction IRRÉDUCTIBLE est décimale si et seulement si son dénominateur n'a pas d'autre facteur premier que 2 et 5.",
-  "ex": "17/20 = 0,85 (20 = 2² × 5) ; 7/12 n'est pas décimal (12 = 2² × 3)."
+  "ex": "17/20 = 0,85 (20 = 2² × 5) ; 7/12 n'est pas décimal (12 = 2² × 3)."
  },
  {
   "id": "p5-que-change-t-on-dans-une-fraction-sans-c",
+  "matiere": "maths",
+  "groupe": "RAN 5",
   "ran": 5,
   "type": "Propriété",
-  "q": "Que change-t-on dans une fraction sans changer le nombre ?",
-  "r": "On peut MULTIPLIER (ou diviser) numérateur et dénominateur par un même nombre non nul ; pas ajouter.",
-  "ex": "1/2 = 3/6 ; mais 1/2 ≠ 2/3 (on a ajouté 1)."
+  "q": "Que change-t-on dans une fraction sans changer le nombre ?",
+  "r": "On peut MULTIPLIER (ou diviser) numérateur et dénominateur par un même nombre non nul ; pas ajouter.",
+  "ex": "1/2 = 3/6 ; mais 1/2 ≠ 2/3 (on a ajouté 1)."
  },
  {
   "id": "p5-comment-divise-t-on-par-une-fraction",
+  "matiere": "maths",
+  "groupe": "RAN 5",
   "ran": 5,
   "type": "Propriété",
-  "q": "Comment divise-t-on par une fraction ?",
+  "q": "Comment divise-t-on par une fraction ?",
   "r": "On multiplie par son inverse.",
   "ex": "2/3 ÷ 4/9 = 2/3 × 9/4 = 3/2."
  },
  {
   "id": "p5-comment-encadrer-a-b-entre-deux-entiers-",
+  "matiere": "maths",
+  "groupe": "RAN 5",
   "ran": 5,
   "type": "Propriété",
-  "q": "Comment encadrer a/b entre deux entiers en le justifiant ?",
-  "r": "On cherche les multiples consécutifs de b qui entourent a : si b × n < a < b × (n + 1), alors n < a/b < n + 1.",
-  "ex": "17/5 : 15 < 17 < 20, donc 3 < 17/5 < 4."
+  "q": "Comment encadrer a/b entre deux entiers en le justifiant ?",
+  "r": "On cherche les multiples consécutifs de b qui entourent a : si b × n < a < b × (n + 1), alors n < a/b < n + 1.",
+  "ex": "17/5 : 15 < 17 < 20, donc 3 < 17/5 < 4."
  },
  {
   "id": "d6-perimetre",
+  "matiere": "maths",
+  "groupe": "RAN 6",
   "ran": 6,
   "type": "Définition",
-  "q": "Périmètre : donne la définition et un exemple.",
+  "q": "Qu'est-ce que le périmètre d'une figure ?",
   "r": "Longueur du contour d'une figure.",
-  "ex": "Rectangle 8 m × 4 m : P = 2 × (8 + 4) = 24 m."
+  "ex": "Rectangle 8 m × 4 m : P = 2 × (8 + 4) = 24 m."
  },
  {
   "id": "d6-aire",
+  "matiere": "maths",
+  "groupe": "RAN 6",
   "ran": 6,
   "type": "Définition",
-  "q": "Aire : donne la définition et un exemple.",
+  "q": "Qu'est-ce que l'aire d'une figure ?",
   "r": "Mesure de la surface d'une figure, dans une unité d'aire.",
-  "ex": "Rectangle 8 m × 4 m : A = 8 × 4 = 32 m²."
+  "ex": "Rectangle 8 m × 4 m : A = 8 × 4 = 32 m²."
  },
  {
   "id": "d6-hauteur-relative-a-une-base",
+  "matiere": "maths",
+  "groupe": "RAN 6",
   "ran": 6,
   "type": "Définition",
-  "q": "Hauteur relative à une base : donne la définition et un exemple.",
+  "q": "Qu'est-ce que la hauteur relative à une base (triangle, parallélogramme) ?",
   "r": "Segment perpendiculaire à la base, joignant celle-ci au sommet (ou au côté) opposé.",
-  "ex": "Triangle de base 6 cm et de hauteur 4 cm : A = 6 × 4 ÷ 2 = 12 cm²."
+  "ex": "Triangle de base 6 cm et de hauteur 4 cm : A = 6 × 4 ÷ 2 = 12 cm²."
  },
  {
   "id": "d6-disque-cercle",
+  "matiere": "maths",
+  "groupe": "RAN 6",
   "ran": 6,
   "type": "Définition",
-  "q": "Disque / cercle : donne la définition et un exemple.",
-  "r": "Le cercle est la ligne ; le disque est la surface qu'il délimite.",
-  "ex": "r = 2 cm : périmètre du cercle 2π × 2 ≈ 12,57 cm ; aire du disque π × 2² ≈ 12,57 cm²."
+  "q": "Quelle différence entre un cercle et un disque ? Quelles formules leur associer ?",
+  "r": "Le cercle est la ligne ; le disque est la surface qu'il délimite.",
+  "ex": "r = 2 cm : périmètre du cercle 2π × 2 ≈ 12,57 cm ; aire du disque π × 2² ≈ 12,57 cm²."
  },
  {
   "id": "d6-hectare-are",
+  "matiere": "maths",
+  "groupe": "RAN 6",
   "ran": 6,
   "type": "Définition",
-  "q": "Hectare, are : donne la définition et un exemple.",
-  "r": "1 a = 100 m² ; 1 ha = 10 000 m².",
+  "q": "Combien valent 1 are et 1 hectare en m² ?",
+  "r": "1 a = 100 m² ; 1 ha = 10 000 m².",
   "ex": "Un terrain de 200 m × 150 m mesure 30 000 m² = 3 ha."
  },
  {
   "id": "d6-agrandissement-reduction-de-rapport-k",
+  "matiere": "maths",
+  "groupe": "RAN 6",
   "ran": 6,
   "type": "Définition",
-  "q": "Agrandissement / réduction de rapport k : donne la définition et un exemple.",
-  "r": "Transformation qui multiplie toutes les longueurs par k ; les aires sont multipliées par k².",
-  "ex": "Côté d'un carré × 3 : aire × 9."
+  "q": "Dans un agrandissement ou une réduction de rapport k, que deviennent les longueurs et les aires ?",
+  "r": "Transformation qui multiplie toutes les longueurs par k ; les aires sont multipliées par k².",
+  "ex": "Côté d'un carré × 3 : aire × 9."
  },
  {
   "id": "d7-grandeurs-proportionnelles",
+  "matiere": "maths",
+  "groupe": "RAN 7",
   "ran": 7,
   "type": "Définition",
-  "q": "Grandeurs proportionnelles : donne la définition et un exemple.",
+  "q": "Quand deux grandeurs sont-elles proportionnelles ?",
   "r": "On obtient les valeurs de l'une en multipliant celles de l'autre par un même nombre non nul.",
-  "ex": "Prix et masse de pommes à 2,50 €/kg : 3 kg → 7,50 € ; 5 kg → 12,50 €."
+  "ex": "Prix et masse de pommes à 2,50 €/kg : 3 kg → 7,50 € ; 5 kg → 12,50 €."
  },
  {
   "id": "d7-coefficient-de-proportionnalite",
+  "matiere": "maths",
+  "groupe": "RAN 7",
   "ran": 7,
   "type": "Définition",
-  "q": "Coefficient de proportionnalité : donne la définition et un exemple.",
+  "q": "Qu'est-ce qu'un coefficient de proportionnalité ?",
   "r": "Nombre par lequel on multiplie les valeurs d'une grandeur pour obtenir celles de l'autre.",
   "ex": "Ici 2,50 (€ par kg)."
  },
  {
   "id": "d7-linearite-additive-multiplicative",
+  "matiere": "maths",
+  "groupe": "RAN 7",
   "ran": 7,
   "type": "Définition",
-  "q": "Linéarité additive / multiplicative : donne la définition et un exemple.",
-  "r": "f(a + b) = f(a) + f(b) ; f(k × a) = k × f(a).",
-  "ex": "8 kg = 3 kg + 5 kg → 7,50 + 12,50 = 20 € ; 6 kg = 2 × 3 kg → 15 €."
+  "q": "Que disent les propriétés de linéarité additive et multiplicative ?",
+  "r": "f(a + b) = f(a) + f(b) ; f(k × a) = k × f(a).",
+  "ex": "8 kg = 3 kg + 5 kg → 7,50 + 12,50 = 20 € ; 6 kg = 2 × 3 kg → 15 €."
  },
  {
   "id": "d7-quatrieme-proportionnelle",
+  "matiere": "maths",
+  "groupe": "RAN 7",
   "ran": 7,
   "type": "Définition",
-  "q": "Quatrième proportionnelle : donne la définition et un exemple.",
-  "r": "Valeur manquante x d'un tableau de proportionnalité a/b = c/x ; x = b × c ÷ a.",
-  "ex": "3 kg → 7,50 € ; 5 kg → x = 7,50 × 5 ÷ 3 = 12,50 €."
+  "q": "Qu'est-ce qu'une quatrième proportionnelle et comment la calcule-t-on ?",
+  "r": "Valeur manquante x d'un tableau de proportionnalité a/b = c/x ; x = b × c ÷ a.",
+  "ex": "3 kg → 7,50 € ; 5 kg → x = 7,50 × 5 ÷ 3 = 12,50 €."
  },
  {
   "id": "d7-vitesse-moyenne",
+  "matiere": "maths",
+  "groupe": "RAN 7",
   "ran": 7,
   "type": "Définition",
-  "q": "Vitesse moyenne : donne la définition et un exemple.",
-  "r": "Quotient de la distance parcourue par la durée : v = d/t.",
-  "ex": "45 km en 1 h 40 min = 5/3 h : v = 27 km/h."
+  "q": "Comment définit-on une vitesse moyenne ?",
+  "r": "Quotient de la distance parcourue par la durée : v = d/t.",
+  "ex": "45 km en 1 h 40 min = 5/3 h : v = 27 km/h."
  },
  {
   "id": "d7-echelle",
+  "matiere": "maths",
+  "groupe": "RAN 7",
   "ran": 7,
   "type": "Définition",
-  "q": "Échelle : donne la définition et un exemple.",
+  "q": "Qu'est-ce que l'échelle d'un plan ou d'une carte ?",
   "r": "Rapport entre une distance sur le plan et la distance réelle, dans la même unité.",
   "ex": "Au 1/25 000, 4 cm sur la carte représentent 100 000 cm = 1 km."
  },
  {
   "id": "d8-expression-litterale",
+  "matiere": "maths",
+  "groupe": "RAN 8",
   "ran": 8,
   "type": "Définition",
-  "q": "Expression littérale : donne la définition et un exemple.",
+  "q": "Qu'est-ce qu'une expression littérale ?",
   "r": "Expression qui contient une ou plusieurs lettres désignant des nombres.",
-  "ex": "3x² − 5 ; pour x = −2, elle vaut 3 × 4 − 5 = 7."
+  "ex": "3x² − 5 ; pour x = −2, elle vaut 3 × 4 − 5 = 7."
  },
  {
   "id": "d8-reduire",
+  "matiere": "maths",
+  "groupe": "RAN 8",
   "ran": 8,
   "type": "Définition",
-  "q": "Réduire : donne la définition et un exemple.",
+  "q": "Que signifie « réduire » une expression ?",
   "r": "Regrouper les termes semblables d'une somme.",
   "ex": "4x + 3 − 7x + 5 = −3x + 8."
  },
  {
   "id": "d8-developper",
+  "matiere": "maths",
+  "groupe": "RAN 8",
   "ran": 8,
   "type": "Définition",
-  "q": "Développer : donne la définition et un exemple.",
+  "q": "Que signifie « développer » une expression ?",
   "r": "Transformer un produit en somme.",
   "ex": "(x + 2)(3x − 1) = 3x² + 5x − 2."
  },
  {
   "id": "d8-factoriser",
+  "matiere": "maths",
+  "groupe": "RAN 8",
   "ran": 8,
   "type": "Définition",
-  "q": "Factoriser : donne la définition et un exemple.",
+  "q": "Que signifie « factoriser » une expression ?",
   "r": "Transformer une somme en produit.",
-  "ex": "6x² + 9x = 3x(2x + 3) ; 9x² − 25 = (3x − 5)(3x + 5)."
+  "ex": "6x² + 9x = 3x(2x + 3) ; 9x² − 25 = (3x − 5)(3x + 5)."
  },
  {
   "id": "d8-identites-remarquables",
+  "matiere": "maths",
+  "groupe": "RAN 8",
   "ran": 8,
   "type": "Définition",
-  "q": "Identités remarquables : donne la définition et un exemple.",
-  "r": "(a + b)² = a² + 2ab + b² ; (a − b)² = a² − 2ab + b² ; (a + b)(a − b) = a² − b².",
+  "q": "Énonce les trois identités remarquables.",
+  "r": "(a + b)² = a² + 2ab + b² ; (a − b)² = a² − 2ab + b² ; (a + b)(a − b) = a² − b².",
   "ex": "(2x − 3)² = 4x² − 12x + 9."
  },
  {
   "id": "d8-contre-exemple",
+  "matiere": "maths",
+  "groupe": "RAN 8",
   "ran": 8,
   "type": "Définition",
-  "q": "Contre-exemple : donne la définition et un exemple.",
-  "r": "Exemple pour lequel une affirmation générale est fausse ; un seul suffit à la réfuter.",
-  "ex": "« (x + 1)² = x² + 1 » est faux : pour x = 1, 4 ≠ 2."
+  "q": "Qu'est-ce qu'un contre-exemple et à quoi sert-il ?",
+  "r": "Exemple pour lequel une affirmation générale est fausse ; un seul suffit à la réfuter.",
+  "ex": "« (x + 1)² = x² + 1 » est faux : pour x = 1, 4 ≠ 2."
  },
  {
   "id": "d9-polyedre",
+  "matiere": "maths",
+  "groupe": "RAN 9",
   "ran": 9,
   "type": "Définition",
-  "q": "Polyèdre : donne la définition et un exemple.",
+  "q": "Qu'est-ce qu'un polyèdre ?",
   "r": "Solide dont toutes les faces sont des polygones.",
-  "ex": "Cube, pavé droit, prisme, pyramide ; le cylindre n'en est pas un."
+  "ex": "Cube, pavé droit, prisme, pyramide ; le cylindre n'en est pas un."
  },
  {
   "id": "d9-face-arete-sommet",
+  "matiere": "maths",
+  "groupe": "RAN 9",
   "ran": 9,
   "type": "Définition",
-  "q": "Face, arête, sommet : donne la définition et un exemple.",
-  "r": "Face : polygone qui limite le solide ; arête : côté commun à deux faces ; sommet : point où se rejoignent des arêtes.",
+  "q": "Que sont les faces, les arêtes et les sommets d'un solide ?",
+  "r": "Face : polygone qui limite le solide ; arête : côté commun à deux faces ; sommet : point où se rejoignent des arêtes.",
   "ex": "Le cube a 6 faces, 12 arêtes, 8 sommets."
  },
  {
   "id": "d9-prisme-droit",
+  "matiere": "maths",
+  "groupe": "RAN 9",
   "ran": 9,
   "type": "Définition",
-  "q": "Prisme droit : donne la définition et un exemple.",
+  "q": "Qu'est-ce qu'un prisme droit ?",
   "r": "Polyèdre dont deux faces (les bases) sont des polygones superposables et parallèles, et les autres faces des rectangles.",
   "ex": "Une boîte de Toblerone (prisme à base triangulaire)."
  },
  {
   "id": "d9-pyramide",
+  "matiere": "maths",
+  "groupe": "RAN 9",
   "ran": 9,
   "type": "Définition",
-  "q": "Pyramide : donne la définition et un exemple.",
+  "q": "Qu'est-ce qu'une pyramide ? Comment calcule-t-on son volume ?",
   "r": "Polyèdre dont une face est un polygone (la base) et les autres faces des triangles ayant un sommet commun.",
-  "ex": "Pyramide à base carrée de côté 6 m et de hauteur 4 m : V = 36 × 4 ÷ 3 = 48 m³."
+  "ex": "Pyramide à base carrée de côté 6 m et de hauteur 4 m : V = 36 × 4 ÷ 3 = 48 m³."
  },
  {
   "id": "d9-patron",
+  "matiere": "maths",
+  "groupe": "RAN 9",
   "ran": 9,
   "type": "Définition",
-  "q": "Patron : donne la définition et un exemple.",
+  "q": "Qu'est-ce que le patron d'un solide ?",
   "r": "Figure plane qui, par pliage, permet de construire le solide sans recouvrement.",
   "ex": "Une croix de 6 carrés est un patron du cube (il en existe 11)."
  },
  {
   "id": "d9-volume-contenance",
+  "matiere": "maths",
+  "groupe": "RAN 9",
   "ran": 9,
   "type": "Définition",
-  "q": "Volume / contenance : donne la définition et un exemple.",
-  "r": "Mesure de l'espace occupé (m³, dm³…) ; contenance : volume intérieur exprimé en litres (1 dm³ = 1 L).",
-  "ex": "Cylindre r = 3 cm, h = 10 cm : V = 90π ≈ 282,7 cm³ ≈ 0,28 L."
+  "q": "Quelle différence entre volume et contenance ? Combien vaut 1 dm³ en litres ?",
+  "r": "Mesure de l'espace occupé (m³, dm³…) ; contenance : volume intérieur exprimé en litres (1 dm³ = 1 L).",
+  "ex": "Cylindre r = 3 cm, h = 10 cm : V = 90π ≈ 282,7 cm³ ≈ 0,28 L."
  },
  {
   "id": "d10-equation",
+  "matiere": "maths",
+  "groupe": "RAN 10",
   "ran": 10,
   "type": "Définition",
-  "q": "Équation : donne la définition et un exemple.",
+  "q": "Qu'est-ce qu'une équation ?",
   "r": "Égalité dans laquelle figure un nombre inconnu.",
   "ex": "5x − 7 = 2x + 8."
  },
  {
   "id": "d10-solution-d-une-equation",
+  "matiere": "maths",
+  "groupe": "RAN 10",
   "ran": 10,
   "type": "Définition",
-  "q": "Solution d'une équation : donne la définition et un exemple.",
+  "q": "Qu'est-ce qu'une solution d'une équation ?",
   "r": "Valeur de l'inconnue qui rend l'égalité vraie.",
   "ex": "x = 5 est solution de 5x − 7 = 2x + 8 car 18 = 18."
  },
  {
   "id": "d10-fonction",
+  "matiere": "maths",
+  "groupe": "RAN 10",
   "ran": 10,
   "type": "Définition",
-  "q": "Fonction : donne la définition et un exemple.",
+  "q": "Qu'est-ce qu'une fonction ?",
   "r": "Processus qui, à un nombre x, associe un unique nombre noté f(x).",
-  "ex": "f : x ↦ 3x + 2."
+  "ex": "f : x ↦ 3x + 2."
  },
  {
   "id": "d10-image-antecedent",
+  "matiere": "maths",
+  "groupe": "RAN 10",
   "ran": 10,
   "type": "Définition",
-  "q": "Image / antécédent : donne la définition et un exemple.",
-  "r": "f(x) est l'image de x ; x est un antécédent de f(x).",
-  "ex": "f(x) = 3x + 2 : l'image de 1 est 5 ; un antécédent de 20 est 6."
+  "q": "Que sont l'image et un antécédent par une fonction f ?",
+  "r": "f(x) est l'image de x ; x est un antécédent de f(x).",
+  "ex": "f(x) = 3x + 2 : l'image de 1 est 5 ; un antécédent de 20 est 6."
  },
  {
   "id": "d10-fonction-lineaire",
+  "matiere": "maths",
+  "groupe": "RAN 10",
   "ran": 10,
   "type": "Définition",
-  "q": "Fonction linéaire : donne la définition et un exemple.",
-  "r": "Fonction de la forme x ↦ ax ; sa représentation est une droite passant par l'origine.",
+  "q": "Qu'est-ce qu'une fonction linéaire ? Comment est sa représentation graphique ?",
+  "r": "Fonction de la forme x ↦ ax ; sa représentation est une droite passant par l'origine.",
   "ex": "x ↦ 2,5x modélise le prix de x kg à 2,50 €/kg."
  },
  {
   "id": "d10-fonction-affine",
+  "matiere": "maths",
+  "groupe": "RAN 10",
   "ran": 10,
   "type": "Définition",
-  "q": "Fonction affine : donne la définition et un exemple.",
-  "r": "Fonction de la forme x ↦ ax + b ; a est le coefficient directeur, b l'ordonnée à l'origine.",
-  "ex": "Abonnement 10 € + 2 € par séance : x ↦ 2x + 10."
+  "q": "Qu'est-ce qu'une fonction affine ? Que représentent a et b ?",
+  "r": "Fonction de la forme x ↦ ax + b ; a est le coefficient directeur, b l'ordonnée à l'origine.",
+  "ex": "Abonnement 10 € + 2 € par séance : x ↦ 2x + 10."
  },
  {
   "id": "d11-pourcentage",
+  "matiere": "maths",
+  "groupe": "RAN 11",
   "ran": 11,
   "type": "Définition",
-  "q": "Pourcentage : donne la définition et un exemple.",
-  "r": "t % est la fraction t/100 ; prendre t % d'une quantité, c'est la multiplier par t/100.",
+  "q": "Que signifie t % ? Comment prend-on t % d'une quantité ?",
+  "r": "t % est la fraction t/100 ; prendre t % d'une quantité, c'est la multiplier par t/100.",
   "ex": "15 % de 240 = 240 × 0,15 = 36."
  },
  {
   "id": "d11-coefficient-multiplicateur",
+  "matiere": "maths",
+  "groupe": "RAN 11",
   "ran": 11,
   "type": "Définition",
-  "q": "Coefficient multiplicateur : donne la définition et un exemple.",
-  "r": "Nombre par lequel on multiplie une valeur pour appliquer une évolution : 1 + t/100 (hausse) ou 1 − t/100 (baisse).",
-  "ex": "+20 % → × 1,2 ; −15 % → × 0,85."
+  "q": "Qu'est-ce qu'un coefficient multiplicateur (hausse et baisse de t %) ?",
+  "r": "Nombre par lequel on multiplie une valeur pour appliquer une évolution : 1 + t/100 (hausse) ou 1 − t/100 (baisse).",
+  "ex": "+20 % → × 1,2 ; −15 % → × 0,85."
  },
  {
   "id": "d11-taux-d-evolution",
+  "matiere": "maths",
+  "groupe": "RAN 11",
   "ran": 11,
   "type": "Définition",
-  "q": "Taux d'évolution : donne la définition et un exemple.",
+  "q": "Comment calcule-t-on un taux d'évolution ?",
   "r": "(valeur d'arrivée − valeur de départ) ÷ valeur de départ × 100.",
-  "ex": "De 40 à 50 : +25 % ; de 50 à 40 : −20 %."
+  "ex": "De 40 à 50 : +25 % ; de 50 à 40 : −20 %."
  },
  {
   "id": "d11-evolutions-successives",
+  "matiere": "maths",
+  "groupe": "RAN 11",
   "ran": 11,
   "type": "Définition",
-  "q": "Évolutions successives : donne la définition et un exemple.",
+  "q": "Comment calcule-t-on l'effet de plusieurs évolutions successives ?",
   "r": "On multiplie les coefficients multiplicateurs.",
-  "ex": "+10 % puis +10 % : × 1,1 × 1,1 = × 1,21, soit +21 %."
+  "ex": "+10 % puis +10 % : × 1,1 × 1,1 = × 1,21, soit +21 %."
  },
  {
   "id": "d11-point-de-pourcentage",
+  "matiere": "maths",
+  "groupe": "RAN 11",
   "ran": 11,
   "type": "Définition",
-  "q": "Point de pourcentage : donne la définition et un exemple.",
+  "q": "Qu'est-ce qu'un point de pourcentage ?",
   "r": "Écart entre deux pourcentages.",
-  "ex": "Passer de 10 % à 12 % : +2 points, soit une hausse de 20 %."
+  "ex": "Passer de 10 % à 12 % : +2 points, soit une hausse de 20 %."
  },
  {
   "id": "d12-cellule-plage",
+  "matiere": "maths",
+  "groupe": "RAN 12",
   "ran": 12,
   "type": "Définition",
-  "q": "Cellule, plage : donne la définition et un exemple.",
-  "r": "Cellule : case repérée par sa colonne et sa ligne ; plage : ensemble de cellules.",
-  "ex": "B3 ; la plage A1:A10."
+  "q": "Dans un tableur, qu'est-ce qu'une cellule ? une plage ?",
+  "r": "Cellule : case repérée par sa colonne et sa ligne ; plage : ensemble de cellules.",
+  "ex": "B3 ; la plage A1:A10."
  },
  {
   "id": "d12-formule",
+  "matiere": "maths",
+  "groupe": "RAN 12",
   "ran": 12,
   "type": "Définition",
-  "q": "Formule : donne la définition et un exemple.",
+  "q": "Dans un tableur, qu'est-ce qu'une formule ?",
   "r": "Calcul saisi dans une cellule, qui commence par « = ».",
-  "ex": "=SOMME(A1:A10) ; =B2*C2."
+  "ex": "=SOMME(A1:A10) ; =B2*C2."
  },
  {
   "id": "d12-reference-relative-absolue",
+  "matiere": "maths",
+  "groupe": "RAN 12",
   "ran": 12,
   "type": "Définition",
-  "q": "Référence relative / absolue : donne la définition et un exemple.",
-  "r": "Relative (A1) : se décale lors de la recopie ; absolue ($A$1) : reste figée.",
+  "q": "Quelle différence entre une référence relative et une référence absolue dans un tableur ?",
+  "r": "Relative (A1) : se décale lors de la recopie ; absolue ($A$1) : reste figée.",
   "ex": "=B2*(1+$E$1) recopiée en C3 devient =B3*(1+$E$1)."
  },
  {
   "id": "d12-algorithme",
+  "matiere": "maths",
+  "groupe": "RAN 12",
   "ran": 12,
   "type": "Définition",
-  "q": "Algorithme : donne la définition et un exemple.",
+  "q": "Qu'est-ce qu'un algorithme ?",
   "r": "Suite finie d'instructions qui permet de résoudre un problème.",
-  "ex": "Une recette de cuisine ; le tracé d'un carré : répéter 4 fois [avancer de 100 ; tourner de 90°]."
+  "ex": "Une recette de cuisine ; le tracé d'un carré : répéter 4 fois [avancer de 100 ; tourner de 90°]."
  },
  {
   "id": "d12-variable",
+  "matiere": "maths",
+  "groupe": "RAN 12",
   "ran": 12,
   "type": "Définition",
-  "q": "Variable : donne la définition et un exemple.",
+  "q": "En programmation, qu'est-ce qu'une variable ?",
   "r": "Case mémoire nommée dont la valeur peut changer au cours du programme.",
   "ex": "« mettre score à 0 », puis « ajouter 1 à score »."
  },
  {
   "id": "d12-boucle",
+  "matiere": "maths",
+  "groupe": "RAN 12",
   "ran": 12,
   "type": "Définition",
-  "q": "Boucle : donne la définition et un exemple.",
+  "q": "En programmation, qu'est-ce qu'une boucle ?",
   "r": "Instruction qui répète un bloc, un nombre de fois donné ou jusqu'à une condition.",
-  "ex": "« répéter 6 fois [avancer de 50 ; tourner de 60°] » trace un hexagone régulier."
+  "ex": "« répéter 6 fois [avancer de 50 ; tourner de 60°] » trace un hexagone régulier."
  },
  {
   "id": "d12-instruction-conditionnelle",
+  "matiere": "maths",
+  "groupe": "RAN 12",
   "ran": 12,
   "type": "Définition",
-  "q": "Instruction conditionnelle : donne la définition et un exemple.",
+  "q": "En programmation, qu'est-ce qu'une instruction conditionnelle ?",
   "r": "Instruction qui n'exécute un bloc que si une condition est vraie (si… alors… sinon).",
   "ex": "si réponse = 12 alors dire « Bravo » sinon dire « Essaie encore »."
+ },
+ {
+  "id": "f-quelles-sont-les-classes-de-mots-variables-et-invariables",
+  "matiere": "francais",
+  "groupe": "Classes de mots",
+  "type": "Classes de mots",
+  "q": "Quelles sont les classes de mots variables et invariables ?",
+  "r": "Variables : nom, déterminant, adjectif, pronom, verbe. Invariables : adverbe, préposition, conjonction (de coordination et de subordination), interjection.",
+  "ex": "« Les » (déterminant) varie : le, la, les ; « souvent » (adverbe) ne varie jamais."
+ },
+ {
+  "id": "f-qu-est-ce-qu-un-nom-quelle-difference-entre-nom-commun-et-nom-propre",
+  "matiere": "francais",
+  "groupe": "Classes de mots",
+  "type": "Classes de mots",
+  "q": "Qu'est-ce qu'un nom ? Quelle différence entre nom commun et nom propre ?",
+  "r": "Mot qui désigne un être, une chose, une idée ; il a un genre et varie le plus souvent en nombre. Le nom propre désigne un être ou un lieu unique et prend une majuscule.",
+  "ex": "« chat », « liberté » (noms communs) ; « Marseille », « Clément » (noms propres)."
+ },
+ {
+  "id": "f-qu-est-ce-qu-un-determinant-cite-plusieurs-sortes-de-determinants",
+  "matiere": "francais",
+  "groupe": "Classes de mots",
+  "type": "Classes de mots",
+  "q": "Qu'est-ce qu'un déterminant ? Cite plusieurs sortes de déterminants.",
+  "r": "Mot qui précède le nom et forme avec lui un groupe nominal ; il porte le genre et le nombre. Sortes : article (défini, indéfini, partitif), possessif, démonstratif, interrogatif, exclamatif, indéfini, numéral.",
+  "ex": "« le » chien, « une » idée, « du » pain, « mon » livre, « cette » école, « trois » élèves."
+ },
+ {
+  "id": "f-qu-est-ce-qu-un-adjectif-qualificatif-quelles-fonctions-peut-il-occupe",
+  "matiere": "francais",
+  "groupe": "Classes de mots",
+  "type": "Classes de mots",
+  "q": "Qu'est-ce qu'un adjectif (qualificatif) ? Quelles fonctions peut-il occuper ?",
+  "r": "Mot qui exprime une caractéristique du nom et s'accorde avec lui. Fonctions : épithète (dans le GN), attribut du sujet (après un verbe attributif), apposé (détaché).",
+  "ex": "« une robe rouge » (épithète) ; « la robe est rouge » (attribut du sujet)."
+ },
+ {
+  "id": "f-qu-est-ce-qu-un-pronom-cite-plusieurs-sortes-de-pronoms",
+  "matiere": "francais",
+  "groupe": "Classes de mots",
+  "type": "Classes de mots",
+  "q": "Qu'est-ce qu'un pronom ? Cite plusieurs sortes de pronoms.",
+  "r": "Mot qui remplace un nom, un groupe nominal ou une proposition, ou qui désigne un participant à la communication. Sortes : personnel, possessif, démonstratif, relatif, interrogatif, indéfini.",
+  "ex": "« Léa lit. Elle aime ce livre. » : « elle » (pronom personnel) reprend « Léa »."
+ },
+ {
+  "id": "f-qu-est-ce-qu-un-verbe-comment-le-reconnaitre",
+  "matiere": "francais",
+  "groupe": "Classes de mots",
+  "type": "Classes de mots",
+  "q": "Qu'est-ce qu'un verbe ? Comment le reconnaître ?",
+  "r": "Mot qui se conjugue : il varie en personne, en nombre, en temps et en mode. C'est le noyau du groupe verbal. Test : il change si l'on change le temps ou la personne.",
+  "ex": "« Il chante / il chantait / nous chantons » : « chanter » est un verbe."
+ },
+ {
+  "id": "f-qu-est-ce-qu-un-adverbe",
+  "matiere": "francais",
+  "groupe": "Classes de mots",
+  "type": "Classes de mots",
+  "q": "Qu'est-ce qu'un adverbe ?",
+  "r": "Mot invariable qui modifie le sens d'un verbe, d'un adjectif, d'un autre adverbe ou de la phrase entière.",
+  "ex": "« Il court vite » ; « très grand » ; « Heureusement, il est venu »."
+ },
+ {
+  "id": "f-qu-est-ce-qu-une-preposition",
+  "matiere": "francais",
+  "groupe": "Classes de mots",
+  "type": "Classes de mots",
+  "q": "Qu'est-ce qu'une préposition ?",
+  "r": "Mot invariable qui introduit un complément (groupe nominal, pronom, infinitif) et le relie à un autre mot.",
+  "ex": "« à », « de », « pour », « avec », « sans » : « un verre de lait », « penser à toi »."
+ },
+ {
+  "id": "f-quelle-difference-entre-conjonction-de-coordination-et-conjonction-de-",
+  "matiere": "francais",
+  "groupe": "Classes de mots",
+  "type": "Classes de mots",
+  "q": "Quelle différence entre conjonction de coordination et conjonction de subordination ?",
+  "r": "La conjonction de coordination relie deux éléments de même niveau (mais, ou, et, donc, or, ni, car). La conjonction de subordination introduit une proposition subordonnée (que, quand, si, parce que, lorsque…).",
+  "ex": "« Il pleut mais je sors » (coordination) ; « Je sors quand il fait beau » (subordination)."
+ },
+ {
+  "id": "f-qu-est-ce-que-le-sujet-comment-l-identifier",
+  "matiere": "francais",
+  "groupe": "Fonctions",
+  "type": "Fonctions",
+  "q": "Qu'est-ce que le sujet ? Comment l'identifier ?",
+  "r": "Fonction du groupe qui commande l'accord du verbe (personne, nombre). Test : on peut l'encadrer par « c'est… qui ».",
+  "ex": "« Les enfants jouent » : « c'est les enfants qui jouent » → « les enfants » est sujet."
+ },
+ {
+  "id": "f-qu-est-ce-qu-un-complement-du-verbe-quelles-sortes-distingue-t-on",
+  "matiere": "francais",
+  "groupe": "Fonctions",
+  "type": "Fonctions",
+  "q": "Qu'est-ce qu'un complément du verbe ? Quelles sortes distingue-t-on ?",
+  "r": "Complément qui dépend du verbe et ne peut généralement être ni supprimé ni déplacé. Complément d'objet direct (sans préposition), indirect (avec préposition), et complément de mesure, de lieu… essentiels.",
+  "ex": "« Elle lit un roman » (COD) ; « Il parle à sa sœur » (COI)."
+ },
+ {
+  "id": "f-qu-est-ce-qu-un-complement-de-phrase-anciennement-complement-circonsta",
+  "matiere": "francais",
+  "groupe": "Fonctions",
+  "type": "Fonctions",
+  "q": "Qu'est-ce qu'un complément de phrase (anciennement complément circonstanciel) ?",
+  "r": "Complément qui porte sur toute la phrase : on peut le supprimer et le déplacer. Il précise le temps, le lieu, la cause, le but, la manière…",
+  "ex": "« Demain, nous irons à la plage » : « demain » peut être supprimé ou déplacé (« Nous irons demain… »)."
+ },
+ {
+  "id": "f-qu-est-ce-que-l-attribut-du-sujet",
+  "matiere": "francais",
+  "groupe": "Fonctions",
+  "type": "Fonctions",
+  "q": "Qu'est-ce que l'attribut du sujet ?",
+  "r": "Fonction d'un mot ou groupe relié au sujet par un verbe attributif (être, sembler, devenir, paraître, rester…) ; il exprime une caractéristique du sujet et s'accorde avec lui.",
+  "ex": "« Ces élèves semblent fatigués » : « fatigués » est attribut du sujet « ces élèves »."
+ },
+ {
+  "id": "f-qu-est-ce-qu-un-complement-du-nom",
+  "matiere": "francais",
+  "groupe": "Fonctions",
+  "type": "Fonctions",
+  "q": "Qu'est-ce qu'un complément du nom ?",
+  "r": "Fonction d'un groupe qui complète le nom à l'intérieur du groupe nominal, le plus souvent introduit par une préposition.",
+  "ex": "« un livre de géographie », « la maison de mes parents »."
+ },
+ {
+  "id": "f-qu-est-ce-qu-une-epithete",
+  "matiere": "francais",
+  "groupe": "Fonctions",
+  "type": "Fonctions",
+  "q": "Qu'est-ce qu'une épithète ?",
+  "r": "Fonction de l'adjectif placé directement à côté du nom qu'il qualifie, à l'intérieur du groupe nominal.",
+  "ex": "« un grand jardin fleuri » : « grand » et « fleuri » sont épithètes de « jardin »."
+ },
+ {
+  "id": "f-quels-sont-les-types-et-les-formes-de-phrase",
+  "matiere": "francais",
+  "groupe": "Phrase",
+  "type": "Phrase",
+  "q": "Quels sont les types et les formes de phrase ?",
+  "r": "Types : déclaratif, interrogatif, impératif (injonctif) ; l'exclamation se combine avec eux. Formes : affirmative / négative, active / passive, neutre / emphatique.",
+  "ex": "« Ne viens pas ! » : type impératif, forme négative."
+ },
+ {
+  "id": "f-quelle-difference-entre-phrase-simple-et-phrase-complexe",
+  "matiere": "francais",
+  "groupe": "Phrase",
+  "type": "Phrase",
+  "q": "Quelle différence entre phrase simple et phrase complexe ?",
+  "r": "Phrase simple : un seul verbe conjugué (une seule proposition). Phrase complexe : plusieurs propositions, donc plusieurs verbes conjugués.",
+  "ex": "« Le chat dort. » (simple) ; « Le chat dort car il est fatigué. » (complexe)."
+ },
+ {
+  "id": "f-quelles-sont-les-trois-facons-de-relier-des-propositions-dans-une-phra",
+  "matiere": "francais",
+  "groupe": "Phrase",
+  "type": "Phrase",
+  "q": "Quelles sont les trois façons de relier des propositions dans une phrase complexe ?",
+  "r": "Juxtaposition (signe de ponctuation), coordination (conjonction de coordination), subordination (mot subordonnant : conjonction, pronom relatif…).",
+  "ex": "« Il pleut, je reste » / « Il pleut donc je reste » / « Je reste parce qu'il pleut »."
+ },
+ {
+  "id": "f-qu-est-ce-qu-une-proposition-subordonnee-relative",
+  "matiere": "francais",
+  "groupe": "Phrase",
+  "type": "Phrase",
+  "q": "Qu'est-ce qu'une proposition subordonnée relative ?",
+  "r": "Proposition introduite par un pronom relatif (qui, que, dont, où, lequel…) ; elle complète un nom ou un pronom, son antécédent.",
+  "ex": "« Le livre que tu m'as prêté est passionnant » : antécédent « livre »."
+ },
+ {
+  "id": "f-qu-est-ce-qu-une-proposition-subordonnee-conjonctive",
+  "matiere": "francais",
+  "groupe": "Phrase",
+  "type": "Phrase",
+  "q": "Qu'est-ce qu'une proposition subordonnée conjonctive ?",
+  "r": "Proposition introduite par une conjonction de subordination ; elle peut être complément du verbe (complétive, introduite par « que ») ou complément de phrase (circonstancielle : quand, parce que, si…).",
+  "ex": "« Je pense qu'il viendra » (complétive) ; « Il viendra s'il fait beau » (circonstancielle)."
+ },
+ {
+  "id": "f-quels-sont-les-modes-personnels-et-non-personnels-du-verbe",
+  "matiere": "francais",
+  "groupe": "Verbe",
+  "type": "Verbe",
+  "q": "Quels sont les modes personnels et non personnels du verbe ?",
+  "r": "Modes personnels (variant en personne) : indicatif, subjonctif, impératif. Modes non personnels : infinitif, participe (et gérondif). La terminologie de 2020 range le conditionnel parmi les temps de l'indicatif.",
+  "ex": "« qu'il vienne » (subjonctif) ; « venir » (infinitif) ; « venu » (participe passé)."
+ },
+ {
+  "id": "f-quelle-difference-entre-temps-simple-et-temps-compose",
+  "matiere": "francais",
+  "groupe": "Verbe",
+  "type": "Verbe",
+  "q": "Quelle différence entre temps simple et temps composé ?",
+  "r": "Temps simple : verbe seul, radical + terminaison. Temps composé : auxiliaire avoir ou être conjugué + participe passé ; il exprime l'accompli.",
+  "ex": "« il mange » (présent, simple) ; « il a mangé » (passé composé, composé)."
+ },
+ {
+  "id": "f-qu-est-ce-que-le-radical-et-la-terminaison-d-un-verbe-conjugue",
+  "matiere": "francais",
+  "groupe": "Verbe",
+  "type": "Verbe",
+  "q": "Qu'est-ce que le radical et la terminaison d'un verbe conjugué ?",
+  "r": "Le radical porte le sens du verbe (il peut varier) ; la terminaison porte les marques de personne, de nombre, de temps et de mode.",
+  "ex": "« nous chant-ions » : radical « chant- », terminaison « -ions » (imparfait, 1re personne du pluriel)."
+ },
+ {
+  "id": "f-quelles-valeurs-ont-l-imparfait-et-le-passe-simple-dans-un-recit",
+  "matiere": "francais",
+  "groupe": "Verbe",
+  "type": "Verbe",
+  "q": "Quelles valeurs ont l'imparfait et le passé simple dans un récit ?",
+  "r": "Passé simple : actions de premier plan, ponctuelles, qui font avancer le récit. Imparfait : arrière-plan (descriptions, actions en cours, habitudes).",
+  "ex": "« Il faisait nuit (arrière-plan) quand le loup surgit (premier plan). »"
+ },
+ {
+  "id": "f-quelles-sont-les-principales-valeurs-du-present-de-l-indicatif",
+  "matiere": "francais",
+  "groupe": "Verbe",
+  "type": "Verbe",
+  "q": "Quelles sont les principales valeurs du présent de l'indicatif ?",
+  "r": "Présent d'énonciation (au moment où l'on parle), présent d'habitude, de vérité générale, de narration (historique), et présent à valeur de futur ou de passé proche.",
+  "ex": "« L'eau bout à 100 °C » (vérité générale) ; « Je pars demain » (futur proche)."
+ },
+ {
+  "id": "f-comment-trouver-le-groupe-d-un-verbe",
+  "matiere": "francais",
+  "groupe": "Verbe",
+  "type": "Verbe",
+  "q": "Comment trouver le groupe d'un verbe ?",
+  "r": "1er groupe : infinitif en -er (sauf aller). 2e groupe : infinitif en -ir avec « -issons » à la 1re personne du pluriel du présent. 3e groupe : tous les autres verbes (et aller).",
+  "ex": "« finir → nous finissons » (2e groupe) ; « partir → nous partons » (3e groupe)."
+ },
+ {
+  "id": "f-quelle-est-la-regle-d-accord-du-verbe-avec-son-sujet",
+  "matiere": "francais",
+  "groupe": "Accords",
+  "type": "Accords",
+  "q": "Quelle est la règle d'accord du verbe avec son sujet ?",
+  "r": "Le verbe s'accorde en personne et en nombre avec son sujet, même si le sujet est éloigné ou placé après le verbe.",
+  "ex": "« Les feuilles de cet arbre tombent » : le verbe s'accorde avec « feuilles », pas avec « arbre »."
+ },
+ {
+  "id": "f-comment-s-accorde-le-participe-passe-employe-avec-etre",
+  "matiere": "francais",
+  "groupe": "Accords",
+  "type": "Accords",
+  "q": "Comment s'accorde le participe passé employé avec être ?",
+  "r": "Il s'accorde en genre et en nombre avec le sujet.",
+  "ex": "« Elles sont parties tôt. »"
+ },
+ {
+  "id": "f-comment-s-accorde-le-participe-passe-employe-avec-avoir",
+  "matiere": "francais",
+  "groupe": "Accords",
+  "type": "Accords",
+  "q": "Comment s'accorde le participe passé employé avec avoir ?",
+  "r": "Il ne s'accorde pas avec le sujet ; il s'accorde avec le COD seulement si celui-ci est placé avant le verbe.",
+  "ex": "« J'ai lu ces lettres » ; « Ces lettres, je les ai lues »."
+ },
+ {
+  "id": "f-comment-s-accordent-les-mots-dans-le-groupe-nominal",
+  "matiere": "francais",
+  "groupe": "Accords",
+  "type": "Accords",
+  "q": "Comment s'accordent les mots dans le groupe nominal ?",
+  "r": "Le déterminant et l'adjectif s'accordent en genre et en nombre avec le nom noyau du groupe nominal.",
+  "ex": "« de belles histoires anciennes » : féminin pluriel partout."
+ },
+ {
+  "id": "f-qu-est-ce-que-la-derivation-la-composition",
+  "matiere": "francais",
+  "groupe": "Lexique",
+  "type": "Lexique",
+  "q": "Qu'est-ce que la dérivation ? la composition ?",
+  "r": "Dérivation : former un mot en ajoutant un préfixe et/ou un suffixe à un radical. Composition : former un mot en associant deux mots (ou plus).",
+  "ex": "« re-faire », « chant-eur » (dérivation) ; « porte-monnaie », « pomme de terre » (composition)."
+ },
+ {
+  "id": "f-qu-est-ce-qu-une-famille-de-mots",
+  "matiere": "francais",
+  "groupe": "Lexique",
+  "type": "Lexique",
+  "q": "Qu'est-ce qu'une famille de mots ?",
+  "r": "Ensemble de mots formés à partir d'un même radical et liés par le sens.",
+  "ex": "« terre, terrain, terrestre, enterrer, atterrir »."
+ },
+ {
+  "id": "f-qu-est-ce-qu-un-mot-polysemique",
+  "matiere": "francais",
+  "groupe": "Lexique",
+  "type": "Lexique",
+  "q": "Qu'est-ce qu'un mot polysémique ?",
+  "r": "Mot qui a plusieurs sens ; c'est le contexte qui permet de choisir le bon sens.",
+  "ex": "« une souris » (animal / objet informatique) ; « la tête » (corps / chef)."
+ },
+ {
+  "id": "f-que-sont-des-synonymes-et-des-antonymes",
+  "matiere": "francais",
+  "groupe": "Lexique",
+  "type": "Lexique",
+  "q": "Que sont des synonymes et des antonymes ?",
+  "r": "Synonymes : mots de même classe et de sens proche. Antonymes : mots de même classe et de sens contraire.",
+  "ex": "« rapide / véloce » (synonymes) ; « monter / descendre » (antonymes)."
+ },
+ {
+  "id": "f-qu-est-ce-qu-un-champ-lexical",
+  "matiere": "francais",
+  "groupe": "Lexique",
+  "type": "Lexique",
+  "q": "Qu'est-ce qu'un champ lexical ?",
+  "r": "Ensemble des mots qui se rapportent à un même thème dans un texte.",
+  "ex": "Champ lexical de la mer : vague, marin, écume, rivage, naviguer."
+ },
+ {
+  "id": "f-quelle-difference-entre-sens-propre-et-sens-figure",
+  "matiere": "francais",
+  "groupe": "Lexique",
+  "type": "Lexique",
+  "q": "Quelle différence entre sens propre et sens figuré ?",
+  "r": "Sens propre : sens premier, concret, du mot. Sens figuré : sens imagé obtenu par transfert (métaphore…).",
+  "ex": "« un cœur qui bat » (propre) ; « avoir un cœur de pierre » (figuré)."
+ },
+ {
+  "id": "f-comment-distinguer-a-et-a",
+  "matiere": "francais",
+  "groupe": "Orthographe",
+  "type": "Orthographe",
+  "q": "Comment distinguer « a » et « à » ?",
+  "r": "« a » est le verbe avoir (on peut le remplacer par « avait ») ; « à » est une préposition.",
+  "ex": "« Il a faim » (il avait faim) ; « Il va à l'école »."
+ },
+ {
+  "id": "f-comment-distinguer-et-et-est",
+  "matiere": "francais",
+  "groupe": "Orthographe",
+  "type": "Orthographe",
+  "q": "Comment distinguer « et » et « est » ?",
+  "r": "« est » est le verbe être (remplaçable par « était ») ; « et » est une conjonction de coordination (remplaçable par « et puis »).",
+  "ex": "« Le ciel est bleu et le soleil brille »."
+ },
+ {
+  "id": "f-comment-distinguer-ces-ses-c-est-s-est",
+  "matiere": "francais",
+  "groupe": "Orthographe",
+  "type": "Orthographe",
+  "q": "Comment distinguer « ces », « ses », « c'est », « s'est » ?",
+  "r": "« ces » : démonstratif (ceux-là) ; « ses » : possessif (les siens) ; « c'est » : cela est ; « s'est » : pronom réfléchi + être (verbe pronominal).",
+  "ex": "« Ses amis ? Ces enfants-là. C'est lui qui s'est trompé. »"
+ },
+ {
+  "id": "f-quelle-difference-entre-orthographe-lexicale-et-orthographe-grammatica",
+  "matiere": "francais",
+  "groupe": "Orthographe",
+  "type": "Orthographe",
+  "q": "Quelle différence entre orthographe lexicale et orthographe grammaticale ?",
+  "r": "Orthographe lexicale : la façon d'écrire un mot, indépendamment de la phrase (lettres muettes, doubles consonnes). Orthographe grammaticale : les marques d'accord et de conjugaison qui dépendent de la phrase.",
+  "ex": "« enfant » (lexicale : t muet) ; « les enfants jouent » (grammaticale : -s, -ent)."
+ },
+ {
+  "id": "h-que-s-est-il-passe-en-52-av-j-c",
+  "matiere": "hgemc",
+  "groupe": "Histoire — repères",
+  "type": "Histoire — repères",
+  "q": "Que s'est-il passé en 52 av. J.-C. ?",
+  "r": "Défaite de Vercingétorix face à Jules César à Alésia : la Gaule est conquise par Rome (Gaule romaine, gallo-romains).",
+  "ex": "Thème « Et avant la France ? » (CM1)."
+ },
+ {
+  "id": "h-qui-est-clovis-et-pourquoi-est-il-un-repere",
+  "matiere": "hgemc",
+  "groupe": "Histoire — repères",
+  "type": "Histoire — repères",
+  "q": "Qui est Clovis et pourquoi est-il un repère ?",
+  "r": "Roi des Francs, baptisé vers 496-500 (date discutée) : il s'appuie sur l'Église ; on en fait souvent le premier roi chrétien des Francs.",
+  "ex": "Thème « Et avant la France ? » (CM1)."
+ },
+ {
+  "id": "h-que-s-est-il-passe-en-800",
+  "matiere": "hgemc",
+  "groupe": "Histoire — repères",
+  "type": "Histoire — repères",
+  "q": "Que s'est-il passé en 800 ?",
+  "r": "Charlemagne, roi des Francs, est couronné empereur à Rome par le pape.",
+  "ex": "Repère du Moyen Âge (CM1)."
+ },
+ {
+  "id": "h-quel-repere-est-associe-a-l-annee-987",
+  "matiere": "hgemc",
+  "groupe": "Histoire — repères",
+  "type": "Histoire — repères",
+  "q": "Quel repère est associé à l'année 987 ?",
+  "r": "Hugues Capet devient roi des Francs : début de la dynastie des Capétiens.",
+  "ex": "Thème « Le temps des rois » (CM1)."
+ },
+ {
+  "id": "h-qu-est-ce-que-l-edit-de-nantes-1598",
+  "matiere": "hgemc",
+  "groupe": "Histoire — repères",
+  "type": "Histoire — repères",
+  "q": "Qu'est-ce que l'édit de Nantes (1598) ?",
+  "r": "Édit signé par Henri IV qui met fin aux guerres de Religion en accordant aux protestants une liberté de culte limitée.",
+  "ex": "Thème « Le temps des rois » (CM1)."
+ },
+ {
+  "id": "h-quel-roi-incarne-la-monarchie-absolue-donne-les-dates-de-son-regne",
+  "matiere": "hgemc",
+  "groupe": "Histoire — repères",
+  "type": "Histoire — repères",
+  "q": "Quel roi incarne la monarchie absolue ? Donne les dates de son règne.",
+  "r": "Louis XIV (1643-1715), qui gouverne seul et fait de Versailles le centre du pouvoir.",
+  "ex": "Thème « Le temps des rois » (CM1)."
+ },
+ {
+  "id": "h-que-s-est-il-passe-le-14-juillet-1789-et-le-26-aout-1789",
+  "matiere": "hgemc",
+  "groupe": "Histoire — repères",
+  "type": "Histoire — repères",
+  "q": "Que s'est-il passé le 14 juillet 1789 et le 26 août 1789 ?",
+  "r": "14 juillet 1789 : prise de la Bastille, symbole du début de la Révolution. 26 août 1789 : Déclaration des droits de l'homme et du citoyen.",
+  "ex": "Thème « Le temps de la Révolution et de l'Empire » (CM1)."
+ },
+ {
+  "id": "h-quand-la-premiere-republique-est-elle-proclamee",
+  "matiere": "hgemc",
+  "groupe": "Histoire — repères",
+  "type": "Histoire — repères",
+  "q": "Quand la Première République est-elle proclamée ?",
+  "r": "En septembre 1792 (21-22 septembre), après l'abolition de la monarchie.",
+  "ex": "Thème « Le temps de la Révolution et de l'Empire » (CM1)."
+ },
+ {
+  "id": "h-quels-reperes-sont-associes-a-l-annee-1804",
+  "matiere": "hgemc",
+  "groupe": "Histoire — repères",
+  "type": "Histoire — repères",
+  "q": "Quels repères sont associés à l'année 1804 ?",
+  "r": "Napoléon Bonaparte est sacré empereur des Français ; le Code civil est promulgué.",
+  "ex": "Thème « Le temps de la Révolution et de l'Empire » (CM1)."
+ },
+ {
+  "id": "h-que-s-est-il-passe-en-1848",
+  "matiere": "hgemc",
+  "groupe": "Histoire — repères",
+  "type": "Histoire — repères",
+  "q": "Que s'est-il passé en 1848 ?",
+  "r": "Abolition définitive de l'esclavage dans les colonies françaises (décret porté par Victor Schœlcher) et instauration du suffrage universel masculin (IIe République).",
+  "ex": "Thème « Le temps de la République » (CM2)."
+ },
+ {
+  "id": "h-que-sont-les-lois-ferry-1881-1882",
+  "matiere": "hgemc",
+  "groupe": "Histoire — repères",
+  "type": "Histoire — repères",
+  "q": "Que sont les lois Ferry (1881-1882) ?",
+  "r": "Lois qui rendent l'école primaire gratuite, obligatoire (de 6 à 13 ans) et laïque.",
+  "ex": "« L'école primaire au temps de Jules Ferry » (CM2)."
+ },
+ {
+  "id": "h-que-dit-la-loi-de-1905",
+  "matiere": "hgemc",
+  "groupe": "Histoire — repères",
+  "type": "Histoire — repères",
+  "q": "Que dit la loi de 1905 ?",
+  "r": "Loi de séparation des Églises et de l'État : la République assure la liberté de conscience et ne reconnaît ni ne finance aucun culte. Fondement de la laïcité.",
+  "ex": "Thème « Le temps de la République » (CM2) et EMC."
+ },
+ {
+  "id": "h-quelles-sont-les-dates-des-deux-guerres-mondiales",
+  "matiere": "hgemc",
+  "groupe": "Histoire — repères",
+  "type": "Histoire — repères",
+  "q": "Quelles sont les dates des deux guerres mondiales ?",
+  "r": "Première Guerre mondiale : 1914-1918 (armistice du 11 novembre 1918). Seconde Guerre mondiale : 1939-1945 (capitulation allemande le 8 mai 1945).",
+  "ex": "Thème « La France, des guerres mondiales à l'Union européenne » (CM2)."
+ },
+ {
+  "id": "h-quand-les-femmes-obtiennent-elles-le-droit-de-vote-en-france",
+  "matiere": "hgemc",
+  "groupe": "Histoire — repères",
+  "type": "Histoire — repères",
+  "q": "Quand les femmes obtiennent-elles le droit de vote en France ?",
+  "r": "Par l'ordonnance du 21 avril 1944 ; elles votent pour la première fois en 1945.",
+  "ex": "« Des républicains, des républicaines » (CM2)."
+ },
+ {
+  "id": "h-que-s-est-il-passe-en-1957",
+  "matiere": "hgemc",
+  "groupe": "Histoire — repères",
+  "type": "Histoire — repères",
+  "q": "Que s'est-il passé en 1957 ?",
+  "r": "Signature des traités de Rome, qui créent la Communauté économique européenne (CEE), ancêtre de l'Union européenne.",
+  "ex": "Thème « La France, des guerres mondiales à l'Union européenne » (CM2)."
+ },
+ {
+  "id": "h-qu-est-ce-que-la-ve-republique",
+  "matiere": "hgemc",
+  "groupe": "Histoire — repères",
+  "type": "Histoire — repères",
+  "q": "Qu'est-ce que la Ve République ?",
+  "r": "Régime politique actuel de la France, fondé par la Constitution de 1958 (Charles de Gaulle).",
+  "ex": "Repère du XXe siècle (CM2)."
+ },
+ {
+  "id": "h-qu-est-ce-qu-une-source-document-primaire-et-une-source-secondaire",
+  "matiere": "hgemc",
+  "groupe": "Histoire — démarche",
+  "type": "Histoire — démarche",
+  "q": "Qu'est-ce qu'une source (document) primaire et une source secondaire ?",
+  "r": "Source primaire : document produit à l'époque étudiée (archive, objet, témoignage). Source secondaire : travail produit après coup à partir des sources (manuel, livre d'historien).",
+  "ex": "Une lettre de poilu (primaire) ; une page de manuel sur 1914-1918 (secondaire)."
+ },
+ {
+  "id": "h-qu-est-ce-qu-une-frise-chronologique-et-a-quoi-sert-elle",
+  "matiere": "hgemc",
+  "groupe": "Histoire — démarche",
+  "type": "Histoire — démarche",
+  "q": "Qu'est-ce qu'une frise chronologique et à quoi sert-elle ?",
+  "r": "Représentation linéaire et orientée du temps, avec une échelle régulière, sur laquelle on place des dates et des périodes. Elle aide à se repérer et à situer les événements les uns par rapport aux autres.",
+  "ex": "Placer Clovis, Charlemagne et Louis XIV sur une frise graduée en siècles."
+ },
+ {
+  "id": "h-comment-trouve-t-on-le-siecle-d-une-date",
+  "matiere": "hgemc",
+  "groupe": "Histoire — démarche",
+  "type": "Histoire — démarche",
+  "q": "Comment trouve-t-on le siècle d'une date ?",
+  "r": "On prend le nombre de centaines et on ajoute 1 (pour les années après J.-C. qui ne finissent pas par 00).",
+  "ex": "1789 → 17 + 1 = XVIIIe siècle ; 1515 → XVIe siècle ; 1900 → XIXe siècle."
+ },
+ {
+  "id": "h-quelles-sont-les-grandes-periodes-de-l-histoire",
+  "matiere": "hgemc",
+  "groupe": "Histoire — démarche",
+  "type": "Histoire — démarche",
+  "q": "Quelles sont les grandes périodes de l'histoire ?",
+  "r": "Préhistoire, Antiquité (vers −3000, invention de l'écriture), Moyen Âge (476), Temps modernes (1492), époque contemporaine (1789).",
+  "ex": "Chaque période commence par un repère conventionnel."
+ },
+ {
+  "id": "h-qu-est-ce-qu-un-paysage-en-geographie",
+  "matiere": "hgemc",
+  "groupe": "Géographie",
+  "type": "Géographie",
+  "q": "Qu'est-ce qu'un paysage en géographie ?",
+  "r": "Portion d'espace visible, organisée et transformée par les sociétés, que l'on décrit avec des plans (premier plan, arrière-plan) et des éléments naturels et humains.",
+  "ex": "Décrire une photo de littoral : plage, port, immeubles, routes."
+ },
+ {
+  "id": "h-quelle-difference-entre-espace-urbain-periurbain-et-rural",
+  "matiere": "hgemc",
+  "groupe": "Géographie",
+  "type": "Géographie",
+  "q": "Quelle différence entre espace urbain, périurbain et rural ?",
+  "r": "Urbain : ville dense (bâti continu). Périurbain : couronne autour de la ville, résidentielle, liée à la ville par les mobilités. Rural : campagne, faible densité.",
+  "ex": "Un lotissement à 20 km d'une ville où l'on travaille = espace périurbain."
+ },
+ {
+  "id": "h-qu-est-ce-qu-une-metropole",
+  "matiere": "hgemc",
+  "groupe": "Géographie",
+  "type": "Géographie",
+  "q": "Qu'est-ce qu'une métropole ?",
+  "r": "Grande ville qui concentre population, activités et pouvoirs de décision, et qui rayonne sur un vaste territoire.",
+  "ex": "Paris, Lyon, Marseille."
+ },
+ {
+  "id": "h-qu-est-ce-que-la-mobilite",
+  "matiere": "hgemc",
+  "groupe": "Géographie",
+  "type": "Géographie",
+  "q": "Qu'est-ce que la mobilité ?",
+  "r": "Ensemble des déplacements des personnes (quotidiens, de loisirs, migrations).",
+  "ex": "Les trajets domicile-travail en voiture ou en transports en commun."
+ },
+ {
+  "id": "h-qu-est-ce-que-le-developpement-durable",
+  "matiere": "hgemc",
+  "groupe": "Géographie",
+  "type": "Géographie",
+  "q": "Qu'est-ce que le développement durable ?",
+  "r": "Développement qui répond aux besoins du présent sans compromettre ceux des générations futures ; il combine trois piliers : économique, social, environnemental.",
+  "ex": "Un écoquartier, des pistes cyclables, le tri des déchets."
+ },
+ {
+  "id": "h-qu-est-ce-que-l-echelle-d-une-carte-qu-est-ce-que-changer-d-echelle",
+  "matiere": "hgemc",
+  "groupe": "Géographie",
+  "type": "Géographie",
+  "q": "Qu'est-ce que l'échelle d'une carte ? Qu'est-ce que changer d'échelle ?",
+  "r": "Rapport entre une distance sur la carte et la distance réelle. Changer d'échelle : étudier un phénomène à différents niveaux (local, national, mondial).",
+  "ex": "1/25 000 : 1 cm sur la carte = 250 m dans la réalité."
+ },
+ {
+  "id": "h-qu-est-ce-qu-un-croquis-et-que-doit-il-comporter",
+  "matiere": "hgemc",
+  "groupe": "Géographie",
+  "type": "Géographie",
+  "q": "Qu'est-ce qu'un croquis et que doit-il comporter ?",
+  "r": "Représentation simplifiée d'un espace pour en montrer l'organisation ; il comporte un titre, une légende organisée et une orientation.",
+  "ex": "Croquis d'un quartier : zones d'habitat, de commerce, axes de transport."
+ },
+ {
+  "id": "h-quels-sont-les-themes-de-geographie-du-cm1-et-du-cm2",
+  "matiere": "hgemc",
+  "groupe": "Géographie",
+  "type": "Géographie",
+  "q": "Quels sont les thèmes de géographie du CM1 et du CM2 ?",
+  "r": "CM1 : découvrir le(s) lieu(x) où j'habite ; se loger, travailler, se cultiver, avoir des loisirs en France ; consommer en France. CM2 : se déplacer ; communiquer d'un bout à l'autre du monde grâce à l'Internet ; mieux habiter.",
+  "ex": "Le thème « habiter » structure la géographie du cycle 3."
+ },
+ {
+  "id": "h-qu-est-ce-que-la-laicite",
+  "matiere": "hgemc",
+  "groupe": "EMC",
+  "type": "EMC",
+  "q": "Qu'est-ce que la laïcité ?",
+  "r": "Principe qui garantit la liberté de conscience, l'égalité de tous devant la loi quelles que soient leurs convictions, et la neutralité de l'État et de l'école publique.",
+  "ex": "Charte de la laïcité à l'École (2013), affichée dans les établissements."
+ },
+ {
+  "id": "h-quels-sont-les-symboles-de-la-republique-francaise",
+  "matiere": "hgemc",
+  "groupe": "EMC",
+  "type": "EMC",
+  "q": "Quels sont les symboles de la République française ?",
+  "r": "La devise « Liberté, Égalité, Fraternité », le drapeau tricolore, La Marseillaise (hymne), Marianne, le 14 Juillet (fête nationale).",
+  "ex": "Ces symboles sont travaillés dès le cycle 2."
+ },
+ {
+  "id": "h-quelles-sont-les-valeurs-de-la-republique",
+  "matiere": "hgemc",
+  "groupe": "EMC",
+  "type": "EMC",
+  "q": "Quelles sont les valeurs de la République ?",
+  "r": "Liberté, égalité, fraternité, auxquelles s'ajoutent la laïcité et le refus de toutes les discriminations.",
+  "ex": "Elles figurent dans la Constitution de 1958."
+ },
+ {
+  "id": "h-qu-est-ce-que-la-convention-internationale-des-droits-de-l-enfant-cide",
+  "matiere": "hgemc",
+  "groupe": "EMC",
+  "type": "EMC",
+  "q": "Qu'est-ce que la Convention internationale des droits de l'enfant (CIDE) ?",
+  "r": "Texte adopté par l'ONU en 1989 (ratifié par la France en 1990) qui reconnaît des droits aux enfants : éducation, protection, santé, expression…",
+  "ex": "Le 20 novembre est la journée internationale des droits de l'enfant."
+ },
+ {
+  "id": "h-quelle-difference-entre-une-regle-et-une-loi",
+  "matiere": "hgemc",
+  "groupe": "EMC",
+  "type": "EMC",
+  "q": "Quelle différence entre une règle et une loi ?",
+  "r": "La règle organise la vie d'un groupe (classe, école, jeu) ; la loi est votée par le Parlement et s'applique à tous les citoyens. Toutes deux fixent des droits et des devoirs.",
+  "ex": "Le règlement de la classe (règle) ; la loi sur l'obligation d'instruction (loi)."
+ },
+ {
+  "id": "h-qu-est-ce-qu-une-discrimination",
+  "matiere": "hgemc",
+  "groupe": "EMC",
+  "type": "EMC",
+  "q": "Qu'est-ce qu'une discrimination ?",
+  "r": "Traitement inégal et défavorable d'une personne en raison d'un critère interdit par la loi (origine, sexe, handicap, religion…).",
+  "ex": "Refuser un élève dans un jeu à cause de son origine."
+ },
+ {
+  "id": "h-qu-est-ce-qu-un-debat-regle-ou-argumente-en-emc",
+  "matiere": "hgemc",
+  "groupe": "EMC",
+  "type": "EMC",
+  "q": "Qu'est-ce qu'un débat réglé (ou argumenté) en EMC ?",
+  "r": "Discussion organisée sur une question, avec des règles de prise de parole, où les élèves argumentent et écoutent les autres ; il développe l'esprit critique et le respect d'autrui.",
+  "ex": "Débat : « Faut-il des règles dans la cour de récréation ? »"
+ },
+ {
+  "id": "h-qu-est-ce-que-la-citoyennete",
+  "matiere": "hgemc",
+  "groupe": "EMC",
+  "type": "EMC",
+  "q": "Qu'est-ce que la citoyenneté ?",
+  "r": "Statut qui donne des droits (voter, être protégé par la loi) et des devoirs (respecter la loi, participer à la vie collective) ; à l'école, on s'y prépare (conseil d'élèves, délégués).",
+  "ex": "Élire les délégués de classe."
  }
 ]

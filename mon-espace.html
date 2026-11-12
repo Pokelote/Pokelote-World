@@ -270,7 +270,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "104";
+const APP_VERSION = "105";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -6719,15 +6719,23 @@ function CrpeDeplier({ label, children }) {
 // RAN (crpe/ran-maths/cartes-boites-a-questions.json, généré par outils/boites-a-questions.js). Règle
 // demandée : bonne réponse → la carte est mise de côté et revient 7 jours plus tard ; mauvaise
 // réponse → elle revient dès le lendemain. État par carte dans crpe-boites : { next, ok, ko, last }.
-// Les RAN choisies (crpe-boites-rans) déterminent quelles cartes entrent dans le paquet.
+// Les matières choisies (crpe-boites-matieres) et, pour les maths, les RAN choisies (crpe-boites-rans)
+// déterminent quelles cartes entrent dans le paquet. Paquets de français et d'histoire-géographie-EMC
+// ajoutés le 13/11/2026, avec des questions plus explicites pour les maths.
 const CRPE_BOITES_DELAI_OK = 7;
 const CRPE_BOITES_DELAI_KO = 1;
-const CRPE_BOITES_NOUVELLES_PAR_JOUR = 10;
+const CRPE_BOITES_NOUVELLES_PAR_JOUR = 15;
+const CRPE_BOITES_MATIERES = [
+  { key: "maths", label: "Maths", pdf: "boites-a-questions-cartes.pdf" },
+  { key: "francais", label: "Français", pdf: "boites-a-questions-francais.pdf" },
+  { key: "hgemc", label: "Histoire-géo-EMC", pdf: "boites-a-questions-histoire-geo-emc.pdf" },
+];
 
 function CrpeBoitesContent() {
   const [cartes, setCartes] = useState(null);
   const [etat, setEtat] = useState(null);
   const [rans, setRans] = useState(null);
+  const [matieres, setMatieres] = useState(null);
   const [file, setFile] = useState(null); // ids de la séance en cours
   const [vu, setVu] = useState(false);
   const [bilan, setBilan] = useState({ ok: 0, ko: 0 });
@@ -6739,28 +6747,38 @@ function CrpeBoitesContent() {
       .then((r) => r.json())
       .then((c) => !cancelled && setCartes(c))
       .catch(() => !cancelled && setCartes([]));
-    Promise.all([crpeLoad("crpe-boites", {}), crpeLoad("crpe-boites-rans", [3, 4, 5])]).then(([e, r]) => {
+    const toutes = CRPE_BOITES_MATIERES.map((m) => m.key);
+    Promise.all([crpeLoad("crpe-boites", {}), crpeLoad("crpe-boites-rans", [3, 4, 5]), crpeLoad("crpe-boites-matieres", toutes)]).then(([e, r, m]) => {
       if (cancelled) return;
       setEtat(e || {});
       setRans(r || [3, 4, 5]);
+      setMatieres(m || toutes);
     });
     return () => {
       cancelled = true;
     };
   }, []);
 
-  if (!cartes || !etat || !rans) {
+  if (!cartes || !etat || !rans || !matieres) {
     return <p style={{ color: COLORS.muted, fontSize: 13 }}>Chargement des cartes…</p>;
   }
 
-  const paquet = cartes.filter((c) => rans.includes(c.ran));
+  const paquet = cartes.filter((c) => matieres.includes(c.matiere) && (c.matiere !== "maths" || rans.includes(c.ran)));
   const dues = paquet.filter((c) => etat[c.id] && etat[c.id].next <= today);
-  const nouvelles = paquet.filter((c) => !etat[c.id]);
+  // Nouvelles cartes : on alterne les matières (une de maths, une de français, une d'histoire-géo…).
+  const nouvellesParMatiere = CRPE_BOITES_MATIERES.map((m) => paquet.filter((c) => c.matiere === m.key && !etat[c.id]));
+  const nouvelles = [];
+  for (let i = 0; nouvellesParMatiere.some((l) => i < l.length); i++) nouvellesParMatiere.forEach((l) => l[i] && nouvelles.push(l[i]));
   const deCote = paquet.filter((c) => etat[c.id] && etat[c.id].next > today);
   const aFaire = [...dues, ...nouvelles.slice(0, CRPE_BOITES_NOUVELLES_PAR_JOUR)];
   const parId = Object.fromEntries(cartes.map((c) => [c.id, c]));
   const carte = file && file.length ? parId[file[0]] : null;
 
+  const toggleMatiere = (k) => {
+    const next = matieres.includes(k) ? matieres.filter((m) => m !== k) : [...matieres, k];
+    setMatieres(next);
+    crpeSave("crpe-boites-matieres", next);
+  };
   const toggleRan = (n) => {
     const next = rans.includes(n) ? rans.filter((r) => r !== n) : [...rans, n].sort((a, b) => a - b);
     setRans(next);
@@ -6819,30 +6837,50 @@ function CrpeBoitesContent() {
         {tuile(nouvelles.length, "jamais vues")}
       </div>
 
-      <div style={{ fontSize: 12, color: COLORS.muted, marginBottom: 6 }}>RAN dans le paquet</div>
-      <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 16 }}>
-        {Array.from({ length: 12 }, (_, i) => i + 1).map((n) => (
-          <button key={n} onClick={() => toggleRan(n)} style={bouton(rans.includes(n))}>
-            RAN {n}
+      <div style={{ fontSize: 12, color: COLORS.muted, marginBottom: 6 }}>Matières dans le paquet</div>
+      <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 12 }}>
+        {CRPE_BOITES_MATIERES.map((m) => (
+          <button key={m.key} onClick={() => toggleMatiere(m.key)} style={bouton(matieres.includes(m.key))}>
+            {m.label} · {cartes.filter((c) => c.matiere === m.key).length}
           </button>
         ))}
       </div>
+      {matieres.includes("maths") && (
+        <>
+          <div style={{ fontSize: 12, color: COLORS.muted, marginBottom: 6 }}>RAN de maths dans le paquet</div>
+          <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 16 }}>
+            {Array.from({ length: 12 }, (_, i) => i + 1).map((n) => (
+              <button key={n} onClick={() => toggleRan(n)} style={bouton(rans.includes(n))}>
+                RAN {n}
+              </button>
+            ))}
+          </div>
+        </>
+      )}
 
       {!file && (
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center", marginBottom: 16 }}>
           <button onClick={commencer} disabled={!aFaire.length} style={{ ...gros(ENSEIGNEMENT_ACCENT), opacity: aFaire.length ? 1 : 0.5 }}>
             {aFaire.length ? `Commencer (${aFaire.length} cartes)` : "Rien à revoir aujourd'hui 🎉"}
           </button>
-          <a href="./crpe/ran-maths/boites-a-questions-cartes.pdf" target="_blank" rel="noreferrer" style={{ fontSize: 12, color: ENSEIGNEMENT_ACCENT }}>
-            🖨️ Version imprimable (cartes recto verso)
-          </a>
+          <span style={{ fontSize: 12, color: COLORS.muted }}>
+            🖨️ À imprimer (recto verso) :{" "}
+            {CRPE_BOITES_MATIERES.map((m, i) => (
+              <span key={m.key}>
+                {i > 0 && " · "}
+                <a href={`./crpe/ran-maths/${m.pdf}`} target="_blank" rel="noreferrer" style={{ color: ENSEIGNEMENT_ACCENT }}>
+                  {m.label}
+                </a>
+              </span>
+            ))}
+          </span>
         </div>
       )}
 
       {file && carte && (
         <div style={{ background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, borderRadius: 12, padding: "18px 18px", marginBottom: 16 }}>
           <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: COLORS.muted, marginBottom: 10 }}>
-            <span>RAN {carte.ran} · {carte.type}</span>
+            <span>{carte.matiere === "maths" ? `${carte.groupe} · ${carte.type}` : `${CRPE_BOITES_MATIERES.find((m) => m.key === carte.matiere).label} · ${carte.groupe}`}</span>
             <span>{file.length} restante{file.length > 1 ? "s" : ""}</span>
           </div>
           <div style={{ fontSize: 17, color: COLORS.text, fontWeight: 500, lineHeight: 1.45, marginBottom: 14 }}>{carte.q}</div>
@@ -8004,8 +8042,8 @@ const CRPE_FICHIERS = [
   {
     id: "ran-boites-a-questions",
     matiere: "Maths — dossier des RAN",
-    title: "Boîtes à questions — cartes à imprimer",
-    meta: "Une carte par définition et par propriété, réponse + exemple au verso (recto verso, bord long)",
+    title: "Boîtes à questions — cartes de maths à imprimer",
+    meta: "Une question par définition et par propriété, réponse + exemple au verso (recto verso, bord long). Aussi : français et histoire-géo-EMC dans l'onglet Boîtes à questions",
     file: "./crpe/ran-maths/boites-a-questions-cartes.pdf",
     topic: "m-operations",
   },
