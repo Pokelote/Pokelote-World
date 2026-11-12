@@ -270,7 +270,7 @@ const FONT_BODY = "'Work Sans', sans-serif";
 // Affiché en petit sur l'écran d'accueil pour diagnostiquer facilement si un appareil tourne
 // sur une vieille version mise en cache — à incrémenter à chaque déploiement, en même temps
 // que CACHE_NAME dans sw.js.
-const APP_VERSION = "103";
+const APP_VERSION = "104";
 
 function uid() {
   return Math.random().toString(36).slice(2, 10);
@@ -8422,6 +8422,15 @@ function CrpeFichiersContent() {
       </h1>
       <p style={{ color: COLORS.muted, fontSize: 14, lineHeight: 1.6, marginBottom: 24 }}>
         Tes propres documents de révision, à cocher au fur et à mesure. Ils serviront de base pour bâtir un planning selon ton EDT.
+      </p>
+      <p style={{ fontSize: 14, marginBottom: 24 }}>
+        <a href="./crpe/index.html" target="_blank" rel="noreferrer" style={{ color: ENSEIGNEMENT_ACCENT, fontWeight: 600 }}>
+          📱 Mes fiches CRPE (page à ouvrir depuis le téléphone)
+        </a>{" "}
+        <span style={{ color: COLORS.muted }}>· </span>
+        <a href="./crpe/polycopies-a-imprimer.pdf" target="_blank" rel="noreferrer" style={{ color: ENSEIGNEMENT_ACCENT }}>
+          🖨️ Polycopiés à imprimer
+        </a>
       </p>
 
       {CRPE_FICHIERS.length === 0 && (
