@@ -13088,91 +13088,63 @@ function AdministratifTab() {
   );
 }
 
-// Onglet Streaming (ajouté 24/11/2026) — base de départ, à construire avec Clément.
-// La checklist de mise en place reprend l'événement Google Agenda du 05/11/2026
-// « 🎮 Préparer le compte Twitch pour streamer ». Cases cochées stockées dans "streaming-setup-checked"
-// (synchronisé). Critères d'affiliation : ceux affichés par Twitch (sur 30 jours glissants).
+// Onglet Streaming (24/11/2026) : l'« Atelier de live » de Clément (artifact claude.ai repris dans
+// streaming/atelier.html), affiché ici dans un cadre. Ses 6 parties restent des sous-onglets internes,
+// « Aujourd'hui » en premier : Aujourd'hui, Semaine, Textes d'un live, Replays & clips, Réseaux, Réglages.
+// Ses données sont dans localStorage sous « pokelote-atelier-v1 » (même site → même stockage) : ne pas
+// renommer la clé ; l'export/import des Réglages sert à les passer d'un appareil à l'autre.
+// La page annonce sa hauteur (pas de double défilement) et confie ses petits messages à l'appli.
 const STREAMING_ACCENT = "#9146FF";
-const STREAMING_SETUP = [
-  { id: "compte", label: "Créer ou compléter le compte (pseudo, photo, bannière, bio)" },
-  { id: "2fa", label: "Activer l'authentification à deux facteurs (obligatoire pour streamer)" },
-  { id: "obs", label: "Installer OBS Studio et lancer l'assistant de configuration automatique" },
-  { id: "obs-twitch", label: "Relier OBS à Twitch (connexion au compte ou clé de stream)" },
-  { id: "test", label: "Faire un test de stream privé (micro, webcam, son du jeu)" },
-];
-const STREAMING_AFFILIATE = [
-  { value: "50", label: "followers" },
-  { value: "500", label: "minutes de diffusion" },
-  { value: "7", label: "jours de diffusion différents" },
-  { value: "3", label: "spectateurs en moyenne" },
-];
+const ATELIER_SRC = "./streaming/atelier.html?v=1";
 
 function StreamingTab() {
-  const [checked, setChecked] = useState({});
+  const frameRef = useRef(null);
+  const [height, setHeight] = useState(900);
+  const [toast, setToast] = useState(null);
   useEffect(() => {
-    let cancelled = false;
-    window.storage
-      .get("streaming-setup-checked")
-      .then((res) => (res ? JSON.parse(res.value) : null))
-      .catch(() => null)
-      .then((v) => {
-        if (!cancelled && v && typeof v === "object") setChecked(v);
-      });
+    let timer = null;
+    function onMessage(e) {
+      if (!frameRef.current || e.source !== frameRef.current.contentWindow) return;
+      const d = e.data || {};
+      if (d.type === "atelier-height" && d.h > 0) setHeight(Math.ceil(d.h) + 8);
+      if (d.type === "atelier-toast" && d.msg) {
+        setToast(String(d.msg));
+        clearTimeout(timer);
+        timer = setTimeout(() => setToast(null), 2200);
+      }
+    }
+    window.addEventListener("message", onMessage);
     return () => {
-      cancelled = true;
+      window.removeEventListener("message", onMessage);
+      clearTimeout(timer);
     };
   }, []);
-  function toggle(id) {
-    const next = { ...checked, [id]: !checked[id] };
-    setChecked(next);
-    window.storage.set("streaming-setup-checked", JSON.stringify(next)).catch(() => {});
-  }
-  const done = STREAMING_SETUP.filter((it) => checked[it.id]).length;
-  const card = { background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, borderRadius: 10, padding: "16px 18px" };
 
   return (
     <div>
-      <h1 style={{ fontFamily: FONT_DISPLAY, fontSize: 32, color: COLORS.text, margin: 0, marginBottom: 6, fontWeight: 600 }}>Streaming</h1>
-      <p style={{ color: COLORS.muted, fontSize: 14, marginBottom: 24 }}>Lancer la chaîne Twitch, étape par étape.</p>
-
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(340px, 100%), 1fr))", gap: 20, alignItems: "start" }}>
-        <div style={{ ...card, borderLeft: `4px solid ${STREAMING_ACCENT}` }}>
-          <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 8, marginBottom: 14 }}>
-            <span style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: COLORS.text }}>Mise en place</span>
-            <span style={{ fontSize: 12, color: done === STREAMING_SETUP.length ? COLORS.checked : COLORS.muted }}>
-              {done} / {STREAMING_SETUP.length}
-            </span>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            {STREAMING_SETUP.map((it) => (
-              <TaskChecklistItem key={it.id} id={it.id} label={it.label} checked={!!checked[it.id]} onToggle={toggle} />
-            ))}
-          </div>
+      <h1 style={{ fontFamily: FONT_DISPLAY, fontSize: 32, color: COLORS.text, margin: 0, marginBottom: 6, fontWeight: 600 }}>🐧 Streaming</h1>
+      <p style={{ color: COLORS.muted, fontSize: 14, marginBottom: 18 }}>
+        Tout ce qu'il y a à faire pour un live, sur tous tes réseaux, au même endroit.
+      </p>
+      <iframe
+        ref={frameRef}
+        src={ATELIER_SRC}
+        title="Atelier de live"
+        allow="clipboard-write"
+        style={{ width: "100%", height, border: "none", display: "block", background: "transparent", colorScheme: "dark" }}
+      />
+      {toast && (
+        <div
+          role="status"
+          style={{
+            position: "fixed", left: "50%", bottom: 22, transform: "translateX(-50%)", zIndex: 50,
+            background: STREAMING_ACCENT, color: "white", padding: "9px 18px", borderRadius: 999,
+            fontSize: 14, boxShadow: "0 6px 20px rgba(0,0,0,0.35)", maxWidth: "90vw", textAlign: "center",
+          }}
+        >
+          {toast}
         </div>
-
-        <div style={{ ...card, borderLeft: `4px solid ${STREAMING_ACCENT}` }}>
-          <div style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: COLORS.text, marginBottom: 4 }}>Objectif : Affilié Twitch</div>
-          <p style={{ fontSize: 12, color: COLORS.muted, margin: "0 0 14px", lineHeight: 1.5 }}>
-            À atteindre sur 30 jours pour débloquer les abonnements et les Bits (suivi dans le tableau de bord Twitch → Succès).
-          </p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 10 }}>
-            {STREAMING_AFFILIATE.map((c) => (
-              <div key={c.label} style={{ background: COLORS.track, borderRadius: 8, padding: "10px 12px" }}>
-                <div style={{ fontFamily: FONT_DISPLAY, fontSize: 24, color: STREAMING_ACCENT, lineHeight: 1 }}>{c.value}</div>
-                <div style={{ fontSize: 12, color: COLORS.muted, marginTop: 4 }}>{c.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <div style={{ ...card, marginTop: 20 }}>
-        <div style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: COLORS.text, marginBottom: 8 }}>À construire ensemble</div>
-        <p style={{ fontSize: 13, color: COLORS.muted, lineHeight: 1.6, margin: 0 }}>
-          Cette page est une base. Prochaines briques possibles : planning des streams, idées de contenu et de jeux, matériel (micro,
-          webcam, overlays) et suivi des stats.
-        </p>
-      </div>
+      )}
     </div>
   );
 }

@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<!-- Atelier de live — Pokelote. Repris tel quel de l'artifact claude.ai « Atelier de live — Pokelote »
+     (24/11/2026) et affiché dans l'onglet Streaming de CHATCHAT LAND (mon-espace.html). Les données restent
+     dans localStorage sous la clé « pokelote-atelier-v1 » (+ « pokelote-atelier-v1-mascot ») : NE PAS la renommer.
+     Modifs d'intégration seulement : thème sombre de l'appli, titre retiré, hauteur et toasts envoyés au parent. -->
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atelier de live — Pokelote</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0D1420;--card:#141F33;--ink:#F4F5F7;--mute:#98A2B3;--line:#2B3C57;--acc:#A77BFF;--acc-ink:#140A2B;--ice:#221a3d;--warn:#f0a85c;--warnbg:#33260f;--ok:#66BB6A;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:transparent;color:var(--ink);font:15px/1.5 'Work Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{margin:0;padding:0 0 24px}
+h1{font-size:22px;margin:0 0 2px}
+.sub{color:var(--mute);margin:0 0 16px}
+nav{display:flex;gap:4px;flex-wrap:wrap;border-bottom:1px solid var(--line);margin-bottom:18px}
+nav button{background:none;border:0;border-bottom:3px solid transparent;color:var(--mute);padding:10px 12px;font:inherit;cursor:pointer}
+nav button.on{color:var(--acc);border-bottom-color:var(--acc);font-weight:600}
+section{display:none}section.on{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:14px}
+.card h3{margin:0 0 8px;font-size:14px;color:var(--mute);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+label{display:block;font-size:12px;color:var(--mute);margin-bottom:3px}
+input,select,textarea{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:7px 9px}
+input[type=checkbox]{width:auto}
+textarea{resize:vertical;min-height:70px}
+button.b,a.b{background:var(--acc);color:var(--acc-ink);border:0;border-radius:8px;padding:7px 12px;font:inherit;cursor:pointer;text-decoration:none;display:inline-block}
+button.b.alt,a.b.alt{background:var(--ice);color:var(--acc)}
+button.b[disabled]{opacity:.55;cursor:default}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+.cnt{font-size:12px;color:var(--mute)}.cnt.over{color:var(--warn);font-weight:600}
+.warn{background:var(--warnbg);color:var(--warn);border-radius:8px;padding:8px 12px;margin-bottom:8px;font-size:14px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.chip{background:var(--ice);color:var(--acc);border-radius:99px;padding:3px 12px;font-size:13px;font-weight:600}
+.check label{display:flex;gap:8px;align-items:flex-start;font-size:15px;color:var(--ink);margin:5px 0}
+.check input{margin-top:5px}
+table{width:100%;border-collapse:collapse}
+th,td{padding:6px 5px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle;font-size:14px}
+th{font-size:12px;color:var(--mute);font-weight:600}
+td.c,th.c{text-align:center}
+.plan div{padding:5px 0;border-bottom:1px solid var(--line)}
+.plan div.now{background:var(--ice);border-radius:6px;padding:5px 8px}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 16px;border-radius:99px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:9}
+.toast.on{opacity:1}
+.hint{color:var(--mute);font-size:13px;margin:4px 0 0}
+.ph{font-size:12px;font-weight:700;color:var(--mute);text-transform:uppercase;letter-spacing:.05em;margin:14px 0 4px;padding-top:8px;border-top:1px solid var(--line)}
+.ph:first-of-type{border-top:0;margin-top:6px}
+.it{padding:6px 0}
+.it label{display:flex;gap:8px;align-items:flex-start;font-size:15px;color:var(--ink);margin:0}
+.it input{margin-top:5px}
+.it.done .t{text-decoration:line-through;color:var(--mute)}
+.pl{display:inline-block;color:#fff;border-radius:6px;padding:0 7px;font-size:11px;font-weight:700;margin-right:6px;vertical-align:1px}
+details{margin:4px 0 2px 26px}
+summary{cursor:pointer;color:var(--acc);font-size:13px}
+details textarea{margin:6px 0 4px;min-height:60px}
+.dl{font-size:12px;color:var(--mute);margin:6px 0 2px}
+.bar{height:6px;border-radius:9px;background:var(--ice);overflow:hidden;margin:8px 0 4px}
+.bar i{display:block;height:100%;background:var(--ok);width:0;transition:width .2s}
+ul.sp{margin:4px 0 0;padding-left:20px;color:var(--ink)}
+ul.sp li{margin:2px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav id="nav">
+    <button data-t="today" class="on">📍 Aujourd'hui</button>
+    <button data-t="week">📅 Semaine</button>
+    <button data-t="kit">🔴 Textes d'un live</button>
+    <button data-t="replay">🎬 Replays &amp; clips</button>
+    <button data-t="nets">🌐 Réseaux</button>
+    <button data-t="set">⚙️ Réglages</button>
+  </nav>
+
+  <!-- AUJOURD'HUI -->
+  <section id="t-today" class="on">
+    <div class="card"><div class="row">
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><button class="b alt" id="d-prev">←</button><input id="d-date" type="date" style="width:auto"><button class="b alt" id="d-next">→</button><button class="b alt" id="d-now">Aujourd'hui</button></div>
+      <span class="cnt" id="d-ctx"></span></div></div>
+    <div id="d-body"></div>
+  </section>
+
+  <!-- SEMAINE -->
+  <section id="t-week">
+    <div class="card"><h3>Semaine</h3>
+      <div class="row"><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><button class="b alt" id="w-prev">←</button><input id="w-start" type="date" style="width:auto"><button class="b alt" id="w-next">→</button><button class="b alt" id="w-now">Cette semaine</button></div><span class="cnt">Coche ce qui est fixe, choisis tes lives.</span></div>
+      <div style="overflow-x:auto"><table id="w-table"></table></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="b alt" id="w-tpl">Garder comme modèle des prochaines semaines</button><button class="b alt" id="w-rst">Revenir au modèle pour cette semaine</button></div>
+    </div>
+    <div id="w-chips" class="chips"></div>
+    <div id="w-warn"></div>
+    <div class="card"><h3>Ton planning (privé)</h3><div class="plan" id="w-plan"></div></div>
+    <div class="card"><h3>Image du planning (à publier)</h3>
+      <div class="grid">
+        <div><label>Format</label><select id="p-fmt"><option value="story">Story 1080×1920</option><option value="post">Post portrait 1080×1350</option></select></div>
+        <div><label>Jours sans live</label><select id="p-rest"><option value="1">Afficher « repos »</option><option value="0">Masquer</option></select></div>
+        <div><label>Ta mascotte (image, facultatif)</label><input type="file" id="p-mascot" accept="image/*"></div>
+      </div>
+      <div style="margin:14px 0;text-align:center"><canvas id="p-cv" width="1080" height="1920" style="width:100%;max-width:420px;height:auto;border-radius:12px;border:1px solid var(--line)"></canvas></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="b" id="p-dl">⬇ Télécharger l'image</button><button class="b alt" id="p-nomascot">Remettre le pingouin</button></div>
+      <p class="hint">L'image n'affiche que les lives (pas ton travail, ni le foot, ni le CRPE). Sur téléphone, si le téléchargement ne se lance pas, fais un appui long sur l'image. Les couleurs des cartes se règlent par jeu dans l'onglet Réglages.</p>
+    </div>
+    <div id="w-out"></div>
+  </section>
+
+  <!-- KIT -->
+  <section id="t-kit">
+    <div class="card"><h3>Le live</h3>
+      <div class="grid">
+        <div><label>Jeu / série</label><select id="k-game"></select></div>
+        <div><label>N° d'épisode / de session</label><input id="k-ep" type="number" min="1"></div>
+        <div><label>Date</label><input id="k-date" type="date"></div>
+        <div><label>Créneau</label><select id="k-slot"><option value="soir">Soirée</option><option value="aprem">Après-midi</option></select></div>
+        <div><label>Début</label><input id="k-start" type="time"></div>
+      </div>
+      <div style="margin-top:10px"><label>Objectif du live (facultatif, 1 phrase)</label><input id="k-goal" placeholder="ex. premier braquage de banque"></div>
+    </div>
+    <div id="k-out"></div>
+    <div class="card"><h3>Après le live</h3>
+      <p class="hint" style="margin:0 0 8px">Passe au numéro suivant et prépare tout de suite le replay.</p>
+      <button class="b" id="k-done">✔ Live terminé → préparer le replay</button>
+    </div>
+  </section>
+
+  <!-- REPLAY -->
+  <section id="t-replay">
+    <div class="card"><h3>Le replay</h3>
+      <div class="grid">
+        <div><label>Jeu / série</label><select id="r-game"></select></div>
+        <div><label>N° d'épisode</label><input id="r-ep" type="number" min="1"></div>
+        <div><label>Date du live</label><input id="r-date" type="date"></div>
+      </div>
+      <div style="margin-top:10px"><label>Moment fort (pour le titre)</label><input id="r-hl" placeholder="ex. le braquage tourne mal"></div>
+    </div>
+    <div id="r-out"></div>
+    <div class="card"><h3>Clip (TikTok, Shorts, Reel)</h3>
+      <label>Le moment du clip</label><input id="r-clip" placeholder="ex. Hank oublie le plan en plein braquage">
+      <div id="r-clipout" style="margin-top:10px"></div>
+    </div>
+    <div class="card"><h3>À faire pour publier</h3><div class="check" id="r-check"></div></div>
+  </section>
+
+  <!-- RESEAUX -->
+  <section id="t-nets">
+    <div id="n-list"></div>
+    <div class="card"><h3>Textes permanents</h3>
+      <div class="row"><label style="margin:0">Bio courte (Instagram, TikTok)</label><div style="display:flex;gap:10px;align-items:center"><span class="cnt" id="n-bio-n"></span><button class="b alt" data-copy="n-bio">Copier</button></div></div>
+      <textarea id="n-bio" rows="2"></textarea>
+      <div class="row" style="margin-top:12px"><label style="margin:0">Pied de description YouTube</label><button class="b alt" data-copy="n-foot">Copier</button></div>
+      <textarea id="n-foot" rows="5" readonly></textarea>
+      <div class="row" style="margin-top:12px"><label style="margin:0">Tous mes liens (à coller où tu veux)</label><button class="b alt" data-copy="n-links">Copier</button></div>
+      <textarea id="n-links" rows="5" readonly></textarea>
+    </div>
+  </section>
+
+  <!-- REGLAGES -->
+  <section id="t-set">
+    <div class="card"><h3>Liens</h3><div class="grid" id="s-links"></div></div>
+    <div class="card"><h3>Créneaux et contraintes</h3><div class="grid" id="s-slots"></div></div>
+    <div class="card"><h3>Mes jeux / séries</h3>
+      <div style="overflow-x:auto"><table id="s-games"></table></div>
+      <div style="margin-top:10px"><button class="b alt" id="s-add">+ Ajouter un jeu</button></div>
+    </div>
+    <div class="card"><h3>Sauvegarde</h3>
+      <p class="hint" style="margin:0 0 8px">Les réglages, les numéros d'épisode et tes cases cochées sont gardés dans ce navigateur. Pour les copier sur un autre appareil : exporte, puis colle sur l'autre et importe.</p>
+      <textarea id="s-json" rows="4" placeholder="Colle ici un export pour l'importer"></textarea>
+      <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap"><button class="b" id="s-exp">Exporter (copier)</button><button class="b alt" id="s-imp">Importer</button><button class="b alt" id="s-reset">Réinitialiser</button></div>
+    </div>
+  </section>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const KEY='pokelote-atelier-v1';
+const DAYS=['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'];
+const DEF={
+  links:{twitch:'https://www.twitch.tv/pokelote',youtube:'https://www.youtube.com/@Pokelote',discord:'https://discord.gg/xVchpRaZ88',instagram:'https://www.instagram.com/pokelote_twitch/',tiktok:'https://www.tiktok.com/@pokelote_twitch'},
+  slots:{soir:{name:'Soirée Dominique',start:'21:00',endFree:'00:30'},aprem:{name:'Après-midi stratégie !',start:'15:00',end:'18:00'}},
+  endWork:'23:00',
+  foot:{start:'19:00',dur:60},
+  bio:'Streamer Twitch 🎮 GTA RP, stratégie, LoL · Viens à la Baverne 🍺🐧 Lives presque tous les soirs',
+  games:[
+    {id:'gta',name:'GTA RP',series:'Dominique Santoni | Reroll',unit:'Épisode',next:1,slot:'soir',cat:'Grand Theft Auto V',tags:'GTARP, Reroll, FiveM',color:'#2e86de'},
+    {id:'anno',name:'Anno 1800',series:'Anno 1800 | Campagne',unit:'Épisode',next:2,slot:'aprem',cat:'Anno 1800',tags:'Anno1800, Stratégie',color:'#17a398'},
+    {id:'tw',name:'Total War',series:'Total War | Rome II',unit:'Épisode',next:1,slot:'aprem',cat:'Total War: ROME II',tags:'TotalWar, Rome2, Stratégie',color:'#6c63d6'},
+    {id:'lol',name:'LoL DuoQ',series:'LoL | DuoQ',unit:'Session',next:3,slot:'soir',cat:'League of Legends',tags:'LeagueOfLegends, DuoQ',color:'#8e5bd6'},
+    {id:'rob',name:'Rob Run',series:'Rob Run',unit:'Épisode',next:4,slot:'soir',cat:'Rob Run',tags:'RobRun',color:'#d9822b'}
+  ],
+  week:[
+    {work:1,foot:0,crpe:1,aprem:'',soir:'gta'},
+    {work:1,foot:0,crpe:1,aprem:'',soir:'gta'},
+    {work:1,foot:1,crpe:1,aprem:'',soir:'gta'},
+    {work:1,foot:0,crpe:1,aprem:'',soir:'gta'},
+    {work:1,foot:0,crpe:1,aprem:'',soir:'gta'},
+    {work:0,foot:0,crpe:1,aprem:'anno',soir:'gta'},
+    {work:0,foot:0,crpe:1,aprem:'tw',soir:''}
+  ],
+  weeks:{},log:{},todo:{},goals:{}
+};
+const clone=o=>JSON.parse(JSON.stringify(o));
+let S=load();
+function load(){try{const r=localStorage.getItem(KEY);if(r){const o=JSON.parse(r);if(o&&Array.isArray(o.games)&&Array.isArray(o.week))return Object.assign(clone(DEF),o);}}catch(e){}return clone(DEF);}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+
+const $=id=>document.getElementById(id);
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const G=id=>S.games.find(g=>g.id===id);
+const hh=t=>{const p=t.split(':');return p[1]==='00'?(+p[0])+'h':(+p[0])+'h'+p[1];};
+const mins=t=>{const p=t.split(':').map(Number);return p[0]*60+p[1];};
+const fmtD=d=>d.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'});
+const longD=d=>d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+const iso=d=>{const z=new Date(d.getTime()-d.getTimezoneOffset()*60000);return z.toISOString().slice(0,10);};
+const fromIso=s=>{const p=s.split('-').map(Number);return new Date(p[0],p[1]-1,p[2]);};
+const dIdx=d=>(d.getDay()+6)%7;
+const mondayOf=d=>{const x=new Date(d.getFullYear(),d.getMonth(),d.getDate());x.setDate(x.getDate()-dIdx(x));return x;};
+const tags=g=>g.tags.split(',').map(t=>t.trim()).filter(Boolean).map(t=>'#'+t.replace(/\s+/g,'')).join(' ');
+const okUrl=u=>/^https:\/\//.test(u||'');
+const EMBED=window.parent&&window.parent!==window;
+function toast(m){if(EMBED){try{window.parent.postMessage({type:'atelier-toast',msg:m},'*');return;}catch(e){}}const t=$('toast');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),1800);}
+if(EMBED){const sendH=()=>{try{window.parent.postMessage({type:'atelier-height',h:document.documentElement.scrollHeight},'*');}catch(e){}};
+  new ResizeObserver(sendH).observe(document.body);window.addEventListener('load',sendH);document.addEventListener('toggle',sendH,true);}
+async function copyFrom(ta,btn){
+  try{await navigator.clipboard.writeText(ta.value);const o=btn.textContent;btn.textContent='Copié ✔';setTimeout(()=>btn.textContent=o,1500);}
+  catch(e){ta.focus();ta.select();toast('Sélectionné : Ctrl+C pour copier');}
+}
+function outBlock(id,label,rows,max){
+  return `<div class="card"><div class="row"><h3 style="margin:0">${label}</h3><div style="display:flex;gap:10px;align-items:center">${max?`<span class="cnt" id="${id}-n"></span>`:''}<button class="b alt" data-copy="${id}">Copier</button></div></div><textarea id="${id}" rows="${rows}"></textarea></div>`;
+}
+function setOut(id,val,max){
+  const ta=$(id);if(!ta)return;ta.value=val;
+  if(max){const n=$(id+'-n');n.textContent=val.length+' / '+max;n.className='cnt'+(val.length>max?' over':'');}
+}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-copy]');if(b)copyFrom($(b.dataset.copy),b);});
+function tab(t){document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==='t-'+t));if(t==='today')todayRender();}
+$('nav').onclick=e=>{const b=e.target.closest('button');if(b)tab(b.dataset.t);};
+function gameOptions(sel,keep){
+  const cur=keep?sel.value:'';
+  sel.innerHTML=S.games.map(g=>`<option value="${esc(g.id)}">${esc(g.name)}</option>`).join('');
+  if(cur&&G(cur))sel.value=cur;
+}
+
+/* ===== Semaines, jours, épisodes ===== */
+const weekData=mi=>S.weeks[mi]||S.week;
+function weekEdit(mi){if(!S.weeks[mi])S.weeks[mi]=clone(S.week);return S.weeks[mi];}
+const dayInfo=d=>weekData(iso(mondayOf(d)))[dIdx(d)];
+function nextWork(d){const n=new Date(d);n.setDate(n.getDate()+1);return !!dayInfo(n).work;}
+function startFor(day,slot){return (slot==='soir'?day.sStart:day.aStart)||S.slots[slot].start;}
+function endFor(d,slot){return slot==='soir'?(nextWork(d)?S.endWork:S.slots.soir.endFree):S.slots.aprem.end;}
+function whenOf(d,slot){return iso(d)===iso(new Date())?(slot==='soir'?'ce soir':'cet après-midi'):'le '+DAYS[dIdx(d)].toLowerCase()+' '+fmtD(d);}
+function projectEpisodes(mi){
+  const out={},cnt={},T=new Date();T.setHours(0,0,0,0);
+  S.games.forEach(g=>cnt[g.id]=+g.next);
+  const start=fromIso(mi),end=new Date(start);end.setDate(start.getDate()+6);
+  const slots=['aprem','soir'],past=[],minLog={};
+  for(let d=new Date(start);d<=end;d.setDate(d.getDate()+1)){slots.forEach(s=>{const id=dayInfo(d)[s],k=iso(d)+'|'+s;if(!id||!G(id))return;
+    if(S.log[k]){out[k]=S.log[k];minLog[id]=Math.min(minLog[id]==null?1e9:minLog[id],S.log[k]);}
+    else if(d<T)past.push({k,id});});}
+  const per={},seen={};past.forEach(x=>{per[x.id]=(per[x.id]||0)+1;});
+  past.forEach(x=>{const k=seen[x.id]||0;seen[x.id]=k+1;const ref=minLog[x.id]==null?cnt[x.id]:minLog[x.id];out[x.k]=Math.max(1,ref-per[x.id]+k);});
+  for(let d=new Date(T);d<=end;d.setDate(d.getDate()+1)){
+    slots.forEach(s=>{const id=dayInfo(d)[s];if(!id||!G(id))return;const k=iso(d)+'|'+s;
+      const ep=S.log[k]||cnt[id]++;if(d>=start)out[k]=ep;});
+  }
+  return out;
+}
+function markDone(g,ep,dk,slot){S.log[dk+'|'+slot]=ep;g.next=Math.max(+g.next,ep+1);save();}
+function prefillReplay(g,ep,dk,goal){
+  $('r-game').value=g.id;$('r-ep').value=ep;$('r-date').value=dk;$('r-hl').value=goal||'';replayRender();
+}
+
+/* ===== Textes ===== */
+function buildTexts(c){
+  const g=c.g,hs=tags(g),L=S.links,u=`${g.unit} ${c.ep}`,goal=c.goal||'';
+  const dl=c.d?c.d.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}):'';
+  const sn=S.slots[c.slot]?S.slots[c.slot].name:'';
+  return {
+    title:`${g.series} — ${u}${goal?' | '+goal:''}`,
+    discord:`🍺 **${sn}** — c'est ${c.when} à la Baverne !\n🎮 ${g.series} · ${u}\n🕘 ${hh(c.start)} → ${hh(c.end)} (heure de Paris)\n${goal?'🎯 Au programme : '+goal+'\n':''}📺 ${L.twitch}`,
+    insta:`🔴 Live ${c.when} à ${hh(c.start)} !\n${g.series} — ${u}${goal?'\n🎯 '+goal:''}\n\nViens t'installer à la Baverne 🍺🐧\n👉 Lien dans la bio (Twitch, Discord, YouTube, TikTok)\n\n#Twitch #Pokelote ${hs}`,
+    tiktok:`🔴 Live ${c.when} à ${hh(c.start)} : ${g.series} (${u}) 🍺🐧 Lien dans la bio ! #Twitch #Pokelote ${hs}`,
+    visual:`Bannière bleu glacé avec le pingouin couronné. Texte : « ${g.series} », « ${u} », « ${hh(c.start)} ». Pour la miniature Twitch, garde l'image sous 1 Mo.`,
+    ytTitle:`${g.series} — ${u}${goal?' | '+goal:''}`,
+    ytDesc:`Replay du live Twitch du ${dl} : ${g.series}, ${g.unit.toLowerCase()} ${c.ep}.${goal?'\n'+goal.charAt(0).toUpperCase()+goal.slice(1)+'.':''}\n\n⏱ Chapitres (à compléter)\n00:00 Début du live\n00:00 \n00:00 \n\n${footText()}\n\n${hs} #Pokelote #Twitch`,
+    clipTT:(m)=>`${m||goal||'Le moment du live'} 🎬 Les lives sont sur Twitch (lien en bio) ${hs} #Pokelote #Shorts`,
+    clipIG:(m)=>`${m||goal||'Le moment du live'} 🎬 Retrouve les lives sur Twitch, lien dans la bio 🍺🐧 ${hs} #Pokelote #Reels`,
+    after:`Merci à tous pour le live ! 🍺 ${g.series} · ${u} est terminé. Le replay arrive sur YouTube : ${L.youtube}`
+  };
+}
+function footText(){const L=S.links;return `🔴 Les lives : ${L.twitch}\n💬 La Baverne (Discord) : ${L.discord}\n📸 Instagram : ${L.instagram}\n🎵 TikTok : ${L.tiktok}`;}
+
+/* ===== AUJOURD'HUI ===== */
+const PC={Twitch:'#9146ff',YouTube:'#d93025',TikTok:'#222',Instagram:'#d62976',Discord:'#5865f2'};
+function flowItems(it,dt){
+  const goal=S.goals[iso(dt)+'|'+it.slot]||'';
+  const T=buildTexts({g:it.g,ep:it.ep,goal,slot:it.slot,start:it.start,end:it.end,when:whenOf(dt,it.slot),d:dt});
+  const nw=nextWork(dt);
+  return [
+    {ph:'Avant',p:'Twitch',id:'tw',t:`Titre et catégorie mis à jour (catégorie : ${it.g.cat||it.g.name})`,tx:[['Titre',T.title]]},
+    {ph:'Avant',p:'Twitch',id:'obs',t:'OBS : scène et capture du jeu vérifiées, musique Deezer lancée (hors rediffusion et enregistrement local)'},
+    {ph:'Avant',p:'Discord',id:'dc',t:'Annonce postée dans le salon des annonces',tx:[['Annonce',T.discord]]},
+    {ph:'Avant',p:'Instagram',id:'ig',t:'Story ou post d\'annonce du live',tx:[['Texte',T.insta],['Idée de visuel',T.visual]]},
+    {ph:'Avant',p:'TikTok',id:'tt',t:'Légende d\'annonce TikTok',tx:[['Légende',T.tiktok]]},
+    {ph:'Pendant',p:'Twitch',id:'mk',t:'Poser des marqueurs (/marker dans le chat) sur les bons moments, pour retrouver les clips'},
+    {ph:'Pendant',p:'Discord',id:'dcv',t:'Passer dans le salon de live de La Baverne'},
+    {ph:'Pendant',p:'Twitch',id:'stop',t:nw?`Arrêt à ${hh(S.endWork)} (tu travailles demain)`:`Pas de travail demain : fin prévue vers ${hh(it.end)}`},
+    {ph:'Après',p:'Twitch',id:'clips',t:'Garder 1 à 3 clips (grâce aux marqueurs)'},
+    {ph:'Après',p:'YouTube',id:'yt',t:'Replay YouTube : titre, description, miniature 1280×720, playlist de la série',tx:[['Titre',T.ytTitle],['Description',T.ytDesc]]},
+    {ph:'Après',p:'TikTok',id:'ttc',t:'Clip vertical TikTok',tx:[['Légende',T.clipTT('')]]},
+    {ph:'Après',p:'Instagram',id:'igc',t:'Reel ou story du meilleur moment',tx:[['Légende',T.clipIG('')]]},
+    {ph:'Après',p:'Discord',id:'dca',t:'Message de remerciement avec le lien du replay',tx:[['Message',T.after]]}
+  ];
+}
+let txN=0;
+function flowHtml(it,dt){
+  const dk=iso(dt),k=dk+'|'+it.slot,items=flowItems(it,dt),done=!!S.log[k];
+  const total=items.length,nb=items.filter(x=>S.todo[k+'|'+x.id]).length;
+  let ph='',h=`<div class="card live" data-k="${k}" data-total="${total}"><div class="row"><div><b style="font-size:17px">${esc(it.g.series)}</b><div class="cnt">${esc(S.slots[it.slot].name)} · ${esc(it.g.unit)} ${it.ep} · ${hh(it.start)} → ${hh(it.end)}</div></div><span class="chip prog">${nb} / ${total}</span></div>
+  <div class="bar"><i style="width:${Math.round(nb/total*100)}%"></i></div>
+  <div style="margin:8px 0"><label>Objectif du live (facultatif, il se glisse dans les textes)</label><input data-goal="${k}" value="${esc(S.goals[k]||'')}" placeholder="ex. premier braquage de banque"></div>`;
+  items.forEach(x=>{
+    if(x.ph!==ph){ph=x.ph;h+=`<div class="ph">${ph}</div>`;}
+    const key=k+'|'+x.id;
+    h+=`<div class="it ${S.todo[key]?'done':''}"><label><input type="checkbox" data-todo="${key}" ${S.todo[key]?'checked':''}><span class="t"><span class="pl" style="background:${PC[x.p]}">${x.p}</span>${esc(x.t)}</span></label>`;
+    if(x.tx){h+='<details><summary>Voir les textes</summary>';x.tx.forEach(t=>{const id='tx'+(txN++);h+=`<div class="dl">${esc(t[0])}</div><textarea id="${id}" rows="${Math.min(8,Math.max(2,t[1].split('\n').length+1))}">${esc(t[1])}</textarea><button class="b alt" data-copy="${id}">Copier</button>`;});h+='</details>';}
+    h+='</div>';
+  });
+  h+=`<div style="margin-top:14px"><button class="b" data-done="${dk}|${it.slot}|${it.g.id}|${it.ep}" ${done?'disabled':''}>${done?esc(it.g.unit)+' '+it.ep+' compté ✔':'✔ Live terminé : compter l\'épisode et préparer le replay'}</button></div></div>`;
+  return h;
+}
+function todayRender(){
+  const v=$('d-date').value;if(!v)return;
+  const dt=fromIso(v),key=iso(dt),mi=iso(mondayOf(dt)),EP=projectEpisodes(mi),day=dayInfo(dt);
+  const ctx=[];if(day.work)ctx.push('💼 Travail');if(day.foot)ctx.push('🏈 Foot '+hh(S.foot.start));if(day.crpe)ctx.push('📚 CRPE');
+  $('d-ctx').textContent=longD(dt)+(ctx.length?' · '+ctx.join(' · '):'');
+  const items=[];
+  ['aprem','soir'].forEach(slot=>{const g=G(day[slot]);if(g)items.push({slot,g,ep:EP[key+'|'+slot]||g.next,start:startFor(day,slot),end:endFor(dt,slot)});});
+  txN=0;
+  if(!items.length){
+    $('d-body').innerHTML=`<div class="card"><h3>Pas de live prévu</h3><p style="margin:0 0 10px">Rien au programme ce jour-là. Idées pour ne pas perdre le fil :</p><ul class="sp"><li>Publier un clip du dernier live sur TikTok, en Short et en Reel (onglet Replays &amp; clips)</li><li>Répondre aux messages sur Discord et Instagram</li><li>Préparer la semaine dans l'onglet Semaine</li></ul><div style="margin-top:12px"><button class="b" id="d-plan">Ouvrir la semaine</button></div></div>`;
+    $('d-plan').onclick=()=>tab('week');return;
+  }
+  $('d-body').innerHTML=items.map(it=>flowHtml(it,dt)).join('');
+}
+function todayInit(){
+  $('d-date').value=iso(new Date());
+  $('d-date').oninput=todayRender;
+  const sh=n=>()=>{const d=fromIso($('d-date').value);d.setDate(d.getDate()+n);$('d-date').value=iso(d);todayRender();};
+  $('d-prev').onclick=sh(-1);$('d-next').onclick=sh(1);$('d-now').onclick=()=>{$('d-date').value=iso(new Date());todayRender();};
+  const body=$('d-body');
+  body.addEventListener('change',e=>{
+    const t=e.target;
+    if(t.dataset.todo){
+      if(t.checked)S.todo[t.dataset.todo]=1;else delete S.todo[t.dataset.todo];save();
+      t.closest('.it').classList.toggle('done',t.checked);
+      const card=t.closest('.live'),nb=card.querySelectorAll('input[data-todo]:checked').length,tot=+card.dataset.total;
+      card.querySelector('.prog').textContent=nb+' / '+tot;card.querySelector('.bar i').style.width=Math.round(nb/tot*100)+'%';
+    }else if(t.dataset.goal){S.goals[t.dataset.goal]=t.value.trim();save();todayRender();}
+  });
+  body.addEventListener('click',e=>{
+    const b=e.target.closest('[data-done]');if(!b||b.disabled)return;
+    const p=b.dataset.done.split('|'),g=G(p[2]),ep=+p[3];if(!g)return;
+    markDone(g,ep,p[0],p[1]);prefillReplay(g,ep,p[0],S.goals[p[0]+'|'+p[1]]||'');
+    if($('k-game').value===g.id)$('k-ep').value=g.next;
+    todayRender();toast(`${g.unit} ${ep} compté. Replay prêt dans « Replays & clips »`);
+  });
+}
+
+/* ===== SEMAINE ===== */
+function weekInit(){
+  $('w-start').value=iso(mondayOf(new Date()));
+  $('w-prev').onclick=()=>shiftWeek(-7);$('w-next').onclick=()=>shiftWeek(7);
+  $('w-now').onclick=()=>{$('w-start').value=iso(mondayOf(new Date()));weekBuild();};
+  $('w-start').oninput=weekBuild;
+  $('w-tpl').onclick=()=>{S.week=clone(weekData($('w-start').value));save();toast('Cette semaine sert maintenant de modèle');};
+  $('w-rst').onclick=()=>{delete S.weeks[$('w-start').value];save();weekBuild();toast('Modèle rétabli pour cette semaine');};
+  weekBuild();
+}
+function shiftWeek(n){const d=fromIso($('w-start').value);d.setDate(d.getDate()+n);$('w-start').value=iso(d);weekBuild();}
+function weekBuild(){
+  if(!$('w-start').value)return;
+  $('w-start').value=iso(mondayOf(fromIso($('w-start').value)));
+  const mi=$('w-start').value,wd=weekData(mi);
+  const opts=sel=>'<option value="">—</option>'+S.games.map(g=>`<option value="${esc(g.id)}" ${g.id===sel?'selected':''}>${esc(g.name)}</option>`).join('');
+  $('w-table').innerHTML='<tr><th>Jour</th><th class="c">Travail</th><th class="c">Foot</th><th class="c">CRPE</th><th>Après-midi</th><th>Soir</th></tr>'+
+  wd.map((d,i)=>`<tr><td><b>${DAYS[i]}</b><div class="cnt" id="w-d${i}"></div></td>
+   <td class="c"><input type="checkbox" data-i="${i}" data-k="work" ${d.work?'checked':''}></td>
+   <td class="c"><input type="checkbox" data-i="${i}" data-k="foot" ${d.foot?'checked':''}></td>
+   <td class="c"><input type="checkbox" data-i="${i}" data-k="crpe" ${d.crpe?'checked':''}></td>
+   <td><select data-i="${i}" data-k="aprem">${opts(d.aprem)}</select><input type="time" data-i="${i}" data-k="aStart" value="${d.aStart||''}" title="Heure (vide = heure habituelle)" style="margin-top:4px;padding:3px 6px;font-size:12px"></td>
+   <td><select data-i="${i}" data-k="soir">${opts(d.soir)}</select><input type="time" data-i="${i}" data-k="sStart" value="${d.sStart||''}" title="Heure (vide = heure habituelle)" style="margin-top:4px;padding:3px 6px;font-size:12px"></td></tr>`).join('');
+  $('w-table').onchange=e=>{const t=e.target,i=+t.dataset.i;if(isNaN(i))return;weekEdit($('w-start').value)[i][t.dataset.k]=t.type==='checkbox'?(t.checked?1:0):t.value;save();weekRender();todayRender();};
+  $('w-out').innerHTML=outBlock('w-pub','Annonce de la semaine (publique : Discord, Instagram)',8);
+  weekRender();
+}
+function weekRender(){
+  const mi=$('w-start').value;if(!mi)return;
+  const mon=fromIso(mi),sun=new Date(mon);sun.setDate(mon.getDate()+6);
+  const wd=weekData(mi),EP=projectEpisodes(mi),todayK=iso(new Date());
+  const priv=[],pub=[],warn=[],WKd=[];let tot=0,n=0;
+  const fEnd=mins(S.foot.start)+(+S.foot.dur||60);
+  wd.forEach((day,i)=>{
+    const d=new Date(mon);d.setDate(mon.getDate()+i);$('w-d'+i).textContent=fmtD(d);
+    const parts=[],items=[];
+    if(day.work)parts.push('💼 Travail');
+    if(day.foot)parts.push(`🏈 Foot ${hh(S.foot.start)}–${hh(String(Math.floor(fEnd/60)).padStart(2,'0')+':'+String(fEnd%60).padStart(2,'0'))}`);
+    if(day.crpe)parts.push('📚 CRPE');
+    ['aprem','soir'].forEach(slot=>{
+      const g=G(day[slot]);if(!g)return;
+      const ep=EP[iso(d)+'|'+slot]||g.next,start=startFor(day,slot),end=endFor(d,slot);
+      tot+=(mins(end)-mins(start)+1440)%1440;n++;
+      items.push({slot,g,ep,start,end});
+      parts.push(`🔴 ${hh(start)}–${hh(end)} ${g.name} (${g.unit} ${ep})`);
+      pub.push(`• ${DAYS[i]} ${fmtD(d)} · ${hh(start)}–${hh(end)} · ${g.series} (${g.unit} ${ep})`);
+      if(slot==='aprem'&&day.work)warn.push(`${DAYS[i]} : un live l'après-midi alors que tu travailles.`);
+      if(slot==='soir'&&day.foot&&mins(start)<fEnd+45)warn.push(`${DAYS[i]} : le live commence trop près de la fin du foot.`);
+    });
+    WKd.push({i,d,items});
+    priv.push(`<div class="${iso(d)===todayK?'now':''}"><b>${DAYS[i]} ${fmtD(d)}</b>${iso(d)===todayK?' (aujourd\'hui)':''} — ${parts.length?parts.map(esc).join(' · '):'repos'}</div>`);
+  });
+  $('w-plan').innerHTML=priv.join('');
+  const h=Math.round(tot/6)/10;
+  $('w-chips').innerHTML=`<span class="chip">${n} live${n>1?'s':''}</span><span class="chip">≈ ${h} h de stream</span><span class="chip">${wd.filter(d=>d.crpe).length} jours de révision CRPE</span>`;
+  $('w-warn').innerHTML=warn.map(w=>`<div class="warn">⚠️ ${esc(w)}</div>`).join('');
+  setOut('w-pub',`📅 Programme de la semaine à la Baverne (${fmtD(mon)} → ${fmtD(sun)})\n\n${pub.length?pub.join('\n'):'Pas de live prévu cette semaine.'}\n\n📺 ${S.links.twitch}\n💬 ${S.links.discord}`);
+  WK={mon,sun,days:WKd};posterRender();
+}
+
+/* ===== IMAGE DU PLANNING ===== */
+let WK=null,mascotImg=null,DL=null;
+const FT='"Bebas Neue",Impact,"Arial Narrow",sans-serif',FB='"Poppins","Segoe UI",system-ui,sans-serif';
+try{if(window.claude&&claude.use)claude.use('downloads').then(d=>{DL=d;}).catch(()=>{});}catch(e){}
+try{const m=localStorage.getItem(KEY+'-mascot');if(m){const im=new Image();im.onload=()=>{mascotImg=im;posterRender();};im.src=m;}}catch(e){}
+function rr(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath();}
+function wrapText(c,txt,maxW,maxLines){
+  const words=txt.split(' '),lines=[];let cur='';
+  for(const w of words){const t=cur?cur+' '+w:w;if(c.measureText(t).width>maxW&&cur){lines.push(cur);cur=w;}else cur=t;}
+  if(cur)lines.push(cur);
+  if(lines.length>maxLines){lines.length=maxLines;let l=lines[maxLines-1];while(c.measureText(l+'…').width>maxW&&l.length>1)l=l.slice(0,-1);lines[maxLines-1]=l+'…';}
+  return lines;
+}
+function drawPenguin(c,x,y,s){
+  c.save();c.translate(x,y);c.scale(s,s);
+  const navy='#10324a';
+  c.fillStyle=navy;
+  c.beginPath();c.ellipse(-74,16,16,48,0.35,0,7);c.fill();
+  c.beginPath();c.ellipse(74,16,16,48,-0.35,0,7);c.fill();
+  c.beginPath();c.ellipse(0,0,70,90,0,0,7);c.fill();
+  c.fillStyle='#f2fbff';c.beginPath();c.ellipse(0,20,46,64,0,0,7);c.fill();
+  c.fillStyle='#fff';c.beginPath();c.arc(-21,-38,11,0,7);c.arc(21,-38,11,0,7);c.fill();
+  c.fillStyle=navy;c.beginPath();c.arc(-19,-37,5.5,0,7);c.arc(19,-37,5.5,0,7);c.fill();
+  c.fillStyle='#f5a524';c.beginPath();c.moveTo(-15,-26);c.lineTo(15,-26);c.lineTo(0,-5);c.closePath();c.fill();
+  c.beginPath();c.ellipse(-28,92,24,9,0,0,7);c.ellipse(28,92,24,9,0,0,7);c.fill();
+  c.fillStyle='#f6c945';c.strokeStyle='#c99a1a';c.lineWidth=3;
+  c.beginPath();c.moveTo(-36,-80);c.lineTo(-42,-124);c.lineTo(-20,-104);c.lineTo(0,-136);c.lineTo(20,-104);c.lineTo(42,-124);c.lineTo(36,-80);c.closePath();c.fill();c.stroke();
+  c.fillStyle='#6cc3f0';c.beginPath();c.arc(0,-96,6,0,7);c.fill();
+  c.restore();
+}
+function drawCard(c,x,y,w,h,it){
+  const col=it.g.color||'#2e86de',pad=Math.max(12,h*0.09),ph=Math.max(28,h*0.22);
+  const gr=c.createLinearGradient(x,y,x+w,y+h);gr.addColorStop(0,'#0e3a5c');gr.addColorStop(1,col);
+  c.save();c.shadowColor='rgba(14,58,92,.28)';c.shadowBlur=18;c.shadowOffsetY=8;rr(c,x,y,w,h,26);c.fillStyle=gr;c.fill();c.restore();
+  c.save();rr(c,x,y,w,h,26);c.clip();c.fillStyle='rgba(255,255,255,.10)';c.beginPath();c.arc(x+w-20,y+h+20,h*0.75,0,7);c.fill();c.restore();
+  c.textBaseline='alphabetic';
+  c.font=`700 ${ph*0.52}px ${FB}`;const tw=c.measureText(it.start).width,pw=tw+ph*0.9;
+  rr(c,x+pad,y+pad,pw,ph,ph/2);c.fillStyle='#fff';c.fill();
+  c.fillStyle='#0e3a5c';c.fillText(it.start,x+pad+ph*0.45,y+pad+ph*0.5+ph*0.52*0.36);
+  const tag=`${it.g.unit.toUpperCase()} ${it.ep}`;c.font=`700 ${ph*0.4}px ${FB}`;
+  const gw=c.measureText(tag).width+ph*0.7;
+  rr(c,x+w-pad-gw,y+pad,gw,ph,ph/2);c.fillStyle='rgba(255,255,255,.2)';c.fill();
+  c.fillStyle='#fff';c.fillText(tag,x+w-pad-gw+ph*0.35,y+pad+ph*0.5+ph*0.4*0.36);
+  const size=Math.min(Math.max(h*0.26,26),46),avail=h-(pad+ph+10)-pad,maxL=Math.max(1,Math.min(2,Math.floor(avail/(size*0.98))));
+  c.font=`${size}px ${FT}`;c.fillStyle='#fff';
+  const lines=wrapText(c,it.g.series.toUpperCase(),w-pad*2,maxL),last=y+h-pad-4;
+  lines.forEach((l,j)=>c.fillText(l,x+pad,last-(lines.length-1-j)*size*0.98));
+}
+async function posterRender(){
+  if(!WK)return;
+  const cv=$('p-cv'),story=$('p-fmt').value==='story',W=1080,H=story?1920:1350;
+  try{await Promise.all([document.fonts.load('100px "Bebas Neue"'),document.fonts.load('700 30px "Poppins"'),document.fonts.load('600 30px "Poppins"')]);}catch(e){}
+  cv.width=W;cv.height=H;const c=cv.getContext('2d');
+  const bg=c.createLinearGradient(0,0,0,H);bg.addColorStop(0,'#f6fcff');bg.addColorStop(1,'#bfe0f3');c.fillStyle=bg;c.fillRect(0,0,W,H);
+  const rg=c.createRadialGradient(W*0.85,H*0.06,10,W*0.85,H*0.06,560);rg.addColorStop(0,'rgba(110,185,235,.5)');rg.addColorStop(1,'rgba(110,185,235,0)');c.fillStyle=rg;c.fillRect(0,0,W,H);
+  let seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+  for(let i=0;i<70;i++){c.fillStyle=`rgba(255,255,255,${0.35+rnd()*0.5})`;c.beginPath();c.arc(rnd()*W,rnd()*H,2+rnd()*6,0,7);c.fill();}
+  const headH=story?400:310,footH=story?200:160,k=story?1:0.8;
+  const py=headH/2+22;
+  if(mascotImg){const box=story?250:200,r=Math.min(box/mascotImg.width,box/mascotImg.height);c.drawImage(mascotImg,150-mascotImg.width*r/2,py-mascotImg.height*r/2,mascotImg.width*r,mascotImg.height*r);}
+  else drawPenguin(c,150,py,k);
+  const tx=story?330:300,dd=d=>String(d.getDate()).padStart(2,'0')+'.'+String(d.getMonth()+1).padStart(2,'0');
+  c.textBaseline='alphabetic';c.fillStyle='#0e3a5c';c.font=`${story?170:135}px ${FT}`;
+  const y1=story?190:150;c.fillText("PROG'",tx,y1);
+  const y2=y1+(story?136:108),fs=story?120:95;c.font=`${fs}px ${FT}`;c.fillStyle='#2a78b0';
+  const a=dd(WK.mon),b=dd(WK.sun),aw=c.measureText(a).width;
+  c.fillText(a,tx,y2);
+  const tri=fs*0.22,tcx=tx+aw+fs*0.3;c.beginPath();c.moveTo(tcx,y2-fs*0.5-tri);c.lineTo(tcx+tri*1.3,y2-fs*0.5);c.lineTo(tcx,y2-fs*0.5+tri);c.closePath();c.fill();
+  c.fillText(b,tcx+tri*1.3+fs*0.3,y2);
+  const show=$('p-rest').value==='1',rows=WK.days.filter(r=>r.items.length||show);
+  const top=headH,bottom=H-footH,n=Math.max(rows.length,1),rowH=Math.min((bottom-top)/n,250),ch=rowH-20;
+  const cx0=330,regW=1024-cx0;
+  rows.forEach((r,j)=>{
+    const cy=top+j*rowH+10,size=Math.min(ch*0.7,86);
+    rr(c,56,cy+(ch-size)/2,size,size,18);c.fillStyle='#0e3a5c';c.fill();
+    c.fillStyle='#fff';c.font=`${size*0.62}px ${FT}`;c.textAlign='center';c.fillText(String(r.d.getDate()),56+size/2,cy+ch/2+size*0.22);
+    c.textAlign='left';c.fillStyle='#0e3a5c';let ds=Math.min(ch*0.32,50);c.font=`${ds}px ${FT}`;
+    const dn=DAYS[r.i].toUpperCase(),dmax=cx0-16-(56+size+16);
+    while(ds>14&&c.measureText(dn).width>dmax){ds-=2;c.font=`${ds}px ${FT}`;}
+    c.fillText(dn,56+size+16,cy+ch/2+ds*0.32);
+    if(!r.items.length){
+      c.font=`600 ${ch*0.2}px ${FB}`;c.fillStyle='#6f97ad';c.fillText('REPOS',cx0,cy+ch/2+ch*0.07);
+      const lw=c.measureText('REPOS').width;c.save();c.setLineDash([8,10]);c.strokeStyle='rgba(14,58,92,.2)';c.lineWidth=3;c.beginPath();c.moveTo(cx0+lw+24,cy+ch/2);c.lineTo(1024,cy+ch/2);c.stroke();c.restore();
+      return;
+    }
+    const two=r.items.length>1,cw=two?(regW-18)/2:Math.min(470,regW);
+    r.items.forEach((it,m)=>drawCard(c,cx0+m*(cw+18),cy,cw,ch,it));
+  });
+  const fy=H-footH+10,fh=footH-40,f=story?1:0.85;
+  rr(c,40,fy,W-80,fh,30);c.fillStyle='rgba(14,58,92,.94)';c.fill();
+  c.fillStyle='#9bd3f2';c.font=`700 ${26*f}px ${FB}`;c.fillText('EN DIRECT SUR',80,fy+fh*0.36);
+  c.font=`700 ${22*f}px ${FB}`;const rw=Math.max(c.measureText('REJOINS LA BAVERNE').width,(c.font=`${50*f}px ${FT}`,c.measureText('SUR DISCORD').width));
+  const link=S.links.twitch.replace(/^https?:\/\/(www\.)?/,'').replace(/\/$/,'').toUpperCase(),lmax=W-160-rw-40;
+  let ls=72*f;c.font=`${ls}px ${FT}`;while(ls>20&&c.measureText(link).width>lmax){ls-=2;c.font=`${ls}px ${FT}`;}
+  c.fillStyle='#fff';c.fillText(link,80,fy+fh*0.82);
+  c.textAlign='right';c.fillStyle='#9bd3f2';c.font=`700 ${22*f}px ${FB}`;c.fillText('REJOINS LA BAVERNE',W-80,fy+fh*0.42);
+  c.fillStyle='#fff';c.font=`${50*f}px ${FT}`;c.fillText('SUR DISCORD',W-80,fy+fh*0.8);c.textAlign='left';
+}
+async function posterDownload(){
+  const cv=$('p-cv'),name=`prog-${$('w-start').value}-${$('p-fmt').value}.png`;
+  const blob=await new Promise(r=>cv.toBlob(r,'image/png'));
+  if(!blob){toast('Appui long sur l\'image pour l\'enregistrer');return;}
+  try{if(DL){await DL.save({filename:name,data:blob});toast('Image enregistrée');return;}}catch(e){}
+  try{const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);toast('Téléchargement lancé');}
+  catch(e){toast('Appui long sur l\'image pour l\'enregistrer');}
+}
+function posterInit(){
+  $('p-fmt').onchange=posterRender;$('p-rest').onchange=posterRender;$('p-dl').onclick=posterDownload;
+  $('p-mascot').onchange=e=>{
+    const f=e.target.files&&e.target.files[0];if(!f)return;const fr=new FileReader();
+    fr.onload=()=>{const im=new Image();im.onload=()=>{
+      const r=Math.min(1,400/Math.max(im.width,im.height)),t=document.createElement('canvas');t.width=Math.round(im.width*r);t.height=Math.round(im.height*r);
+      t.getContext('2d').drawImage(im,0,0,t.width,t.height);const url=t.toDataURL('image/png'),im2=new Image();
+      im2.onload=()=>{mascotImg=im2;posterRender();};im2.src=url;try{localStorage.setItem(KEY+'-mascot',url);}catch(x){}
+    };im.src=fr.result;};fr.readAsDataURL(f);
+  };
+  $('p-nomascot').onclick=()=>{mascotImg=null;try{localStorage.removeItem(KEY+'-mascot');}catch(e){}$('p-mascot').value='';posterRender();};
+}
+
+/* ===== TEXTES D'UN LIVE ===== */
+const kitChecked=new Set();
+function kitInit(){
+  gameOptions($('k-game'),false);
+  $('k-date').value=iso(new Date());
+  kitPick();
+  $('k-out').innerHTML=outBlock('k-title','Titre Twitch',2,140)+outBlock('k-discord','Annonce Discord',6)+outBlock('k-insta','Post Instagram',7)+outBlock('k-tiktok','Légende TikTok',3,150)+outBlock('k-visual','Idée de visuel',3);
+  ['k-ep','k-date','k-start','k-goal'].forEach(i=>$(i).oninput=kitRender);
+  $('k-game').onchange=()=>{kitPick();kitRender();};
+  $('k-slot').onchange=()=>{$('k-start').value=S.slots[$('k-slot').value].start;kitRender();};
+  $('k-done').onclick=kitDone;
+  kitRender();
+}
+function kitPick(){const g=G($('k-game').value)||S.games[0];if(!g)return;$('k-ep').value=g.next;$('k-slot').value=g.slot;$('k-start').value=S.slots[g.slot].start;}
+function kitCtx(){
+  const g=G($('k-game').value);if(!g||!$('k-date').value)return null;
+  const slot=$('k-slot').value,d=fromIso($('k-date').value);
+  return {g,ep:$('k-ep').value||g.next,goal:$('k-goal').value.trim(),slot,start:$('k-start').value||S.slots[slot].start,end:endFor(d,slot),when:whenOf(d,slot),d};
+}
+function kitRender(){
+  const c=kitCtx();if(!c)return;const T=buildTexts(c);
+  setOut('k-title',T.title,140);setOut('k-discord',T.discord);setOut('k-insta',T.insta);setOut('k-tiktok',T.tiktok,150);setOut('k-visual',T.visual);
+}
+function kitDone(){
+  const c=kitCtx();if(!c)return;const done=+c.ep;
+  markDone(c.g,done,iso(c.d),c.slot);prefillReplay(c.g,done,iso(c.d),c.goal);
+  $('k-ep').value=c.g.next;$('k-goal').value='';kitRender();todayRender();weekRender();tab('replay');
+  toast(`${c.g.unit} ${done} terminé. Prochain : ${c.g.next}`);
+}
+
+/* ===== REPLAYS ===== */
+function replayInit(){
+  gameOptions($('r-game'),false);$('r-date').value=iso(new Date());$('r-ep').value=Math.max(1,(G($('r-game').value)||{next:2}).next-1);
+  $('r-out').innerHTML=outBlock('r-title','Titre YouTube',2,100)+outBlock('r-desc','Description YouTube',14,5000);
+  $('r-clipout').innerHTML=outBlock('r-clipcap','Légende TikTok / Shorts',3,150)+outBlock('r-clipig','Légende Reel Instagram',3);
+  $('r-game').onchange=()=>{const g=G($('r-game').value);$('r-ep').value=Math.max(1,g.next-1);replayRender();};
+  ['r-ep','r-date','r-hl','r-clip'].forEach(i=>$(i).oninput=replayRender);
+  const items=['Exporter la VOD Twitch avant son expiration (ou prendre l\'enregistrement local, sans la musique)','Miniature 1280×720 (bleu glacé, pingouin couronné, n° d\'épisode)','Titre de 100 caractères maximum','Chapitres renseignés dans la description','Vidéo ajoutée à la playlist de la série','Clip vertical découpé : TikTok, Short, Reel'];
+  $('r-check').innerHTML=items.map(t=>`<label><input type="checkbox"> ${esc(t)}</label>`).join('');
+  replayRender();
+}
+function replayRender(){
+  const g=G($('r-game').value);if(!g||!$('r-date').value)return;
+  const hl=$('r-hl').value.trim(),clip=$('r-clip').value.trim();
+  const T=buildTexts({g,ep:$('r-ep').value||1,goal:hl,slot:g.slot,start:'00:00',end:'00:00',when:'',d:fromIso($('r-date').value)});
+  setOut('r-title',T.ytTitle,100);setOut('r-desc',T.ytDesc,5000);setOut('r-clipcap',T.clipTT(clip),150);setOut('r-clipig',T.clipIG(clip));
+}
+
+/* ===== RESEAUX ===== */
+function nets(){
+  const L=S.links;
+  return [
+    {n:'Twitch',ico:'🟣',role:'Le live. Tout part de là.',links:[['Ouvrir ma chaîne',L.twitch],['Tableau de bord du créateur','https://dashboard.twitch.tv']],
+     specs:['Titre : 140 caractères maximum','Miniature ou image : moins de 1 Mo','Pendant le live : /marker dans le chat pour repérer un moment'],
+     routine:['Avant : titre et catégorie à jour','Après : garder 1 à 3 clips']},
+    {n:'YouTube',ico:'🔴',role:'Les replays en épisodes numérotés, et les Shorts.',links:[['Ouvrir ma chaîne',L.youtube],['YouTube Studio','https://studio.youtube.com']],
+     specs:['Titre : 100 caractères maximum','Description : 5000 caractères maximum','Miniature : 1280×720','Short : vidéo verticale 9:16'],
+     routine:['Un replay après chaque live, titre au format « série — Épisode N »','Un Short tiré du meilleur clip']},
+    {n:'TikTok',ico:'🎵',role:'Clips verticaux pour faire venir du monde sur le live.',links:[['Ouvrir mon compte',L.tiktok],['TikTok Studio','https://www.tiktok.com/tiktokstudio']],
+     specs:['Vidéo verticale 1080×1920 (9:16)','Bio courte : lien Twitch en premier'],
+     routine:['Un clip par live, légende courte et 2 à 4 hashtags','Annonce du live si le temps le permet']},
+    {n:'Instagram',ico:'📸',role:'Annonces des lives (story et post) et planning de la semaine.',links:[['Ouvrir mon compte',L.instagram],['Instagram (web)','https://www.instagram.com']],
+     specs:['Story et Reel : 1080×1920','Post portrait : 1080×1350','Bio : 150 caractères maximum','Un seul lien dans la bio : mets ton agrégateur de liens'],
+     routine:['Planning de la semaine en story (image de l\'onglet Semaine), le dimanche','Story « Live ce soir » les jours de live']},
+    {n:'Discord (La Baverne)',ico:'🍺',role:'La communauté. Annonces, discussions, salon de live.',links:[['Ouvrir La Baverne',L.discord]],
+     specs:['Annonce : texte avec **gras**, lien Twitch à la fin','Rôle « Client » pour les habitués, « La Brigade » pour les proches'],
+     routine:['Annonce avant chaque live','Remerciement et lien du replay après']}
+  ];
+}
+function netsInit(){
+  $('n-list').innerHTML=nets().map(n=>`<div class="card"><div class="row"><div><b style="font-size:17px">${n.ico} ${esc(n.n)}</b><div class="cnt">${esc(n.role)}</div></div><div style="display:flex;gap:6px;flex-wrap:wrap">${n.links.filter(l=>okUrl(l[1])).map(l=>`<a class="b alt" href="${esc(l[1])}" target="_blank" rel="noopener">${esc(l[0])} ↗</a>`).join('')}</div></div>
+    <div class="grid" style="margin-top:8px"><div><div class="dl">Formats</div><ul class="sp">${n.specs.map(s=>`<li>${esc(s)}</li>`).join('')}</ul></div><div><div class="dl">Routine</div><ul class="sp">${n.routine.map(s=>`<li>${esc(s)}</li>`).join('')}</ul></div></div></div>`).join('');
+  $('n-bio').value=S.bio;
+  $('n-bio').oninput=()=>{S.bio=$('n-bio').value;save();bioCount();};
+  bioCount();netsTexts();
+}
+function bioCount(){const n=$('n-bio-n'),v=$('n-bio').value.length;n.textContent=v+' / 150';n.className='cnt'+(v>150?' over':'');}
+function netsTexts(){
+  const L=S.links;
+  $('n-foot').value=footText();
+  $('n-links').value=`Twitch : ${L.twitch}\nYouTube : ${L.youtube}\nTikTok : ${L.tiktok}\nInstagram : ${L.instagram}\nDiscord : ${L.discord}`;
+}
+
+/* ===== RÉGLAGES ===== */
+function setInit(){
+  const L={twitch:'Twitch',youtube:'YouTube',discord:'Discord',instagram:'Instagram',tiktok:'TikTok'};
+  $('s-links').innerHTML=Object.keys(L).map(k=>`<div><label>${L[k]}</label><input data-l="${k}" value="${esc(S.links[k])}"></div>`).join('');
+  $('s-links').oninput=e=>{if(e.target.dataset.l){S.links[e.target.dataset.l]=e.target.value;save();kitRender();weekRender();replayRender();todayRender();netsInit();}};
+  const sl=S.slots;
+  $('s-slots').innerHTML=`<div><label>Nom du rendez-vous du soir</label><input data-s="soir.name" value="${esc(sl.soir.name)}"></div>
+   <div><label>Début du soir</label><input type="time" data-s="soir.start" value="${sl.soir.start}"></div>
+   <div><label>Fin du soir si tu ne travailles pas le lendemain</label><input type="time" data-s="soir.endFree" value="${sl.soir.endFree}"></div>
+   <div><label>Fin du soir si tu travailles le lendemain</label><input type="time" data-s="endWork" value="${S.endWork}"></div>
+   <div><label>Nom du rendez-vous de l'après-midi</label><input data-s="aprem.name" value="${esc(sl.aprem.name)}"></div>
+   <div><label>Début de l'après-midi</label><input type="time" data-s="aprem.start" value="${sl.aprem.start}"></div>
+   <div><label>Fin de l'après-midi</label><input type="time" data-s="aprem.end" value="${sl.aprem.end}"></div>
+   <div><label>Début du foot</label><input type="time" data-s="foot.start" value="${S.foot.start}"></div>
+   <div><label>Durée du foot (minutes)</label><input type="number" data-s="foot.dur" value="${S.foot.dur}"></div>`;
+  $('s-slots').oninput=e=>{const k=e.target.dataset.s;if(!k||!e.target.value)return;const p=k.split('.');if(p.length===1)S[p[0]]=e.target.value;else S[p[0]][p[1]]=p[1]==='dur'?+e.target.value:e.target.value;save();kitRender();weekRender();todayRender();};
+  gameTable();
+  $('s-add').onclick=()=>{S.games.push({id:'g'+Date.now(),name:'Nouveau jeu',series:'Nouvelle série',unit:'Épisode',next:1,slot:'soir',cat:'',tags:'',color:'#2e86de'});save();gameTable();refreshGames();};
+  $('s-exp').onclick=()=>{$('s-json').value=JSON.stringify(S);copyFrom($('s-json'),$('s-exp'));};
+  $('s-imp').onclick=()=>{try{const o=JSON.parse($('s-json').value);if(!o||!Array.isArray(o.games)||!Array.isArray(o.week))throw 0;S=Object.assign(clone(DEF),o);save();location.reload();}catch(e){toast('Export invalide');}};
+  let armed=false;
+  $('s-reset').onclick=()=>{if(!armed){armed=true;$('s-reset').textContent='Sûr ? Clique encore';setTimeout(()=>{armed=false;$('s-reset').textContent='Réinitialiser';},3000);return;}try{localStorage.removeItem(KEY);}catch(e){}S=clone(DEF);location.reload();};
+}
+function gameTable(){
+  const f=[['name','Nom'],['series','Titre de série'],['unit','Unité'],['next','Prochain n°'],['cat','Catégorie Twitch'],['tags','Hashtags']];
+  $('s-games').innerHTML='<tr>'+f.map(x=>`<th>${x[1]}</th>`).join('')+'<th>Créneau</th><th>Couleur (image)</th><th></th></tr>'+S.games.map((g,i)=>'<tr>'+f.map(x=>`<td><input data-i="${i}" data-k="${x[0]}" ${x[0]==='next'?'type="number" min="1" style="width:80px"':''} value="${esc(g[x[0]])}"></td>`).join('')+
+   `<td><select data-i="${i}" data-k="slot"><option value="soir" ${g.slot==='soir'?'selected':''}>Soir</option><option value="aprem" ${g.slot==='aprem'?'selected':''}>Après-midi</option></select></td><td><input type="color" data-i="${i}" data-k="color" value="${g.color||'#2e86de'}" style="width:56px;padding:2px"></td><td><button class="b alt" data-del="${i}">✕</button></td></tr>`).join('');
+  $('s-games').oninput=e=>{const t=e.target,i=t.dataset.i;if(i==null)return;S.games[i][t.dataset.k]=t.dataset.k==='next'?(+t.value||1):t.value;save();if(t.dataset.k==='color')weekRender();};
+  $('s-games').onchange=()=>{refreshGames();};
+  $('s-games').onclick=e=>{const b=e.target.closest('[data-del]');if(!b||S.games.length<2)return;S.games.splice(+b.dataset.del,1);save();gameTable();refreshGames();};
+}
+function refreshGames(){
+  const fix=wd=>wd.forEach(d=>['aprem','soir'].forEach(s=>{if(d[s]&&!G(d[s]))d[s]='';}));
+  fix(S.week);Object.keys(S.weeks).forEach(k=>fix(S.weeks[k]));save();
+  gameOptions($('k-game'),true);gameOptions($('r-game'),true);weekBuild();kitRender();replayRender();todayRender();
+}
+
+todayInit();kitInit();posterInit();weekInit();replayInit();netsInit();setInit();todayRender();
+</script>
+</body>
+</html>
