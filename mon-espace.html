@@ -447,13 +447,22 @@ function HomeScreen({ onSelect }) {
   );
 }
 
+// Espace Clément remanié le 24/11/2026 (demande explicite) :
+//  - l'onglet « accueil » ne garde que l'agenda (fusion avec l'ancien onglet Calendrier) ;
+//  - Calendrier, Culture et Carrière sont MIS DE CÔTÉ, pas supprimés : leur code, leurs données
+//    (offres, collections, notes…) et leurs rendus plus bas sont intacts. Pour en remettre un, il
+//    suffit de réajouter sa ligne ci-dessous :
+//      { key: "calendrier", label: "Calendrier", accent: "#7FB3A3" },
+//      { key: "culture", label: "Culture", accent: "#D9B36B" },
+//      { key: "carriere", label: "Carrière", accent: "#8FA6B3" },
+//    L'ancien contenu de l'accueil (alertes d'offres, mails, Le Bon Pote, tâches du jour, News) est
+//    toujours dans AccueilTab / NewsTab : remettre <AccueilTab …/> dans le rendu de "accueil".
+//  - nouvel onglet Streaming.
 const CLEMENT_TABS = [
-  { key: "accueil", label: "Accueil", accent: COLORS.gold },
-  { key: "calendrier", label: "Calendrier", accent: "#7FB3A3" },
-  { key: "culture", label: "Culture", accent: "#D9B36B" },
-  { key: "carriere", label: "Carrière", accent: "#8FA6B3" },
+  { key: "accueil", label: "Agenda", accent: COLORS.gold },
   { key: "apprentissage", label: "Apprentissage", accent: "#A088BB" },
   { key: "musculation", label: "Musculation", accent: "#E63B2E" },
+  { key: "streaming", label: "Streaming", accent: "#9146FF" },
 ];
 
 // Administratif et Terrain & Immo étaient avant sous-onglets d'un seul onglet "Administratif &
@@ -1397,15 +1406,11 @@ function App() {
       <main className="app-main" style={{ flex: 1, padding: "44px 56px", overflowY: "auto" }}>
         {/* La clé change à chaque onglet → le conteneur est recréé et rejoue le fondu. */}
         <div key={`${activeSpace}-${active}`} className="fade-in">
-        {active === "accueil" && (
-          <AccueilTab
-            taskEvents={Object.values(taskArchive || {})}
-            taskChecks={taskChecks || {}}
-            toggleTask={toggleTask}
-            offerStatus={offerStatus || {}}
-            onNavigate={setActive}
-          />
-        )}
+        {/* Ancien accueil mis de côté (24/11/2026) — pour le remettre :
+            <AccueilTab taskEvents={Object.values(taskArchive || {})} taskChecks={taskChecks || {}}
+              toggleTask={toggleTask} offerStatus={offerStatus || {}} onNavigate={setActive} /> */}
+        {active === "accueil" && <CalendrierTab title="Agenda" accent={COLORS.gold} />}
+        {active === "streaming" && <StreamingTab />}
         {active === "calendrier" && <CalendrierTab />}
         {active === "chatchats-agenda" && (
           <CalendrierTab title="Agenda des Chatchats" accent="#D98FB3" events={CHATCHATS_CALENDAR_DATA.events} updatedAt={CHATCHATS_CALENDAR_DATA.updatedAt} />
@@ -1448,6 +1453,7 @@ function App() {
           active !== "carriere" &&
           active !== "apprentissage" &&
           active !== "musculation" &&
+          active !== "streaming" &&
           active !== "chatchats-accueil" &&
           active !== "chatchats-agenda" &&
           active !== "administratif" &&
@@ -13077,6 +13083,95 @@ function AdministratifTab() {
             </div>
           ))}
         </div>
+      </div>
+    </div>
+  );
+}
+
+// Onglet Streaming (ajouté 24/11/2026) — base de départ, à construire avec Clément.
+// La checklist de mise en place reprend l'événement Google Agenda du 05/11/2026
+// « 🎮 Préparer le compte Twitch pour streamer ». Cases cochées stockées dans "streaming-setup-checked"
+// (synchronisé). Critères d'affiliation : ceux affichés par Twitch (sur 30 jours glissants).
+const STREAMING_ACCENT = "#9146FF";
+const STREAMING_SETUP = [
+  { id: "compte", label: "Créer ou compléter le compte (pseudo, photo, bannière, bio)" },
+  { id: "2fa", label: "Activer l'authentification à deux facteurs (obligatoire pour streamer)" },
+  { id: "obs", label: "Installer OBS Studio et lancer l'assistant de configuration automatique" },
+  { id: "obs-twitch", label: "Relier OBS à Twitch (connexion au compte ou clé de stream)" },
+  { id: "test", label: "Faire un test de stream privé (micro, webcam, son du jeu)" },
+];
+const STREAMING_AFFILIATE = [
+  { value: "50", label: "followers" },
+  { value: "500", label: "minutes de diffusion" },
+  { value: "7", label: "jours de diffusion différents" },
+  { value: "3", label: "spectateurs en moyenne" },
+];
+
+function StreamingTab() {
+  const [checked, setChecked] = useState({});
+  useEffect(() => {
+    let cancelled = false;
+    window.storage
+      .get("streaming-setup-checked")
+      .then((res) => (res ? JSON.parse(res.value) : null))
+      .catch(() => null)
+      .then((v) => {
+        if (!cancelled && v && typeof v === "object") setChecked(v);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+  function toggle(id) {
+    const next = { ...checked, [id]: !checked[id] };
+    setChecked(next);
+    window.storage.set("streaming-setup-checked", JSON.stringify(next)).catch(() => {});
+  }
+  const done = STREAMING_SETUP.filter((it) => checked[it.id]).length;
+  const card = { background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, borderRadius: 10, padding: "16px 18px" };
+
+  return (
+    <div>
+      <h1 style={{ fontFamily: FONT_DISPLAY, fontSize: 32, color: COLORS.text, margin: 0, marginBottom: 6, fontWeight: 600 }}>Streaming</h1>
+      <p style={{ color: COLORS.muted, fontSize: 14, marginBottom: 24 }}>Lancer la chaîne Twitch, étape par étape.</p>
+
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(340px, 100%), 1fr))", gap: 20, alignItems: "start" }}>
+        <div style={{ ...card, borderLeft: `4px solid ${STREAMING_ACCENT}` }}>
+          <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 8, marginBottom: 14 }}>
+            <span style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: COLORS.text }}>Mise en place</span>
+            <span style={{ fontSize: 12, color: done === STREAMING_SETUP.length ? COLORS.checked : COLORS.muted }}>
+              {done} / {STREAMING_SETUP.length}
+            </span>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            {STREAMING_SETUP.map((it) => (
+              <TaskChecklistItem key={it.id} id={it.id} label={it.label} checked={!!checked[it.id]} onToggle={toggle} />
+            ))}
+          </div>
+        </div>
+
+        <div style={{ ...card, borderLeft: `4px solid ${STREAMING_ACCENT}` }}>
+          <div style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: COLORS.text, marginBottom: 4 }}>Objectif : Affilié Twitch</div>
+          <p style={{ fontSize: 12, color: COLORS.muted, margin: "0 0 14px", lineHeight: 1.5 }}>
+            À atteindre sur 30 jours pour débloquer les abonnements et les Bits (suivi dans le tableau de bord Twitch → Succès).
+          </p>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 10 }}>
+            {STREAMING_AFFILIATE.map((c) => (
+              <div key={c.label} style={{ background: COLORS.track, borderRadius: 8, padding: "10px 12px" }}>
+                <div style={{ fontFamily: FONT_DISPLAY, fontSize: 24, color: STREAMING_ACCENT, lineHeight: 1 }}>{c.value}</div>
+                <div style={{ fontSize: 12, color: COLORS.muted, marginTop: 4 }}>{c.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div style={{ ...card, marginTop: 20 }}>
+        <div style={{ fontFamily: FONT_DISPLAY, fontSize: 18, color: COLORS.text, marginBottom: 8 }}>À construire ensemble</div>
+        <p style={{ fontSize: 13, color: COLORS.muted, lineHeight: 1.6, margin: 0 }}>
+          Cette page est une base. Prochaines briques possibles : planning des streams, idées de contenu et de jeux, matériel (micro,
+          webcam, overlays) et suivi des stats.
+        </p>
       </div>
     </div>
   );
