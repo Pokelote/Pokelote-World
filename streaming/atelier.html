@@ -179,9 +179,9 @@ const KEY='pokelote-atelier-v1';
 const DAYS=['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'];
 const DEF={
   links:{twitch:'https://www.twitch.tv/pokelote',youtube:'https://www.youtube.com/@Pokelote',discord:'https://discord.gg/xVchpRaZ88',instagram:'https://www.instagram.com/pokelote_twitch/',tiktok:'https://www.tiktok.com/@pokelote_twitch'},
-  slots:{soir:{name:'Soirée Dominique',start:'21:00',endFree:'00:30'},aprem:{name:'Après-midi stratégie !',start:'15:00',end:'18:00'}},
-  endWork:'23:00',
-  foot:{start:'19:00',dur:60},
+  slots:{soir:{name:'Soirée Dominique',start:'21:00',endFree:'01:00'},aprem:{name:'Après-midi stratégie !',start:'15:00',end:'18:00'}},
+  endWork:'23:30',
+  foot:{start:'19:30',dur:120},
   bio:'Streamer Twitch 🎮 GTA RP, stratégie, LoL · Viens à la Baverne 🍺🐧 Lives presque tous les soirs',
   games:[
     {id:'gta',name:'GTA RP',series:'Dominique Santoni | Reroll',unit:'Épisode',next:1,slot:'soir',cat:'Grand Theft Auto V',tags:'GTARP, Reroll, FiveM',color:'#2e86de'},
@@ -191,13 +191,13 @@ const DEF={
     {id:'rob',name:'Rob Run',series:'Rob Run',unit:'Épisode',next:4,slot:'soir',cat:'Rob Run',tags:'RobRun',color:'#d9822b'}
   ],
   week:[
-    {work:1,foot:0,crpe:1,aprem:'',soir:'gta'},
-    {work:1,foot:0,crpe:1,aprem:'',soir:'gta'},
+    {work:0,foot:0,crpe:1,aprem:'',soir:'gta'},
     {work:1,foot:1,crpe:1,aprem:'',soir:'gta'},
-    {work:1,foot:0,crpe:1,aprem:'',soir:'gta'},
-    {work:1,foot:0,crpe:1,aprem:'',soir:'gta'},
+    {work:1,foot:1,crpe:1,aprem:'',soir:'gta'},
+    {work:0,foot:1,crpe:1,aprem:'',soir:'gta'},
+    {work:0,foot:0,crpe:1,aprem:'',soir:'gta'},
     {work:0,foot:0,crpe:1,aprem:'anno',soir:'gta'},
-    {work:0,foot:0,crpe:1,aprem:'tw',soir:''}
+    {work:0,foot:0,crpe:1,aprem:'tw',soir:'gta'}
   ],
   weeks:{},log:{},todo:{},goals:{}
 };
@@ -694,6 +694,23 @@ function refreshGames(){
   gameOptions($('k-game'),true);gameOptions($('r-game'),true);weekBuild();kitRender();replayRender();todayRender();
 }
 
+/* ===== Planning du 24/11/2026 (demande de Clément) =====
+   GTA RP tous les soirs à 21h ; fin 23h30 la veille d'un jour de travail, sinon 1h. Travail (Apesanteur) le mardi
+   et le mercredi, football américain 19h30-21h30 mardi, mercredi et jeudi (d'après son Google Agenda). Appliqué une
+   fois (drapeau plan2) au modèle de semaine et aux semaines à venir, y compris sur des données importées de
+   l'ancien atelier. Sans données enregistrées sur l'appareil, rien n'est sauvegardé : la synchro décide. */
+function migratePlanning(){
+  if(S.plan2||!G('gta'))return;
+  const W=[0,1,1,0,0,0,0],F=[0,1,1,1,0,0,0];
+  S.slots.soir.start='21:00';S.slots.soir.endFree='01:00';S.endWork='23:30';S.foot={start:'19:30',dur:120};
+  const fix=wd=>wd.forEach((d,i)=>{d.work=W[i];d.foot=F[i];d.soir='gta';});
+  fix(S.week);const cur=iso(mondayOf(new Date()));
+  Object.keys(S.weeks).forEach(k=>{if(k>=cur)fix(S.weeks[k]);});
+  S.plan2=1;
+  let hasLocal=false;try{hasLocal=localStorage.getItem(KEY)!==null;}catch(e){}
+  if(hasLocal)save();
+}
+migratePlanning();
 todayInit();kitInit();posterInit();weekInit();replayInit();netsInit();setInit();todayRender();syncAsk();
 </script>
 </body>

@@ -1409,7 +1409,7 @@ function App() {
         {/* Ancien accueil mis de côté (24/11/2026) — pour le remettre :
             <AccueilTab taskEvents={Object.values(taskArchive || {})} taskChecks={taskChecks || {}}
               toggleTask={toggleTask} offerStatus={offerStatus || {}} onNavigate={setActive} /> */}
-        {active === "accueil" && <CalendrierTab title="Agenda" accent={COLORS.gold} />}
+        {active === "accueil" && <ClementAgendaTab />}
         {active === "streaming" && <StreamingTab />}
         {active === "calendrier" && <CalendrierTab />}
         {active === "chatchats-agenda" && (
@@ -12058,6 +12058,63 @@ const CHATCHATS_CALENDAR_DATA = {
   ],
 };
 
+// Agenda de Clément (24/11/2026) : l'agenda habituel + les lives prévus dans l'Atelier de live (onglet
+// Streaming), lus dans ses données synchronisées « pokelote-atelier-v1 ». Même logique que l'atelier : semaine
+// propre si elle a été modifiée, sinon le modèle ; fin du soir plus tôt la veille d'un jour de travail.
+// Sans données d'atelier, on prend le planning convenu le 24/11/2026 (GTA RP tous les soirs à 21h).
+const ATELIER_FALLBACK = {
+  slots: { soir: { start: "21:00", endFree: "01:00" }, aprem: { start: "15:00", end: "18:00" } },
+  endWork: "23:30",
+  games: [{ id: "gta", name: "GTA RP", series: "Dominique Santoni | Reroll" }],
+  week: [0, 1, 1, 0, 0, 0, 0].map((work) => ({ work, aprem: "", soir: "gta" })),
+  weeks: {},
+};
+
+function atelierStreamEvents(S, fromDate, days) {
+  const games = Array.isArray(S.games) ? S.games : [];
+  const week = Array.isArray(S.week) && S.week.length === 7 ? S.week : ATELIER_FALLBACK.week;
+  const slots = S.slots || ATELIER_FALLBACK.slots;
+  const hh = (t) => (t || "").replace(":", "h");
+  const dayInfo = (d) => {
+    const wd = (S.weeks && S.weeks[dateKey(startOfWeekMonday(d))]) || week;
+    return wd[(d.getDay() + 6) % 7] || {};
+  };
+  const out = [];
+  for (let i = 0; i < days; i++) {
+    const d = addDays(fromDate, i);
+    const day = dayInfo(d);
+    ["aprem", "soir"].forEach((slot) => {
+      const g = games.find((x) => x.id === day[slot]);
+      if (!g || !slots[slot]) return;
+      const start = (slot === "soir" ? day.sStart : day.aStart) || slots[slot].start;
+      const end = slot === "soir" ? (dayInfo(addDays(d, 1)).work ? S.endWork || "23:30" : slots.soir.endFree) : slots.aprem.end;
+      out.push({ date: dateKey(d), time: `${hh(start)} – ${hh(end)}`, title: `🔴 Live — ${g.series || g.name}` });
+    });
+  }
+  return out;
+}
+
+function ClementAgendaTab() {
+  const [atelier, setAtelier] = useState(null);
+  useEffect(() => {
+    let cancelled = false;
+    window.storage
+      .get("pokelote-atelier-v1")
+      .then((res) => (res ? JSON.parse(res.value) : null))
+      .catch(() => null)
+      .then((v) => {
+        if (!cancelled) setAtelier(v && Array.isArray(v.games) && Array.isArray(v.week) ? v : ATELIER_FALLBACK);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+  const streams = atelier ? atelierStreamEvents(atelier, addDays(startOfWeekMonday(new Date()), -28), 7 * 20) : [];
+  return (
+    <CalendrierTab title="Agenda" accent={COLORS.gold} events={[...CALENDAR_DATA.events, ...SPORTS_EVENTS, ...MUSCU_EVENTS, ...streams]} />
+  );
+}
+
 // Utilisé par le Calendrier de Clément et par l'Agenda des Chatchats (mêmes vues jour / semaine / mois).
 function CalendrierTab({
   title = "Calendrier",
@@ -13097,7 +13154,7 @@ function AdministratifTab() {
 // Synchro (24/11/2026) : l'atelier envoie ses sauvegardes ici et l'appli les range dans window.storage sous
 // le même nom (« pokelote-atelier-v1 », + « -mascot »), donc synchronisées entre appareils comme le reste.
 const STREAMING_ACCENT = "#9146FF";
-const ATELIER_SRC = "./streaming/atelier.html?v=2";
+const ATELIER_SRC = "./streaming/atelier.html?v=3";
 const ATELIER_KEYS = ["pokelote-atelier-v1", "pokelote-atelier-v1-mascot"];
 
 function StreamingTab() {
