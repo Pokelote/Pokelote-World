@@ -12066,7 +12066,7 @@ const ATELIER_FALLBACK = {
   slots: { soir: { start: "21:00", endFree: "01:00" }, aprem: { start: "15:00", end: "18:00" } },
   endWork: "23:30",
   games: [{ id: "gta", name: "GTA RP", series: "Dominique Santoni | Reroll" }],
-  week: [0, 1, 1, 0, 0, 0, 0].map((work) => ({ work, aprem: "", soir: "gta" })),
+  week: [0, 1, 1, 0, 0, 0, 0].map((work, i) => ({ work, aprem: "", soir: "gta", ...(i === 1 || i === 3 ? { sStart: "22:00" } : null) })),
   weeks: {},
 };
 
@@ -13154,7 +13154,7 @@ function AdministratifTab() {
 // Synchro (24/11/2026) : l'atelier envoie ses sauvegardes ici et l'appli les range dans window.storage sous
 // le même nom (« pokelote-atelier-v1 », + « -mascot »), donc synchronisées entre appareils comme le reste.
 const STREAMING_ACCENT = "#9146FF";
-const ATELIER_SRC = "./streaming/atelier.html?v=3";
+const ATELIER_SRC = "./streaming/atelier.html?v=4";
 const ATELIER_KEYS = ["pokelote-atelier-v1", "pokelote-atelier-v1-mascot"];
 
 function StreamingTab() {

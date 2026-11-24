@@ -63,6 +63,11 @@ details textarea{margin:6px 0 4px;min-height:60px}
 .bar i{display:block;height:100%;background:var(--ok);width:0;transition:width .2s}
 ul.sp{margin:4px 0 0;padding-left:20px;color:var(--ink)}
 ul.sp li{margin:2px 0}
+.vis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:14px;align-items:start;margin:6px 0 4px}
+.vis figure{margin:0;display:flex;flex-direction:column;gap:6px;min-width:0}
+.vis canvas{width:100%;height:auto;border-radius:10px;border:1px solid var(--line);background:#0e3a5c}
+.vis figcaption{font-size:12px;color:var(--mute)}
+.vis .b{align-self:flex-start}
 </style>
 </head>
 <body>
@@ -141,6 +146,10 @@ ul.sp li{margin:2px 0}
       <label>Le moment du clip</label><input id="r-clip" placeholder="ex. Hank oublie le plan en plein braquage">
       <div id="r-clipout" style="margin-top:10px"></div>
     </div>
+    <div class="card"><h3>Visuels du replay</h3>
+      <div class="vis" id="r-vis"><figure><canvas data-f="thumb"></canvas><figcaption>Miniature YouTube (1280×720)</figcaption><button class="b alt" data-rdl="thumb">⬇ Télécharger</button></figure><figure><canvas data-f="story"></canvas><figcaption>Story « replay dispo » (1080×1920)</figcaption><button class="b alt" data-rdl="story">⬇ Télécharger</button></figure></div>
+      <p class="hint">Le moment fort sert de sous-titre. La couleur vient du jeu (onglet Réglages), la mascotte de l'image du planning.</p>
+    </div>
     <div class="card"><h3>À faire pour publier</h3><div class="check" id="r-check"></div></div>
   </section>
 
@@ -192,9 +201,9 @@ const DEF={
   ],
   week:[
     {work:0,foot:0,crpe:1,aprem:'',soir:'gta'},
-    {work:1,foot:1,crpe:1,aprem:'',soir:'gta'},
-    {work:1,foot:1,crpe:1,aprem:'',soir:'gta'},
-    {work:0,foot:1,crpe:1,aprem:'',soir:'gta'},
+    {work:1,foot:1,crpe:1,aprem:'',soir:'gta',sStart:'22:00'},
+    {work:1,foot:0,crpe:1,aprem:'',soir:'gta'},
+    {work:0,foot:1,crpe:1,aprem:'',soir:'gta',sStart:'22:00'},
     {work:0,foot:0,crpe:1,aprem:'',soir:'gta'},
     {work:0,foot:0,crpe:1,aprem:'anno',soir:'gta'},
     {work:0,foot:0,crpe:1,aprem:'tw',soir:'gta'}
@@ -325,13 +334,13 @@ function flowItems(it,dt){
     {ph:'Avant',p:'Twitch',id:'tw',t:`Titre et catégorie mis à jour (catégorie : ${it.g.cat||it.g.name})`,tx:[['Titre',T.title]]},
     {ph:'Avant',p:'Twitch',id:'obs',t:'OBS : scène et capture du jeu vérifiées, musique Deezer lancée (hors rediffusion et enregistrement local)'},
     {ph:'Avant',p:'Discord',id:'dc',t:'Annonce postée dans le salon des annonces',tx:[['Annonce',T.discord]]},
-    {ph:'Avant',p:'Instagram',id:'ig',t:'Story ou post d\'annonce du live',tx:[['Texte',T.insta],['Idée de visuel',T.visual]]},
+    {ph:'Avant',p:'Instagram',id:'ig',t:'Story ou post d\'annonce du live (visuels prêts en bas de la carte)',tx:[['Texte',T.insta],['Idée de visuel',T.visual]]},
     {ph:'Avant',p:'TikTok',id:'tt',t:'Légende d\'annonce TikTok',tx:[['Légende',T.tiktok]]},
     {ph:'Pendant',p:'Twitch',id:'mk',t:'Poser des marqueurs (/marker dans le chat) sur les bons moments, pour retrouver les clips'},
     {ph:'Pendant',p:'Discord',id:'dcv',t:'Passer dans le salon de live de La Baverne'},
     {ph:'Pendant',p:'Twitch',id:'stop',t:nw?`Arrêt à ${hh(S.endWork)} (tu travailles demain)`:`Pas de travail demain : fin prévue vers ${hh(it.end)}`},
     {ph:'Après',p:'Twitch',id:'clips',t:'Garder 1 à 3 clips (grâce aux marqueurs)'},
-    {ph:'Après',p:'YouTube',id:'yt',t:'Replay YouTube : titre, description, miniature 1280×720, playlist de la série',tx:[['Titre',T.ytTitle],['Description',T.ytDesc]]},
+    {ph:'Après',p:'YouTube',id:'yt',t:'Replay YouTube : titre, description, miniature 1280×720 (onglet Replays & clips), playlist de la série',tx:[['Titre',T.ytTitle],['Description',T.ytDesc]]},
     {ph:'Après',p:'TikTok',id:'ttc',t:'Clip vertical TikTok',tx:[['Légende',T.clipTT('')]]},
     {ph:'Après',p:'Instagram',id:'igc',t:'Reel ou story du meilleur moment',tx:[['Légende',T.clipIG('')]]},
     {ph:'Après',p:'Discord',id:'dca',t:'Message de remerciement avec le lien du replay',tx:[['Message',T.after]]}
@@ -351,6 +360,8 @@ function flowHtml(it,dt){
     if(x.tx){h+='<details><summary>Voir les textes</summary>';x.tx.forEach(t=>{const id='tx'+(txN++);h+=`<div class="dl">${esc(t[0])}</div><textarea id="${id}" rows="${Math.min(8,Math.max(2,t[1].split('\n').length+1))}">${esc(t[1])}</textarea><button class="b alt" data-copy="${id}">Copier</button>`;});h+='</details>';}
     h+='</div>';
   });
+  VIS_CTX[k]={kind:'live',g:it.g,ep:it.ep,d:dt,start:it.start,goal:S.goals[k]||''};
+  h+=visBlock(k);
   h+=`<div style="margin-top:14px"><button class="b" data-done="${dk}|${it.slot}|${it.g.id}|${it.ep}" ${done?'disabled':''}>${done?esc(it.g.unit)+' '+it.ep+' compté ✔':'✔ Live terminé : compter l\'épisode et préparer le replay'}</button></div></div>`;
   return h;
 }
@@ -366,7 +377,7 @@ function todayRender(){
     $('d-body').innerHTML=`<div class="card"><h3>Pas de live prévu</h3><p style="margin:0 0 10px">Rien au programme ce jour-là. Idées pour ne pas perdre le fil :</p><ul class="sp"><li>Publier un clip du dernier live sur TikTok, en Short et en Reel (onglet Replays &amp; clips)</li><li>Répondre aux messages sur Discord et Instagram</li><li>Préparer la semaine dans l'onglet Semaine</li></ul><div style="margin-top:12px"><button class="b" id="d-plan">Ouvrir la semaine</button></div></div>`;
     $('d-plan').onclick=()=>tab('week');return;
   }
-  $('d-body').innerHTML=items.map(it=>flowHtml(it,dt)).join('');
+  VIS_CTX={};$('d-body').innerHTML=items.map(it=>flowHtml(it,dt)).join('');drawTodayVisuals();
 }
 function todayInit(){
   $('d-date').value=iso(new Date());
@@ -384,6 +395,9 @@ function todayInit(){
     }else if(t.dataset.goal){S.goals[t.dataset.goal]=t.value.trim();save();todayRender();}
   });
   body.addEventListener('click',e=>{
+    const v=e.target.closest('[data-dlv]');
+    if(v){const box=v.closest('.vis'),o=VIS_CTX[box.dataset.vis],cv=box.querySelector(`canvas[data-f="${v.dataset.dlv}"]`);
+      if(o&&cv)dlCanvas(cv,`${slug(o.g.series)}-${slug(o.g.unit)}-${o.ep}-${v.dataset.dlv}.png`);return;}
     const b=e.target.closest('[data-done]');if(!b||b.disabled)return;
     const p=b.dataset.done.split('|'),g=G(p[2]),ep=+p[3];if(!g)return;
     markDone(g,ep,p[0],p[1]);prefillReplay(g,ep,p[0],S.goals[p[0]+'|'+p[1]]||'');
@@ -439,7 +453,7 @@ function weekRender(){
       parts.push(`🔴 ${hh(start)}–${hh(end)} ${g.name} (${g.unit} ${ep})`);
       pub.push(`• ${DAYS[i]} ${fmtD(d)} · ${hh(start)}–${hh(end)} · ${g.series} (${g.unit} ${ep})`);
       if(slot==='aprem'&&day.work)warn.push(`${DAYS[i]} : un live l'après-midi alors que tu travailles.`);
-      if(slot==='soir'&&day.foot&&mins(start)<fEnd+45)warn.push(`${DAYS[i]} : le live commence trop près de la fin du foot.`);
+      if(slot==='soir'&&day.foot&&mins(start)<fEnd+30)warn.push(`${DAYS[i]} : le live commence trop près de la fin du foot.`);
     });
     WKd.push({i,d,items});
     priv.push(`<div class="${iso(d)===todayK?'now':''}"><b>${DAYS[i]} ${fmtD(d)}</b>${iso(d)===todayK?' (aujourd\'hui)':''} — ${parts.length?parts.map(esc).join(' · '):'repos'}</div>`);
@@ -565,11 +579,86 @@ function posterInit(){
     fr.onload=()=>{const im=new Image();im.onload=()=>{
       const r=Math.min(1,400/Math.max(im.width,im.height)),t=document.createElement('canvas');t.width=Math.round(im.width*r);t.height=Math.round(im.height*r);
       t.getContext('2d').drawImage(im,0,0,t.width,t.height);const url=t.toDataURL('image/png'),im2=new Image();
-      im2.onload=()=>{mascotImg=im2;posterRender();};im2.src=url;try{localStorage.setItem(KEY+'-mascot',url);}catch(x){}syncPush(KEY+'-mascot',url);
+      im2.onload=()=>{mascotImg=im2;posterRender();drawTodayVisuals();replayRender();};im2.src=url;try{localStorage.setItem(KEY+'-mascot',url);}catch(x){}syncPush(KEY+'-mascot',url);
     };im.src=fr.result;};fr.readAsDataURL(f);
   };
   $('p-nomascot').onclick=()=>{mascotImg=null;try{localStorage.removeItem(KEY+'-mascot');}catch(e){}syncPush(KEY+'-mascot','');$('p-mascot').value='';posterRender();};
 }
+
+
+/* ===== VISUELS PRÊTS À PUBLIER (24/11/2026) =====
+   Pour chaque live : miniature Twitch/YouTube (1280×720), story Instagram/TikTok (1080×1920) et post Instagram
+   (1080×1350), générés à partir du jeu, de l'épisode, de l'heure et de l'objectif. Pour le replay : miniature
+   YouTube avec le moment fort. Mêmes couleurs que l'image du planning (couleur du jeu dans Réglages) et même
+   mascotte. Téléchargement direct ; sur téléphone, appui long sur l'image si besoin. */
+const VFMT={thumb:{w:1280,h:720,label:'Miniature Twitch / YouTube (1280×720)'},story:{w:1080,h:1920,label:'Story Instagram / TikTok (1080×1920)'},post:{w:1080,h:1350,label:'Post Instagram (1080×1350)'}};
+async function fontsReady(){try{await Promise.all([document.fonts.load('100px "Bebas Neue"'),document.fonts.load('700 30px "Poppins"'),document.fonts.load('600 30px "Poppins"')]);}catch(e){}}
+function fitFont(c,txt,maxW,size,min,face){let s=size;c.font=`${s}px ${face}`;while(s>min&&c.measureText(txt).width>maxW){s-=2;c.font=`${s}px ${face}`;}return s;}
+function fitTitle(c,txt,maxW,start,min,maxLines,maxH){let sz=start,lines;
+  for(;sz>=min;sz-=4){c.font=`${sz}px ${FT}`;lines=wrapText(c,txt,maxW,99);if(lines.length<=maxLines&&lines.every(l=>c.measureText(l).width<=maxW)&&(!maxH||lines.length*sz*0.95<=maxH))break;}
+  if(sz<min){sz=min;c.font=`${sz}px ${FT}`;lines=wrapText(c,txt,maxW,maxLines);}return {sz,lines};}
+function pill(c,x,y,txt,size,bg,fg){c.font=`700 ${size}px ${FB}`;const w=c.measureText(txt).width+size*1.2,h=size*1.75;rr(c,x,y,w,h,h/2);c.fillStyle=bg;c.fill();c.fillStyle=fg;c.textBaseline='middle';c.fillText(txt,x+size*0.6,y+h/2+1);c.textBaseline='alphabetic';return w;}
+async function drawVisual(cv,fmt,o){
+  await fontsReady();
+  const F=VFMT[fmt],W=F.w,H=F.h;cv.width=W;cv.height=H;const c=cv.getContext('2d');
+  const col=o.g.color||'#2e86de';
+  const bg=c.createLinearGradient(0,0,W,H);bg.addColorStop(0,'#071c2e');bg.addColorStop(0.55,'#0e3a5c');bg.addColorStop(1,col);c.fillStyle=bg;c.fillRect(0,0,W,H);
+  const rg=c.createRadialGradient(W*0.82,H*0.2,10,W*0.82,H*0.2,Math.max(W,H)*0.55);rg.addColorStop(0,'rgba(155,211,242,.35)');rg.addColorStop(1,'rgba(155,211,242,0)');c.fillStyle=rg;c.fillRect(0,0,W,H);
+  let seed=11;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+  for(let i=0;i<60;i++){c.fillStyle=`rgba(255,255,255,${0.08+rnd()*0.25})`;c.beginPath();c.arc(rnd()*W,rnd()*H,1.5+rnd()*4,0,7);c.fill();}
+  const replay=o.kind==='replay',L=S.links.twitch.replace(/^https?:\/\/(www\.)?/,'').replace(/\/$/,'').toUpperCase();
+  const tag=replay?'REPLAY':'EN LIVE',unit=`${o.g.unit.toUpperCase()} ${o.ep}`;
+  const dayTxt=o.d?(replay?o.d.toLocaleDateString('fr-FR',{day:'numeric',month:'long'}):(iso(o.d)===iso(new Date())?'CE SOIR':DAYS[dIdx(o.d)].toUpperCase()+' '+fmtD(o.d))):'';
+  const hour=o.start?hh(o.start).toUpperCase():'';
+  const sub=(o.goal||'').trim();
+  const mascot=(x,y,s)=>{if(mascotImg){const b=260*s,r=Math.min(b/mascotImg.width,b/mascotImg.height);c.drawImage(mascotImg,x-mascotImg.width*r/2,y-mascotImg.height*r/2,mascotImg.width*r,mascotImg.height*r);}else drawPenguin(c,x,y,s);};
+  if(fmt==='thumb'){
+    const pad=64;mascot(W-230,H/2+30,2.1);
+    let x=pad;x+=pill(c,x,pad,tag,30,replay?'#ffffff':'#e5322d',replay?'#0e3a5c':'#ffffff')+14;pill(c,x,pad,unit,30,'rgba(255,255,255,.18)','#ffffff');
+    c.fillStyle='#ffffff';const maxW=W-pad-470;
+    const maxH=H-pad-70-(pad+80)-(sub?110:30);
+    const {sz,lines}=fitTitle(c,o.g.series.toUpperCase(),maxW,150,64,3,maxH);c.font=`${sz}px ${FT}`;
+    lines.forEach((l,i)=>c.fillText(l,pad,pad+80+sz*0.95*(i+1)));
+    let y=pad+80+sz*0.95*lines.length+20;
+    if(sub){c.font=`600 40px ${FB}`;c.fillStyle='#9bd3f2';wrapText(c,sub,maxW,2).forEach((l,i)=>c.fillText(l,pad,y+44*(i+1)));}
+    c.fillStyle='#ffffff';c.font=`54px ${FT}`;c.fillText(replay?L:`${dayTxt}${hour?' · '+hour:''}  ·  ${L}`,pad,H-pad);
+  }else{
+    const story=fmt==='story',pad=story?80:72;
+    let x=pad,y=story?150:100;x+=pill(c,x,y,tag,story?40:36,replay?'#ffffff':'#e5322d',replay?'#0e3a5c':'#ffffff')+16;pill(c,x,y,unit,story?40:36,'rgba(255,255,255,.18)','#ffffff');
+    y+=story?240:210;c.fillStyle='#ffffff';
+    if(!replay&&dayTxt){const s1=fitFont(c,dayTxt,W-pad*2,story?150:120,60,FT);c.fillText(dayTxt,pad,y);y+=s1*0.9;}
+    if(!replay&&hour){c.fillStyle='#9bd3f2';const s2=fitFont(c,hour,W-pad*2,story?330:250,100,FT);c.fillText(hour,pad,y+s2*0.8);y+=s2*0.85+30;}
+    c.fillStyle='#ffffff';const {sz,lines}=fitTitle(c,o.g.series.toUpperCase(),W-pad*2,story?110:96,54,3);c.font=`${sz}px ${FT}`;
+    lines.forEach((l,i)=>c.fillText(l,pad,y+sz*(i+1)*0.95));y+=sz*0.95*lines.length+24;
+    if(sub){c.font=`600 ${story?46:40}px ${FB}`;c.fillStyle='#9bd3f2';const sl=wrapText(c,sub,W-pad*2,3);sl.forEach((l,i)=>{c.fillText(l,pad,y+(story?56:48)*(i+1));});y+=(story?56:48)*sl.length+16;}
+    const fy=H-(story?260:190),fh=story?170:130;
+    /* Mascotte dans l'espace libre entre le texte et le bandeau du bas (jamais par-dessus le texte). */
+    const room=fy-30-(y+20),ms=Math.max(0.6,Math.min(story?2.2:1.8,room/250));
+    if(room>120)mascot(W-pad-110*ms,y+20+140*ms,ms);rr(c,pad-16,fy,W-(pad-16)*2,fh,32);c.fillStyle='rgba(7,28,46,.88)';c.fill();
+    c.fillStyle='#9bd3f2';c.font=`700 ${story?30:26}px ${FB}`;c.fillText(replay?'LE REPLAY EST SUR YOUTUBE':'EN DIRECT SUR TWITCH',pad+16,fy+fh*0.38);
+    c.fillStyle='#ffffff';const ls=fitFont(c,replay?S.links.youtube.replace(/^https?:\/\/(www\.)?/,'').toUpperCase():L,W-pad*2-32,story?74:62,30,FT);c.fillText(replay?S.links.youtube.replace(/^https?:\/\/(www\.)?/,'').toUpperCase():L,pad+16,fy+fh*0.38+ls*0.95);
+  }
+}
+async function dlCanvas(cv,name){
+  const blob=await new Promise(r=>cv.toBlob(r,'image/png'));
+  if(!blob){toast('Appui long sur l\'image pour l\'enregistrer');return;}
+  try{if(DL){await DL.save({filename:name,data:blob});toast('Image enregistrée');return;}}catch(e){}
+  try{const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);toast('Image téléchargée');}
+  catch(e){toast('Appui long sur l\'image pour l\'enregistrer');}
+}
+const slug=s=>String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+function visBlock(k){
+  return `<div class="ph">Visuels prêts à publier</div><div class="vis" data-vis="${k}">`+Object.keys(VFMT).map(f=>
+    `<figure><canvas data-f="${f}"></canvas><figcaption>${esc(VFMT[f].label)}</figcaption><button class="b alt" data-dlv="${f}">⬇ Télécharger</button></figure>`).join('')+`</div>`;
+}
+let VIS_CTX={};
+function drawTodayVisuals(){
+  document.querySelectorAll('#d-body .vis').forEach(box=>{
+    const o=VIS_CTX[box.dataset.vis];if(!o)return;
+    box.querySelectorAll('canvas').forEach(cv=>drawVisual(cv,cv.dataset.f,o).then(sendHeightSoon));
+  });
+}
+function sendHeightSoon(){try{if(window.parent!==window)window.parent.postMessage({type:'atelier-height',h:document.documentElement.scrollHeight},'*');}catch(e){}}
 
 /* ===== TEXTES D'UN LIVE ===== */
 const kitChecked=new Set();
@@ -602,6 +691,9 @@ function kitDone(){
 }
 
 /* ===== REPLAYS ===== */
+let R_VIS=null;
+document.addEventListener('click',e=>{const b=e.target.closest('[data-rdl]');if(!b||!R_VIS)return;const cv=document.querySelector(`#r-vis canvas[data-f="${b.dataset.rdl}"]`);
+  if(cv)dlCanvas(cv,`replay-${slug(R_VIS.g.series)}-${slug(R_VIS.g.unit)}-${R_VIS.ep}-${b.dataset.rdl}.png`);});
 function replayInit(){
   gameOptions($('r-game'),false);$('r-date').value=iso(new Date());$('r-ep').value=Math.max(1,(G($('r-game').value)||{next:2}).next-1);
   $('r-out').innerHTML=outBlock('r-title','Titre YouTube',2,100)+outBlock('r-desc','Description YouTube',14,5000);
@@ -617,6 +709,8 @@ function replayRender(){
   const hl=$('r-hl').value.trim(),clip=$('r-clip').value.trim();
   const T=buildTexts({g,ep:$('r-ep').value||1,goal:hl,slot:g.slot,start:'00:00',end:'00:00',when:'',d:fromIso($('r-date').value)});
   setOut('r-title',T.ytTitle,100);setOut('r-desc',T.ytDesc,5000);setOut('r-clipcap',T.clipTT(clip),150);setOut('r-clipig',T.clipIG(clip));
+  R_VIS={kind:'replay',g,ep:$('r-ep').value||1,d:fromIso($('r-date').value),goal:hl};
+  document.querySelectorAll('#r-vis canvas').forEach(cv=>drawVisual(cv,cv.dataset.f,R_VIS));
 }
 
 /* ===== RESEAUX ===== */
@@ -710,7 +804,18 @@ function migratePlanning(){
   let hasLocal=false;try{hasLocal=localStorage.getItem(KEY)!==null;}catch(e){}
   if(hasLocal)save();
 }
-migratePlanning();
+/* Mardi et jeudi (24/11/2026) : foot US jusqu'à 21h30, donc live à 22h ces soirs-là (drapeau plan3). */
+function migrateFoot(){
+  if(S.plan3)return;
+  const F=[0,1,0,1,0,0,0],ST=[null,'22:00',null,'22:00',null,null,null];
+  const fix=wd=>wd.forEach((d,i)=>{d.foot=F[i];if(ST[i])d.sStart=ST[i];else if(d.sStart==='22:00')delete d.sStart;});
+  fix(S.week);const cur=iso(mondayOf(new Date()));
+  Object.keys(S.weeks).forEach(k=>{if(k>=cur)fix(S.weeks[k]);});
+  S.plan3=1;
+  let hasLocal=false;try{hasLocal=localStorage.getItem(KEY)!==null;}catch(e){}
+  if(hasLocal)save();
+}
+migratePlanning();migrateFoot();
 todayInit();kitInit();posterInit();weekInit();replayInit();netsInit();setInit();todayRender();syncAsk();
 </script>
 </body>
