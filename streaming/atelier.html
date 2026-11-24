@@ -107,7 +107,7 @@ ul.sp li{margin:2px 0}
       </div>
       <div style="margin:14px 0;text-align:center"><canvas id="p-cv" width="1080" height="1920" style="width:100%;max-width:420px;height:auto;border-radius:12px;border:1px solid var(--line)"></canvas></div>
       <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="b" id="p-dl">⬇ Télécharger l'image</button><button class="b alt" id="p-nomascot">Remettre le pingouin</button></div>
-      <p class="hint">L'image n'affiche que les lives (pas ton travail, ni le foot, ni le CRPE). Chaque carte prend l'image du jeu et le texte du bandeau réglés dans Réglages → Mes jeux (sinon un dégradé de la couleur du jeu). Sur téléphone, si le téléchargement ne se lance pas, fais un appui long sur l'image.</p>
+      <p class="hint">Le format story utilise ton fond « PROG' SEMAINE » ; le format post garde la mise en page générée. L'image n'affiche que les lives (pas ton travail, ni le foot, ni le CRPE). Chaque carte prend l'image du jeu et le texte du bandeau réglés dans Réglages → Mes jeux (sinon un dégradé de la couleur du jeu). Sur téléphone, si le téléchargement ne se lance pas, fais un appui long sur l'image.</p>
     </div>
     <div id="w-out"></div>
   </section>
@@ -569,11 +569,39 @@ function drawProgCard(c,x,y,w,h,it){
   rr(c,x+w-pad-bw,y+h-pad-bh,bw,bh,bh/2);c.fillStyle='#ffffff';c.fill();c.fillStyle='#111111';c.fillText(band,x+w-pad-bw+ph*0.45,y+h-pad-bh/2+1);
   c.textBaseline='alphabetic';
 }
+/* Planning story sur le fond « PROG' SEMAINE » dessiné pour Clément (streaming/prog-fond.webp, 941×1672) :
+   on écrit les lives dans les 7 cases du fond. Positions des cases mesurées sur l'image (en pixels du fichier). */
+const PROG_BG=new Image();let PROG_BG_OK=false;PROG_BG.onload=()=>{PROG_BG_OK=true;posterRender();};PROG_BG.src='./prog-fond.webp?v=1';
+const PROG_BOX={x0:124,x1:852,label:300,rows:[[396,494],[517,612],[636,732],[757,853],[876,974],[1000,1097],[1123,1223]]};
+function drawLiveChip(c,x,y,w,h,it){
+  c.save();rr(c,x,y,w,h,h*0.22);c.fillStyle='rgba(12,6,34,.62)';c.fill();c.lineWidth=2;c.strokeStyle='rgba(180,107,255,.75)';c.stroke();c.restore();
+  let tx=x+h*0.16;const im=gameImg(it.g);
+  if(im){const iw=Math.min(h*1.55,w*0.34),ih=h-h*0.24;c.save();rr(c,tx,y+h*0.12,iw,ih,h*0.16);c.clip();drawCover(c,im,tx,y+h*0.12,iw,ih);c.restore();tx+=iw+h*0.18;}
+  const avail=x+w-h*0.16-tx,unit=(it.g.unit||'').toLowerCase().startsWith('ép')?'ÉP.':(it.g.unit||'').toUpperCase().slice(0,4)+'.';
+  c.textBaseline='alphabetic';c.font=`italic 900 ${h*0.3}px ${FB}`;c.fillStyle='#ffffff';c.fillText(it.start,tx,y+h*0.42);
+  const sw=c.measureText(it.start+'  ').width;c.fillStyle='#7fd3ff';c.fillText(`${unit} ${it.ep}`,tx+sw,y+h*0.42);
+  const ns=fitFont(c,it.g.name.toUpperCase(),avail,h*0.36,h*0.2,FM);c.fillStyle='#ffffff';c.shadowColor='rgba(139,61,255,.9)';c.shadowBlur=10;
+  c.fillText(it.g.name.toUpperCase(),tx,y+h*0.84);c.shadowBlur=0;
+}
+function posterStoryTemplate(c,W,H){
+  const k=W/PROG_BG.naturalWidth;c.drawImage(PROG_BG,0,0,W,PROG_BG.naturalHeight*k);
+  const dd=d=>String(d.getDate()).padStart(2,'0')+'.'+String(d.getMonth()+1).padStart(2,'0');
+  c.font=`italic 900 ${30}px ${FB}`;c.textAlign='center';c.fillStyle='#ffffff';c.shadowColor='rgba(139,61,255,.95)';c.shadowBlur=14;
+  c.fillText(`${dd(WK.mon)}  ›  ${dd(WK.sun)}`,W/2,372*k);c.shadowBlur=0;c.textAlign='left';
+  WK.days.forEach(r=>{
+    const [t0,t1]=PROG_BOX.rows[r.i],y0=t0*k,h=(t1-t0)*k,x0=PROG_BOX.label*k,x1=(PROG_BOX.x1-12)*k;
+    const ch=h*0.72,cy=y0+(h-ch)/2;
+    if(!r.items.length){c.font=`italic 800 ${h*0.28}px ${FB}`;c.fillStyle='rgba(255,255,255,.4)';c.fillText('Repos',x0+10,y0+h*0.62);return;}
+    const n=r.items.length,gap=14,w=(x1-x0-gap*(n-1))/n;
+    r.items.forEach((it,m)=>drawLiveChip(c,x0+m*(w+gap),cy,w,ch,it));
+  });
+}
 async function posterRender(){
   if(!WK)return;
   const cv=$('p-cv'),story=$('p-fmt').value==='story',W=1080,H=story?1920:1350;
   try{await Promise.all([document.fonts.load('100px "Anton"'),document.fonts.load('100px "Permanent Marker"'),document.fonts.load('italic 900 30px "Poppins"'),document.fonts.load('700 30px "Poppins"')]);}catch(e){}
   cv.width=W;cv.height=H;const c=cv.getContext('2d');
+  if(story&&PROG_BG_OK){posterStoryTemplate(c,W,H);return;}
   /* Fond : nuit violette et coups de pinceau. */
   const bg=c.createLinearGradient(0,0,W,H);bg.addColorStop(0,'#0a0718');bg.addColorStop(0.5,'#1a0d3d');bg.addColorStop(1,'#12245e');c.fillStyle=bg;c.fillRect(0,0,W,H);
   let seed=5;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
