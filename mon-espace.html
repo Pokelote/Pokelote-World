@@ -13094,8 +13094,11 @@ function AdministratifTab() {
 // Ses données sont dans localStorage sous « pokelote-atelier-v1 » (même site → même stockage) : ne pas
 // renommer la clé ; l'export/import des Réglages sert à les passer d'un appareil à l'autre.
 // La page annonce sa hauteur (pas de double défilement) et confie ses petits messages à l'appli.
+// Synchro (24/11/2026) : l'atelier envoie ses sauvegardes ici et l'appli les range dans window.storage sous
+// le même nom (« pokelote-atelier-v1 », + « -mascot »), donc synchronisées entre appareils comme le reste.
 const STREAMING_ACCENT = "#9146FF";
-const ATELIER_SRC = "./streaming/atelier.html?v=1";
+const ATELIER_SRC = "./streaming/atelier.html?v=2";
+const ATELIER_KEYS = ["pokelote-atelier-v1", "pokelote-atelier-v1-mascot"];
 
 function StreamingTab() {
   const frameRef = useRef(null);
@@ -13107,6 +13110,17 @@ function StreamingTab() {
       if (!frameRef.current || e.source !== frameRef.current.contentWindow) return;
       const d = e.data || {};
       if (d.type === "atelier-height" && d.h > 0) setHeight(Math.ceil(d.h) + 8);
+      if (d.type === "atelier-save" && ATELIER_KEYS.includes(d.key) && typeof d.value === "string") {
+        window.storage.set(d.key, d.value).catch(() => {});
+      }
+      if (d.type === "atelier-sync-request") {
+        const win = e.source;
+        Promise.all(ATELIER_KEYS.map((k) => window.storage.get(k).catch(() => null))).then(([st, m]) => {
+          try {
+            win.postMessage({ type: "atelier-sync", state: st ? st.value : null, mascot: m ? m.value : null }, "*");
+          } catch {}
+        });
+      }
       if (d.type === "atelier-toast" && d.msg) {
         setToast(String(d.msg));
         clearTimeout(timer);

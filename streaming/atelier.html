@@ -2,7 +2,8 @@
 <!-- Atelier de live — Pokelote. Repris tel quel de l'artifact claude.ai « Atelier de live — Pokelote »
      (24/11/2026) et affiché dans l'onglet Streaming de CHATCHAT LAND (mon-espace.html). Les données restent
      dans localStorage sous la clé « pokelote-atelier-v1 » (+ « pokelote-atelier-v1-mascot ») : NE PAS la renommer.
-     Modifs d'intégration seulement : thème sombre de l'appli, titre retiré, hauteur et toasts envoyés au parent. -->
+     Modifs d'intégration : thème sombre de l'appli, titre retiré, hauteur et toasts envoyés au parent, données
+     synchronisées par l'appli (voir « Synchro avec CHATCHAT LAND » dans le script). -->
 <html lang="fr">
 <head>
 <meta charset="utf-8">
@@ -165,7 +166,7 @@ ul.sp li{margin:2px 0}
       <div style="margin-top:10px"><button class="b alt" id="s-add">+ Ajouter un jeu</button></div>
     </div>
     <div class="card"><h3>Sauvegarde</h3>
-      <p class="hint" style="margin:0 0 8px">Les réglages, les numéros d'épisode et tes cases cochées sont gardés dans ce navigateur. Pour les copier sur un autre appareil : exporte, puis colle sur l'autre et importe.</p>
+      <p class="hint" style="margin:0 0 8px">Les réglages, les numéros d'épisode, les plannings et tes cases cochées se synchronisent tout seuls entre tes appareils, comme le reste de CHATCHAT LAND. L'export et l'import servent de sauvegarde, ou à reprendre les données de l'ancien atelier.</p>
       <textarea id="s-json" rows="4" placeholder="Colle ici un export pour l'importer"></textarea>
       <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap"><button class="b" id="s-exp">Exporter (copier)</button><button class="b alt" id="s-imp">Importer</button><button class="b alt" id="s-reset">Réinitialiser</button></div>
     </div>
@@ -203,7 +204,30 @@ const DEF={
 const clone=o=>JSON.parse(JSON.stringify(o));
 let S=load();
 function load(){try{const r=localStorage.getItem(KEY);if(r){const o=JSON.parse(r);if(o&&Array.isArray(o.games)&&Array.isArray(o.week))return Object.assign(clone(DEF),o);}}catch(e){}return clone(DEF);}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+function save(){S._ts=Date.now();const v=JSON.stringify(S);try{localStorage.setItem(KEY,v);}catch(e){}syncPush(KEY,v);}
+/* ===== Synchro avec CHATCHAT LAND (24/11/2026) =====
+   Dans le site, l'atelier n'est plus séparé : ses données suivent la synchro de l'appli (mêmes données sur
+   tous les appareils). localStorage « pokelote-atelier-v1 » reste la copie locale (clé inchangée) ; l'appli
+   garde la copie synchronisée sous le même nom. Chaque sauvegarde porte une date (_ts) : la plus récente gagne. */
+const SYNC=window.parent&&window.parent!==window;
+function syncPush(key,value){if(!SYNC)return;try{window.parent.postMessage({type:'atelier-save',key,value},'*');}catch(e){}}
+function syncAsk(){if(!SYNC)return;try{window.parent.postMessage({type:'atelier-sync-request'},'*');}catch(e){}}
+window.addEventListener('message',e=>{
+  if(!SYNC||e.source!==window.parent)return;const d=e.data||{};if(d.type!=='atelier-sync')return;
+  let R=null;try{R=d.state?JSON.parse(d.state):null;}catch(x){}
+  const hasLocal=(()=>{try{return localStorage.getItem(KEY)!==null;}catch(x){return false;}})();
+  const lts=+(S._ts||0),rts=R&&Array.isArray(R.games)&&Array.isArray(R.week)?+(R._ts||0):-1;
+  if(rts>lts){try{localStorage.setItem(KEY,d.state);}catch(x){}
+    if(typeof d.mascot==='string'){try{if(d.mascot)localStorage.setItem(KEY+'-mascot',d.mascot);else localStorage.removeItem(KEY+'-mascot');}catch(x){}}
+    location.reload();return;}
+  if(hasLocal&&lts>rts)syncPush(KEY,JSON.stringify(S));
+  let lm=null;try{lm=localStorage.getItem(KEY+'-mascot');}catch(x){}
+  if(typeof d.mascot==='string'&&d.mascot!==(lm||'')){
+    if(d.mascot){try{localStorage.setItem(KEY+'-mascot',d.mascot);}catch(x){}const im=new Image();im.onload=()=>{mascotImg=im;posterRender();};im.src=d.mascot;}
+    else if(lm)syncPush(KEY+'-mascot',lm);
+  }else if(d.mascot==null&&lm)syncPush(KEY+'-mascot',lm);
+});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')setTimeout(syncAsk,1500);});
 
 const $=id=>document.getElementById(id);
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -541,10 +565,10 @@ function posterInit(){
     fr.onload=()=>{const im=new Image();im.onload=()=>{
       const r=Math.min(1,400/Math.max(im.width,im.height)),t=document.createElement('canvas');t.width=Math.round(im.width*r);t.height=Math.round(im.height*r);
       t.getContext('2d').drawImage(im,0,0,t.width,t.height);const url=t.toDataURL('image/png'),im2=new Image();
-      im2.onload=()=>{mascotImg=im2;posterRender();};im2.src=url;try{localStorage.setItem(KEY+'-mascot',url);}catch(x){}
+      im2.onload=()=>{mascotImg=im2;posterRender();};im2.src=url;try{localStorage.setItem(KEY+'-mascot',url);}catch(x){}syncPush(KEY+'-mascot',url);
     };im.src=fr.result;};fr.readAsDataURL(f);
   };
-  $('p-nomascot').onclick=()=>{mascotImg=null;try{localStorage.removeItem(KEY+'-mascot');}catch(e){}$('p-mascot').value='';posterRender();};
+  $('p-nomascot').onclick=()=>{mascotImg=null;try{localStorage.removeItem(KEY+'-mascot');}catch(e){}syncPush(KEY+'-mascot','');$('p-mascot').value='';posterRender();};
 }
 
 /* ===== TEXTES D'UN LIVE ===== */
@@ -649,9 +673,12 @@ function setInit(){
   gameTable();
   $('s-add').onclick=()=>{S.games.push({id:'g'+Date.now(),name:'Nouveau jeu',series:'Nouvelle série',unit:'Épisode',next:1,slot:'soir',cat:'',tags:'',color:'#2e86de'});save();gameTable();refreshGames();};
   $('s-exp').onclick=()=>{$('s-json').value=JSON.stringify(S);copyFrom($('s-json'),$('s-exp'));};
-  $('s-imp').onclick=()=>{try{const o=JSON.parse($('s-json').value);if(!o||!Array.isArray(o.games)||!Array.isArray(o.week))throw 0;S=Object.assign(clone(DEF),o);save();location.reload();}catch(e){toast('Export invalide');}};
+  $('s-imp').onclick=()=>{try{const o=JSON.parse($('s-json').value);if(!o||!Array.isArray(o.games)||!Array.isArray(o.week))throw 0;
+    const m=typeof o._mascot==='string'?o._mascot:null;delete o._mascot;
+    if(m){try{localStorage.setItem(KEY+'-mascot',m);}catch(x){}syncPush(KEY+'-mascot',m);}
+    S=Object.assign(clone(DEF),o);save();setTimeout(()=>location.reload(),300);}catch(e){toast('Export invalide');}};
   let armed=false;
-  $('s-reset').onclick=()=>{if(!armed){armed=true;$('s-reset').textContent='Sûr ? Clique encore';setTimeout(()=>{armed=false;$('s-reset').textContent='Réinitialiser';},3000);return;}try{localStorage.removeItem(KEY);}catch(e){}S=clone(DEF);location.reload();};
+  $('s-reset').onclick=()=>{if(!armed){armed=true;$('s-reset').textContent='Sûr ? Clique encore';setTimeout(()=>{armed=false;$('s-reset').textContent='Réinitialiser';},3000);return;}S=clone(DEF);save();setTimeout(()=>location.reload(),300);};
 }
 function gameTable(){
   const f=[['name','Nom'],['series','Titre de série'],['unit','Unité'],['next','Prochain n°'],['cat','Catégorie Twitch'],['tags','Hashtags']];
@@ -667,7 +694,7 @@ function refreshGames(){
   gameOptions($('k-game'),true);gameOptions($('r-game'),true);weekBuild();kitRender();replayRender();todayRender();
 }
 
-todayInit();kitInit();posterInit();weekInit();replayInit();netsInit();setInit();todayRender();
+todayInit();kitInit();posterInit();weekInit();replayInit();netsInit();setInit();todayRender();syncAsk();
 </script>
 </body>
 </html>
